@@ -20,4 +20,4 @@ export const ViewTransctionDetailsLink = (transactionHash) =>
   `https://${Network}.etherscan.io/tx/${transactionHash}`;
 
 export const API_BASE_URL = `https://track-n-trace-bc.herokuapp.com`;
-export const QR_BASE_URL = `http://192.168.0.107:3000`;
+export const QR_BASE_URL = `https://track-and-trace.netlify.app`;
