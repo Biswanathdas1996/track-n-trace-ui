@@ -7,16 +7,16 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Footer from "./components/layout/Footer";
 // import Header from "./components/layout/Header";
-import AdminLayout from "./Admin/Layout";
+// import AdminLayout from "./Admin/Layout";
 
 const App = () => {
   return (
     <>
-      <AdminLayout>
-        <CssBaseline />
+      {/* <AdminLayout> */}
+      <CssBaseline />
 
-        <Routes />
-      </AdminLayout>
+      <Routes />
+      {/* </AdminLayout> */}
       <Footer />
     </>
   );
