@@ -47,7 +47,7 @@ export default function CustomizedTimeline() {
             <Card style={{ margin: 20 }}>
               <CardMedia
                 component="img"
-                height="140"
+                // height="140"
                 image={nftData?.image}
                 alt="green iguana"
               />

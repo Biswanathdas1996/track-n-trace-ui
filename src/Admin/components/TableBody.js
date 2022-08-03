@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, TableRow, TableCell, Typography } from "@mui/material";
 
-import { convertToToken, coinName } from "../../utils";
-
 export default function TableBodyUI({ user }) {
   const [usersData, setUsersData] = useState({});
-  const [walletBalance, setWalletBalance] = useState(0);
-  const [sendCoinModalBool, setSendCoinModalBool] = useState(false);
 
   useEffect(() => {
     getDetails();
@@ -19,14 +15,6 @@ export default function TableBodyUI({ user }) {
       .then((data) => {
         setUsersData(data);
       });
-  };
-
-  const handleModal = () => {
-    setSendCoinModalBool(true);
-  };
-
-  const handleModalClose = () => {
-    setSendCoinModalBool(false);
   };
 
   const { addressId } = user;
@@ -53,9 +41,7 @@ export default function TableBodyUI({ user }) {
           {addressId}
         </Typography>
       </TableCell>
-      <TableCell align="center">
-        {convertToToken(walletBalance)} {coinName()}
-      </TableCell>
+      <TableCell align="center">ll</TableCell>
       <TableCell align="center">
         <Button
           variant="outlined"
@@ -65,7 +51,6 @@ export default function TableBodyUI({ user }) {
             marginRight: "0px",
             textTransform: "none",
           }}
-          onClick={() => handleModal()}
         >
           Send Coins
         </Button>
