@@ -5,7 +5,7 @@ import Routes from "./Routes";
 import "fontsource-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import Footer from "./components/layout/Footer";
+// import Footer from "./components/layout/Footer";
 // import Header from "./components/layout/Header";
 // import AdminLayout from "./Admin/Layout";
 
@@ -17,7 +17,7 @@ const App = () => {
 
       <Routes />
       {/* </AdminLayout> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
