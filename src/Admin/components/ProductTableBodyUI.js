@@ -103,7 +103,6 @@ export default function ProductTableBodyUI({ token }) {
         <TableCell align="center">
           <center>
             <Button
-              variant="contained"
               startIcon={<QrCode2Icon />}
               style={{ marginRight: 10 }}
               onClick={handleOpenForm}
@@ -122,9 +121,7 @@ export default function ProductTableBodyUI({ token }) {
               variant="contained"
               endIcon={<SendIcon />}
               onClick={() => history(`/transctions/${token}`)}
-            >
-              Transctions
-            </Button>
+            ></Button>
           </center>
         </TableCell>
       </TableRow>
