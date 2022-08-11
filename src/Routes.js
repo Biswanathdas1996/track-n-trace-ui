@@ -8,6 +8,7 @@ import Dashboard from "./Admin/Dashboard";
 import Product from "./Admin/Product";
 import AddTracking from "./Admin/AddTracking";
 import Transction from "./Admin/Transction";
+import AddTokenData from "./Admin/AddTokenData";
 import CategoryDetails from "./AddCategory/Category-Details";
 
 class Routing extends React.Component {
@@ -25,6 +26,7 @@ class Routing extends React.Component {
           element={<AddTracking />}
         />
         <Route exact path="/transctions/:token" element={<Transction />} />
+        <Route exact path="/add-token-data/:token" element={<AddTokenData />} />
 
         <Route
           render={function () {

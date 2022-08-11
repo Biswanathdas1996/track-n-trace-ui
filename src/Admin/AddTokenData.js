@@ -2,26 +2,25 @@ import React, { useState } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 // import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
+
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
+
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
 import { postData } from "../functions/apiClient";
-
-// const VendorSchema = Yup.object().shape({
-//   name: Yup.string().required("Name is required"),
-//   authorname: Yup.string().required("Authorname is required"),
-//   price: Yup.string().required("Price is required"),
-//   royelty: Yup.string().required("Royelty amount is required"),
-// });
+import { useParams } from "react-router-dom";
 
 const Mint = () => {
   const [start, setStart] = useState(false);
   const [response, setResponse] = useState(null);
 
   const [description, setDescription] = useState(null);
+
+  const { token } = useParams();
 
   let history = useNavigate();
 
@@ -35,10 +34,9 @@ const Mint = () => {
       image: null,
       description: description,
       attributes: attributes,
-      transction: [],
     };
 
-    await postData(`/create`, metaData);
+    await postData(`/initiate-token-info?id=${token}`, metaData);
     history("/");
 
     setResponse(responseData);
@@ -66,7 +64,7 @@ const Mint = () => {
                       background: "white",
                     }}
                   >
-                    <h4>Create Tokens</h4>
+                    <h4>Add info to #{token}</h4>
                     <Formik
                       initialValues={{
                         title: "",
