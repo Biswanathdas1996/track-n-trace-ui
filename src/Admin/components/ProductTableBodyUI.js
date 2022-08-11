@@ -129,6 +129,7 @@ export default function ProductTableBodyUI({ token }) {
               color="warning"
               endIcon={<AddCircleIcon />}
               onClick={() => history(`/add-token-data/${token}`)}
+              disabled={nftData?.name}
             >
               Add
             </Button>
