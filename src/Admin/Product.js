@@ -37,6 +37,18 @@ function Dashboard() {
             >
               Create Tokens
             </Button>
+            <Button
+              type="button"
+              variant="contained"
+              style={{ float: "right", padding: 8, borderRadius: 4 }}
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
+              onClick={() => history("/publishBulkArt")}
+            >
+              Create Bulk Tokens
+            </Button>
           </Grid>
 
           <Grid item sm={12}>

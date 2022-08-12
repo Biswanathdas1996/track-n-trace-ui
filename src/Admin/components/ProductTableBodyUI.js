@@ -9,7 +9,7 @@ import QRCode from "react-qr-code";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
-
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { QR_BASE_URL } from "../../config";
 
 export default function ProductTableBodyUI({ token }) {
@@ -107,7 +107,7 @@ export default function ProductTableBodyUI({ token }) {
               style={{ marginRight: 10 }}
               onClick={handleOpenForm}
             >
-              Add
+              Add TXN
             </Button>
             <Button
               variant="outlined"
@@ -120,8 +120,19 @@ export default function ProductTableBodyUI({ token }) {
             <Button
               variant="contained"
               endIcon={<SendIcon />}
+              style={{ marginRight: 10 }}
               onClick={() => history(`/transctions/${token}`)}
             ></Button>
+
+            <Button
+              variant="contained"
+              color="warning"
+              endIcon={<AddCircleIcon />}
+              onClick={() => history(`/add-token-data/${token}`)}
+              disabled={nftData?.name}
+            >
+              Add
+            </Button>
           </center>
         </TableCell>
       </TableRow>
