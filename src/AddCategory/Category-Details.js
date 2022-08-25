@@ -12,7 +12,7 @@ export default function CategoryDetails() {
 
   const handleAddCategory = () => {
     setCategoryBool(false);
-    let categoryArr = [...categoryDataArray];
+    const categoryArr = [...categoryDataArray];
     categoryArr.push(categoryName);
     setCategoryDataArray(categoryArr);
   };

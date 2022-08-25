@@ -1,25 +1,21 @@
 import React from "react";
 import "./App.css";
-import "./index.css";
-import Routes from "./Routes";
-import "fontsource-roboto";
-import CssBaseline from "@material-ui/core/CssBaseline";
+// routes
+import Router from './routes';
+// theme
+import ThemeProvider from './theme';
+// components
+import ScrollToTop from './components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/chart/BaseOptionChart';
 
-// import Footer from "./components/layout/Footer";
-// import Header from "./components/layout/Header";
-// import AdminLayout from "./Admin/Layout";
+// ----------------------------------------------------------------------
 
-const App = () => {
+export default function App() {
   return (
-    <>
-      {/* <AdminLayout> */}
-      <CssBaseline />
-
-      <Routes />
-      {/* </AdminLayout> */}
-      {/* <Footer /> */}
-    </>
+    <ThemeProvider>
+      <ScrollToTop />
+      <BaseOptionChartStyle />
+      <Router />
+    </ThemeProvider>
   );
-};
-
-export default App;
+}

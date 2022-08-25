@@ -1,11 +1,10 @@
 import { API_BASE_URL } from "../config";
+
 export function postData(url, data) {
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
+  const raw = JSON.stringify(data);
   myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify(data);
-
-  var requestOptions = {
+  const requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: raw,
@@ -19,7 +18,7 @@ export function postData(url, data) {
 }
 
 export function getData(url) {
-  var requestOptions = {
+  const requestOptions = {
     method: "GET",
     redirect: "follow",
   };

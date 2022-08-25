@@ -14,16 +14,16 @@ export default function CategoryTableBodyUI({ category, id }) {
   };
 
   const handleUpdateCategory = (id) => {
-    let categoryArr = categoryDataArray;
+    const categoryArr = categoryDataArray;
     categoryArr[id - 1] = cateoryText;
     setCategoryDataArray(categoryArr);
     setCategoryInputBool(false);
   };
 
   const handleDeleteCategory = (id) => {
-    let categoryName = categoryDataArray[id - 1];
+    const categoryName = categoryDataArray[id - 1];
     console.log("--->", categoryName, "-->", categoryDataArray);
-    let categoryArr = categoryDataArray?.filter(
+    const categoryArr = categoryDataArray?.filter(
       (element) => element !== categoryName
     );
     console.log("after--->", categoryArr);

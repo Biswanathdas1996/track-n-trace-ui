@@ -58,3 +58,21 @@
   border-color: #d93954 !important;
   color: #d93954 !important;
 }
+
+.MuiTablePagination-selectLabel, .css-pdct74-MuiTablePagination-selectLabel p {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+}
+
+.MuiTablePagination-displayedRows, .css-levciy-MuiTablePagination-displayedRows p {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+}
+
+.css-iwvp0h-MuiTableCell-root {
+  text-align: center !important;
+}
+.css-qerafn-MuiTablePagination-root {
+  overflow: unset !important;
+}
+
