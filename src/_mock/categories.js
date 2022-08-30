@@ -1,37 +1,42 @@
-import { faker } from '@faker-js/faker';
-import { sample } from 'lodash';
+
 
 // ----------------------------------------------------------------------
 
-const users =  [{
-  id: '1',
+const categories = [{
+  id: '01',
   name: 'category1',
 },{
-  id: '2',
+  id: '02',
   name: 'category2',
 },{
-  id: '3',
+  id: '03',
   name: 'category3',
 },{
-  id: '4',
+  id: '04',
   name: 'category4',
 },{
-  id: '5',
+  id: '05',
   name: 'category5',
 },{
-  id: '6',
+  id: '06',
   name: 'category6',
 },{
-  id: '7',
+  id: '07',
   name: 'category7',
 },{
-  id: '8',
+  id: '08',
   name: 'category8',
 },{
-  id: '9',
+  id: '09',
+  name: 'category9',
+},{
+  id: '10',
   name: 'category10',
 },{
   id: '11',
+  name: 'category11',
+},{
+  id: '12',
   name: 'category12',
 },{
   id: '13',
@@ -66,6 +71,6 @@ const users =  [{
 },{
   id: '24',
   name: 'category24',
-}];
+}]
 
-export default users;
+export default categories;

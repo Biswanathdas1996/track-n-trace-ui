@@ -12,7 +12,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { QR_BASE_URL } from "../config";
 import { getData } from "../functions/apiClient";
 
-export default function ProductTableBodyUI({ token, labelId, isItemSelected, handleClick }) {
+// export default function ProductTableBodyUI({ token, labelId, isItemSelected, handleClick }) {
+  export default function ProductTableBodyUI({ token, labelId, isItemSelected }) {
   const [nftData, setNftData] = useState(null);
 
   const [open, setOpen] = React.useState(false);
@@ -21,6 +22,7 @@ export default function ProductTableBodyUI({ token, labelId, isItemSelected, han
   const handleClose = () => setOpen(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
+  // const demoImg = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
 
   const history = useNavigate();
   useEffect(() => {
@@ -28,10 +30,27 @@ export default function ProductTableBodyUI({ token, labelId, isItemSelected, han
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const blankObj = {
+    "name":"",
+    "product":"",
+    // "image":"https://ipfs.infura.io/ipfs/QmWMf45aY2biZMZkqJzHeuMo1ydMmxJt46Yt51X2aVyucn",
+    "image" : null,
+    "description":"",
+    "attributes":[],
+    "transction":[]
+  }
+
   const getDetails = async () => {
     const data = await getData(`/get-token-data?id=${token}`);
     console.log("------>", data);
-    setNftData(data);
+    // console.log("data.hasOwnProperty('name')", data.hasOwnProperty('name'));
+    if ('name' in data) {
+      setNftData(data);
+    } else {
+      setNftData(blankObj)
+    }
+    // ((Object.keys(data).length !== 0) ? setNftData(data) : setNftData(blankObj));
+    // setNftData(data);
   };
 
   return (
@@ -98,19 +117,19 @@ export default function ProductTableBodyUI({ token, labelId, isItemSelected, han
         // onClick={(event) => handleClick(event, token.name)}
         role="checkbox"
         aria-checked={isItemSelected}
-        key={token.name}
+        key={token}
         selected={isItemSelected}
       >
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox
             color="primary"
             checked={isItemSelected}
             inputProps={{
               'aria-labelledby': labelId,
             }}
-            onChange={(event) => handleClick(event, token.name)}
+            onChange={(event) => handleClick(event, token)}
           />
-        </TableCell>
+        </TableCell> */}
         <TableCell
             component="th"
             id={labelId}
@@ -128,39 +147,16 @@ export default function ProductTableBodyUI({ token, labelId, isItemSelected, han
         <TableCell align="left">{nftData?.product}</TableCell>
 
         <TableCell align="left">
-          <center>
-            <Button
-              startIcon={<QrCode2Icon />}
-              style={{ marginRight: 10 }}
-              onClick={handleOpenForm}
-            >
+            <Button startIcon={<QrCode2Icon />} style={{ marginRight: 10 }} onClick={handleOpenForm} >
               Add TXN
             </Button>
-            <Button
-              variant="outlined"
-              startIcon={<QrCode2Icon />}
-              style={{ marginRight: 10 }}
-              onClick={handleOpen}
-            >
+            <Button variant="outlined" startIcon={<QrCode2Icon />} style={{ marginRight: 10 }} onClick={handleOpen} >
               View
             </Button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              style={{ marginRight: 10 }}
-              onClick={() => history(`/transctions/${token}`)}
-            />
-
-            <Button
-              variant="contained"
-              color="warning"
-              endIcon={<AddCircleIcon />}
-              onClick={() => history(`/add-token-data/${token}`)}
-              disabled={nftData?.name}
-            >
+            <Button variant="contained" endIcon={<SendIcon />} style={{ marginRight: 10 }} onClick={() => history(`/transctions/${token}`)} />
+            <Button variant="contained" color="warning" endIcon={<AddCircleIcon />} onClick={() => history(`/add-token-data/${token}`)} disabled={nftData?.name} >
               Add
             </Button>
-          </center>
         </TableCell>
       </TableRow>
     </>

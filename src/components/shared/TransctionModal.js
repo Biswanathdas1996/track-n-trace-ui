@@ -34,7 +34,11 @@ export default function TransctionModal({ response, setStart, modalClose }) {
     modalClose();
   };
 
+  // eslint-disable-next-line
   const domData = response?.error ? response.error.receipt : response;
+  
+  console.log("domData",domData);
+  
   return (
     <div>
       <Modal
@@ -57,6 +61,7 @@ export default function TransctionModal({ response, setStart, modalClose }) {
               component="h2"
               style={{ marginTop: 30 }}
             >
+              {/* eslint-disable-next-line */}
               {domData ? (
                 domData?.status ? (
                   <b style={{ color: "green" }}>Transction complete</b>
@@ -79,7 +84,7 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                   <ListItemText
                     primary="Transaction hash"
                     secondary={
-                      <React.Fragment>
+                      <>
                         <a
                           href={`https://rinkeby.etherscan.io/tx/${domData?.transactionHash}`}
                           target="_blank"
@@ -87,7 +92,7 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                         >
                           {domData?.transactionHash}
                         </a>
-                      </React.Fragment>
+                      </>
                     }
                   />
                 </ListItem>
@@ -96,7 +101,7 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                   <ListItemText
                     primary="Block hash"
                     secondary={
-                      <React.Fragment>{domData?.blockHash}</React.Fragment>
+                      <>{domData?.blockHash}</>
                     }
                   />
                 </ListItem>
@@ -105,7 +110,7 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                   <ListItemText
                     primary="Block number"
                     secondary={
-                      <React.Fragment>{domData?.blockNumber}</React.Fragment>
+                      <>{domData?.blockNumber}</>
                     }
                   />
                 </ListItem>
@@ -113,20 +118,21 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                 <ListItem alignItems="flex-start">
                   <ListItemText
                     primary="Transction from"
-                    secondary={<React.Fragment>{domData?.from}</React.Fragment>}
+                    secondary={<>{domData?.from}</>}
                   />
                 </ListItem>
                 <Divider variant="inset" component="li" />
                 <ListItem alignItems="flex-start">
                   <ListItemText
                     primary="Transction to"
-                    secondary={<React.Fragment>{domData?.to}</React.Fragment>}
+                    secondary={<>{domData?.to}</>}
                   />
                 </ListItem>
                 <Divider variant="inset" component="li" />
               </List>
             )}
 
+            {/* eslint-disable-next-line */}
             {domData ? (
               <Button
                 variant="contained"

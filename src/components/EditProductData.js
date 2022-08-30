@@ -10,14 +10,14 @@ import MenuItem from '@mui/material/MenuItem';
 // import TextareaAutosize from "@mui/material/TextareaAutosize";
 // import DeleteOutlineIcon from "@mui/icons-material/Delete";
 // import { pink } from "@mui/material/colors";
-import TransctionModal from "../components/shared/TransctionModal";
+import TransctionModal from "./shared/TransctionModal";
 // import { postData } from "../functions/apiClient";
 
-const Mint = () => {
+const EditProductData = () => {
   const [start, setStart] = useState(false);
   // const [response, setResponse] = useState(null);
 
-  let history = useNavigate();
+  // let history = useNavigate();
   // { product, category, subCategory }
   // const saveAddProductData = async ( product, category, subCategory, attributes ) => {
   //   setStart(true);
@@ -41,7 +41,7 @@ const Mint = () => {
   const modalClose = () => {
     setStart(false);
     // setResponse(null);
-    history("/");
+    // history("/");
   };
 
   return (
@@ -49,7 +49,7 @@ const Mint = () => {
       {start && <TransctionModal modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <div style={{ margin: 20 }}>
             <Card>
@@ -147,9 +147,9 @@ const Mint = () => {
             </Card>
           </div>
         </Grid>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
       </Grid>
     </>
   );
 };
-export default Mint;
+export default EditProductData;

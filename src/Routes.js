@@ -5,6 +5,8 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Blog from './pages/Blog';
 import User from './pages/User';
+import Category from './pages/Category';
+import SubCategory from './pages/SubCategory';
 import Login from './pages/Login';
 // import NotFound from './pages/Page404';
 import Register from './pages/Register';
@@ -15,10 +17,10 @@ import CategoryDetails from "./AddCategory/Category-Details";
 import AddTracking from "./Admin/AddTracking";
 import Transction from "./Admin/Transction";
 import AddTokenData from "./Admin/AddTokenData";
-import AddProductData  from "./Admin/AddProductData";
-import EditProductData  from "./Admin/EditProductData";
-import PublishArt from "./Admin/PublishArt";
-import PublishBulkArt from "./Admin/PublishBulkArt";
+import AddProductData  from "./components/AddProductData";
+import EditProductData  from "./components/EditProductData";
+import PublishArt from "./components/PublishArt";
+import PublishBulkArt from "./components/PublishBulkArt";
 
 // ----------------------------------------------------------------------
 
@@ -32,17 +34,21 @@ export default function Router() {
         { 
           path: 'user', 
           element: <User />,
-          // children: [] 
-        },
+          children: [
+            { path: "publishArt", element: <PublishArt /> },
+            { path: "publishBulkArt", element: <PublishBulkArt /> },
+            { path: "AddProductData", element: <AddProductData /> },
+            { path: "EditProductData", element: <EditProductData /> },
+          ]
+         },
         { path: 'products', element: <Products /> },
+        { path: 'Category', element: <Category /> },
+        { path: 'SubCategory', element: <SubCategory /> },
         { path: 'blog', element: <Blog /> },
       ],
     },
     { path: "/category", element: <CategoryDetails /> },
-    { path: "/publishArt", element: <PublishArt /> },
-    { path: "/publishBulkArt", element: <PublishBulkArt /> },
     { path: "/EditProductData", element: <EditProductData /> },
-    { path: "/AddProductData", element: <AddProductData /> },
     { path: "/add-tracking-data/:token", element: <AddTracking /> },
     { path: "/transctions/:token", element: <Transction /> },
     { path: "/add-token-data/:token", element: <AddTokenData /> },

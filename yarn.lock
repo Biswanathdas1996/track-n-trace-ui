@@ -5350,6 +5350,11 @@
     "combined-stream" "^1.0.8"
     "mime-types" "^2.1.12"
 
+"formik-material-ui@^4.0.0-alpha.2":
+  "integrity" "sha512-jGKCUMpexQiU3NN+vYx1MgsgJFLaHnOVJAdKSN7IThKtrWs7t7m6Ft7AyRl/ZDEztKo/sWunlGJvaQJbQBBH9A=="
+  "resolved" "https://registry.npmjs.org/formik-material-ui/-/formik-material-ui-4.0.0-alpha.2.tgz"
+  "version" "4.0.0-alpha.2"
+
 "formik@^2.2.9":
   "integrity" "sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA=="
   "resolved" "https://registry.npmjs.org/formik/-/formik-2.2.9.tgz"
@@ -6868,7 +6873,7 @@
   dependencies:
     "p-locate" "^5.0.0"
 
-"lodash-es@^4.17.21":
+"lodash-es@^4.17.15", "lodash-es@^4.17.21":
   "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
   "resolved" "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz"
   "version" "4.17.21"
@@ -8449,6 +8454,13 @@
     "dom-helpers" "^5.0.1"
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
+
+"react-yup@^1.24.1":
+  "integrity" "sha512-m3ioKXUz47mDaQmNP49ZrVdbIBjbWFX2xMB2Zc2TEtAo/NrUHR7VQZGTzP1KCqDZfQfrifHt9VnFMs2q9frDJQ=="
+  "resolved" "https://registry.npmjs.org/react-yup/-/react-yup-1.24.1.tgz"
+  "version" "1.24.1"
+  dependencies:
+    "lodash-es" "^4.17.15"
 
 "react@^18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="

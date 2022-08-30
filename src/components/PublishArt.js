@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
-import TransctionModal from "../components/shared/TransctionModal";
+import TransctionModal from "./shared/TransctionModal";
 import { postData } from "../functions/apiClient";
 
 // const VendorSchema = Yup.object().shape({
@@ -17,13 +17,13 @@ import { postData } from "../functions/apiClient";
 //   royelty: Yup.string().required("Royelty amount is required"),
 // });
 
-const Mint = () => {
+const PublishArt = () => {
   const [start, setStart] = useState(false);
   const [response, setResponse] = useState(null);
 
   const [description, setDescription] = useState(null);
 
-  let history = useNavigate();
+  // let history = useNavigate();
 
   const saveData = async ({ title, category, attributes }) => {
     setStart(true);
@@ -33,13 +33,13 @@ const Mint = () => {
       name: title,
       product: category,
       image: null,
-      description: description,
-      attributes: attributes,
+      description,
+      attributes,
       transction: [],
     };
 
     await postData(`/create`, metaData);
-    history("/");
+    // history("/");
 
     setResponse(responseData);
   };
@@ -47,14 +47,14 @@ const Mint = () => {
   const modalClose = () => {
     setStart(false);
     setResponse(null);
-    history("/");
+    // history("/");
   };
   return (
     <>
       {start && <TransctionModal response={response} modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <div style={{ margin: 20 }}>
             <Card>
@@ -88,6 +88,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
+                                {/* eslint-disable-next-line */}
                                 <label for="title" className="my-2">
                                   Product <span className="text-danger">*</span>
                                 </label>
@@ -115,6 +116,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
+                                {/* eslint-disable-next-line */}
                                 <label for="title" className="my-2">
                                   Item Title{" "}
                                   <span className="text-danger">*</span>
@@ -139,6 +141,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
+                                {/* eslint-disable-next-line */}
                                 <label for="title" className="my-2">
                                   Description{" "}
                                   <span className="text-danger">*</span>
@@ -303,9 +306,9 @@ const Mint = () => {
             </Card>
           </div>
         </Grid>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
       </Grid>
     </>
   );
 };
-export default Mint;
+export default PublishArt;

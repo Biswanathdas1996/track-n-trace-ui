@@ -4,35 +4,38 @@ import { Formik, Form, Field } from "formik";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import TransctionModal from "../components/shared/TransctionModal";
+import TransctionModal from "./shared/TransctionModal";
 import { postData } from "../functions/apiClient";
 
-const Mint = () => {
+const PublishBulkArt = () => {
   const [start, setStart] = useState(false);
   const [bulkNumber, setBulkNumber] = useState(null);
 
-  let history = useNavigate();
+  // let history = useNavigate();
 
   const saveBulkData = async () => {
     setStart(true);
 
-      for(let i = 0 ; i<bulkNumber ; i++) {
-        await postData(`/create`, {});
-        console.log("Called instance:", i+1);
-      }
-      history("/");
+    // eslint-disable-next-line
+    for(let i = 0 ; i<bulkNumber ; i++) {
+      // eslint-disable-next-line
+      await postData(`/create`, {});
+      console.log("Called instance:", i+1);
+    }
+    // history("/");
+    setStart(false);
   };
 
   const modalClose = () => {
     setStart(false);
-    history("/");
+    // history("/");
   };
   return (
     <>
       {start && <TransctionModal modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <div style={{ margin: 20 }}>
             <Card>
@@ -62,6 +65,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
+                                {/* eslint-disable-next-line */}
                                 <label for="title" className="my-2">
                                   Bulk Item Number
                                   <span className="text-danger">*</span>
@@ -118,9 +122,9 @@ const Mint = () => {
             </Card>
           </div>
         </Grid>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12} />
       </Grid>
     </>
   );
 };
-export default Mint;
+export default PublishBulkArt;
