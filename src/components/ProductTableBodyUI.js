@@ -11,6 +11,7 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { QR_BASE_URL } from "../config";
 import { getData } from "../functions/apiClient";
+// import AddTokenData from "../components/AddTokenData";
 
 // export default function ProductTableBodyUI({ token, labelId, isItemSelected, handleClick }) {
   export default function ProductTableBodyUI({ token, labelId, isItemSelected }) {
@@ -154,7 +155,10 @@ import { getData } from "../functions/apiClient";
               View
             </Button>
             <Button variant="contained" endIcon={<SendIcon />} style={{ marginRight: 10 }} onClick={() => history(`/transctions/${token}`)} />
-            <Button variant="contained" color="warning" endIcon={<AddCircleIcon />} onClick={() => history(`/add-token-data/${token}`)} disabled={nftData?.name} >
+            <Button variant="contained" color="warning" endIcon={<AddCircleIcon />} 
+            // onClick={() => <AddTokenData exact path='add-token-data/${token}' />}
+            onClick={() => history(`add-token-data/${token}`)}
+            disabled={nftData?.name} >
               Add
             </Button>
         </TableCell>

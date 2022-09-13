@@ -5,18 +5,20 @@ import { useNavigate } from "react-router-dom";
 // import PropTypes from 'prop-types';
 // import { useTheme } from '@mui/material/styles';
 import {
-  Card,
-  Table,
+  // Card,
+  // Table,
   Stack,
   // Avatar,
-  Button,
+  // Button,
   // Checkbox,
-  TableRow,
-  TableBody,
-  TableCell,
+  // TableRow,
+  // TableBody,
+  // TableCell,
   Container,
   Typography,
-  TableContainer,
+  // TableContainer,
+  Box,
+  Tab,
   // TablePagination,
   // TableFooter,
   // Box,
@@ -28,30 +30,29 @@ import {
 //   KeyboardArrowRight,
 //   LastPage,
 // } from "@mui/icons-material";
+
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
 // components
 import Page from '../components/Page';
-import Scrollbar from '../components/Scrollbar';
-import Iconify from '../components/Iconify';
-import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
+// import Scrollbar from '../components/Scrollbar';
+// import Iconify from '../components/Iconify';
+// import SearchNotFound from '../components/SearchNotFound';
+// import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 // import USERLIST from '../_mock/user';
 // apiClient
 import { getData } from "../functions/apiClient";
-import ProductTableBodyUI from "./ProductTableBodyUI"
+// import ProductTableBodyUI from "../components/ProductTableBodyUI"
 import PublishBulkArt from "../components/PublishBulkArt";
 import PublishArt from "../components/PublishArt";
 import AddProductData from "../components/AddProductData";
 import EditProductData from "../components/EditProductData";
+import TokensTable from "../components/TokensTable";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  // { id: 'name', label: 'Name', alignRight: false },
-  // { id: 'company', label: 'Company', alignRight: false },
-  // { id: 'role', label: 'Role', alignRight: false },
-  // { id: 'isVerified', label: 'Verified', alignRight: false },
-  // { id: 'status', label: 'Status', alignRight: false },
   { id: "id", label: "Token", alignRight: false },
   { id: "name", label: "Name", alignRight: false },
   { id: "product", label: "Product", alignRight: false },
@@ -171,6 +172,12 @@ export default function User() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [value, setValue] = React.useState('0');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   async function fetchAllPosts() {
     const data = await getData(`/get-all-token`);
     setData(data);
@@ -226,22 +233,40 @@ export default function User() {
 
   const isDataNotFound = filteredData.length === 0;
 
-	const[showCreateTokenForm,setShowCreateTokenForm]=useState(null);
+	// const[showCreateTokenForm,setShowCreateTokenForm]=useState(null);
 
-	const[showCreateBulkTokenForm,setShowCreateBulkTokenForm]=useState(null);
+	// const[showCreateBulkTokenForm,setShowCreateBulkTokenForm]=useState(null);
   
-	const[showAddProductData,setShowAddProductData]=useState(null);
+	// const[showAddProductData,setShowAddProductData]=useState(null);
   
-	const[showUpdateProductData,setShowUpdateProductData]=useState(null);
+	// const[showUpdateProductData,setShowUpdateProductData]=useState(null);
 
   return (
     <Page title="User">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            Generated Tokens
-          </Typography>
-          <Button
+          <Box sx={{ width: '100%', typography: 'body1' }}>
+            <Typography variant="h4" gutterBottom>
+              Generated Tokens
+            </Typography>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <TabList onChange={handleChange} aria-label="Tokens Module">
+                  <Tab label="Generated Tokens" value="0" />
+                  <Tab label="Create Tokens" value="1" />
+                  <Tab label="Create Bulk Tokens" value="2" />
+                  <Tab label="Add Product Data" value="3" />
+                  <Tab label="Update Product Data" value="4" />
+                </TabList>
+              </Box>
+              <TabPanel value="0"><TokensTable /></TabPanel>
+              <TabPanel value="1"><PublishArt /></TabPanel>
+              <TabPanel value="2"><PublishBulkArt /></TabPanel>
+              <TabPanel value="3"><AddProductData /></TabPanel>
+              <TabPanel value="4"><EditProductData /></TabPanel>
+            </TabContext>
+          </Box>
+          {/* <Button
             type="button"
             variant="contained" 
             style={{ float: "right", padding: 8, borderRadius: 4 }} 
@@ -254,47 +279,47 @@ export default function User() {
           >
             Create Tokens
           </Button>
-            <Button
-              type="button"
-              variant="contained"
-              style={{ float: "right", padding: 8, borderRadius: 4 }}
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              // onClick={() => history("/publishBulkArt")}
-            onClick={()=>setShowCreateBulkTokenForm(!showCreateBulkTokenForm)}
-            >
-              Create Bulk Tokens
-            </Button>
-            <Button
-              type="button"
-              variant="contained"
-              style={{ float: "right", padding: 8, borderRadius: 4 }}
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              // onClick={() => history("/addProductData")}
-            onClick={()=>setShowAddProductData(!showAddProductData)}
-            >
-              Add Product Data
-            </Button>
-            <Button
-              type="button"
-              variant="contained"
-              style={{ float: "right", padding: 8, borderRadius: 4 }}
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              // onClick={() => history("/editProductData")}
-            onClick={()=>setShowUpdateProductData(!showUpdateProductData)}
-            >
-              Update Product Data
-            </Button>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ float: "right", padding: 8, borderRadius: 4 }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            // onClick={() => history("/publishBulkArt")}
+          onClick={()=>setShowCreateBulkTokenForm(!showCreateBulkTokenForm)}
+          >
+            Create Bulk Tokens
+          </Button>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ float: "right", padding: 8, borderRadius: 4 }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            // onClick={() => history("/addProductData")}
+          onClick={()=>setShowAddProductData(!showAddProductData)}
+          >
+            Add Product Data
+          </Button>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ float: "right", padding: 8, borderRadius: 4 }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            // onClick={() => history("/editProductData")}
+          onClick={()=>setShowUpdateProductData(!showUpdateProductData)}
+          >
+            Update Product Data
+          </Button> */}
         </Stack>
-        {
+        {/* {
         showCreateTokenForm?<Card sx={{ mb: 2, p: 5 }}>
          <PublishArt />
         </Card>:null
@@ -313,108 +338,7 @@ export default function User() {
         showUpdateProductData?<Card sx={{ mb: 2, p: 5 }}>
          <EditProductData />
         </Card>:null
-        }
-
-        <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
-                <UserListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={data.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  // onSelectAllClick={handleSelectAllClick}
-                />
-                <TableBody>
-                  {/* {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */}
-                  {filteredData.map((token, index) => {
-                    // const { id, name, product, actions, avatarUrl, isVerified } = token;
-                    console.log("token",token);
-                    const isItemSelected = selected.indexOf(token.name) !== -1;
-                    const labelId = `enhanced-table-checkbox-${index}`;
-                    return <ProductTableBodyUI token={token} labelId={labelId} isItemSelected={isItemSelected} handleClick={handleClick} />;
-
-                    // return (
-                    //   <TableRow
-                    //     hover
-                    //     key={id}
-                    //     tabIndex={-1}
-                    //     role="checkbox"
-                    //     selected={isItemSelected}
-                    //     aria-checked={isItemSelected}
-                    //   >
-                    //     <TableCell padding="checkbox">
-                    //       <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
-                    //     </TableCell>
-                    //     <TableCell component="th" scope="row" padding="none">
-                    //       <Stack direction="row" alignItems="center" spacing={2}>
-                    //         <Avatar alt={id} src={avatarUrl} />
-                    //         <Typography variant="subtitle2" noWrap>
-                    //           {id}
-                    //         </Typography>
-                    //       </Stack>
-                    //     </TableCell>
-                    //     <TableCell align="left">{name}</TableCell>
-                    //     <TableCell align="left">{product}</TableCell>
-                    //     <TableCell align="left">{actions}</TableCell>
-                    //     <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                    //     {/* <TableCell align="left">
-                    //       <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
-                    //         {sentenceCase(status)}
-                    //       </Label>
-                    //     </TableCell> */}
-
-                    //     <TableCell align="right">
-                    //       <UserMoreMenu />
-                    //     </TableCell>
-                    //   </TableRow>
-                    // );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-
-                {isDataNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
-                {/* <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25, 50, {label:'All', value: -1}]}
-                      colSpan={4}
-                      component="div"
-                      count={data.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      SelectProps={{
-                        inputProps: { 'aria-label': 'rows-per-page',
-                        },
-                        native: true,
-                      }}
-                      ActionsComponent={TablePaginationActions}
-                    />
-                  </TableRow>
-                </TableFooter> */}
-              </Table>
-            </TableContainer>
-          </Scrollbar>
-        </Card>
+        } */}
       </Container>
     </Page>
   );

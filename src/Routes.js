@@ -16,11 +16,12 @@ import DashboardApp from './pages/DashboardApp';
 import CategoryDetails from "./AddCategory/Category-Details";
 import AddTracking from "./Admin/AddTracking";
 import Transction from "./Admin/Transction";
-import AddTokenData from "./Admin/AddTokenData";
+import AddTokenData from "./components/AddTokenData";
 import AddProductData  from "./components/AddProductData";
 import EditProductData  from "./components/EditProductData";
 import PublishArt from "./components/PublishArt";
 import PublishBulkArt from "./components/PublishBulkArt";
+import TokensTable from "./components/TokensTable";
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +36,12 @@ export default function Router() {
           path: 'user', 
           element: <User />,
           children: [
-            { path: "publishArt", element: <PublishArt /> },
-            { path: "publishBulkArt", element: <PublishBulkArt /> },
+            { path: "TokensTable", element: <TokensTable /> },
+            { path: "PublishArt", element: <PublishArt /> },
+            { path: "PublishBulkArt", element: <PublishBulkArt /> },
             { path: "AddProductData", element: <AddProductData /> },
             { path: "EditProductData", element: <EditProductData /> },
+            { path: "add-token-data/:token", element: <AddTokenData /> },
           ]
          },
         { path: 'products', element: <Products /> },
@@ -48,10 +51,9 @@ export default function Router() {
       ],
     },
     { path: "/category", element: <CategoryDetails /> },
-    { path: "/EditProductData", element: <EditProductData /> },
     { path: "/add-tracking-data/:token", element: <AddTracking /> },
     { path: "/transctions/:token", element: <Transction /> },
-    { path: "/add-token-data/:token", element: <AddTokenData /> },
+    // { path: "/add-token-data/:token", element: <AddTokenData /> },
     {
       path: 'login',
       element: <Login />,

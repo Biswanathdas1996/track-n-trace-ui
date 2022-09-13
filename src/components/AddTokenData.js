@@ -10,11 +10,11 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
 
 import { pink } from "@mui/material/colors";
-import TransctionModal from "../components/shared/TransctionModal";
+import TransctionModal from "./shared/TransctionModal";
 import { postData } from "../functions/apiClient";
 import { useParams } from "react-router-dom";
 
-const Mint = () => {
+const AddTokenData = () => {
   const [start, setStart] = useState(false);
   const [response, setResponse] = useState(null);
 
@@ -307,4 +307,4 @@ const Mint = () => {
     </>
   );
 };
-export default Mint;
+export default AddTokenData;
