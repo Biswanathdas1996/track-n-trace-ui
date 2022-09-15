@@ -28,10 +28,23 @@ export default function ProductTableBodyUI({ token }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const blankObj = {
+    "name":"",
+    "product":"",
+    "image" : null,
+    "description":"",
+    "attributes":[],
+    "transction":[]
+  }
+
   const getDetails = async () => {
     const data = await getData(`/get-token-data?id=${token}`);
     console.log("------>", data);
-    setNftData(data);
+    if ('name' in data) {
+      setNftData(data);
+    } else {
+      setNftData(blankObj);
+    }
   };
 
   return (
