@@ -39,7 +39,7 @@ const Mint = () => {
     };
 
     await postData(`/create`, metaData);
-    history("/");
+    history("/dashboard");
 
     setResponse(responseData);
   };
@@ -47,7 +47,7 @@ const Mint = () => {
   const modalClose = () => {
     setStart(false);
     setResponse(null);
-    history("/");
+    history("/dashboard");
   };
   return (
     <>

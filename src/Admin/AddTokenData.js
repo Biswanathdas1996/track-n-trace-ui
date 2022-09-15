@@ -37,7 +37,7 @@ const Mint = () => {
     };
 
     await postData(`/initiate-token-info?id=${token}`, metaData);
-    history("/");
+    history("/dashboard");
 
     setResponse(responseData);
   };
@@ -45,7 +45,7 @@ const Mint = () => {
   const modalClose = () => {
     setStart(false);
     setResponse(null);
-    history("/");
+    history("/dashboard");
   };
   return (
     <>
@@ -69,6 +69,7 @@ const Mint = () => {
                       initialValues={{
                         title: "",
                         text: "",
+                        subcategory: "",
                         category: "",
                         attributes: [],
                       }}
@@ -87,7 +88,8 @@ const Mint = () => {
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
                                 <label for="title" className="my-2">
-                                  Product <span className="text-danger">*</span>
+                                  Category{" "}
+                                  <span className="text-danger">*</span>
                                 </label>
                                 <Field
                                   name="category"
@@ -101,11 +103,38 @@ const Mint = () => {
                                 >
                                   <option>-- Please select --</option>
 
-                                  <option value="Lamborghini">
-                                    Lamborghini
+                                  <option value="Car">Car</option>
+                                  <option value="Electronics">
+                                    Electronics
                                   </option>
-                                  <option value="Audi">Audi</option>
+                                  <option value="Jewelry">Jewelry </option>
+                                </Field>
+                              </div>
+                            </Grid>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                              <div
+                                className="form-group"
+                                style={{ marginLeft: 10, marginTop: 10 }}
+                              >
+                                <label for="title" className="my-2">
+                                  Sub Category{" "}
+                                  <span className="text-danger">*</span>
+                                </label>
+                                <Field
+                                  name="subcategory"
+                                  component="select"
+                                  className={`form-control text-muted ${
+                                    touched.subcategory && errors.subcategory
+                                      ? "is-invalid"
+                                      : ""
+                                  }`}
+                                  style={{ marginRight: 10, padding: 9 }}
+                                >
+                                  <option>-- Please select --</option>
+
                                   <option value="BMW">BMW</option>
+                                  <option value="AUDI">AUDI</option>
+                                  <option value="Maclean ">Maclean </option>
                                 </Field>
                               </div>
                             </Grid>

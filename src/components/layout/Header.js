@@ -24,7 +24,7 @@ import { validateUserWithWallat } from "../../utils";
 const pages = [
   {
     label: "Home",
-    href: "/",
+    href: "/dashboard",
   },
 ];
 
@@ -50,7 +50,7 @@ const Header = () => {
     if (category !== "all") {
       history(`/category/${category.toLowerCase()}`);
     } else {
-      history("/");
+      history("/dashboard");
     }
   };
 
@@ -60,7 +60,7 @@ const Header = () => {
 
   const logOut = () => {
     localStorage.clear();
-    history("/");
+    history("/dashboard");
   };
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -135,7 +135,7 @@ const Header = () => {
         <Link href="/mentors">Activity</Link>
       </MenuItem>
       <MenuItem disabled>
-        <Link href="/">How It Works</Link>
+        <Link href="/dashboard">How It Works</Link>
       </MenuItem>
       <MenuItem>
         <Link onClick={() => logOut()}>Log out</Link>
@@ -162,7 +162,7 @@ const Header = () => {
             height={"50px"}
             width={"60px"}
             alt="logo"
-            onClick={() => history("/")}
+            onClick={() => history("/dashboard")}
           /> */}
           Track and Trace
           <Button disabled></Button>

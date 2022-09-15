@@ -14,23 +14,11 @@ const Mint = () => {
   let history = useNavigate();
 
   const saveBulkData = async () => {
-    setStart(true);
-
-    for (let i = 0; i < bulkNumber; i++) {
-      await postData(`/create`, {});
-      console.log("Called instance:", i + 1);
-    }
     history("/dashboard");
   };
 
-  const modalClose = () => {
-    setStart(false);
-    history("/dashboard");
-  };
   return (
     <>
-      {start && <TransctionModal modalClose={modalClose} />}
-
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
         <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -44,7 +32,7 @@ const Mint = () => {
                       background: "white",
                     }}
                   >
-                    <h4>Create Bulk Tokens</h4>
+                    <h4>Login</h4>
                     <Formik
                       initialValues={{
                         bulkNumber: 0,
@@ -63,18 +51,18 @@ const Mint = () => {
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
                                 <label for="title" className="my-2">
-                                  Bulk Item Number{0}
+                                  Password{0}
                                   <span className="text-danger">*</span>
                                 </label>
 
                                 <Field
-                                  type="number"
+                                  type="text"
                                   name="title"
                                   onChange={(e) =>
                                     setBulkNumber(e.target.value)
                                   }
                                   autoComplete="false"
-                                  placeholder="Enter Bulk Number"
+                                  placeholder="Enter Password"
                                   className={`form-control text-muted ${
                                     touched.title && errors.title
                                       ? "is-invalid"
@@ -103,7 +91,7 @@ const Mint = () => {
                                       textTransform: "none",
                                     }}
                                   >
-                                    Submit{" "}
+                                    Login{" "}
                                   </Button>
                                 </span>
                               </div>

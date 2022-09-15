@@ -11,7 +11,7 @@ export default function CustomBreadCrumbs(props) {
       underline="hover"
       key="1"
       color="inherit"
-      href="/"
+      href="/dashboard"
       // onClick={handleClick}
     >
       Home

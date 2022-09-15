@@ -3,12 +3,15 @@ import { Button, Card, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
 import "../Styles/category-details.css";
-import { CategoryContext } from "../Context/CategoryContext";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
   const [categoryName, setCategoryName] = useState("");
-  const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
+  const [categoryDataArray, setCategoryDataArray] = useState([
+    "Electronics",
+    "Grocery",
+    "Appliances",
+  ]);
 
   const handleAddCategory = () => {
     setCategoryBool(false);
