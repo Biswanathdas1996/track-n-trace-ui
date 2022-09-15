@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 // import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
@@ -19,6 +19,28 @@ import swal from "sweetalert";
 const Mint = () => {
   const { token } = useParams();
   const [submitting, setSubmitting] = useState(false);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      return navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    setLocation(
+      "Latitude: " +
+        position.coords.latitude +
+        " Longitude: " +
+        position.coords.longitude
+    );
+  }
 
   const saveData = async ({ title, category, attributes }) => {
     setSubmitting(true);
@@ -53,7 +75,7 @@ const Mint = () => {
                       <small> Add transction data</small>
                       <Formik
                         initialValues={{
-                          title: "",
+                          title: location,
                           category: "",
                         }}
                         // validationSchema={VendorSchema}
@@ -122,6 +144,7 @@ const Mint = () => {
                                         ? "is-invalid"
                                         : ""
                                     }`}
+                                    value={location}
                                     style={{ marginRight: 10, padding: 9 }}
                                   />
                                 </div>
