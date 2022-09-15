@@ -146,6 +146,14 @@ const ResponsiveAppBar = () => {
               key={1}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
+              href="/uploadBulkData"
+            >
+              Upload Bulk Data
+            </Button>
+            <Button
+              key={1}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
               href="/publishBulkArt"
             >
               Create Bulk token

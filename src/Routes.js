@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PublishArt from "./Admin/PublishArt";
 import PublishBulkArt from "./Admin/PublishBulkArt";
+import UploadBulkData from "./Admin/UploadBulkData";
 import Dashboard from "./Admin/Dashboard";
 import Product from "./Admin/Product";
 import AddTracking from "./Admin/AddTracking";
@@ -22,6 +23,7 @@ class Routing extends React.Component {
         <Route exact path="/sub-category" element={<AddSubCategory />} />
         <Route exact path="/publishArt" element={<PublishArt />} />
         <Route exact path="/publishBulkArt" element={<PublishBulkArt />} />
+        <Route exact path="/uploadBulkData" element={<UploadBulkData />} />
         <Route
           exact
           path="/add-tracking-data/:token"

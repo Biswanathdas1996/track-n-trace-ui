@@ -29,14 +29,14 @@ function Dashboard() {
           <Grid item sm={12}>
             <Card token={data?.length} />
           </Grid>
-          <Grid item sm={6}>
-            <DashboardButtonCard
-              text="Create bulk token"
-              link="/publishBulkArt"
-            />
-          </Grid>
-          <Grid item sm={6}>
+          <Grid item sm={4}>
             <DashboardButtonCard text="Create token" link="/publishArt" />
+          </Grid>
+          <Grid item sm={4}>
+            <DashboardButtonCard text="Create bulk token" link="/publishBulkArt" />
+          </Grid>
+          <Grid item sm={4}>
+            <DashboardButtonCard text="Upload Bulk Data" link="/uploadBulkData" />
           </Grid>
 
           <Grid item sm={12}>
