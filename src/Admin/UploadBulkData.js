@@ -84,6 +84,10 @@ const Mint = () => {
     link.click();
   };
 
+  const handleBack = () => {
+    history("/dashboard");
+  }
+
 //   const modalClose = () => {
 //     setStart(false);
 //     setResponse(null);
@@ -144,6 +148,19 @@ const Mint = () => {
                         }}
                       >
                         DOWNLOAD SAMPLE CSV
+                      </Button>
+
+                      <Button 
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        component="label"
+                        sx={{
+                          marginRight: "20px",
+                          textTransform: "none",
+                        }}
+                      >
+                        GO BACK
                       </Button>
                     </form>
                     <br />
