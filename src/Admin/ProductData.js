@@ -26,29 +26,6 @@ function Dashboard() {
     <ThemeProvider>
       <div className="container">
         <Grid container spacing={2}>
-          <Grid item sm={4}>
-            <DashboardButtonCard text="Create token" link="/publishArt" />
-          </Grid>
-          <Grid item sm={4}>
-            <DashboardButtonCard
-              text="Create bulk token"
-              link="/publishBulkArt"
-            />
-          </Grid>
-          <Grid item sm={4}>
-            <DashboardButtonCard
-              text="Upload Bulk Data"
-              link="/uploadBulkData"
-            />
-          </Grid>
-
-          <Grid item sm={6}>
-            <Tree />
-          </Grid>
-          <Grid item sm={6}>
-            <Card token={data?.length} text="Token Count" />
-            <Card token={10} text="Product Count" />
-          </Grid>
           <Grid item sm={12}>
             {data && <ProductTable tokens={data} />}
           </Grid>

@@ -5,6 +5,7 @@ import PublishBulkArt from "./Admin/PublishBulkArt";
 import UploadBulkData from "./Admin/UploadBulkData";
 import Dashboard from "./Admin/Dashboard";
 import Product from "./Admin/Product";
+import ProductTable from "./Admin/ProductData";
 import AddTracking from "./Admin/AddTracking";
 import Transction from "./Admin/Transction";
 import AddTokenData from "./Admin/AddTokenData";
@@ -19,6 +20,7 @@ class Routing extends React.Component {
         <Route exact path="/user" element={<Dashboard />} />
         <Route exact path="/" element={<Login />} />
         <Route exact path="/dashboard" element={<Product />} />
+        <Route exact path="/products" element={<ProductTable />} />
         <Route exact path="/category" element={<CategoryDetails />} />
         <Route exact path="/sub-category" element={<AddSubCategory />} />
         <Route exact path="/publishArt" element={<PublishArt />} />

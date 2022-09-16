@@ -11,9 +11,12 @@ import Box from "@mui/material/Box";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { QR_BASE_URL } from "../../config";
+import Skeleton from "@mui/material/Skeleton";
 
 export default function ProductTableBodyUI({ token }) {
   const [nftData, setNftData] = useState(null);
+
+  const [loading, setLoading] = React.useState(false);
 
   const [open, setOpen] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
@@ -29,22 +32,24 @@ export default function ProductTableBodyUI({ token }) {
   }, []);
 
   const blankObj = {
-    "name":"",
-    "product":"",
-    "image" : null,
-    "description":"",
-    "attributes":[],
-    "transction":[]
-  }
+    name: "",
+    product: "",
+    image: null,
+    description: "",
+    attributes: [],
+    transction: [],
+  };
 
   const getDetails = async () => {
+    setLoading(true);
     const data = await getData(`/get-token-data?id=${token}`);
     console.log("------>", data);
-    if ('name' in data) {
+    if ("name" in data) {
       setNftData(data);
     } else {
       setNftData(blankObj);
     }
+    setLoading(false);
   };
 
   return (
@@ -105,50 +110,60 @@ export default function ProductTableBodyUI({ token }) {
         </Box>
       </Modal>
 
-      <TableRow hover tabIndex={-1}>
-        <TableCell align="center">#{token}</TableCell>
-        <TableCell align="center" style={{ display: "flex" }}>
-          <Avatar alt="Remy Sharp" src={nftData?.image} />
-          <b style={{ margin: 10 }}>{nftData?.name}</b>
-        </TableCell>
-        <TableCell align="center">{nftData?.product}</TableCell>
+      {!loading ? (
+        <TableRow hover tabIndex={-1}>
+          <TableCell align="center">#{token}</TableCell>
+          <TableCell align="center" style={{ display: "flex" }}>
+            <Avatar alt="Remy Sharp" src={nftData?.image} />
+            <b style={{ margin: 10 }}>{nftData?.name}</b>
+          </TableCell>
+          <TableCell align="center">{nftData?.product}</TableCell>
 
-        <TableCell align="center">
-          <center>
-            <Button
-              startIcon={<QrCode2Icon />}
-              style={{ marginRight: 10 }}
-              onClick={handleOpenForm}
-            >
-              Add TXN
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<QrCode2Icon />}
-              style={{ marginRight: 10 }}
-              onClick={handleOpen}
-            >
-              View
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              style={{ marginRight: 10 }}
-              onClick={() => history(`/transctions/${token}`)}
-            ></Button>
+          <TableCell align="center">
+            <center>
+              <Button
+                startIcon={<QrCode2Icon />}
+                style={{ marginRight: 10 }}
+                onClick={handleOpenForm}
+              >
+                Add TXN
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<QrCode2Icon />}
+                style={{ marginRight: 10 }}
+                onClick={handleOpen}
+              >
+                View
+              </Button>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                style={{ marginRight: 10 }}
+                onClick={() => history(`/transctions/${token}`)}
+              ></Button>
 
-            <Button
-              variant="contained"
-              color="warning"
-              endIcon={<AddCircleIcon />}
-              onClick={() => history(`/add-token-data/${token}`)}
-              disabled={nftData?.name}
-            >
-              Add
-            </Button>
-          </center>
-        </TableCell>
-      </TableRow>
+              <Button
+                variant="contained"
+                color="warning"
+                endIcon={<AddCircleIcon />}
+                onClick={() => history(`/add-token-data/${token}`)}
+                disabled={nftData?.name}
+              >
+                Add
+              </Button>
+            </center>
+          </TableCell>
+        </TableRow>
+      ) : (
+        <TableRow hover tabIndex={-1}>
+          <TableCell align="center">
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </TableCell>
+        </TableRow>
+      )}
     </>
   );
 }
