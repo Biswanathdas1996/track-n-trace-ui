@@ -5,6 +5,7 @@ import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import TransctionModal from "../components/shared/TransctionModal";
 import { postData } from "../functions/apiClient";
+import sampleCSV from "../sample/SampleFormat.csv";
 
 const Mint = () => {
   const [start, setStart] = useState(false);
@@ -76,6 +77,13 @@ const Mint = () => {
     setResponse(responseData);
   };
 
+  const onDownload = () => {
+    const link = document.createElement("a");
+    link.download = `SampleFormat.csv`;
+    link.href = sampleCSV;
+    link.click();
+  };
+
 //   const modalClose = () => {
 //     setStart(false);
 //     setResponse(null);
@@ -103,20 +111,40 @@ const Mint = () => {
                   >
                     <h4>Upload Bulk Data</h4>
                     <form>
-                        <input
-                            type={"file"}
-                            id={"csvFileInput"}
-                            accept={".csv"}
-                            onChange={(e) => {handleOnChange(e)}}
-                        />
+                      <input
+                        type={"file"}
+                        id={"csvFileInput"}
+                        accept={".csv"}
+                        onChange={(e) => {handleOnChange(e)}}
+                      />
 
-                        <Button
-                            onClick={(e) => {
-                                handleOnSubmit(e);
-                            }}
-                        >
-                            IMPORT CSV
-                        </Button>
+                      <Button 
+                        variant="contained" 
+                        color="primary" 
+                        component="label"
+                        onClick={(e) => {
+                            handleOnSubmit(e);
+                        }}
+                        sx={{
+                          marginRight: "20px",
+                          textTransform: "none",
+                        }}
+                      >
+                        IMPORT CSV
+                      </Button>
+
+                      <Button 
+                        onClick={onDownload}
+                        variant="contained"
+                        color="primary"
+                        component="label"
+                        sx={{
+                          marginRight: "20px",
+                          textTransform: "none",
+                        }}
+                      >
+                        DOWNLOAD SAMPLE CSV
+                      </Button>
                     </form>
                     <br />
                     <table>
