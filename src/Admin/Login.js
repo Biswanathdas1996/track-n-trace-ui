@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 // import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import TransctionModal from "../components/shared/TransctionModal";
-import { postData } from "../functions/apiClient";
 
 const Mint = () => {
-  const [start, setStart] = useState(false);
-  const [bulkNumber, setBulkNumber] = useState(null);
-
   let history = useNavigate();
 
   const saveBulkData = async () => {
@@ -58,9 +53,6 @@ const Mint = () => {
                                 <Field
                                   type="text"
                                   name="title"
-                                  onChange={(e) =>
-                                    setBulkNumber(e.target.value)
-                                  }
                                   autoComplete="false"
                                   placeholder="Enter Password"
                                   className={`form-control text-muted ${

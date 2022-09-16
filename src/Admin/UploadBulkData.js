@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import TransctionModal from "../components/shared/TransctionModal";
 import { postData } from "../functions/apiClient";
 import sampleCSV from "../sample/SampleFormat.csv";
 
 const Mint = () => {
-  const [start, setStart] = useState(false);
-  const [response, setResponse] = useState(null);
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
 
@@ -18,30 +15,30 @@ const Mint = () => {
   const fileReader = new FileReader();
 
   const handleOnChange = (e) => {
-      let fileData = e.target.files[0];
-      setFile(fileData);
-      console.log(fileData);
+    let fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
   };
 
   const handleOnSubmit = (e) => {
-      e.preventDefault();
-      let csvOutput;
-      if (file) {
-          fileReader.onload = function (event) {
-              csvOutput = event.target.result;
-              csvFileToArray(csvOutput);
-              console.log(csvOutput);
-          };
+    e.preventDefault();
+    let csvOutput;
+    if (file) {
+      fileReader.onload = function (event) {
+        csvOutput = event.target.result;
+        csvFileToArray(csvOutput);
+        console.log(csvOutput);
+      };
 
-          fileReader.readAsText(file);
-      }
+      fileReader.readAsText(file);
+    }
   };
 
-  const csvFileToArray = string => {
+  const csvFileToArray = (string) => {
     const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
-    const array = csvRows.map(i => {
+    const array = csvRows.map((i) => {
       const values = i.split(",");
       const obj = csvHeader.reduce((object, header, index) => {
         object[header] = values[index];
@@ -56,25 +53,22 @@ const Mint = () => {
   };
 
   const saveBulkData = async (array) => {
-    setStart(true);
-    let responseData;
     let metaData;
 
     for (let i = 0; i < array.length; i++) {
-    metaData = {
-      name: array[i].title,
-      product: array[i].category,
-      image: null,
-      description: array[i].description,
-      attributes: array[i].attributes,
-    };
+      metaData = {
+        name: array[i].title,
+        product: array[i].category,
+        image: null,
+        description: array[i].description,
+        attributes: array[i].attributes,
+      };
 
-        await postData(`/initiate-token-info?id=${array[i].token}`, metaData);
-        console.log("Token", array[i].token);
-        console.log("metadata", metaData);
+      await postData(`/initiate-token-info?id=${array[i].token}`, metaData);
+      console.log("Token", array[i].token);
+      console.log("metadata", metaData);
     }
     // history("/dashboard");
-    setResponse(responseData);
   };
 
   const onDownload = () => {
@@ -86,13 +80,13 @@ const Mint = () => {
 
   const handleBack = () => {
     history("/dashboard");
-  }
+  };
 
-//   const modalClose = () => {
-//     setStart(false);
-//     setResponse(null);
-//     history("/dashboard");
-//   };
+  //   const modalClose = () => {
+  //     setStart(false);
+  //     setResponse(null);
+  //     history("/dashboard");
+  //   };
 
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
@@ -119,15 +113,17 @@ const Mint = () => {
                         type={"file"}
                         id={"csvFileInput"}
                         accept={".csv"}
-                        onChange={(e) => {handleOnChange(e)}}
+                        onChange={(e) => {
+                          handleOnChange(e);
+                        }}
                       />
 
-                      <Button 
-                        variant="contained" 
-                        color="primary" 
+                      <Button
+                        variant="contained"
+                        color="primary"
                         component="label"
                         onClick={(e) => {
-                            handleOnSubmit(e);
+                          handleOnSubmit(e);
                         }}
                         sx={{
                           marginRight: "20px",
@@ -137,7 +133,7 @@ const Mint = () => {
                         IMPORT CSV
                       </Button>
 
-                      <Button 
+                      <Button
                         onClick={onDownload}
                         variant="contained"
                         color="primary"
@@ -150,7 +146,7 @@ const Mint = () => {
                         DOWNLOAD SAMPLE CSV
                       </Button>
 
-                      <Button 
+                      <Button
                         onClick={handleBack}
                         variant="contained"
                         color="primary"
@@ -184,7 +180,6 @@ const Mint = () => {
                     </table>
                   </div>
                 </Grid>
-
               </Grid>
             </Card>
           </div>

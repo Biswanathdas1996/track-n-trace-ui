@@ -45,12 +45,14 @@ export default function CustomizedTimeline() {
           <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <Card style={{ margin: 20 }}>
-              <CardMedia
-                component="img"
-                // height="140"
-                image={nftData?.image}
-                alt="green iguana"
-              />
+              {nftData?.image && (
+                <CardMedia
+                  component="img"
+                  // height="140"
+                  image={nftData?.image}
+                  alt="green iguana"
+                />
+              )}
               <CardContent>
                 <Typography
                   gutterBottom
@@ -78,7 +80,7 @@ export default function CustomizedTimeline() {
 
             <Timeline position="alternate">
               {nftData &&
-                nftData?.transction.map((data, index) => {
+                nftData?.transction?.map((data, index) => {
                   return (
                     <TimelineItem key={index}>
                       <TimelineOppositeContent
