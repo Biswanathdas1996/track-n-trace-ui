@@ -115,7 +115,7 @@ const states = [
         zone:'East Zone'
     },
     {
-        id:'',
+        id:'MG',
         stateName:'Meghalaya',
         zone:'East Zone'
     },
@@ -184,7 +184,6 @@ const states = [
         stateName:'West Bengal',
         zone:'East Zone'
     },
-
 ];
 
 export default states;

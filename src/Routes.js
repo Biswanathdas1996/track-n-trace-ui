@@ -42,8 +42,6 @@ export default function Router() {
             { path: "PublishArt", element: <PublishArt /> },
             { path: "PublishBulkArt", element: <PublishBulkArt /> },
             { path: "add-token-data/:token", element: <AddTokenData /> },
-            { path: 'Distributer', element: <Distributer />  },
-            { path: 'Retailer', element: <Retailer />  },
           ]
          },
         { 
@@ -54,6 +52,8 @@ export default function Router() {
             { path: "EditProductData", element: <EditProductData /> },
           ]
         },
+        { path: 'Distributer', element: <Distributer />  },
+        { path: 'Retailer', element: <Retailer />  },
         { path: 'Category', element: <Category /> },
         { path: 'SubCategory', element: <SubCategory /> },
         { path: 'blog', element: <Blog /> },
