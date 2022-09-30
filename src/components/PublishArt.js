@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 // import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
@@ -20,6 +20,7 @@ import { postData } from "../functions/apiClient";
 const PublishArt = () => {
   const [start, setStart] = useState(false);
   const [response, setResponse] = useState(null);
+  const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [description, setDescription] = useState(null);
 
@@ -27,7 +28,6 @@ const PublishArt = () => {
 
   const saveData = async ({ title, category, attributes }) => {
     setStart(true);
-    let responseData;
 
     const metaData = {
       name: title,
@@ -38,19 +38,33 @@ const PublishArt = () => {
       transction: [],
     };
 
-    await postData(`/create`, metaData);
+    // const responseData = await postData(`/create`, metaData);
     // history("/");
-
-    setResponse(responseData);
+    // setResponse(responseData);
+    setResponse(await postData(`/create`, metaData));
+    console.log("response",response);
+    // setResponse(response);
+    // setRefreshFlag(true);
   };
+
+  // useEffect(() => {
+  //   console.log("response in useEffect",response);
+  // }, [response]);
 
   const modalClose = () => {
     setStart(false);
     setResponse(null);
+    setRefreshFlag(true);
     // history("/");
   };
+
+  if(refreshFlag) {
+    window.location.reload(false);
+  }
+
   return (
     <>
+      {/* {start && <TransctionModal response={response} modalClose={modalClose} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />} */}
       {start && <TransctionModal response={response} modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

@@ -4,7 +4,7 @@ import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Blog from './pages/Blog';
-import User from './pages/User';
+import Tokens from './pages/Tokens';
 import Category from './pages/Category';
 import SubCategory from './pages/SubCategory';
 import Login from './pages/Login';
@@ -33,18 +33,23 @@ export default function Router() {
       children: [
         { path: 'app', element: <DashboardApp /> },
         { 
-          path: 'user', 
-          element: <User />,
+          path: 'tokens', 
+          element: <Tokens />,
           children: [
             { path: "TokensTable", element: <TokensTable /> },
             { path: "PublishArt", element: <PublishArt /> },
             { path: "PublishBulkArt", element: <PublishBulkArt /> },
-            { path: "AddProductData", element: <AddProductData /> },
-            { path: "EditProductData", element: <EditProductData /> },
             { path: "add-token-data/:token", element: <AddTokenData /> },
           ]
          },
-        { path: 'products', element: <Products /> },
+        { 
+          path: 'products', 
+          element: <Products />,
+          children: [
+            { path: "AddProductData", element: <AddProductData /> },
+            { path: "EditProductData", element: <EditProductData /> },
+          ]
+        },
         { path: 'Category', element: <Category /> },
         { path: 'SubCategory', element: <SubCategory /> },
         { path: 'blog', element: <Blog /> },

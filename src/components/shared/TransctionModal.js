@@ -28,17 +28,17 @@ const style = {
 
 export default function TransctionModal({ response, setStart, modalClose }) {
   const [open, setOpen] = React.useState(true);
-
+  const responseData = response;
   const handleClose = () => {
     setOpen(false);
     modalClose();
+    // setRefreshFlag(!refreshFlag);
   };
 
   // eslint-disable-next-line
-  const domData = response?.error ? response.error.receipt : response;
-  
+  const domData = responseData?.error ? responseData.error.receipt : responseData;
   console.log("domData",domData);
-  
+
   return (
     <div>
       <Modal

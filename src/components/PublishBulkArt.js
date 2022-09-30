@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 // import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import TransctionModal from "./shared/TransctionModal";
 import { postData } from "../functions/apiClient";
 
 const PublishBulkArt = () => {
   const [start, setStart] = useState(false);
+  const [refreshFlag, setRefreshFlag] = useState(false);
   const [bulkNumber, setBulkNumber] = useState(null);
+  // const [response, setResponse] = useState(null); use as array & check for length to handle Transaction Modal
 
-  // let history = useNavigate();
+  // const history = useNavigate();
 
   const saveBulkData = async () => {
     setStart(true);
@@ -20,16 +22,26 @@ const PublishBulkArt = () => {
     for(let i = 0 ; i<bulkNumber ; i++) {
       // eslint-disable-next-line
       await postData(`/create`, {});
-      console.log("Called instance:", i+1);
+      // console.log("Called instance:", i+1);
     }
     // history("/");
     setStart(false);
+    setRefreshFlag(true);
   };
 
   const modalClose = () => {
     setStart(false);
+    setRefreshFlag(true);
     // history("/");
   };
+
+  if(refreshFlag) {
+    window.location.reload(false);
+  }
+  
+  // useEffect(() => {
+  // }, []);
+
   return (
     <>
       {start && <TransctionModal modalClose={modalClose} />}

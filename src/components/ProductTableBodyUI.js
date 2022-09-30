@@ -48,7 +48,7 @@ import { getData } from "../functions/apiClient";
     if ('name' in data) {
       setNftData(data);
     } else {
-      setNftData(blankObj)
+      setNftData(blankObj);
     }
     // ((Object.keys(data).length !== 0) ? setNftData(data) : setNftData(blankObj));
     // setNftData(data);

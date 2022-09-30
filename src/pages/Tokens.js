@@ -46,8 +46,8 @@ import { getData } from "../functions/apiClient";
 // import ProductTableBodyUI from "../components/ProductTableBodyUI"
 import PublishBulkArt from "../components/PublishBulkArt";
 import PublishArt from "../components/PublishArt";
-import AddProductData from "../components/AddProductData";
-import EditProductData from "../components/EditProductData";
+// import AddProductData from "../components/AddProductData";
+// import EditProductData from "../components/EditProductData";
 import TokensTable from "../components/TokensTable";
 
 // ----------------------------------------------------------------------
@@ -156,7 +156,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function Tokens() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -242,7 +242,7 @@ export default function User() {
 	// const[showUpdateProductData,setShowUpdateProductData]=useState(null);
 
   return (
-    <Page title="User">
+    <Page title="Tokens">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -255,15 +255,15 @@ export default function User() {
                   <Tab label="Generated Tokens" value="0" />
                   <Tab label="Create Tokens" value="1" />
                   <Tab label="Create Bulk Tokens" value="2" />
-                  <Tab label="Add Product Data" value="3" />
-                  <Tab label="Update Product Data" value="4" />
+                  {/* <Tab label="Add Product Data" value="3" />
+                  <Tab label="Update Product Data" value="4" /> */}
                 </TabList>
               </Box>
               <TabPanel value="0"><TokensTable /></TabPanel>
               <TabPanel value="1"><PublishArt /></TabPanel>
               <TabPanel value="2"><PublishBulkArt /></TabPanel>
-              <TabPanel value="3"><AddProductData /></TabPanel>
-              <TabPanel value="4"><EditProductData /></TabPanel>
+              {/* <TabPanel value="3"><AddProductData /></TabPanel>
+              <TabPanel value="4"><EditProductData /></TabPanel> */}
             </TabContext>
           </Box>
           {/* <Button
