@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
+import Distributer from './pages/Distributer';
+import Retailer from './pages/Retailer';
 
 import CategoryDetails from "./AddCategory/Category-Details";
 import AddTracking from "./Admin/AddTracking";
@@ -40,6 +42,8 @@ export default function Router() {
             { path: "PublishArt", element: <PublishArt /> },
             { path: "PublishBulkArt", element: <PublishBulkArt /> },
             { path: "add-token-data/:token", element: <AddTokenData /> },
+            { path: 'Distributer', element: <Distributer />  },
+            { path: 'Retailer', element: <Retailer />  },
           ]
          },
         { 
