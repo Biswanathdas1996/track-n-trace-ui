@@ -45,8 +45,8 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
-                                  Password{0}
+                                <label htmlFor="title" className="my-2">
+                                  Password
                                   <span className="text-danger">*</span>
                                 </label>
 

@@ -8,7 +8,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
-import { postData } from "../functions/apiClient";
+import { getAuthDataPost } from "../functions/apiClient";
 
 // const VendorSchema = Yup.object().shape({
 //   name: Yup.string().required("Name is required"),
@@ -38,7 +38,7 @@ const Mint = () => {
       transction: [],
     };
 
-    await postData(`/create`, metaData);
+    await getAuthDataPost(`/create`, metaData);
     history("/dashboard");
 
     setResponse(responseData);
@@ -88,7 +88,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Product <span className="text-danger">*</span>
                                 </label>
                                 <Field
@@ -116,7 +116,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Item Title{" "}
                                   <span className="text-danger">*</span>
                                 </label>
@@ -140,7 +140,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Description{" "}
                                   <span className="text-danger">*</span>
                                 </label>

@@ -126,7 +126,7 @@ const ResponsiveAppBar = () => {
               Dashboard
             </Button>
             <Button
-              key={1}
+              key={2}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/category"
@@ -134,7 +134,7 @@ const ResponsiveAppBar = () => {
               Product
             </Button>
             <Button
-              key={1}
+              key={3}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/sub-category"
@@ -142,7 +142,7 @@ const ResponsiveAppBar = () => {
               Category
             </Button>
             <Button
-              key={1}
+              key={4}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/uploadBulkData"
@@ -150,7 +150,7 @@ const ResponsiveAppBar = () => {
               Upload Bulk Data
             </Button>
             <Button
-              key={1}
+              key={5}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishBulkArt"
@@ -158,7 +158,7 @@ const ResponsiveAppBar = () => {
               Create Bulk token
             </Button>
             <Button
-              key={1}
+              key={6}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishArt"

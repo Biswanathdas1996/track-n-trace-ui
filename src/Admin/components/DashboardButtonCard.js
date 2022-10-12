@@ -10,7 +10,7 @@ export default function DashboardButtonCard({ text, link }) {
   return (
     <Card style={{ padding: 30 }}>
       <CardContent>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Button
             color="primary"
             size="large"

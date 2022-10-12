@@ -7,7 +7,7 @@ import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 
 import { useParams } from "react-router-dom";
-import { postData } from "../functions/apiClient";
+import { getAuthDataPost } from "../functions/apiClient";
 import swal from "sweetalert";
 
 // const VendorSchema = Yup.object().shape({
@@ -51,7 +51,7 @@ const Mint = () => {
       date: "2022-08-02T13:19:34.122Z",
     };
 
-    await postData(`/add-to-token?id=${token}`, metaData);
+    await getAuthDataPost(`/add-to-token?id=${token}`, metaData);
     swal("Success !", "Data successfully add", "success");
   };
 

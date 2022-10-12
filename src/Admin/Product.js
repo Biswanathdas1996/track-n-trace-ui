@@ -5,7 +5,7 @@ import ThemeProvider from "../Theme/index";
 import ProductTable from "./components/ProductTable";
 import DashboardButtonCard from "./components/DashboardButtonCard";
 import Card from "./components/Card";
-import { getData } from "../functions/apiClient";
+import { getAuthData } from "../functions/apiClient";
 import Tree from "./components/Tree";
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ function Dashboard() {
   }, []);
 
   async function fetchAllPosts() {
-    const data = await getData(`/get-all-token`);
+    const data = await getAuthData(`/get-all-token`);
     setData(data);
   }
 

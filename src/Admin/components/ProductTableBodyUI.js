@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TableRow, TableCell } from "@mui/material";
-import { getData } from "../../functions/apiClient";
+import { getAuthData } from "../../functions/apiClient";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -42,7 +42,7 @@ export default function ProductTableBodyUI({ token }) {
 
   const getDetails = async () => {
     setLoading(true);
-    const data = await getData(`/get-token-data?id=${token}`);
+    const data = await getAuthData(`/get-token-data?id=${token}`);
     console.log("------>", data);
     if ("name" in data) {
       setNftData(data);

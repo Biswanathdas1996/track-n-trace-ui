@@ -11,7 +11,7 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
-import { getData } from "../functions/apiClient";
+import { getAuthData } from "../functions/apiClient";
 
 import Card from "@mui/material/Card";
 
@@ -32,7 +32,7 @@ export default function CustomizedTimeline() {
   }, []);
 
   const getDetails = async () => {
-    const data = await getData(`/get-token-data?id=${token}`);
+    const data = await getAuthData(`/get-token-data?id=${token}`);
     setNftData(data);
   };
 

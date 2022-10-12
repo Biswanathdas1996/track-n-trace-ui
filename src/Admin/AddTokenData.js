@@ -11,7 +11,7 @@ import DeleteOutlineIcon from "@mui/icons-material/Delete";
 
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
-import { postData } from "../functions/apiClient";
+import { getAuthDataPost } from "../functions/apiClient";
 import { useParams } from "react-router-dom";
 
 const Mint = () => {
@@ -36,7 +36,7 @@ const Mint = () => {
       attributes: attributes,
     };
 
-    await postData(`/initiate-token-info?id=${token}`, metaData);
+    await getAuthDataPost(`/initiate-token-info?id=${token}`, metaData);
     history("/dashboard");
 
     setResponse(responseData);
@@ -87,7 +87,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Category{" "}
                                   <span className="text-danger">*</span>
                                 </label>
@@ -116,7 +116,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Sub Category{" "}
                                   <span className="text-danger">*</span>
                                 </label>
@@ -143,7 +143,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Item Title{" "}
                                   <span className="text-danger">*</span>
                                 </label>
@@ -167,7 +167,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Description{" "}
                                   <span className="text-danger">*</span>
                                 </label>

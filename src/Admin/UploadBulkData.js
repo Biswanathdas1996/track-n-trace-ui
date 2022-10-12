@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import { postData } from "../functions/apiClient";
+import { getAuthDataPost } from "../functions/apiClient";
 import sampleCSV from "../sample/SampleFormat.csv";
 
 const Mint = () => {
@@ -64,7 +64,7 @@ const Mint = () => {
         attributes: array[i].attributes,
       };
 
-      await postData(`/initiate-token-info?id=${array[i].token}`, metaData);
+      await getAuthDataPost(`/initiate-token-info?id=${array[i].token}`, metaData);
       console.log("Token", array[i].token);
       console.log("metadata", metaData);
     }

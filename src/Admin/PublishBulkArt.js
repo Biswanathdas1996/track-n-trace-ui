@@ -5,7 +5,7 @@ import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import TransctionModal from "../components/shared/TransctionModal";
-import { postData } from "../functions/apiClient";
+import { getAuthDataPost } from "../functions/apiClient";
 
 const Mint = () => {
   const [start, setStart] = useState(false);
@@ -17,7 +17,7 @@ const Mint = () => {
     setStart(true);
 
     for (let i = 0; i < bulkNumber; i++) {
-      await postData(`/create`, {});
+      await getAuthDataPost(`/create`, {});
       console.log("Called instance:", i + 1);
     }
     history("/dashboard");
@@ -62,7 +62,7 @@ const Mint = () => {
                                 className="form-group"
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
-                                <label for="title" className="my-2">
+                                <label htmlFor="title" className="my-2">
                                   Bulk Item Number{0}
                                   <span className="text-danger">*</span>
                                 </label>

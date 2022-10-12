@@ -4,7 +4,7 @@ import { Avatar, AvatarGroup, Tooltip, Grid } from "@mui/material";
 
 const Avatars = ({ author }) => {
   return (
-    <Grid container justify="flex-start">
+    <Grid container justifyContent="flex-start">
       <AvatarGroup
         max={2}
         sx={{
