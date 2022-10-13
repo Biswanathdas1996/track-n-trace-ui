@@ -1,14 +1,13 @@
 import { Link as RouterLink } from 'react-router-dom';
-import React from "react";
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Link, Container, Typography } from "@mui/material";
+import { Card, Link, Container, Typography } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/Logo';
 // sections
-import { LoginForm } from '../sections/auth/login';
+import { RegisterForm } from '../sections/auth/register';
 
 // ----------------------------------------------------------------------
 
@@ -55,22 +54,21 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Login() {
+export default function Register() {
   const smUp = useResponsive('up', 'sm');
 
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <div title="Login">
+    <div title="Register">
       <RootStyle>
         <HeaderStyle>
           <Logo />
-
           {smUp && (
-            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" component={RouterLink} to="/register">
-                Get started
+            <Typography variant="body2" sx={{ mt: { md: -2 } }} alignContent="right" >
+              Already have an account? {''}
+              <Link variant="subtitle2" component={RouterLink} to="/login">
+                Login
               </Link>
             </Typography>
           )}
@@ -79,27 +77,39 @@ export default function Login() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Welcome to Track and Trace
+              Tracking and Tracing Products Digitally
             </Typography>
-            <img src="/static/illustrations/illustration_login.jpg" alt="login" />
+            <img alt="register" src="/static/illustrations/illustration_register.jpg" />
           </SectionStyle>
         )}
 
-        <Container maxWidth="sm">
+        <Container>
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Sign in to Track and Trace
+              Register to Track And Trace
             </Typography>
 
             <Typography sx={{ color: 'text.secondary', mb: 5 }}>Please enter your details below.</Typography>
 
-            <LoginForm />
+            <RegisterForm />
+
+            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+              By registering, I agree to the Track and Trace Terms and Conditions
+              <Link underline="always" color="text.primary" href="#">
+                <br/>Terms of Service
+              </Link>
+              {''} and {''}
+              <Link underline="always" color="text.primary" href="#">
+                Privacy Policy
+              </Link>
+              .
+            </Typography>
 
             {!smUp && (
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
-                <Link variant="subtitle2" component={RouterLink} to="/register">
-                  Get started
+              <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
+                Already have an account?{' '}
+                <Link variant="subtitle2" to="/login" component={RouterLink}>
+                  Login
                 </Link>
               </Typography>
             )}
