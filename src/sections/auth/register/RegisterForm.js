@@ -1,55 +1,102 @@
-import * as Yup from 'yup';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as Yup from "yup";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // form
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // @mui
-import { Stack, IconButton, InputAdornment, TextField, MenuItem } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import {
+  Stack,
+  IconButton,
+  InputAdornment,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 // components
-import Iconify from '../../../components/Iconify';
-import States from '../../../_mock/stateZones';
-import Roles from '../../../_mock/userRole';
+import Iconify from "../../../components/Iconify";
+import States from "../../../_mock/stateZones";
+import Roles from "../../../_mock/userRole";
+import { postData } from "../../../functions/apiClient";
+import { useToken } from "../../../Context/token";
 // ----------------------------------------------------------------------
 
-  const registerData = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phNo: '',
-    state: '',
-    userRole: '',
-    password: '',
-    confirmPassword: '',
-  };
+const registerData = {
+  user_fname: "",
+  user_lname: "",
+  user_email: "",
+  user_phoneno: "",
+  state_code: "",
+  role: "",
+  user_password: "",
+};
 
 export default function RegisterForm() {
   const navigate = useNavigate();
-
+  const [token, setToken] = useToken();
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().min(2, 'First Name is too short').max(25, 'First Name cannot be more than 25 characters').required('First name is required'),
-    lastName: Yup.string().min(2, 'Last Name is too short').max(25, 'Last Name cannot be more than 25 characters').required('Last name is required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    phNo: Yup.string().length(10, 'Phone Number must be of 10 Digits').required('Phone Number is required'),
-    state: Yup.string().required('State is required'),
-    userRole: Yup.string().required('Role is required'),
-    password: Yup.string().min(8, 'Password is too short').max(12, 'Password can be maximum of 12 characters').required('Password is required')
-      .matches(/^(?=.*[a-z])/, 'Must contain at least one lowercase character')
-      .matches(/^(?=.*[A-Z])/, 'Must contain at least one uppercase character')
-      .matches(/^(?=.*[0-9])/, 'Must contain at least one number')
-      .matches(/^(?=.*[!@#$%&])/, 'Must contain at least one special character'),
-    confirmPassword: Yup.string().required('Confirm Password is a required field').oneOf([Yup.ref('password'), null], 'Passwords must match'),
+    user_fname: Yup.string()
+      .min(2, "First Name is too short")
+      .max(25, "First Name cannot be more than 25 characters")
+      .required("First name is required"),
+    user_lname: Yup.string()
+      .min(2, "Last Name is too short")
+      .max(25, "Last Name cannot be more than 25 characters")
+      .required("Last name is required"),
+    user_email: Yup.string()
+      .email("Email must be a valid email address")
+      .required("Email is required"),
+    user_phoneno: Yup.string()
+      .length(10, "Phone Number must be of 10 Digits")
+      .required("Phone Number is required"),
+    state_code: Yup.string().required("State is required"),
+    role: Yup.string().required("Role is required"),
+    user_password: Yup.string()
+      .min(8, "Password is too short")
+      .max(12, "Password can be maximum of 12 characters")
+      .required("Password is required")
+      .matches(/^(?=.*[a-z])/, "Must contain at least one lowercase character")
+      .matches(/^(?=.*[A-Z])/, "Must contain at least one uppercase character")
+      .matches(/^(?=.*[0-9])/, "Must contain at least one number")
+      .matches(
+        /^(?=.*[!@#$%&])/,
+        "Must contain at least one special character"
+      ),
+    confirmPassword: Yup.string()
+      .required("Confirm Password is a required field")
+      .oneOf([Yup.ref("user_password"), null], "Passwords must match"),
   });
 
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: registerData,
+      validationSchema: RegisterSchema,
 
-  const {values, errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
-    initialValues: registerData,
-    validationSchema: RegisterSchema,
-    onSubmit : (values) => {
-      console.log("Submitted values",values);
-      navigate('/dashboard', { replace: true });
-    },
-  });
+      onSubmit: async () => {
+        const {
+          user_fname,
+          user_lname,
+          user_email,
+          user_phoneno,
+          state_code,
+          role,
+          user_password,
+        } = values;
+        const payLoad = {
+          user_fname,
+          user_lname,
+          user_email,
+          user_phoneno,
+          state_code,
+          role,
+          user_password,
+        };
+        const res = await postData("/registration", payLoad, null, true);
+        if (res.status_code === "200") {
+          setToken(res.data.user_token);
+          navigate("/dashboard");
+        } else alert("something went wrong");
+      },
+    });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
@@ -57,153 +104,190 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
           <TextField
-            id='firstName'
-            label='First name'
+            id="user_fname"
+            label="First name"
             fullWidth
-            value={values.firstName}
-            name='firstName'
-            autoComplete='off'
-            placeholder='First name'
+            value={values.user_fname}
+            name="user_fname"
+            autoComplete="off"
+            placeholder="First name"
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!errors.firstName && touched.firstName}
-            helperText={errors.firstName && touched.firstName ? errors.firstName : ''}
-            
+            error={!!errors.user_fname && touched.user_fname}
+            helperText={
+              errors.user_fname && touched.user_fname ? errors.user_fname : ""
+            }
           />
-          <TextField 
-            id='lastName'
-            label='Last name'
+          <TextField
+            id="user_lname"
+            label="Last name"
             fullWidth
-            value={values.lastName}
-            name='lastName'
-            autoComplete='off'
-            placeholder='Last name'
+            value={values.user_lname}
+            name="user_lname"
+            autoComplete="off"
+            placeholder="Last name"
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!errors.lastName && touched.lastName}
-            helperText={errors.lastName && touched.lastName ? errors.lastName : ''}
+            error={!!errors.user_lname && touched.user_lname}
+            helperText={
+              errors.user_lname && touched.user_lname ? errors.user_lname : ""
+            }
           />
         </Stack>
 
-        <TextField 
-          id='email'
-          label='Email'
+        <TextField
+          id="user_email"
+          label="Email"
           fullWidth
-          value={values.email}
-          type='email'
-          name='email'
-          autoComplete='off'
-          placeholder='Email'
+          value={values.user_email}
+          type="user_email"
+          name="user_email"
+          autoComplete="off"
+          placeholder="email"
           onChange={handleChange}
           onBlur={handleBlur}
-          error={!!errors.email && touched.email}
-          helperText={errors.email && touched.email ? errors.email : ''}
+          error={!!errors.user_email && touched.user_email}
+          helperText={
+            errors.user_email && touched.user_email ? errors.user_email : ""
+          }
         />
-        <TextField 
-          id='phNo'
-          label='Phone Number'
+        <TextField
+          id="user_phoneno"
+          label="Phone Number"
           fullWidth
-          value={values.phNo}
-          type='number'
-          name='phNo'
-          autoComplete='off'
-          placeholder='Phone Number'
+          value={values.user_phoneno}
+          type="number"
+          name="user_phoneno"
+          autoComplete="off"
+          placeholder="Phone Number"
           onChange={handleChange}
           onBlur={handleBlur}
-            error={!!errors.phNo && touched.phNo}
-          helperText={errors.phNo && touched.phNo ? errors.phNo : ''}
+          error={!!errors.user_phoneno && touched.user_phoneno}
+          helperText={
+            errors.user_phoneno && touched.user_phoneno
+              ? errors.user_phoneno
+              : ""
+          }
         />
-        <TextField 
-          id='state'
+        <TextField
+          id="state_code"
           select
-          label='State/UT'
+          label="State/UT"
           fullWidth
-          value={values.state}
-          name='state'
-          autoComplete='off'
-          placeholder='State/UT'
+          value={values.state_code}
+          name="state_code"
+          autoComplete="off"
+          placeholder="State/UT"
           onChange={handleChange}
           // zone needs to be handled from the API
           onBlur={handleBlur}
-          error={!!errors.state && touched.state}
-          helperText={errors.state && touched.state ? errors.state : ''}
+          error={!!errors.state_code && touched.state_code}
+          helperText={
+            errors.state_code && touched.state_code ? errors.state_code : ""
+          }
         >
           {States.map((option) => (
-            <MenuItem key={option.id} value={option.stateName}>
+            <MenuItem key={option.id} value={option.id}>
               {option.stateName}
             </MenuItem>
           ))}
         </TextField>
-        <TextField 
-          id='userRole'
+        <TextField
+          id="role"
           select
-          label='User role'
+          label="User role"
           fullWidth
-          value={values.userRole}
-          name='userRole'
-          autoComplete='off'
-          placeholder='User role'
+          value={values.role}
+          name="role"
+          autoComplete="off"
+          placeholder="User role"
           onChange={handleChange}
           onBlur={handleBlur}
-          error={!!errors.userRole && touched.userRole}
-          helperText={errors.userRole && touched.userRole ? errors.userRole : ''}
+          error={!!errors.role && touched.role}
+          helperText={errors.role && touched.role ? errors.role : ""}
         >
           {Roles.map((option) => (
-            <MenuItem key={option.id} value={option.roleName}>
+            <MenuItem key={option.id} value={option.id}>
               {option.roleName}
             </MenuItem>
           ))}
         </TextField>
-        
-        <TextField 
-          id='password'
-          label='Enter Password'
+
+        <TextField
+          id="user_password"
+          label="Enter Password"
           fullWidth
-          value={values.password}
-          name='password'
-          autoComplete='off'
-          placeholder='Enter Password'
+          value={values.user_password}
+          name="user_password"
+          autoComplete="off"
+          placeholder="Enter Password"
           onChange={handleChange}
           onBlur={handleBlur}
-          error={!!errors.password && touched.password}
-          helperText={errors.password && touched.password ? errors.password : ''}
-          type={showPassword ? 'text' : 'password'}
+          error={!!errors.user_password && touched.user_password}
+          helperText={
+            errors.user_password && touched.user_password
+              ? errors.user_password
+              : ""
+          }
+          type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end" onClick={() => setShowPassword(!showPassword)}>
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                <IconButton
+                  edge="end"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <Iconify
+                    icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
+                  />
                 </IconButton>
               </InputAdornment>
             ),
           }}
         />
-        <TextField 
-          id='confirmPassword'
-          label='Confirm Password'
+        <TextField
+          id="confirmPassword"
+          label="Confirm Password"
           fullWidth
           value={values.confirmPassword}
-          name='confirmPassword'
-          autoComplete='off'
-          placeholder='Confirm Password'
+          name="confirmPassword"
+          autoComplete="off"
+          placeholder="Confirm Password"
           onChange={handleChange}
           onBlur={handleBlur}
           error={!!errors.confirmPassword && touched.confirmPassword}
-          helperText={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : ''}
-          type={showConfPassword ? 'text' : 'password'}
+          helperText={
+            errors.confirmPassword && touched.confirmPassword
+              ? errors.confirmPassword
+              : ""
+          }
+          type={showConfPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end" onClick={() => setShowConfPassword(!showConfPassword)}>
-                  <Iconify icon={showConfPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                <IconButton
+                  edge="end"
+                  onClick={() => setShowConfPassword(!showConfPassword)}
+                >
+                  <Iconify
+                    icon={
+                      showConfPassword ? "eva:eye-fill" : "eva:eye-off-fill"
+                    }
+                  />
                 </IconButton>
               </InputAdornment>
             ),
           }}
-        /><LoadingButton fullWidth size="large" type="submit" variant="contained" style={{ padding: "14px 22px" }}>
+        />
+        <LoadingButton
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          style={{ padding: "14px 22px" }}
+        >
           Register
         </LoadingButton>
       </Stack>

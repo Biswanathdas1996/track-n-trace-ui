@@ -1,8 +1,8 @@
 // import { result } from "lodash";
-import { API_BASE_URL, AUTH_URL } from "../config";
+import { API_BASE_URL, AUTH_URL, LOCAL_BASE_URL } from "../config";
 
-export function getAuthData (url) {
-  return fetch(`${AUTH_URL}${'/GetConfig.php'}`)
+export function getAuthData(url) {
+  return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())
     .then((result) => {
       getData(url, result);
@@ -10,8 +10,8 @@ export function getAuthData (url) {
     .catch((error) => error);
 }
 
-export function getAuthDataPost (url, data) {
-  return fetch(`${AUTH_URL}${'/GetConfig.php'}`)
+export function getAuthDataPost(url, data) {
+  return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())
     .then((result) => {
       postData(url, data, result);
@@ -19,10 +19,10 @@ export function getAuthDataPost (url, data) {
     .catch((error) => error);
 }
 
-export function postData(url, data, authKey) {
+export function postData(url, data, authKey, localURL) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  if(authKey){
+  if (authKey) {
     myHeaders.append("app-config-token", authKey);
   }
 
@@ -35,16 +35,18 @@ export function postData(url, data, authKey) {
     redirect: "follow",
   };
 
-  return fetch(`${API_BASE_URL}${url}`, requestOptions)
+  return fetch(
+    localURL ? `${LOCAL_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
+    requestOptions
+  )
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => error);
 }
 
-export function getData(url, authKey) {
-
+export function getData(url, authKey, localURL) {
   var myHeaders = new Headers();
-  if(authKey){
+  if (authKey) {
     myHeaders.append("app-config-token", authKey);
   }
   var requestOptions = {
@@ -53,7 +55,10 @@ export function getData(url, authKey) {
     redirect: "follow",
   };
 
-  return fetch(`${API_BASE_URL}${url}`, requestOptions)
+  return fetch(
+    localURL ? `${LOCAL_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
+    requestOptions
+  )
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => error);
