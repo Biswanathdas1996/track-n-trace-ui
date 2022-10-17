@@ -42,9 +42,10 @@ export default function ProductTableBodyUI({ token, authTok }) {
 
   const getDetails = async () => {
     setLoading(true);
-    const data = await getData(`/get-token-data?id=${token}`, authTok);
-    console.log("------>", data);
-    if ("Batch No" in data) {
+    const data = await getData(`/get-token-data?token=${token}`, authTok);
+    // console.log("------>", data);
+    // console.log("typeof data", typeof(data));
+    if ((typeof(data) === 'object') && ("Batch No" in data)) {
       setNftData(data);
     } else {
       setNftData(blankObj);
