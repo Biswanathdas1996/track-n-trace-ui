@@ -89,13 +89,72 @@ const Mint = () => {
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
                                 <label htmlFor="title" className="my-2">
-                                  Product <span className="text-danger">*</span>
+                                  Category{" "}
+                                  <span className="text-danger">*</span>
                                 </label>
                                 <Field
                                   name="category"
                                   component="select"
                                   className={`form-control text-muted ${
                                     touched.category && errors.category
+                                      ? "is-invalid"
+                                      : ""
+                                  }`}
+                                  style={{ marginRight: 10, padding: 9 }}
+                                >
+                                  <option>-- Please select --</option>
+                                  {/* end pint fetching from getCategory */}
+
+                                  <option value="Lamborghini">
+                                    Lamborghini
+                                  </option>
+                                  <option value="Audi">Audi</option>
+                                  <option value="BMW">BMW</option>
+                                </Field>
+                              </div>
+                            </Grid>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                              <div
+                                className="form-group"
+                                style={{ marginLeft: 10, marginTop: 10 }}
+                              >
+                                <label htmlFor="title" className="my-2">
+                                  sub category{" "}
+                                  <span className="text-danger">*</span>
+                                </label>
+                                <Field
+                                  name="sub category"
+                                  component="select"
+                                  className={`form-control text-muted ${
+                                    touched.subcategory && errors.subcategory
+                                      ? "is-invalid"
+                                      : ""
+                                  }`}
+                                  style={{ marginRight: 10, padding: 9 }}
+                                >
+                                  <option>-- Please select --</option>
+
+                                  <option value="Lamborghini">
+                                    Lamborghini
+                                  </option>
+                                  <option value="Audi">Audi</option>
+                                  <option value="BMW">BMW</option>
+                                </Field>
+                              </div>
+                            </Grid>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                              <div
+                                className="form-group"
+                                style={{ marginLeft: 10, marginTop: 10 }}
+                              >
+                                <label htmlFor="title" className="my-2">
+                                  Product <span className="text-danger">*</span>
+                                </label>
+                                <Field
+                                  name="product"
+                                  component="select"
+                                  className={`form-control text-muted ${
+                                    touched.product && errors.product
                                       ? "is-invalid"
                                       : ""
                                   }`}

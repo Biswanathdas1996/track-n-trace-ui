@@ -50,9 +50,10 @@ export default function UserTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tokens?.map((token) => {
-                return <ProductTableBodyUI token={token} authTok={authTok} />;
-              })}
+              {tokens &&
+                tokens.map((token) => {
+                  return <ProductTableBodyUI token={token} authTok={authTok} />;
+                })}
             </TableBody>
           </Table>
         </TableContainer>
