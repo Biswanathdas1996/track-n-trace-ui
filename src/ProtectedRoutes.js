@@ -28,6 +28,6 @@ export const ProtectedRoute = (props) => {
       </div>
     );
   } else if (currentStep === "2") {
-    return <Navigate to="/Login" />;
+    return <Navigate to="/" />;
   }
 };

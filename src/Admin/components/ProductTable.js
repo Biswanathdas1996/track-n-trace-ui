@@ -9,6 +9,8 @@ import {
   TableHead,
 } from "@mui/material";
 import ProductTableBodyUI from "./ProductTableBodyUI";
+import { getAuthToken } from "../../functions/apiClient";
+import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   { id: "id", label: "Token", alignRight: false },
@@ -19,6 +21,15 @@ const TABLE_HEAD = [
 
 export default function UserTable(props) {
   const { tokens } = props;
+  const [authTok, setauthTok] = useState();
+
+  useEffect(() => {
+    const tokenGenerator = async () => {
+      const resp = await getAuthToken();
+      setauthTok(resp);
+    };
+    tokenGenerator();
+  }, []);
 
   return (
     <>
@@ -40,7 +51,7 @@ export default function UserTable(props) {
             </TableHead>
             <TableBody>
               {tokens?.map((token) => {
-                return <ProductTableBodyUI token={token} />;
+                return <ProductTableBodyUI token={token} authTok={authTok} />;
               })}
             </TableBody>
           </Table>

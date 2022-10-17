@@ -28,7 +28,7 @@ class Routing extends React.Component {
             </ProtectedRoute>
           }
         />
-        <Route exact path="/Login" element={<Login />} />
+        <Route exact path="/" element={<Login />} />
         <Route exact path="/Register" element={<Register />} />
         <Route
           exact
@@ -39,19 +39,87 @@ class Routing extends React.Component {
             </ProtectedRoute>
           }
         />
-        <Route exact path="/products" element={<ProductTable />} />
-        <Route exact path="/category" element={<CategoryDetails />} />
-        <Route exact path="/sub-category" element={<AddSubCategory />} />
-        <Route exact path="/publishArt" element={<PublishArt />} />
-        <Route exact path="/publishBulkArt" element={<PublishBulkArt />} />
-        <Route exact path="/uploadBulkData" element={<UploadBulkData />} />
+        <Route
+          exact
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <ProductTable />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/category"
+          element={
+            <ProtectedRoute>
+              <CategoryDetails />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/sub-category"
+          element={
+            <ProtectedRoute>
+              <AddSubCategory />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/publishArt"
+          element={
+            <ProtectedRoute>
+              <PublishArt />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/publishBulkArt"
+          element={
+            <ProtectedRoute>
+              <PublishBulkArt />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/uploadBulkData"
+          element={
+            <ProtectedRoute>
+              <UploadBulkData />{" "}
+            </ProtectedRoute>
+          }
+        />
         <Route
           exact
           path="/add-tracking-data/:token"
-          element={<AddTracking />}
+          element={
+            <ProtectedRoute>
+              <AddTracking />{" "}
+            </ProtectedRoute>
+          }
         />
-        <Route exact path="/transctions/:token" element={<Transction />} />
-        <Route exact path="/add-token-data/:token" element={<AddTokenData />} />
+        <Route
+          exact
+          path="/transctions/:token"
+          element={
+            <ProtectedRoute>
+              <Transction />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/add-token-data/:token"
+          element={
+            <ProtectedRoute>
+              <AddTokenData />{" "}
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           render={function () {

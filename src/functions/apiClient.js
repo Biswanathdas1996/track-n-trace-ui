@@ -1,21 +1,10 @@
 // import { result } from "lodash";
 import { API_BASE_URL, AUTH_URL, LOCAL_BASE_URL } from "../config";
 
-export function getAuthData(url) {
+export function getAuthToken() {
   return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())
-    .then((result) => {
-      getData(url, result);
-    })
-    .catch((error) => error);
-}
-
-export function getAuthDataPost(url, data) {
-  return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
-    .then((response) => response.json())
-    .then((result) => {
-      postData(url, data, result);
-    })
+    .then((result) => result)
     .catch((error) => error);
 }
 
@@ -25,16 +14,13 @@ export function postData(url, data, authKey, localURL) {
   if (authKey) {
     myHeaders.append("app-config-token", authKey);
   }
-
   var raw = JSON.stringify(data);
-
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: raw,
     redirect: "follow",
   };
-
   return fetch(
     localURL ? `${LOCAL_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
     requestOptions
@@ -63,3 +49,13 @@ export function getData(url, authKey, localURL) {
     .then((result) => result)
     .catch((error) => error);
 }
+
+export const getAuthData = async (url) => {
+  const token = await getAuthToken();
+  return await getData(url, token);
+};
+
+export const getAuthDataPost = async (url, data) => {
+  const token = await getAuthToken();
+  return await postData(url, data, token);
+};

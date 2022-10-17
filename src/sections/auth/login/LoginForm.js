@@ -15,7 +15,6 @@ import {
   FormGroup,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useToken } from "../../../Context/token";
 import { postData } from "../../../functions/apiClient";
 // components
 import Iconify from "../../../components/Iconify";
@@ -28,11 +27,9 @@ const loginData = {
   remember: true,
 };
 
-export default function LoginForm() {
-  const navigate = useNavigate();
-  const [token, setToken] = useToken();
+export default function LoginForm({ setToken }) {
+  const Navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
@@ -55,10 +52,10 @@ export default function LoginForm() {
       initialValues: loginData,
       validationSchema: LoginSchema,
       onSubmit: async () => {
-        const res = await postData("/login", values, null, true);
+        const res = await postData("/", values, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
-          navigate("/dashboard");
+          Navigate("/dashboard");
         } else alert("something went wrong");
       },
     });

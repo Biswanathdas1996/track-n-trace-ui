@@ -249,7 +249,7 @@ const Header = () => {
                   aria-controls={menuId}
                   variant="outlined"
                   sx={{ textTransform: "none" }}
-                  onClick={() => history("/login")}
+                  onClick={() => history("/")}
                 >
                   Connect
                 </Button>

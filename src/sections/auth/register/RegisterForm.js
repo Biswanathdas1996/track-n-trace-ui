@@ -17,7 +17,6 @@ import Iconify from "../../../components/Iconify";
 import States from "../../../_mock/stateZones";
 import Roles from "../../../_mock/userRole";
 import { postData } from "../../../functions/apiClient";
-import { useToken } from "../../../Context/token";
 // ----------------------------------------------------------------------
 
 const registerData = {
@@ -30,9 +29,8 @@ const registerData = {
   user_password: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({ setToken }) {
   const navigate = useNavigate();
-  const [token, setToken] = useToken();
   const RegisterSchema = Yup.object().shape({
     user_fname: Yup.string()
       .min(2, "First Name is too short")

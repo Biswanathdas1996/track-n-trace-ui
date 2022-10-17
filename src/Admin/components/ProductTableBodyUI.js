@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TableRow, TableCell } from "@mui/material";
-import { getAuthData } from "../../functions/apiClient";
+import { getData } from "../../functions/apiClient";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -13,7 +13,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { QR_BASE_URL } from "../../config";
 import Skeleton from "@mui/material/Skeleton";
 
-export default function ProductTableBodyUI({ token }) {
+export default function ProductTableBodyUI({ token, authTok }) {
   const [nftData, setNftData] = useState(null);
 
   const [loading, setLoading] = React.useState(false);
@@ -42,9 +42,9 @@ export default function ProductTableBodyUI({ token }) {
 
   const getDetails = async () => {
     setLoading(true);
-    const data = await getAuthData(`/get-token-data?id=${token}`);
+    const data = await getData(`/get-token-data?id=${token}`, authTok);
     console.log("------>", data);
-    if ("name" in data) {
+    if ("Batch No" in data) {
       setNftData(data);
     } else {
       setNftData(blankObj);
