@@ -53,7 +53,7 @@ export default function UserTable(props) {
               {tokens &&
                 tokens.map((token) => {
                   return <ProductTableBodyUI token={token} authTok={authTok} />;
-                })}
+              })}
             </TableBody>
           </Table>
         </TableContainer>

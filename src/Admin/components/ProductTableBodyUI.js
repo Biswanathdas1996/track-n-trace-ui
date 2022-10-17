@@ -142,14 +142,15 @@ export default function ProductTableBodyUI({ token, authTok }) {
                 endIcon={<SendIcon />}
                 style={{ marginRight: 10 }}
                 onClick={() => history(`/transctions/${token}`)}
-              ></Button>
-
+              >
+                View TXN
+              </Button>
               <Button
                 variant="contained"
                 color="warning"
                 endIcon={<AddCircleIcon />}
                 onClick={() => history(`/add-token-data/${token}`)}
-                disabled={nftData?.name}
+                disabled={nftData && ("Batch No" in nftData)}
               >
                 Add
               </Button>

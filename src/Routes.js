@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import PublishArt from "./Admin/PublishArt";
 import PublishBulkArt from "./Admin/PublishBulkArt";
 import UploadBulkData from "./Admin/UploadBulkData";
-import Dashboard from "./Admin/Dashboard";
+// import Dashboard from "./Admin/Dashboard";
 import Product from "./Admin/Product";
 import ProductTable from "./Admin/ProductData";
 import AddTracking from "./Admin/AddTracking";
@@ -19,7 +19,7 @@ class Routing extends React.Component {
   render() {
     return (
       <Routes>
-        <Route
+        {/* <Route
           exact
           path="/user"
           element={
@@ -27,7 +27,7 @@ class Routing extends React.Component {
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route exact path="/" element={<Login />} />
         <Route exact path="/Register" element={<Register />} />
         <Route

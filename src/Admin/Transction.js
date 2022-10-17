@@ -32,7 +32,7 @@ export default function CustomizedTimeline() {
   }, []);
 
   const getDetails = async () => {
-    const data = await getAuthData(`/get-token-data?id=${token}`);
+    const data = await getAuthData(`/get-token-data?token=${token}`);
     setNftData(data);
   };
 
