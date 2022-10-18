@@ -21,7 +21,9 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
   const getCategoryList = async () => {
     const res = await getRequestLoggedIn("/categoryList");
     if (res?.status_code === "200") {
-      return res.categoryList;
+      return res.categoryList.map((obj) => {
+        return obj.category_name;
+      });
     }
     return null;
   };
@@ -33,7 +35,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     };
     const res = await postRequestLoggedIn("/add-edit-category", data);
     if (res?.status_code === "200") {
-      const resdata = await getCategoryList;
+      const resdata = await getCategoryList();
       setCategoryDataArray(resdata);
       let categoryArr = categoryDataArray;
       categoryArr[id - 1] = cateoryText;
@@ -48,7 +50,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     };
     const res = await postRequestLoggedIn("/deleteCategory", data);
     if (res?.status_code === "200") {
-      const resData = await getCategoryList;
+      const resData = await getCategoryList();
       setCategoryDataArray(resData);
       let categoryName = categoryDataArray[id - 1];
       let categoryArr = categoryDataArray?.filter(

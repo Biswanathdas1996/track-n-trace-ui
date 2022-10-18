@@ -9,9 +9,12 @@ export const CategoryProvider = (props) => {
     const getCategoryList = async () => {
       const res = await getRequestLoggedIn("/categoryList");
       if (res?.status_code === "200") {
-        setCategoryDataArray(res.categoryList);
+        const categoryNameArray = res.categoryList.map((obj) => {
+          return obj.category_name;
+        });
+        setCategoryDataArray(categoryNameArray);
       }
-      setCategoryDataArray(null);
+      setCategoryDataArray([]);
     };
     getCategoryList();
   }, []);
