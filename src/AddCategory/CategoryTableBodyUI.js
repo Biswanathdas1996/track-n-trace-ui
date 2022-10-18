@@ -51,7 +51,6 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
       const resData = await getCategoryList;
       setCategoryDataArray(resData);
       let categoryName = categoryDataArray[id - 1];
-      console.log("--->", categoryName, "-->", categoryDataArray);
       let categoryArr = categoryDataArray?.filter(
         (element) => element !== categoryName
       );

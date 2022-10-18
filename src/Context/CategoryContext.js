@@ -4,18 +4,14 @@ import { getRequestLoggedIn } from "../functions/apiClient";
 export const CategoryContext = createContext();
 
 export const CategoryProvider = (props) => {
-  const [categoryDataArray, setCategoryDataArray] = useState([
-    "Electronics",
-    "Grocery",
-    "Appliances",
-  ]);
+  const [categoryDataArray, setCategoryDataArray] = useState([]);
   useEffect(() => {
     const getCategoryList = async () => {
       const res = await getRequestLoggedIn("/categoryList");
       if (res?.status_code === "200") {
-        return res.categoryList;
+        setCategoryDataArray(res.categoryList);
       }
-      return null;
+      setCategoryDataArray(null);
     };
     getCategoryList();
   }, []);
