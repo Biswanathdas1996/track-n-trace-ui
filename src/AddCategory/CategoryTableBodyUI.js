@@ -37,6 +37,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
       const resData = await getCategoryList();
       const categoryNameArray = resData.categoryList.map((obj) => obj);
       setCategoryDataArray(categoryNameArray);
+      setCategoryInputBool(false);
     }
   };
 
