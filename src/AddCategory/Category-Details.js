@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Card, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
-import "../Styles/category-details.css";
+import "../Styles/catFormFields.css";
 import { CategoryContext } from "../Context/CategoryContext";
 import {
   postRequestLoggedIn,
@@ -31,6 +31,7 @@ export default function CategoryDetails() {
     if (res.status_code === "200") {
       const categoryArr = await getCategoryList();
       setCategoryDataArray(categoryArr);
+      window.location.reload();
     }
   };
   return (
