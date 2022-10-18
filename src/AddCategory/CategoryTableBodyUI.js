@@ -35,8 +35,10 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
-      const categoryNameArray = resData && resData.categoryList && resData.categoryList.map((obj) => obj);
-      console.log('categoryNameArray',categoryNameArray);
+      const categoryNameArray =
+        resData &&
+        resData.categoryList &&
+        resData.categoryList.map((obj) => obj);
       setCategoryDataArray(categoryNameArray);
       setCategoryInputBool(false);
       window.location.reload();
@@ -50,9 +52,11 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     const res = await postRequestLoggedIn("/deleteCategory", data);
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
-      const categoryNameArray = resData && resData.categoryList && resData.categoryList.map((obj) => obj);
+      const categoryNameArray =
+        resData &&
+        resData.categoryList &&
+        resData.categoryList.map((obj) => obj);
       setCategoryDataArray(categoryNameArray);
-      console.log('res',res);
       window.location.reload();
     }
   };

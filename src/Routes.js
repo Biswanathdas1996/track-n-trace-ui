@@ -14,6 +14,7 @@ import Register from "./Admin/Register";
 import CategoryDetails from "./AddCategory/Category-Details";
 import AddSubCategory from "./AddSubCategory/Category-Details";
 import { ProtectedRoute } from "./ProtectedRoutes";
+import TokenTable from "./Admin/components/ProductTable";
 
 class Routing extends React.Component {
   render() {
@@ -71,7 +72,7 @@ class Routing extends React.Component {
           path="/tokens"
           element={
             <ProtectedRoute>
-              <Product />{" "}
+              <TokenTable />{" "}
             </ProtectedRoute>
           }
         />

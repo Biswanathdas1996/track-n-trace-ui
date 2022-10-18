@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import "../Styles/admin-styles.css";
 import ThemeProvider from "../Theme/index";
 import ProductTable from "./components/ProductTable";
-import { getAuthData } from "../functions/apiClient";
+import { TokenDetailsContext } from "../Context/TokensDetailsContext";
 
 function Dashboard() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchAllPosts();
-  }, []);
-
-  async function fetchAllPosts() {
-
-    const data = await getAuthData(`/get-all-token`);
-    setData(data);
-  }
+  const [tokenDetailsArray] = useContext(TokenDetailsContext);
 
   return (
     <ThemeProvider>
       <div className="container">
         <Grid container spacing={2}>
           <Grid item sm={12}>
-            {data && <ProductTable tokens={data} />}
+            {tokenDetailsArray && <ProductTable />}
           </Grid>
         </Grid>
       </div>

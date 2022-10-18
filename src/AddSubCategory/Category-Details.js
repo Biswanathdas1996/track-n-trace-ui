@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
-import "../Styles/category-details.css";
+import "../Styles/catFormFields.css";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);

@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import "../Styles/admin-styles.css";
 import ThemeProvider from "../Theme/index";
 import ProductTable from "./components/ProductTable";
 import DashboardButtonCard from "./components/DashboardButtonCard";
 import Card from "./components/Card";
-import { getAuthData } from "../functions/apiClient";
 import Tree from "./components/Tree";
+import { TokenDetailsContext } from "../Context/TokensDetailsContext";
 function Dashboard() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchAllPosts();
-  }, []);
-
-  async function fetchAllPosts() {
-    const data = await getAuthData(`/get-all-token`);
-    setData(data);
-  }
-
+  const [tokenDetailsArray] = useContext(TokenDetailsContext);
   return (
     <ThemeProvider>
       <div className="container">
@@ -43,11 +33,8 @@ function Dashboard() {
             <Tree />
           </Grid>
           <Grid item sm={6}>
-            <Card token={data?.length} text="Token Count" />
+            <Card token={tokenDetailsArray?.length} text="Token Count" />
             <Card token={10} text="Product Count" />
-          </Grid>
-          <Grid item sm={12}>
-            {data && <ProductTable tokens={data} />}
           </Grid>
         </Grid>
       </div>
