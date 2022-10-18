@@ -4,12 +4,22 @@ import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
 import "../Styles/category-details.css";
 import { CategoryContext } from "../Context/CategoryContext";
-import { postRequestLoggedIn } from "../functions/apiClient";
+import {
+  postRequestLoggedIn,
+  getRequestLoggedIn,
+} from "../functions/apiClient";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
+  const getCategoryList = async () => {
+    const res = await getRequestLoggedIn("/categoryList");
+    if (res?.status_code === "200") {
+      return res.categoryList.map((obj) => obj);
+    }
+    return null;
+  };
 
   const handleAddCategory = async () => {
     setCategoryBool(false);
@@ -19,14 +29,8 @@ export default function CategoryDetails() {
     };
     const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res.status_code === "200") {
-      let categoryObj = {
-        cat_id: res.cat_id,
-        cat_name: categoryName,
-      };
-      let categoryArr = [...categoryDataArray];
-      categoryArr.push(categoryObj);
+      const categoryArr = await getCategoryList();
       setCategoryDataArray(categoryArr);
-      console.log("categoryDataArray", categoryDataArray);
     }
   };
   return (

@@ -44,10 +44,10 @@ export default function CategoryTable(props) {
               {categoryData?.map((category, i) => {
                 return (
                   <CategoryTableBodyUI
-                    category={category.cat_name}
+                    category={category.category_name}
                     id={i + 1}
                     key={`${category}-${i}`}
-                    idData={category.cat_id}
+                    idData={category.category_id}
                   />
                 );
               })}
