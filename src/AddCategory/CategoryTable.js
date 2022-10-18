@@ -17,7 +17,7 @@ const TABLE_HEAD = [
 ];
 
 export default function CategoryTable(props) {
-  const { categoryData } = props;
+  const { categoryData, idData } = props;
 
   return (
     <>
@@ -47,6 +47,7 @@ export default function CategoryTable(props) {
                     category={category}
                     id={i + 1}
                     key={`${category}-${i}`}
+                    idData={idData}
                   />
                 );
               })}

@@ -4,19 +4,29 @@ import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
 import "../Styles/category-details.css";
 import { CategoryContext } from "../Context/CategoryContext";
+import { postRequestLoggedIn } from "../functions/apiClient";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
   const [categoryName, setCategoryName] = useState("");
+  const [idData, setIdData] = useState();
+
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
 
-  const handleAddCategory = () => {
+  const handleAddCategory = async () => {
     setCategoryBool(false);
-    let categoryArr = [...categoryDataArray];
-    categoryArr.push(categoryName);
-    setCategoryDataArray(categoryArr);
+    const data = {
+      category_name: categoryName,
+      category_id: "",
+    };
+    const res = await postRequestLoggedIn("/add_edit_category", data);
+    if (res.status_code === "200") {
+      setIdData(res.cat_id);
+      let categoryArr = [...categoryDataArray];
+      categoryArr.push(categoryName);
+      setCategoryDataArray(categoryArr);
+    }
   };
-  console.log("------>", categoryDataArray);
   return (
     <div className="container">
       <Grid container spacing={2}>
@@ -82,7 +92,7 @@ export default function CategoryDetails() {
 
         <Grid item sm={12}>
           {categoryDataArray?.length > 0 && (
-            <CategoryTable categoryData={categoryDataArray} />
+            <CategoryTable categoryData={categoryDataArray} idData={idData} />
           )}
         </Grid>
       </Grid>
