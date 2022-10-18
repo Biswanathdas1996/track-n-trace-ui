@@ -20,8 +20,8 @@ export default function CategoryDetails() {
     const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res.status_code === "200") {
       let categoryObj = {
-        category_id: res.cat_id,
-        category_name: categoryName,
+        cat_id: res.cat_id,
+        cat_name: categoryName,
       };
       let categoryArr = [...categoryDataArray];
       categoryArr.push(categoryObj);
