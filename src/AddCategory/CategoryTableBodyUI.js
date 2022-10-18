@@ -34,8 +34,9 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     };
     const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res?.status_code === "200") {
-      const resdata = await getCategoryList();
-      setCategoryDataArray(resdata);
+      const resData = await getCategoryList();
+      const categoryNameArray = resData.categoryList.map((obj) => obj);
+      setCategoryDataArray(categoryNameArray);
     }
   };
 
@@ -46,7 +47,8 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     const res = await postRequestLoggedIn("/deleteCategory", data);
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
-      setCategoryDataArray(resData);
+      const categoryNameArray = resData.categoryList.map((obj) => obj);
+      setCategoryDataArray(categoryNameArray);
     }
   };
 
