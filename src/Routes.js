@@ -59,6 +59,25 @@ class Routing extends React.Component {
         />
         <Route
           exact
+          path="/product"
+          element={
+            <ProtectedRoute>
+              <CategoryDetails />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/tokens"
+          element={
+            <ProtectedRoute>
+              <Product />{" "}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          exact
           path="/sub-category"
           element={
             <ProtectedRoute>

@@ -131,7 +131,7 @@ const ResponsiveAppBar = () => {
               sx={{ my: 2, color: "white", display: "block" }}
               href="/category"
             >
-              Product
+              Category
             </Button>
             <Button
               key={3}
@@ -139,7 +139,23 @@ const ResponsiveAppBar = () => {
               sx={{ my: 2, color: "white", display: "block" }}
               href="/sub-category"
             >
-              Category
+              Sub Category
+            </Button>
+            <Button
+              key={3}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/product"
+            >
+              Product
+            </Button>
+            <Button
+              key={3}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/tokens"
+            >
+              Tokens
             </Button>
             <Button
               key={4}
