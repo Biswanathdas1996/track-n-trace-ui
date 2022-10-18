@@ -13,8 +13,9 @@ export const CategoryProvider = (props) => {
           return obj.category_name;
         });
         setCategoryDataArray(categoryNameArray);
+      } else {
+        setCategoryDataArray([]);
       }
-      setCategoryDataArray([]);
     };
     getCategoryList();
   }, []);

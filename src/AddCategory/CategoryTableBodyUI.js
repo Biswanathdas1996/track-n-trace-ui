@@ -33,7 +33,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
       category_name: cateoryText,
       category_id: id,
     };
-    const res = await postRequestLoggedIn("/add-edit-category", data);
+    const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res?.status_code === "200") {
       const resdata = await getCategoryList();
       setCategoryDataArray(resdata);
