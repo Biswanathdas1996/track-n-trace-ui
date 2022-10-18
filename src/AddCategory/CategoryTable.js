@@ -17,7 +17,7 @@ const TABLE_HEAD = [
 ];
 
 export default function CategoryTable(props) {
-  const { categoryData, idData } = props;
+  const { categoryData } = props;
 
   return (
     <>
@@ -44,10 +44,10 @@ export default function CategoryTable(props) {
               {categoryData?.map((category, i) => {
                 return (
                   <CategoryTableBodyUI
-                    category={category}
+                    category={category.cat_name}
                     id={i + 1}
                     key={`${category}-${i}`}
-                    idData={idData}
+                    idData={category.cat_id}
                   />
                 );
               })}

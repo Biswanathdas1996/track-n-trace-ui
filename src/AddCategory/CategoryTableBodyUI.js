@@ -12,7 +12,6 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
   const [categoryInputBool, setCategoryInputBool] = useState(false);
   const [cateoryText, setCategoryText] = useState(category);
-  console.log("aaa", categoryDataArray);
 
   const handleEditCategory = () => {
     setCategoryInputBool(true);
@@ -37,10 +36,6 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     if (res?.status_code === "200") {
       const resdata = await getCategoryList();
       setCategoryDataArray(resdata);
-      let categoryArr = categoryDataArray;
-      categoryArr[id - 1] = cateoryText;
-      setCategoryDataArray(categoryArr);
-      setCategoryInputBool(false);
     }
   };
 
@@ -52,11 +47,6 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
       setCategoryDataArray(resData);
-      let categoryName = categoryDataArray[id - 1];
-      let categoryArr = categoryDataArray?.filter(
-        (element) => element !== categoryName
-      );
-      setCategoryDataArray(categoryArr);
     }
   };
 

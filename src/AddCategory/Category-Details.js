@@ -9,8 +9,6 @@ import { postRequestLoggedIn } from "../functions/apiClient";
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
   const [categoryName, setCategoryName] = useState("");
-  const [idData, setIdData] = useState();
-
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
 
   const handleAddCategory = async () => {
@@ -21,10 +19,14 @@ export default function CategoryDetails() {
     };
     const res = await postRequestLoggedIn("/add_edit_category", data);
     if (res.status_code === "200") {
-      setIdData(res.cat_id);
+      let categoryObj = {
+        cat_id: res.cat_id,
+        cat_name: categoryName,
+      };
       let categoryArr = [...categoryDataArray];
-      categoryArr.push(categoryName);
+      categoryArr.push(categoryObj);
       setCategoryDataArray(categoryArr);
+      console.log("categoryDataArray", categoryDataArray);
     }
   };
   return (
@@ -92,7 +94,7 @@ export default function CategoryDetails() {
 
         <Grid item sm={12}>
           {categoryDataArray?.length > 0 && (
-            <CategoryTable categoryData={categoryDataArray} idData={idData} />
+            <CategoryTable categoryData={categoryDataArray} />
           )}
         </Grid>
       </Grid>
