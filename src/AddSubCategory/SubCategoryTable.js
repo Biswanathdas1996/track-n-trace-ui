@@ -8,16 +8,17 @@ import {
   TableContainer,
   TableHead,
 } from "@mui/material";
-import CategoryTableBodyUI from "./CategoryTableBodyUI";
+import SubCategoryTableBodyUI from "./SubCategoryTableBodyUI";
 
 const TABLE_HEAD = [
   { id: "id", label: "ID", alignRight: false },
-  { id: "name", label: "name", alignRight: false },
+  { id: "catName", label: "Category", alignRight: false },
+  { id: "subCatName", label: "Sub-Category", alignRight: false },
   { id: "action", label: "Action", alignRight: false },
 ];
 
-export default function CategoryTable(props) {
-  const { categoryData } = props;
+export default function SubCategoryTable(props) {
+  const { subCategoryData } = props;
 
   return (
     <>
@@ -41,12 +42,15 @@ export default function CategoryTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {categoryData?.map((category, i) => {
+              {subCategoryData?.map((data, i) => {
                 return (
-                  <CategoryTableBodyUI
-                    category={category}
+                  <SubCategoryTableBodyUI
+                    category={data.category_name}
+                    subCategory={data.subcategory_name}
                     id={i + 1}
-                    key={`${category}-${i}`}
+                    key={`${data.sub_category_id}-${i}`}
+                    subCatIdData={data.sub_category_id}
+                    catIdData={data.category_id}
                   />
                 );
               })}

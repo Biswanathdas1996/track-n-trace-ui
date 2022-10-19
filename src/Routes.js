@@ -12,7 +12,7 @@ import AddTokenData from "./Admin/AddTokenData";
 import Login from "./Admin/Login";
 import Register from "./Admin/Register";
 import CategoryDetails from "./AddCategory/Category-Details";
-import AddSubCategory from "./AddSubCategory/Category-Details";
+import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
 import TokenTable from "./Admin/components/ProductTable";
 
@@ -82,7 +82,7 @@ class Routing extends React.Component {
           path="/sub-category"
           element={
             <ProtectedRoute>
-              <AddSubCategory />{" "}
+              <SubCategoryDetails />{" "}
             </ProtectedRoute>
           }
         />

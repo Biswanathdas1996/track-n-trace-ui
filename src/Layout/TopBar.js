@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -142,7 +142,7 @@ const ResponsiveAppBar = () => {
               Sub Category
             </Button>
             <Button
-              key={3}
+              key={4}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/product"
@@ -150,7 +150,7 @@ const ResponsiveAppBar = () => {
               Product
             </Button>
             <Button
-              key={3}
+              key={5}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/tokens"
@@ -158,7 +158,7 @@ const ResponsiveAppBar = () => {
               Tokens
             </Button>
             <Button
-              key={4}
+              key={6}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/uploadBulkData"
@@ -166,7 +166,7 @@ const ResponsiveAppBar = () => {
               Upload Bulk Data
             </Button>
             <Button
-              key={5}
+              key={7}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishBulkArt"
@@ -174,7 +174,7 @@ const ResponsiveAppBar = () => {
               Create Bulk token
             </Button>
             <Button
-              key={6}
+              key={8}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishArt"

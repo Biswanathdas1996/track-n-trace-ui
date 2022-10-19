@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { CategoryProvider } from "./Context/CategoryContext";
+import { SubCategoryProvider } from "./Context/SubCategoryContext";
 import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 
 ReactDOM.render(
@@ -12,7 +13,9 @@ ReactDOM.render(
     <BrowserRouter>
       <TokenDetailsProvider>
         <CategoryProvider>
-          <App />
+          <SubCategoryProvider>
+            <App />
+          </SubCategoryProvider>
         </CategoryProvider>
       </TokenDetailsProvider>
     </BrowserRouter>
