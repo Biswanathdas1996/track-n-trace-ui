@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
-import { getAuthDataPost, getRequestLoggedIn } from "../functions/apiClient";
+import {
+  getRequestLoggedIn,
+  postRequestLoggedIn,
+} from "../functions/apiClient";
 import TextError from "./components/ErrorComponent";
 
 const validationSchema = Yup.object().shape({
@@ -37,29 +40,26 @@ const Mint = () => {
   }, []);
   let history = useNavigate();
 
-  const saveData = async ({
-    title,
-    product,
-    attributes,
-    batchNumber,
-    description,
-  }) => {
+  const saveData = async ({ title, attributes, batchNumber, description }) => {
     setStart(true);
     let responseData;
 
     const metaData = {
-      name: title,
-      category: cat,
-      subCategory: subCat,
-      product: product,
+      category_id: cat,
+      subcategory_id: subCat,
+      product_id: product,
       image: null,
+      title: title,
       description: description,
-      attributes: attributes,
-      batchNumber: batchNumber,
+      token_attributes: attributes,
+      batch_no: batchNumber,
       transction: [],
     };
-    await getAuthDataPost(`/create`, metaData);
-    history("/dashboard");
+    const res = await postRequestLoggedIn(`/createToken`, metaData);
+    if (res.status_code === "200") {
+      console.log("response of create token", res);
+      history("/dashboard");
+    }
 
     setResponse(responseData);
   };
