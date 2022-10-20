@@ -13,6 +13,7 @@ import Login from "./Admin/Login";
 import Register from "./Admin/Register";
 import CategoryDetails from "./AddCategory/Category-Details";
 import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
+import ProductDetails from "./AddProduct/ProductDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
 import TokenTable from "./Admin/components/ProductTable";
 
@@ -60,10 +61,19 @@ class Routing extends React.Component {
         />
         <Route
           exact
+          path="/sub-category"
+          element={
+            <ProtectedRoute>
+              <SubCategoryDetails />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
           path="/product"
           element={
             <ProtectedRoute>
-              <CategoryDetails />{" "}
+              <ProductDetails />{" "}
             </ProtectedRoute>
           }
         />
@@ -73,16 +83,6 @@ class Routing extends React.Component {
           element={
             <ProtectedRoute>
               <TokenTable />{" "}
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          exact
-          path="/sub-category"
-          element={
-            <ProtectedRoute>
-              <SubCategoryDetails />{" "}
             </ProtectedRoute>
           }
         />
