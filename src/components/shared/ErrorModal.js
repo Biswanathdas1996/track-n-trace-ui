@@ -21,8 +21,8 @@ const ErrorModal = ({ open, setOpen, errorText }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             background: "white",
-            width: "50%",
-            height: "50%",
+            width: "30%",
+            height: "30%",
             color: "black",
           }}
         >

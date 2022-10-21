@@ -96,7 +96,6 @@ export default function RegisterForm({ setToken }) {
           setToken(res.data.user_token);
           navigate("/dashboard");
         } else if (res.status_code === "500") {
-          console.log("res", res);
           setModalView(true);
           setErrorRegister(res.message);
         }
