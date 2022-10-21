@@ -52,7 +52,7 @@ export default function LoginForm({ setToken }) {
       initialValues: loginData,
       validationSchema: LoginSchema,
       onSubmit: async () => {
-        const res = await postData("/", values, null, true);
+        const res = await postData("/login", values, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
           Navigate("/dashboard");
