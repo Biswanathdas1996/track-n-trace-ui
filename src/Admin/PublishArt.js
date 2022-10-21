@@ -17,7 +17,6 @@ const validationSchema = Yup.object().shape({
   batchNumber: Yup.string().required("Batch Number is required"),
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-
   attributes: Yup.array().required("Attributes are required"),
 });
 
@@ -251,8 +250,6 @@ const Mint = () => {
                                     value={product}
                                   >
                                     <option>-- Please select --</option>
-                                    <option value="123">-- user --</option>
-
                                     {productArray &&
                                       productArray.map((item) => (
                                         <option value={item.productid}>

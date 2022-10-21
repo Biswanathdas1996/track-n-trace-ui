@@ -16,6 +16,7 @@ import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
 import ProductDetails from "./AddProduct/ProductDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
 import TokenTable from "./Admin/components/ProductTable";
+import { CategoryProvider } from "./Context/CategoryContext";
 
 class Routing extends React.Component {
   render() {

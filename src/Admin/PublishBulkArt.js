@@ -63,7 +63,7 @@ const Mint = () => {
                                 style={{ marginLeft: 10, marginTop: 10 }}
                               >
                                 <label htmlFor="title" className="my-2">
-                                  Bulk Item Number{0}
+                                  Bulk Item Number
                                   <span className="text-danger">*</span>
                                 </label>
 

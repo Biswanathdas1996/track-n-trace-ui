@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { CategoryProvider } from "./Context/CategoryContext";
+import { ProductProvider } from "./Context/ProductContext";
+import { SubCategoryProvider } from "./Context/SubCategoryContext";
+import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 import { useToken } from "./Context/token";
 import { getData } from "./functions/apiClient";
 import TopBar from "./Layout/TopBar";
@@ -24,7 +28,13 @@ export const ProtectedRoute = (props) => {
     return (
       <div>
         <TopBar />
-        {props.children}
+        <TokenDetailsProvider>
+          <CategoryProvider>
+            <SubCategoryProvider>
+              <ProductProvider>{props.children}</ProductProvider>
+            </SubCategoryProvider>
+          </CategoryProvider>
+        </TokenDetailsProvider>
       </div>
     );
   } else if (currentStep === "2") {

@@ -4,23 +4,11 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { CategoryProvider } from "./Context/CategoryContext";
-import { SubCategoryProvider } from "./Context/SubCategoryContext";
-import { ProductProvider } from "./Context/ProductContext";
-import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TokenDetailsProvider>
-        <CategoryProvider>
-          <SubCategoryProvider>
-            <ProductProvider>
-              <App />
-            </ProductProvider>
-          </SubCategoryProvider>
-        </CategoryProvider>
-      </TokenDetailsProvider>
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
