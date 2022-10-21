@@ -1,20 +1,11 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import swal from "sweetalert";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button } from "@material-ui/core";
 
 const ErrorModal = ({ open, setOpen, errorText }) => {
-  const kk = () => {
-    swal({
-      title: "Oops!",
-      text: `${errorText ? errorText : "something went wrong!"}`,
-      icon: "error",
-      button: "Close",
-    });
-  };
   return (
     <Grid>
       <Modal
