@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import ErrorModal from "../../../components/shared/ErrorModal";
 // components
 import Iconify from "../../../components/Iconify";
 import States from "../../../_mock/stateZones";
@@ -30,6 +31,8 @@ const registerData = {
 };
 
 export default function RegisterForm({ setToken }) {
+  const [modalView, setModalView] = useState(false);
+  const [errorRegister, setErrorRegister] = useState("");
   const navigate = useNavigate();
   const RegisterSchema = Yup.object().shape({
     user_fname: Yup.string()
@@ -92,7 +95,11 @@ export default function RegisterForm({ setToken }) {
         if (res.status_code === "200") {
           setToken(res.data.user_token);
           navigate("/dashboard");
-        } else alert("something went wrong");
+        } else if (res.status_code === "500") {
+          console.log("res", res);
+          setModalView(true);
+          setErrorRegister(res.message);
+        }
       },
     });
 
@@ -100,195 +107,205 @@ export default function RegisterForm({ setToken }) {
   const [showConfPassword, setShowConfPassword] = useState(false);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack spacing={3}>
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+    <div>
+      {modalView && (
+        <ErrorModal
+          open={modalView}
+          setOpen={setModalView}
+          errorText={errorRegister}
+        />
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={3}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+            <TextField
+              id="user_fname"
+              label="First name"
+              fullWidth
+              value={values.user_fname}
+              name="user_fname"
+              autoComplete="off"
+              placeholder="First name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={!!errors.user_fname && touched.user_fname}
+              helperText={
+                errors.user_fname && touched.user_fname ? errors.user_fname : ""
+              }
+            />
+            <TextField
+              id="user_lname"
+              label="Last name"
+              fullWidth
+              value={values.user_lname}
+              name="user_lname"
+              autoComplete="off"
+              placeholder="Last name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={!!errors.user_lname && touched.user_lname}
+              helperText={
+                errors.user_lname && touched.user_lname ? errors.user_lname : ""
+              }
+            />
+          </Stack>
+
           <TextField
-            id="user_fname"
-            label="First name"
+            id="user_email"
+            label="Email"
             fullWidth
-            value={values.user_fname}
-            name="user_fname"
+            value={values.user_email}
+            type="user_email"
+            name="user_email"
             autoComplete="off"
-            placeholder="First name"
+            placeholder="email"
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!errors.user_fname && touched.user_fname}
+            error={!!errors.user_email && touched.user_email}
             helperText={
-              errors.user_fname && touched.user_fname ? errors.user_fname : ""
+              errors.user_email && touched.user_email ? errors.user_email : ""
             }
           />
           <TextField
-            id="user_lname"
-            label="Last name"
+            id="user_phoneno"
+            label="Phone Number"
             fullWidth
-            value={values.user_lname}
-            name="user_lname"
+            value={values.user_phoneno}
+            type="number"
+            name="user_phoneno"
             autoComplete="off"
-            placeholder="Last name"
+            placeholder="Phone Number"
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!errors.user_lname && touched.user_lname}
+            error={!!errors.user_phoneno && touched.user_phoneno}
             helperText={
-              errors.user_lname && touched.user_lname ? errors.user_lname : ""
+              errors.user_phoneno && touched.user_phoneno
+                ? errors.user_phoneno
+                : ""
             }
           />
+          <TextField
+            id="state_code"
+            select
+            label="State/UT"
+            fullWidth
+            value={values.state_code}
+            name="state_code"
+            autoComplete="off"
+            placeholder="State/UT"
+            onChange={handleChange}
+            // zone needs to be handled from the API
+            onBlur={handleBlur}
+            error={!!errors.state_code && touched.state_code}
+            helperText={
+              errors.state_code && touched.state_code ? errors.state_code : ""
+            }
+          >
+            {States.map((option) => (
+              <MenuItem key={option.id} value={option.id}>
+                {option.stateName}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            id="role"
+            select
+            label="User role"
+            fullWidth
+            value={values.role}
+            name="role"
+            autoComplete="off"
+            placeholder="User role"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.role && touched.role}
+            helperText={errors.role && touched.role ? errors.role : ""}
+          >
+            {Roles.map((option) => (
+              <MenuItem key={option.id} value={option.id}>
+                {option.roleName}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            id="user_password"
+            label="Enter Password"
+            fullWidth
+            value={values.user_password}
+            name="user_password"
+            autoComplete="off"
+            placeholder="Enter Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.user_password && touched.user_password}
+            helperText={
+              errors.user_password && touched.user_password
+                ? errors.user_password
+                : ""
+            }
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    <Iconify
+                      icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
+                    />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            id="confirmPassword"
+            label="Confirm Password"
+            fullWidth
+            value={values.confirmPassword}
+            name="confirmPassword"
+            autoComplete="off"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.confirmPassword && touched.confirmPassword}
+            helperText={
+              errors.confirmPassword && touched.confirmPassword
+                ? errors.confirmPassword
+                : ""
+            }
+            type={showConfPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    onClick={() => setShowConfPassword(!showConfPassword)}
+                  >
+                    <Iconify
+                      icon={
+                        showConfPassword ? "eva:eye-fill" : "eva:eye-off-fill"
+                      }
+                    />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            style={{ padding: "14px 22px" }}
+          >
+            Register
+          </LoadingButton>
         </Stack>
-
-        <TextField
-          id="user_email"
-          label="Email"
-          fullWidth
-          value={values.user_email}
-          type="user_email"
-          name="user_email"
-          autoComplete="off"
-          placeholder="email"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!errors.user_email && touched.user_email}
-          helperText={
-            errors.user_email && touched.user_email ? errors.user_email : ""
-          }
-        />
-        <TextField
-          id="user_phoneno"
-          label="Phone Number"
-          fullWidth
-          value={values.user_phoneno}
-          type="number"
-          name="user_phoneno"
-          autoComplete="off"
-          placeholder="Phone Number"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!errors.user_phoneno && touched.user_phoneno}
-          helperText={
-            errors.user_phoneno && touched.user_phoneno
-              ? errors.user_phoneno
-              : ""
-          }
-        />
-        <TextField
-          id="state_code"
-          select
-          label="State/UT"
-          fullWidth
-          value={values.state_code}
-          name="state_code"
-          autoComplete="off"
-          placeholder="State/UT"
-          onChange={handleChange}
-          // zone needs to be handled from the API
-          onBlur={handleBlur}
-          error={!!errors.state_code && touched.state_code}
-          helperText={
-            errors.state_code && touched.state_code ? errors.state_code : ""
-          }
-        >
-          {States.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.stateName}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="role"
-          select
-          label="User role"
-          fullWidth
-          value={values.role}
-          name="role"
-          autoComplete="off"
-          placeholder="User role"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!errors.role && touched.role}
-          helperText={errors.role && touched.role ? errors.role : ""}
-        >
-          {Roles.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.roleName}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="user_password"
-          label="Enter Password"
-          fullWidth
-          value={values.user_password}
-          name="user_password"
-          autoComplete="off"
-          placeholder="Enter Password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!errors.user_password && touched.user_password}
-          helperText={
-            errors.user_password && touched.user_password
-              ? errors.user_password
-              : ""
-          }
-          type={showPassword ? "text" : "password"}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <Iconify
-                    icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
-                  />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          id="confirmPassword"
-          label="Confirm Password"
-          fullWidth
-          value={values.confirmPassword}
-          name="confirmPassword"
-          autoComplete="off"
-          placeholder="Confirm Password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={!!errors.confirmPassword && touched.confirmPassword}
-          helperText={
-            errors.confirmPassword && touched.confirmPassword
-              ? errors.confirmPassword
-              : ""
-          }
-          type={showConfPassword ? "text" : "password"}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  onClick={() => setShowConfPassword(!showConfPassword)}
-                >
-                  <Iconify
-                    icon={
-                      showConfPassword ? "eva:eye-fill" : "eva:eye-off-fill"
-                    }
-                  />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          style={{ padding: "14px 22px" }}
-        >
-          Register
-        </LoadingButton>
-      </Stack>
-    </form>
+      </form>
+    </div>
   );
 }
