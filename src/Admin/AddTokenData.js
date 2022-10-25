@@ -36,7 +36,7 @@ const Mint = () => {
       attributes: attributes,
     };
 
-    await getAuthDataPost(`/initiate-token-info?id=${token}`, metaData);
+    await getAuthDataPost(`/initiate-token-info?token=${token}`, metaData);
     history("/dashboard");
 
     setResponse(responseData);
