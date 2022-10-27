@@ -1,20 +1,74 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
+import "react-toastify/dist/ReactToastify.css";
 
 const ErrorModal = ({ open, setOpen, errorText }) => {
   return (
     <Grid>
-      <Modal
+      <Dialog
         open={open}
         onClose={setOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="error-title"
+        aria-describedby="errror-desc"
       >
-        <Box
+        <DialogTitle
+          id="error-title"
+          style={{
+            margin: "auto",
+            textTransform: "none",
+            color: "red",
+            fontSize: "1.75rem",
+            paddingBottom: "0",
+          }}
+        >
+          Oops
+        </DialogTitle>
+        \
+        <DialogContent id="errror-desc">
+          <DialogContentText
+            style={{
+              margin: "auto",
+              color: "black",
+              paddingTop: "0",
+              textAlign: "center",
+            }}
+          >
+            {errorText ? (
+              errorText
+            ) : (
+              <div>
+                <div>Something went wrong..!! </div>
+                <div>Please try agaain in some time.</div>
+              </div>
+            )}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          style={{
+            paddingBottom: "20px",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="error"
+            style={{
+              margin: "auto",
+              textTransform: "none",
+            }}
+            onClick={() => setOpen(false)}
+          >
+            Close
+          </Button>
+        </DialogActions>
+        {/* <Box
           style={{
             position: "absolute",
             top: "50%",
@@ -35,22 +89,22 @@ const ErrorModal = ({ open, setOpen, errorText }) => {
               alignContent: "center",
             }}
           >
-            <div>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {errorText}
-              </Typography>
-              <Button
-                type="button"
-                variant="contained"
-                style={{ margin: 9, padding: 8, borderRadius: 4 }}
-                onClick={() => setOpen(false)}
-              >
-                Close
-              </Button>
+            <div className="aaaa">
+              <div>{errorText ? errorText : "Something went wrong"}</div>
+              <div>
+                <Button
+                  type="button"
+                  variant="contained"
+                  style={{ margin: 9, padding: 8, borderRadius: 4 }}
+                  onClick={() => setOpen(false)}
+                >
+                  Close
+                </Button>
+              </div>
             </div>
           </div>
-        </Box>
-      </Modal>
+        </Box> */}
+      </Dialog>
     </Grid>
   );
 };

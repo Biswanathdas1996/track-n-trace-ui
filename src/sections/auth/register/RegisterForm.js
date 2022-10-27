@@ -107,13 +107,11 @@ export default function RegisterForm({ setToken }) {
 
   return (
     <div>
-      {modalView && (
-        <ErrorModal
-          open={modalView}
-          setOpen={setModalView}
-          errorText={errorRegister}
-        />
-      )}
+      <ErrorModal
+        open={modalView}
+        setOpen={setModalView}
+        errorText={errorRegister}
+      />
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={3}>
