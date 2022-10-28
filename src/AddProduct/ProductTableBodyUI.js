@@ -53,7 +53,6 @@ export default function ProductTableBodyUI({
         productName: productText,
         edit: true,
       });
-      console.log("qwerty", response, prodDetails);
     }
     return null;
   };

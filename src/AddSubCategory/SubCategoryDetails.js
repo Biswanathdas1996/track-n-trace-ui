@@ -25,6 +25,8 @@ export default function SubCategoryDetails() {
   const [subCategoryData, setSubCategoryData] = useState({
     categoryId: "",
     subCategoryName: "",
+    subCategoryId: "",
+    edit: false,
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
@@ -89,11 +91,35 @@ export default function SubCategoryDetails() {
       window.location.reload();
     }
   };
+  const cancelFun = () => {
+    if (subCategoryData.edit) {
+      setSubCategoryData({ ...subCategoryData, edit: false });
+    } else {
+      setSubCategoryBool(false);
+    }
+  };
 
+  const handleUpdateSubCategory = async () => {
+    const data = {
+      category_id: subCategoryData.categoryId,
+      sub_category_id: subCategoryData.subCategoryId,
+      sub_category_name: subCategoryData.subCategoryName,
+    };
+    const res = await postRequestLoggedIn("/add_edit_subcategory", data);
+    if (res?.status_code === "200") {
+      const resData = await getSubCategoryList();
+      const subCategoryNameArray =
+        resData &&
+        resData.sub_categoryList &&
+        resData.sub_categoryList.map((obj) => obj);
+      setSubCategoryDataArray(subCategoryNameArray);
+      window.location.reload();
+    }
+  };
   return (
     <div className="container">
       <Grid container spacing={2}>
-        {subCategoryBool && (
+        {(subCategoryBool || subCategoryData.edit) && (
           <Card
             sx={{
               boxShadow: 0,
@@ -136,6 +162,7 @@ export default function SubCategoryDetails() {
                 // onChange={(e) => setSubCategoryName(e.target.value)}
                 onChange={(e) => handleChange(e)}
                 name="subCategoryName"
+                value={subCategoryData?.subCategoryName}
               />
             </Grid>
             <Grid
@@ -147,7 +174,11 @@ export default function SubCategoryDetails() {
                 type="button"
                 variant="contained"
                 style={{ margin: 9, padding: 8, borderRadius: 4 }}
-                onClick={() => handleAddSubCategory()}
+                onClick={
+                  subCategoryData?.edit
+                    ? handleUpdateSubCategory
+                    : () => handleAddSubCategory()
+                }
               >
                 Submit
               </Button>
@@ -159,14 +190,14 @@ export default function SubCategoryDetails() {
                   borderRadius: 4,
                 }}
                 className="cancel-button"
-                onClick={() => setSubCategoryBool(false)}
+                onClick={cancelFun}
               >
                 Cancel
               </Button>
             </Grid>
           </Card>
         )}
-        {!subCategoryBool && (
+        {!(subCategoryBool || subCategoryData.edit) && (
           <Grid item sm={12}>
             <Button
               type="button"
@@ -183,11 +214,17 @@ export default function SubCategoryDetails() {
           </Grid>
         )}
 
-        <Grid item sm={12}>
-          {subCategoryDataArray?.length > 0 && (
-            <SubCategoryTable subCategoryData={subCategoryDataArray} />
-          )}
-        </Grid>
+        {!subCategoryData.edit && (
+          <Grid item sm={12}>
+            {subCategoryDataArray?.length > 0 && (
+              <SubCategoryTable
+                subCategoryData={subCategoryDataArray}
+                subCategoryDetails={subCategoryData}
+                setSubCategoryDetails={setSubCategoryData}
+              />
+            )}
+          </Grid>
+        )}
       </Grid>
     </div>
   );

@@ -18,7 +18,7 @@ const TABLE_HEAD = [
 ];
 
 export default function SubCategoryTable(props) {
-  const { subCategoryData } = props;
+  const { subCategoryData, subCategoryDetails, setSubCategoryDetails } = props;
 
   return (
     <>
@@ -51,6 +51,8 @@ export default function SubCategoryTable(props) {
                     key={`${data.sub_category_id}-${i}`}
                     subCatIdData={data.sub_category_id}
                     catIdData={data.category_id}
+                    subCategoryDetails={subCategoryDetails}
+                    setSubCategoryDetails={setSubCategoryDetails}
                   />
                 );
               })}

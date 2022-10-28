@@ -15,6 +15,8 @@ export default function SubCategoryTableBodyUI({
   id,
   subCatIdData,
   catIdData,
+  subCategoryDetails,
+  setSubCategoryDetails,
 }) {
   const [subCategoryDataArray, setSubCategoryDataArray] =
     useContext(SubCategoryContext);
@@ -31,6 +33,20 @@ export default function SubCategoryTableBodyUI({
     if (res?.status_code === "200") {
       return res.sub_categoryList.map((obj) => {
         return obj, console.log("obj", obj);
+      });
+    }
+    return null;
+  };
+  const getSubCategoryDetail = async (id) => {
+    const response = await getRequestLoggedIn(
+      `/subcategoryDetails?subcat_id=${id}`
+    );
+    if ((response.state_code = "200")) {
+      setSubCategoryDetails({
+        categoryId: response?.data?.category_id,
+        subCategoryId: id,
+        subCategoryName: subCategoryText,
+        edit: true,
       });
     }
     return null;
@@ -112,7 +128,7 @@ export default function SubCategoryTableBodyUI({
         )}
       </TableCell>
       <TableCell align="center">
-        <EditIcon onClick={() => handleEditSubCategory()} />
+        <EditIcon onClick={() => getSubCategoryDetail(subCatIdData)} />
         <DeleteIcon
           style={{ color: "red", marginLeft: "10px" }}
           onClick={() => handleDeleteSubCategory(subCatIdData)}

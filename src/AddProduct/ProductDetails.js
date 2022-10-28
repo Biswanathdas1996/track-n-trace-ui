@@ -68,7 +68,6 @@ export default function ProductDetails({ editFormObject }) {
       product_image: "",
       product_attributes: [],
     };
-    console.log("dataProduct", data, productData);
     const res = await postRequestLoggedIn("/add_edit_product", data);
     if (res?.status_code === "200") {
       const resData = await getProductList();
@@ -86,14 +85,12 @@ export default function ProductDetails({ editFormObject }) {
       setDefaultSubCat({ ...defaultSubCat, category_id: "" });
       setDefault(false);
       const subCategoryArr = await getSubCategoryList(valEvent);
-      console.log("123456", subCategoryArr);
       setSubCategoryDataArray(subCategoryArr);
     }
     if (nameEvent === "sub_category_id") {
       setDefault(false);
     }
     setProductData((prevalue) => {
-      console.log("prevalue", prevalue);
       return {
         ...prevalue,
         [nameEvent]: valEvent,
