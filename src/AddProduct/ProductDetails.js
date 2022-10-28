@@ -24,7 +24,6 @@ export default function ProductDetails({ editFormObject }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [productBool, setProductBool] = useState(false);
   const [isDefault, setDefault] = useState(true);
-  const [editDetails, setEditDetails] = useState();
   const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
   const [productData, setProductData] = useState({
     categoryId: "",
