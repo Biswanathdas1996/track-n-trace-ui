@@ -19,8 +19,8 @@ const TABLE_HEAD = [
 ];
 
 export default function ProductTable(props) {
-  const { productData } = props;
-  console.log('productData',productData);
+  const { productData, prodDetails, setProdDetails } = props;
+  console.log("productData", productData);
 
   return (
     <>
@@ -55,6 +55,8 @@ export default function ProductTable(props) {
                     prodIdData={data.productid}
                     subCatIdData={data.sub_category_id}
                     catIdData={data.category_id}
+                    prodDetails={prodDetails}
+                    setProdDetails={setProdDetails}
                   />
                 );
               })}

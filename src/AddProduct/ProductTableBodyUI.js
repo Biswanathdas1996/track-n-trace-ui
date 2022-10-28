@@ -8,6 +8,7 @@ import {
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
+import ProductDetails from "./ProductDetails";
 
 export default function ProductTableBodyUI({
   category,
@@ -17,6 +18,8 @@ export default function ProductTableBodyUI({
   prodIdData,
   subCatIdData,
   catIdData,
+  prodDetails,
+  setProdDetails,
 }) {
   const [productDataArray, setProductDataArray] = useContext(ProductContext);
   const [productInputBool, setProductInputBool] = useState(false);
@@ -38,24 +41,21 @@ export default function ProductTableBodyUI({
     return null;
   };
 
-  const handleUpdateProduct = async (id) => {
-    const data = {
-      category_id: catIdData,
-      subcategory_id: subCatIdData,
-      product_id: id,
-      product_name: productText,
-      product_image: "",
-      product_attributes: [],
-    };
-    const res = await postRequestLoggedIn("/add_edit_product", data);
-    if (res?.status_code === "200") {
-      const resData = await getProductList();
-      const productNameArray =
-        resData && resData.productList && resData.productList.map((obj) => obj);
-      setProductDataArray(productNameArray);
-      setProductInputBool(false);
-      window.location.reload();
+  const getProdDetail = async (id) => {
+    const response = await getRequestLoggedIn(
+      `/productDetails?product_id=${id}`
+    );
+    if ((response.state_code = "200")) {
+      setProdDetails({
+        categoryId: response?.data?.category_id,
+        sub_category_id: response?.data?.subcategory_id,
+        product_id: id,
+        productName: productText,
+        edit: true,
+      });
+      console.log("qwerty", response, prodDetails);
     }
+    return null;
   };
 
   const handleDeleteProduct = async (id) => {
@@ -81,7 +81,6 @@ export default function ProductTableBodyUI({
       <TableCell align="center">
         <b>{subCategoryText}</b>
       </TableCell>
-
       <TableCell align="center">
         {productInputBool ? (
           <div>
@@ -93,7 +92,7 @@ export default function ProductTableBodyUI({
             <Button
               variant="contained"
               style={{ width: 10, height: 25, marginTop: 14, marginLeft: 3 }}
-              onClick={() => handleUpdateProduct(prodIdData)}
+              onClick={() => getProdDetail(prodIdData)}
             >
               Update
             </Button>
@@ -111,8 +110,9 @@ export default function ProductTableBodyUI({
           </b>
         )}
       </TableCell>
+
       <TableCell align="center">
-        <EditIcon onClick={() => handleEditProduct()} />
+        <EditIcon onClick={() => getProdDetail(prodIdData)} />
         <DeleteIcon
           style={{ color: "red", marginLeft: "10px" }}
           onClick={() => handleDeleteProduct(prodIdData)}

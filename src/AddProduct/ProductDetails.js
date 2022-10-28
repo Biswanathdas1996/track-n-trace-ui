@@ -19,19 +19,21 @@ import {
   getRequestLoggedIn,
 } from "../functions/apiClient";
 
-export default function ProductDetails() {
+export default function ProductDetails({ editFormObject }) {
   const [defaultSubCat, setDefaultSubCat] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [productBool, setProductBool] = useState(false);
   const [isDefault, setDefault] = useState(true);
-
+  const [editDetails, setEditDetails] = useState();
   const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
   const [productData, setProductData] = useState({
     categoryId: "",
     sub_category_id: "",
     product_id: "",
     productName: "",
+    edit: false,
   });
+  const isEditForm = productData.edit;
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
   const [productDataArray, setProductDataArray] = useContext(ProductContext);
 
@@ -57,6 +59,25 @@ export default function ProductDetails() {
       return res.productList.map((obj) => obj);
     }
     return null;
+  };
+  const editProd = async () => {
+    const data = {
+      category_id: productData?.categoryId,
+      subcategory_id: productData?.sub_category_id,
+      product_id: productData?.product_id,
+      product_name: productData?.productName,
+      product_image: "",
+      product_attributes: [],
+    };
+    console.log("dataProduct", data, productData);
+    const res = await postRequestLoggedIn("/add_edit_product", data);
+    if (res?.status_code === "200") {
+      const resData = await getProductList();
+      const productNameArray =
+        resData && resData.productList && resData.productList.map((obj) => obj);
+      setProductDataArray(productNameArray);
+      window.location.reload();
+    }
   };
 
   const handleChange = async (event) => {
@@ -89,6 +110,14 @@ export default function ProductDetails() {
     return null;
   };
 
+  const cancelFun = () => {
+    if (productData.edit) {
+      setProductData({ ...productData, edit: false });
+    } else {
+      setProductBool(false);
+    }
+  };
+
   const handleAddProduct = async () => {
     setProductBool(false);
     const data = {
@@ -112,7 +141,7 @@ export default function ProductDetails() {
   return (
     <div className="container">
       <Grid container spacing={2}>
-        {productBool && (
+        {(productBool || isEditForm) && (
           <Card
             sx={{
               boxShadow: 0,
@@ -189,6 +218,7 @@ export default function ProductDetails() {
                 // onChange={(e) => setProductName(e.target.value)}
                 onChange={(e) => handleChange(e)}
                 name="productName"
+                value={productData?.productName}
               />
             </Grid>
             <Grid
@@ -200,7 +230,7 @@ export default function ProductDetails() {
                 type="button"
                 variant="contained"
                 style={{ margin: 9, padding: 8, borderRadius: 4 }}
-                onClick={() => handleAddProduct()}
+                onClick={productData.edit ? editProd : () => handleAddProduct()}
               >
                 Submit
               </Button>
@@ -212,14 +242,14 @@ export default function ProductDetails() {
                   borderRadius: 4,
                 }}
                 className="cancel-button"
-                onClick={() => setProductBool(false)}
+                onClick={cancelFun}
               >
                 Cancel
               </Button>
             </Grid>
           </Card>
         )}
-        {!productBool && (
+        {!(productBool || productData.edit) && (
           <Grid item sm={12}>
             <Button
               type="button"
@@ -236,11 +266,17 @@ export default function ProductDetails() {
           </Grid>
         )}
 
-        <Grid item sm={12}>
-          {productDataArray?.length > 0 && (
-            <ProductTable productData={productDataArray} />
-          )}
-        </Grid>
+        {!isEditForm && (
+          <Grid item sm={12}>
+            {productDataArray?.length > 0 && (
+              <ProductTable
+                productData={productDataArray}
+                prodDetails={productData}
+                setProdDetails={setProductData}
+              />
+            )}
+          </Grid>
+        )}
       </Grid>
     </div>
   );
