@@ -3,6 +3,8 @@ import { TableRow, TableCell, TextField, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CategoryContext } from "../Context/CategoryContext";
+import { useNavigate } from "react-router-dom";
+
 import {
   getRequestLoggedIn,
   postRequestLoggedIn,
@@ -12,6 +14,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
   const [categoryInputBool, setCategoryInputBool] = useState(false);
   const [cateoryText, setCategoryText] = useState(category);
+  const navigation = useNavigate();
 
   const handleEditCategory = () => {
     setCategoryInputBool(true);
@@ -82,7 +85,15 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
             </Button>
           </div>
         ) : (
-          <b>{cateoryText}</b>
+          <b>
+            <Button
+              onClick={() => {
+                navigation(`/sub-category?catId=${idData}`);
+              }}
+            >
+              {cateoryText}
+            </Button>
+          </b>
         )}
       </TableCell>
       <TableCell align="center">

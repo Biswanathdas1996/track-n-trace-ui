@@ -1,5 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Button, Card, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import React, { useState, useContext, useEffect } from "react";
+import {
+  Button,
+  Card,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import SubCategoryTable from "./SubCategoryTable";
 import { SubCategoryContext } from "../Context/SubCategoryContext";
@@ -11,15 +20,31 @@ import {
 } from "../functions/apiClient";
 
 export default function SubCategoryDetails() {
+  const [defaultCat, setDefaultCat] = useState();
   const [subCategoryBool, setSubCategoryBool] = useState(false);
   const [subCategoryData, setSubCategoryData] = useState({
     categoryId: "",
     subCategoryName: "",
   });
+  const [searchParams, setSearchParams] = useSearchParams();
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
-  const [subCategoryDataArray, setSubCategoryDataArray] = useContext(SubCategoryContext);
-  console.log('categoryDataArray',categoryDataArray);
-  console.log('subCategoryDataArray',subCategoryDataArray);
+  const [subCategoryDataArray, setSubCategoryDataArray] =
+    useContext(SubCategoryContext);
+  useEffect(() => {
+    const idParam = searchParams.get("catId");
+    const getCatDetail = async () => {
+      const res = await getRequestLoggedIn(
+        `/categoryDetails?cat_id=${idParam}`
+      );
+
+      if ((res.state_code = "200")) {
+        setSubCategoryBool(true);
+        setDefaultCat(res.data);
+        setSearchParams({});
+      }
+    };
+    idParam && getCatDetail();
+  }, []);
 
   const getSubCategoryList = async () => {
     const res = await getRequestLoggedIn("/sub_categoryList");
@@ -27,33 +52,36 @@ export default function SubCategoryDetails() {
       return res.sub_categoryList.map((obj) => obj);
     }
     return null;
-  }
+  };
 
   const handleChange = (event) => {
-    console.log('event.target', event.target);
+    if (event.target.name === "categoryId") {
+      setDefaultCat({ ...defaultCat, category_id: "" });
+    }
+    console.log("event", event);
     let name = event.target.name;
     let val = event.target.value;
 
-    console.log('name', name);
-    console.log('val', val);
+    console.log("name", name);
+    console.log("val", val);
 
-    setSubCategoryData ((prevalue) => {
-      console.log('prevalue',prevalue);
+    setSubCategoryData((prevalue) => {
+      console.log("prevalue", prevalue);
       return {
         ...prevalue,
-        [name] : val,
-      }
-    })
-  }
+        [name]: val,
+      };
+    });
+  };
 
   const handleAddSubCategory = async () => {
     setSubCategoryBool(false);
     const data = {
-      category_id: subCategoryData.categoryId,
+      category_id: defaultCat?.category_id || subCategoryData.categoryId,
       sub_category_id: "",
       sub_category_name: subCategoryData.subCategoryName,
-    }
-    console.log('data',data);
+    };
+    console.log("dataAdded", data);
     const res = await postRequestLoggedIn("/add_edit_subcategory", data);
     if (res.status_code === "200") {
       const subCategoryArr = await getSubCategoryList();
@@ -85,12 +113,14 @@ export default function SubCategoryDetails() {
                   label="Category"
                   id="fullWidth"
                   onChange={(e) => handleChange(e)}
-                  value={subCategoryData.categoryId}
-                  name='categoryId'
+                  value={defaultCat?.category_id || subCategoryData.categoryId}
+                  name="categoryId"
                 >
-                  {categoryDataArray.map(cat =>
-                    (<MenuItem key={cat.category_id} value={cat.category_id}>{cat.category_name}</MenuItem>)
-                  )}
+                  {categoryDataArray.map((cat) => (
+                    <MenuItem key={cat.category_id} value={cat.category_id}>
+                      {cat.category_name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -105,7 +135,7 @@ export default function SubCategoryDetails() {
                 id="fullWidth"
                 // onChange={(e) => setSubCategoryName(e.target.value)}
                 onChange={(e) => handleChange(e)}
-                name='subCategoryName'
+                name="subCategoryName"
               />
             </Grid>
             <Grid

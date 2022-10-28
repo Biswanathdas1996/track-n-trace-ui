@@ -3,7 +3,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
@@ -28,7 +28,9 @@ const Mint = () => {
   const [product, setProduct] = useState();
   const [catArray, setCatArray] = useState([]);
   const [subCatArray, setSubCatArray] = useState([]);
+  const [defaultProd, setDefaultProd] = useState();
   const [productArray, setProductArray] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const catDetails = async () => {
@@ -37,6 +39,20 @@ const Mint = () => {
     };
     catDetails();
   }, []);
+  useEffect(() => {
+    const idParam = searchParams.get("prodId");
+    const getProdDetail = async () => {
+      const res = await getRequestLoggedIn(
+        `/productDetails?product_id=${idParam}`
+      );
+
+      if ((res.state_code = "200")) {
+        setDefaultProd(res.data);
+        setSearchParams({});
+      }
+    };
+    idParam && getProdDetail();
+  }, []);
   let history = useNavigate();
 
   const saveData = async ({ title, attributes, batchNumber, description }) => {
@@ -44,9 +60,9 @@ const Mint = () => {
     let responseData;
 
     const metaData = {
-      category_id: cat,
-      subcategory_id: subCat,
-      product_id: product,
+      category_id: defaultProd?.category_id || cat,
+      subcategory_id: defaultProd?.subcategory_id || subCat,
+      product_id: defaultProd?.product_id || product,
       image: null,
       title: title,
       description: description,
@@ -57,7 +73,7 @@ const Mint = () => {
     const res = await postRequestLoggedIn(`/createToken`, metaData);
     if (res.status_code === "200") {
       console.log("response of create token", res);
-      history("/dashboard");
+      history("/tokens");
     }
 
     setResponse(responseData);
@@ -160,13 +176,19 @@ const Mint = () => {
                                     }`}
                                     style={{ marginRight: 10, padding: 9 }}
                                     onChange={async (e) => {
+                                      setDefaultProd({
+                                        ...defaultProd,
+                                        category_id: "",
+                                        subcategory_id: "",
+                                        product_id: "",
+                                      });
                                       setCat(e.target.value);
                                       const res = await getSubCategoryList(
                                         e.target.value
                                       );
                                       setSubCatArray(res);
                                     }}
-                                    value={cat}
+                                    value={defaultProd?.category_id || cat}
                                   >
                                     <option>-- Please select --</option>
                                     {catArray &&
@@ -201,6 +223,12 @@ const Mint = () => {
                                     }`}
                                     style={{ marginRight: 10, padding: 9 }}
                                     onChange={async (e) => {
+                                      setDefaultProd({
+                                        ...defaultProd,
+                                        subcategory_id: "",
+                                        product_id: "",
+                                      });
+
                                       setSubCat(e.target.value);
                                       const res = await getProductList(
                                         cat,
@@ -208,10 +236,24 @@ const Mint = () => {
                                       );
                                       setProductArray(res);
                                     }}
-                                    disabled={!cat}
-                                    value={subCat}
+                                    disabled={
+                                      !(defaultProd?.category_id || cat)
+                                    }
+                                    value={
+                                      defaultProd?.subcategory_id || subCat
+                                    }
                                   >
-                                    <option>-- Please select --</option>
+                                    {defaultProd?.subcategory_id && (
+                                      <option
+                                        value={defaultProd?.subcategory_id}
+                                      >
+                                        {defaultProd?.subcategory_name}
+                                      </option>
+                                    )}
+
+                                    {!defaultProd?.subcategory_id && (
+                                      <option>-- Please select --</option>
+                                    )}
                                     {subCatArray &&
                                       subCatArray.map((item) => (
                                         <option value={item.sub_category_id}>
@@ -244,12 +286,27 @@ const Mint = () => {
                                     }`}
                                     style={{ marginRight: 10, padding: 9 }}
                                     onChange={(e) => {
+                                      setDefaultProd({
+                                        ...defaultProd,
+                                        product_id: "",
+                                      });
+
                                       setProduct(e.target.value);
                                     }}
-                                    disabled={!subCat}
-                                    value={product}
+                                    disabled={
+                                      !(defaultProd?.subcategory_id || subCat)
+                                    }
+                                    value={defaultProd?.product_id || product}
                                   >
-                                    <option>-- Please select --</option>
+                                    {defaultProd?.product_id && (
+                                      <option value={defaultProd?.product_id}>
+                                        {defaultProd?.product_name}
+                                      </option>
+                                    )}
+                                    {!defaultProd?.product_id && (
+                                      <option>-- Please select --</option>
+                                    )}
+
                                     {productArray &&
                                       productArray.map((item) => (
                                         <option value={item.productid}>
@@ -281,7 +338,9 @@ const Mint = () => {
                                         : ""
                                     }`}
                                     style={{ marginRight: 10, padding: 9 }}
-                                    disabled={!product}
+                                    disabled={
+                                      !(defaultProd?.product_id || product)
+                                    }
                                   />
                                   <ErrorMessage
                                     name={"batchNumber"}
@@ -308,7 +367,9 @@ const Mint = () => {
                                         : ""
                                     }`}
                                     style={{ marginRight: 10, padding: 9 }}
-                                    disabled={!product}
+                                    disabled={
+                                      !(defaultProd?.product_id || product)
+                                    }
                                   />
                                   <ErrorMessage
                                     name={"title"}
@@ -333,7 +394,9 @@ const Mint = () => {
                                     name="description"
                                     placeholder="Please enter some descriptions"
                                     style={{ width: "100%" }}
-                                    disabled={!product}
+                                    disabled={
+                                      !(defaultProd?.product_id || product)
+                                    }
                                     className={`form-control text-muted ${
                                       touched.description && errors.description
                                         ? "is-invalid"
@@ -434,7 +497,12 @@ const Mint = () => {
                                             onClick={() =>
                                               arrayHelpers.push("")
                                             }
-                                            disabled={!product}
+                                            disabled={
+                                              !(
+                                                defaultProd?.product_id ||
+                                                product
+                                              )
+                                            }
                                           >
                                             {/* show this when user has removed all attributes from the list */}
                                             Add attributes

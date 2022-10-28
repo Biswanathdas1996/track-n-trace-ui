@@ -1,7 +1,16 @@
-import React, { useState, useContext } from "react";
-import { Button, Card, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import React, { useState, useContext, useEffect } from "react";
+import {
+  Button,
+  Card,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import ProductTable from "./ProductTable";
+import { useSearchParams } from "react-router-dom";
 import { ProductContext } from "../Context/ProductContext";
 import { CategoryContext } from "../Context/CategoryContext";
 import "../Styles/catFormFields.css";
@@ -11,19 +20,36 @@ import {
 } from "../functions/apiClient";
 
 export default function ProductDetails() {
+  const [defaultSubCat, setDefaultSubCat] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [productBool, setProductBool] = useState(false);
+  const [isDefault, setDefault] = useState(true);
+
   const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
   const [productData, setProductData] = useState({
     categoryId: "",
-    subcategory_id: "",
+    sub_category_id: "",
     product_id: "",
     productName: "",
   });
   const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
   const [productDataArray, setProductDataArray] = useContext(ProductContext);
-  console.log('categoryDataArray',categoryDataArray);
-  console.log('subCategoryDataArray',subCategoryDataArray);
-  console.log('productDataArray',productDataArray);
+
+  useEffect(() => {
+    const idParam = searchParams.get("subCatId");
+    const getSubCatDetail = async () => {
+      const res = await getRequestLoggedIn(
+        `/subcategoryDetails?subcat_id=${idParam}`
+      );
+
+      if ((res.state_code = "200")) {
+        setProductBool(true);
+        setDefaultSubCat(res.data);
+        setSearchParams({});
+      }
+    };
+    idParam && getSubCatDetail();
+  }, []);
 
   const getProductList = async () => {
     const res = await getRequestLoggedIn("/productList");
@@ -31,47 +57,50 @@ export default function ProductDetails() {
       return res.productList.map((obj) => obj);
     }
     return null;
-  }
+  };
 
   const handleChange = async (event) => {
-    let name = event.target.name;
-    let val = event.target.value;
-
-    console.log('name', name);
-    console.log('val', val);
-
-    if (name === "categoryId") {
-      const subCategoryArr = await getSubCategoryList(val);
+    let nameEvent = event.target.name;
+    let valEvent = event.target.value;
+    if (nameEvent === "categoryId") {
+      setDefaultSubCat({ ...defaultSubCat, category_id: "" });
+      setDefault(false);
+      const subCategoryArr = await getSubCategoryList(valEvent);
+      console.log("123456", subCategoryArr);
       setSubCategoryDataArray(subCategoryArr);
     }
-    setProductData ((prevalue) => {
-      console.log('prevalue',prevalue);
+    if (nameEvent === "sub_category_id") {
+      setDefault(false);
+    }
+    setProductData((prevalue) => {
+      console.log("prevalue", prevalue);
       return {
         ...prevalue,
-        [name] : val,
-      }
-    })
-  }
-  
+        [nameEvent]: valEvent,
+      };
+    });
+  };
+
   const getSubCategoryList = async (val) => {
     const res = await getRequestLoggedIn(`/sub_categoryList?cat_id=${val}`);
     if (res?.status_code === "200") {
       return res.sub_categoryList.map((obj) => obj);
     }
     return null;
-  }
+  };
 
   const handleAddProduct = async () => {
     setProductBool(false);
     const data = {
-      category_id: productData.categoryId,
-      subcategory_id: productData.subcategory_id,
+      category_id: defaultSubCat?.category_id || productData?.categoryId,
+      subcategory_id:
+        (isDefault && defaultSubCat?.sub_category_id) ||
+        productData?.sub_category_id,
       product_id: "",
-      product_name: productData.productName,
+      product_name: productData?.productName,
       product_image: "",
       product_attributes: [],
-    }
-    console.log('data',data);
+    };
     const res = await postRequestLoggedIn("/add_edit_product", data);
     if (res.status_code === "200") {
       const productArr = await getProductList();
@@ -79,9 +108,7 @@ export default function ProductDetails() {
       window.location.reload();
     }
   };
-
   // console.log("------>", setData);
-
   return (
     <div className="container">
       <Grid container spacing={2}>
@@ -105,12 +132,15 @@ export default function ProductDetails() {
                   label="Category"
                   id="fullWidth"
                   onChange={(e) => handleChange(e)}
-                  value={productData.categoryId}
-                  name='categoryId'
+                  value={defaultSubCat?.category_id || productData?.categoryId}
+                  name="categoryId"
                 >
-                  {categoryDataArray.map(cat =>
-                    (<MenuItem key={cat.category_id} value={cat.category_id}>{cat.category_name}</MenuItem>)
-                  )}
+                  {categoryDataArray &&
+                    categoryDataArray.map((cat) => (
+                      <MenuItem key={cat.category_id} value={cat.category_id}>
+                        {cat.category_name}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -125,12 +155,25 @@ export default function ProductDetails() {
                   label="Sub Category"
                   id="fullWidth"
                   onChange={(e) => handleChange(e)}
-                  value={productData.subcategory_id}
-                  name='subcategory_id'
+                  value={
+                    (isDefault && defaultSubCat?.sub_category_id) ||
+                    productData?.sub_category_id
+                  }
+                  name="sub_category_id"
                 >
-                  {subCategoryDataArray.map(subCat =>
-                    (<MenuItem key={subCat.sub_category_id} value={subCat.sub_category_id}>{subCat.subcategory_name}</MenuItem>)
+                  {isDefault && (
+                    <MenuItem value={defaultSubCat?.sub_category_id}>
+                      {defaultSubCat?.subcategory_name}
+                    </MenuItem>
                   )}
+                  {subCategoryDataArray.map((subCat) => (
+                    <MenuItem
+                      key={subCat.sub_category_id}
+                      value={subCat.sub_category_id}
+                    >
+                      {subCat.subcategory_name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -145,7 +188,7 @@ export default function ProductDetails() {
                 id="fullWidth"
                 // onChange={(e) => setProductName(e.target.value)}
                 onChange={(e) => handleChange(e)}
-                name='productName'
+                name="productName"
               />
             </Grid>
             <Grid
