@@ -4,8 +4,12 @@ export const useToken = () => {
     return localStorage.getItem("token");
   });
   const setToken = (newToken) => {
-    localStorage.setItem("token", newToken);
-    setTokenInternal(newToken);
+    if (newToken === 0) {
+      localStorage.removeItem("token");
+    } else {
+      localStorage.setItem("token", newToken);
+      setTokenInternal(newToken);
+    }
   };
   return [token, setToken];
 };

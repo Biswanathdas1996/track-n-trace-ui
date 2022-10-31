@@ -16,6 +16,7 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import GridViewIcon from "@mui/icons-material/GridView";
 import Link from "@material-ui/core/Link";
 import { useNavigate } from "react-router-dom";
+import { useToken } from "../../Context/token";
 // import SearchBar from "../shared/SearchBar";
 // import PwcLogo from "../../assets/images/nft.png";
 
@@ -30,6 +31,7 @@ const pages = [
 
 const Header = () => {
   // const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [token, setToken] = useToken();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   let history = useNavigate();
@@ -59,8 +61,8 @@ const Header = () => {
   };
 
   const logOut = () => {
-    localStorage.clear();
-    history("/dashboard");
+    setToken(0);
+    history("/");
   };
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -138,7 +140,7 @@ const Header = () => {
         <Link href="/dashboard">How It Works</Link>
       </MenuItem>
       <MenuItem>
-        <Link onClick={() => logOut()}>Log out</Link>
+        <Link onClick={logOut}>Log out</Link>
       </MenuItem>
       <MenuItem>
         <p>Sign In</p>

@@ -1,5 +1,5 @@
 import { Link as RouterLink, Navigate } from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect } from "react";
 // @mui
 import { styled } from "@mui/material/styles";
 import { Card, Link, Container, Typography } from "@mui/material";
@@ -10,6 +10,7 @@ import Logo from "../components/Logo";
 // sections
 import { LoginForm } from "../sections/auth/login";
 import { useToken } from "../Context/token";
+import { getData } from "./../functions/apiClient";
 
 // ----------------------------------------------------------------------
 
@@ -59,12 +60,24 @@ const ContentStyle = styled("div")(({ theme }) => ({
 export default function Login() {
   const smUp = useResponsive("up", "sm");
   const mdUp = useResponsive("up", "md");
+  const [currentStep, setCurrentStep] = useState("0");
   const [token, setToken] = useToken();
+  useEffect(() => {
+    const getVerification = async () => {
+      const res = await getData(`/verifyUser?auth_token=${token}`, null, true);
+      if (res.status_code === "200") {
+        setCurrentStep("1");
+      } else {
+        setCurrentStep("2");
+      }
+    };
+    getVerification();
+  }, []);
 
   return (
     <div title="Login">
       <RootStyle>
-        {token && <Navigate to="/dashboard" />}
+        {currentStep === "1" && <Navigate to="/dashboard" />}
         <HeaderStyle>
           <Logo />
 
