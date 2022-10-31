@@ -1,5 +1,5 @@
 .container, .container-md, .container-sm {
-    max-width: 900px;
+    max-width: 95%;
 }
 
 .btn-primary.disabled, .btn-primary:disabled {

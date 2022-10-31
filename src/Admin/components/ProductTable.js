@@ -12,6 +12,7 @@ import ProductTableBodyUI from "./ProductTableBodyUI";
 import { getAuthToken } from "../../functions/apiClient";
 import { useEffect, useState, useContext } from "react";
 import { TokenDetailsContext } from "../../Context/TokensDetailsContext";
+import "./components.css";
 
 const TABLE_HEAD = [
   { id: "id", label: "Token", alignRight: false },
