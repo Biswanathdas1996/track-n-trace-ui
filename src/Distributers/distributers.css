@@ -1,0 +1,13 @@
+.container, .container-md, .container-sm {
+    max-width: 900px;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    margin-left: 5px;
+    margin-right: 5px;
+}

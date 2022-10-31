@@ -8,7 +8,6 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
-import "react-toastify/dist/ReactToastify.css";
 
 const ErrorModal = ({ open, setOpen, errorText }) => {
   return (

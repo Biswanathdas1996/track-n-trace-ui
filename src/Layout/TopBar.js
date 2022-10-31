@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -61,7 +61,7 @@ const ResponsiveAppBar = () => {
             Track & Trace
           </Typography>
 
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -90,13 +90,13 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem key={1} onClick={handleCloseNavMenu}>
+              <MenuItem key={3} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center" href="/category">
                   Category
                 </Typography>
               </MenuItem>
             </Menu>
-          </Box> */}
+          </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -129,12 +129,20 @@ const ResponsiveAppBar = () => {
               key={2}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
+              href="/distributer"
+            >
+              Distributers
+            </Button>
+            <Button
+              key={3}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
               href="/category"
             >
               Category
             </Button>
             <Button
-              key={3}
+              key={4}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/sub-category"
@@ -142,7 +150,7 @@ const ResponsiveAppBar = () => {
               Sub Category
             </Button>
             <Button
-              key={4}
+              key={5}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/product"
@@ -150,7 +158,7 @@ const ResponsiveAppBar = () => {
               Product
             </Button>
             <Button
-              key={5}
+              key={6}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/tokens"
@@ -158,7 +166,7 @@ const ResponsiveAppBar = () => {
               Tokens
             </Button>
             <Button
-              key={6}
+              key={7}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/uploadBulkData"
@@ -166,7 +174,7 @@ const ResponsiveAppBar = () => {
               Upload Bulk Data
             </Button>
             <Button
-              key={7}
+              key={8}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishBulkArt"
@@ -174,7 +182,7 @@ const ResponsiveAppBar = () => {
               Create Bulk token
             </Button>
             <Button
-              key={8}
+              key={9}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               href="/publishArt"

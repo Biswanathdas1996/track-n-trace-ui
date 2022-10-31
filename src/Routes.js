@@ -12,11 +12,11 @@ import AddTokenData from "./Admin/AddTokenData";
 import Login from "./Admin/Login";
 import Register from "./Admin/Register";
 import CategoryDetails from "./AddCategory/Category-Details";
+import DistributerDetails from "./Distributers/DistributerDetails";
 import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
 import ProductDetails from "./AddProduct/ProductDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
 import TokenTable from "./Admin/components/ProductTable";
-import { CategoryProvider } from "./Context/CategoryContext";
 
 class Routing extends React.Component {
   render() {
@@ -39,6 +39,15 @@ class Routing extends React.Component {
           element={
             <ProtectedRoute>
               <Product />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/distributer"
+          element={
+            <ProtectedRoute>
+              <DistributerDetails />{" "}
             </ProtectedRoute>
           }
         />
