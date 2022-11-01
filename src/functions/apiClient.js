@@ -1,5 +1,10 @@
 // import { result } from "lodash";
-import { API_BASE_URL, AUTH_URL, LOCAL_BASE_URL } from "../config";
+import {
+  API_BASE_URL,
+  AUTH_URL,
+  LOCAL_BASE_URL,
+  SERVER_BASE_URL,
+} from "../config";
 export function getAuthToken() {
   return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())
@@ -21,7 +26,7 @@ export function postData(url, data, authKey, localURL) {
     redirect: "follow",
   };
   return fetch(
-    localURL ? `${LOCAL_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
+    localURL ? `${SERVER_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
     requestOptions
   )
     .then((response) => response.json())
@@ -41,7 +46,7 @@ export function getData(url, authKey, localURL) {
   };
 
   return fetch(
-    localURL ? `${LOCAL_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
+    localURL ? `${SERVER_BASE_URL}${url}` : `${API_BASE_URL}${url}`,
     requestOptions
   )
     .then((response) => response.json())
@@ -72,7 +77,7 @@ export const getRequestLoggedIn = (url) => {
     redirect: "follow",
   };
 
-  return fetch(`${LOCAL_BASE_URL}${url}`, requestOptions)
+  return fetch(`${SERVER_BASE_URL}${url}`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => error);
@@ -92,7 +97,7 @@ export const postRequestLoggedIn = (url, data) => {
     body: raw,
     redirect: "follow",
   };
-  return fetch(`${LOCAL_BASE_URL}${url}`, requestOptions)
+  return fetch(`${SERVER_BASE_URL}${url}`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => error);
