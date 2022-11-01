@@ -21,6 +21,7 @@ import { useToken } from "../../Context/token";
 // import PwcLogo from "../../assets/images/nft.png";
 
 import { validateUserWithWallat } from "../../utils";
+import { getRequestLoggedIn } from "../../functions/apiClient";
 
 const pages = [
   {
@@ -60,9 +61,12 @@ const Header = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const logOut = () => {
-    setToken(0);
-    history("/");
+  const logOut = async () => {
+    const res = await getRequestLoggedIn("/logout");
+    if (res?.status_code === "200") {
+      setToken(0);
+      history("/");
+    }
   };
   const menuId = "primary-search-account-menu";
   const renderMenu = (

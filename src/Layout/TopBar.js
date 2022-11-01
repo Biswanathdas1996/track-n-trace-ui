@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useToken } from "../Context/token";
+import { getRequestLoggedIn } from "../functions/apiClient";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -34,10 +35,13 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = (e) => {
+  const handleCloseUserMenu = async (e) => {
     if (e.target.innerHTML === "Logout") {
-      setToken(0);
-      navigation("/");
+      const res = await getRequestLoggedIn("/logout");
+      if (res?.status_code === "200") {
+        setToken(0);
+        navigation("/");
+      }
     }
     setAnchorElUser(null);
   };

@@ -1,6 +1,5 @@
 // import { result } from "lodash";
 import { API_BASE_URL, AUTH_URL, LOCAL_BASE_URL } from "../config";
-const token = localStorage.getItem("token");
 export function getAuthToken() {
   return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())
@@ -61,6 +60,7 @@ export const getAuthDataPost = async (url, data) => {
 };
 
 export const getRequestLoggedIn = (url) => {
+  const token = localStorage.getItem("token");
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   if (token) {
@@ -79,6 +79,7 @@ export const getRequestLoggedIn = (url) => {
 };
 
 export const postRequestLoggedIn = (url, data) => {
+  const token = localStorage.getItem("token");
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   if (token) {
