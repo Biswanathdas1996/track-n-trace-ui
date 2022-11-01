@@ -10,7 +10,6 @@ import {
 } from "reactstrap";
 import DistributerTable from "./DistributerTable";
 import "../Styles/catFormFields.css";
-// import { DistributerContext } from "../Context/DistributerContext";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import AddDistributer from "./AddDistributer";
 import { useToken } from "../Context/token";
@@ -23,8 +22,6 @@ export default function DistributerDetails() {
   const [distributerBool, setDistributerBool] = useState(false);
   const [token, setToken] = useToken();
   const [distributerListArray, setDistributerList] = useState([]);
-  //   const [selectedDistributers, setSelectedDistributers] = useState([]);
-  //   const [masterChecked, setMasterChecked] = useState(false);
 
   useEffect(() => {
     const getDistributerList = async () => {
@@ -69,29 +66,6 @@ export default function DistributerDetails() {
 
   const columns = useMemo(
     () => [
-      // ===============for checkbox==========
-      //   {
-      //     Header: () => (
-      //         <input
-      //           type="checkbox"
-      //           className="form-check-input"
-      //           checked={masterChecked}
-      //           id="mastercheck"
-      //           onChange={(e) => onMasterCheck(e)}
-      //         />
-      //       ),
-      //     id: 'mastercheck', // 'id' is required
-      //     accessor:"id",
-      //     Cell: ({ row }) => console.log('row',row) && (
-      //       <input
-      //         type="checkbox"
-      //         className="form-check-input"
-      //         checked={row.selected}
-      //         id="rowcheck{row.id}"
-      //         onChange={(e) => onItemCheck(e, row)}
-      //       />
-      //     ),
-      //   },
       {
         Header: () => null,
         id: "expander", // 'id' is required
@@ -133,80 +107,6 @@ export default function DistributerDetails() {
     ],
     []
   );
-
-  //   // Select/ UnSelect Table rows
-  //   const onMasterCheck = (e) => {
-  //     let tempList = distributerList;
-  //     // Check/ UnCheck All Items
-  //     tempList.map((dist) => (dist.selected = e.target.checked));
-
-  //     // update state
-  //     setMasterChecked(e.target.checked);
-  //     console.log('e.target.checked',e.target.checked);
-  //     setMasterChecked((masterChecked) => {
-  //         console.log('onMasterCheck masterChecked',masterChecked);
-  //         return masterChecked;
-  //     });
-  //     setDistributerList(tempList);
-  //     console.log('tempList',tempList);
-  //     setDistributerList((distributerList) => {
-  //         console.log('onMasterCheck distributerList',distributerList);
-  //         return distributerList;
-  //     });
-  //     setSelectedDistributers(tempList.filter((e) => e.selected));
-  //     console.log('tempList.filter((e) => e.selected)',tempList.filter((e) => e.selected));
-  //     setSelectedDistributers((selectedDistributers) => {
-  //         console.log('onMasterCheck selectedDistributers',selectedDistributers);
-  //         return selectedDistributers;
-  //     });
-  //   }
-
-  //   // To update single item's state and master checkbox state
-  //   const onItemCheck = (e, item) => {
-  //     let tempList = distributerList;
-  //     tempList.map((dist) => {
-  //         if(dist.id === item.id) {
-  //             dist.selected = e.target.checked;
-  //         }
-  //         return dist;
-  //     });
-
-  //     //To Control Master Checkbox State
-  //     const totalRows = distributerList.length;
-  //     const totalChecked = tempList.filter((e) => e.selected).length;
-  //     console.log('totalRows',totalRows);
-  //     console.log('totalChecked',totalChecked);
-
-  //     // to Update State
-  //     setMasterChecked(totalRows === totalChecked);
-  //     console.log('totalRows === totalChecked',totalRows === totalChecked);
-  //     setMasterChecked((masterChecked) => {
-  //         console.log('onItemCheck masterChecked',masterChecked);
-  //         return masterChecked;
-  //     });
-  //     setDistributerList(tempList);
-  //     console.log('tempList',tempList);
-  //     setDistributerList((distributerList) => {
-  //         console.log('onItemCheck distributerList',distributerList);
-  //         return distributerList;
-  //     });
-  //     setSelectedDistributers(tempList.filter((e) => e.selected));
-  //     console.log('tempList.filter((e) => e.selected)',tempList.filter((e) => e.selected));
-  //     setSelectedDistributers((selectedDistributers) => {
-  //         console.log('onItemCheck selectedDistributers',selectedDistributers);
-  //         return selectedDistributers;
-  //     });
-  //   }
-
-  //   // Event to get selected rows
-  //   const getSelectedRows = () => {
-  //     setSelectedDistributers(distributerList.filter((e) => e.selected));
-  //     console.log('distributerList.filter((e) => e.selected)',distributerList.filter((e) => e.selected));
-  //     setSelectedDistributers((selectedDistributers) => {
-  //         console.log('onItemCheck selectedDistributers',selectedDistributers);
-  //         return selectedDistributers;
-  //     });
-  //   }
 
   return (
     <div className="container">
