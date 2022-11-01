@@ -69,7 +69,7 @@ export const getRequestLoggedIn = (url) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   if (token) {
-    myHeaders.append("auth_token", token);
+    myHeaders.append("auth-token", token);
   }
   var requestOptions = {
     method: "GET",
@@ -88,7 +88,7 @@ export const postRequestLoggedIn = (url, data) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   if (token) {
-    myHeaders.append("auth_token", token);
+    myHeaders.append("auth-token", token);
   }
   var raw = JSON.stringify(data);
   var requestOptions = {

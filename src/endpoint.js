@@ -2,7 +2,7 @@ export const login = "/login.php";
 export const logout = "/logout.php";
 export const registration = "/registration.php";
 export const createToken = "/createToken.php";
-export const verifyUser = (token) => `/verifyUser.php?auth_token=${token}`;
+export const verifyUser = (token) => `/verifyUser.php?auth-token=${token}`;
 export const categoryList = "/categoryList.php";
 export const subCategoryList = "/sub_categoryList.php";
 export const productList = "/productList.php";
