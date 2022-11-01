@@ -17,6 +17,7 @@ import {
   postRequestLoggedIn,
   getRequestLoggedIn,
 } from "../functions/apiClient";
+import { addEditSubCategory, subCategoryList } from "../endpoint";
 
 export default function SubCategoryDetails() {
   const [defaultCat, setDefaultCat] = useState();
@@ -47,7 +48,7 @@ export default function SubCategoryDetails() {
   }, []);
 
   const getSubCategoryList = async () => {
-    const res = await getRequestLoggedIn("/sub_categoryList");
+    const res = await getRequestLoggedIn(subCategoryList);
     if (res?.status_code === "200") {
       return res.sub_categoryList.map((obj) => obj);
     }
@@ -82,7 +83,7 @@ export default function SubCategoryDetails() {
       sub_category_name: subCategoryData.subCategoryName,
     };
     console.log("dataAdded", data);
-    const res = await postRequestLoggedIn("/add_edit_subcategory", data);
+    const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res.status_code === "200") {
       const subCategoryArr = await getSubCategoryList();
       setSubCategoryDataArray(subCategoryArr);
@@ -103,7 +104,7 @@ export default function SubCategoryDetails() {
       sub_category_id: subCategoryData.subCategoryId,
       sub_category_name: subCategoryData.subCategoryName,
     };
-    const res = await postRequestLoggedIn("/add_edit_subcategory", data);
+    const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res?.status_code === "200") {
       const resData = await getSubCategoryList();
       const subCategoryNameArray =

@@ -12,6 +12,13 @@ import {
   postRequestLoggedIn,
 } from "../functions/apiClient";
 import TextError from "./components/ErrorComponent";
+import {
+  categoryList,
+  createToken,
+  productDetails,
+  productList,
+  subCategoryListForCat,
+} from "../endpoint";
 
 const validationSchema = Yup.object().shape({
   batchNumber: Yup.string().required("Batch Number is required"),
@@ -42,10 +49,7 @@ const Mint = () => {
   useEffect(() => {
     const idParam = searchParams.get("prodId");
     const getProdDetail = async () => {
-      const res = await getRequestLoggedIn(
-        `/productDetails?product_id=${idParam}`
-      );
-
+      const res = await getRequestLoggedIn(productDetails(idParam));
       if ((res.state_code = "200")) {
         setDefaultProd(res.data);
         setSearchParams({});
@@ -70,7 +74,7 @@ const Mint = () => {
       batch_no: batchNumber,
       transction: [],
     };
-    const res = await postRequestLoggedIn(`/createToken`, metaData);
+    const res = await postRequestLoggedIn(createToken, metaData);
     if (res.status_code === "200") {
       console.log("response of create token", res);
       history("/tokens");
@@ -85,7 +89,7 @@ const Mint = () => {
     history("/dashboard");
   };
   const getCategoryList = async () => {
-    const res = await getRequestLoggedIn("/categoryList");
+    const res = await getRequestLoggedIn(categoryList);
     if (res?.status_code === "200") {
       return res.categoryList.map((obj) => obj);
     }
@@ -93,7 +97,7 @@ const Mint = () => {
   };
 
   const getSubCategoryList = async (catId) => {
-    const res = await getRequestLoggedIn(`/sub_categoryList?cat_id=${catId}`);
+    const res = await getRequestLoggedIn(subCategoryListForCat(catId));
     if (res?.status_code === "200") {
       return (
         res && res.sub_categoryList && res.sub_categoryList.map((obj) => obj)
@@ -103,9 +107,7 @@ const Mint = () => {
   };
 
   const getProductList = async (catId, subCatId) => {
-    const res = await getRequestLoggedIn(
-      `/productList?cat_id=${catId}&subcat_id=${subCatId}`
-    );
+    const res = await getRequestLoggedIn(productList(catId, subCatId));
     if (res?.status_code === "200") {
       return res && res.productList && res.productList.map((obj) => obj);
     }

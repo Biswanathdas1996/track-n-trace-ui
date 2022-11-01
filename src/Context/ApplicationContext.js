@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
+import { categoryList, productList, subCategoryList } from "../endpoint";
 import { getRequestLoggedIn } from "../functions/apiClient";
 
 export const ApplicationContext = createContext();
@@ -10,7 +11,7 @@ export const ApplicationProvider = (props) => {
 
   useEffect(() => {
     const getCategoryList = async () => {
-      const res = await getRequestLoggedIn("/categoryList");
+      const res = await getRequestLoggedIn(categoryList);
       if (res?.status_code === "200") {
         const categoryNameArray = res.categoryList.map((obj) => obj);
         setCategoryDataArray(categoryNameArray);
@@ -19,7 +20,7 @@ export const ApplicationProvider = (props) => {
       }
     };
     const getProductList = async () => {
-      const res = await getRequestLoggedIn("/productList");
+      const res = await getRequestLoggedIn(productList);
       if (res?.status_code === "200") {
         const productArray = res.productList.map((obj) => obj);
         setProductDataArray(productArray);
@@ -28,7 +29,7 @@ export const ApplicationProvider = (props) => {
       }
     };
     const getSubCategoryList = async () => {
-      const res = await getRequestLoggedIn("/sub_categoryList");
+      const res = await getRequestLoggedIn(subCategoryList);
       if (res?.status_code === "200") {
         const subCategoryArray = res.sub_categoryList.map((obj) => obj);
         setSubCategoryDataArray(subCategoryArray);

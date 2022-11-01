@@ -4,17 +4,13 @@ import { useNavigate } from "react-router-dom";
 // form
 import { useFormik } from "formik";
 // @mui
-import {
-  Stack,
-  TextField,
-  MenuItem,
-  Grid,
-} from "@mui/material";
+import { Stack, TextField, MenuItem, Grid } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ErrorModal from "../components/shared/ErrorModal";
 // components
 import States from "../_mock/stateZones";
 import { postData } from "../functions/apiClient";
+import { registration } from "../endpoint";
 // ----------------------------------------------------------------------
 
 const distributerData = {
@@ -25,7 +21,7 @@ const distributerData = {
   state_code: "",
   role: "2",
   user_password: "",
-  pswd_reqd: false
+  pswd_reqd: false,
 };
 
 export default function AddDistributer({ setToken, setDistributerBool }) {
@@ -52,7 +48,7 @@ export default function AddDistributer({ setToken, setDistributerBool }) {
 
   const handleCancel = () => {
     setDistributerBool(false);
-  }
+  };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -68,7 +64,7 @@ export default function AddDistributer({ setToken, setDistributerBool }) {
           state_code,
           role,
           user_password,
-          pswd_reqd
+          pswd_reqd,
         } = values;
         const payLoad = {
           user_fname,
@@ -78,13 +74,13 @@ export default function AddDistributer({ setToken, setDistributerBool }) {
           state_code,
           role,
           user_password,
-          pswd_reqd
+          pswd_reqd,
         };
-        const res = await postData("/registration", payLoad, null, true);
+        const res = await postData(registration, payLoad, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
           setDistributerBool(false);
-        //   window.location.reload();
+          //   window.location.reload();
         } else if (res.status_code === "500") {
           setModalView(true);
           setErrorRegister(res.message);
@@ -103,12 +99,12 @@ export default function AddDistributer({ setToken, setDistributerBool }) {
         errorText={errorRegister}
       />
 
-      <form 
-        onSubmit={handleSubmit} 
+      <form
+        onSubmit={handleSubmit}
         onCancel={handleCancel}
         style={{
-            padding: "2%",
-            alignItems: "center"
+          padding: "2%",
+          alignItems: "center",
         }}
       >
         <Stack spacing={3}>
@@ -212,12 +208,12 @@ export default function AddDistributer({ setToken, setDistributerBool }) {
             autoComplete="off"
             placeholder="User role"
             inputProps={{
-                readOnly: true,
+              readOnly: true,
             }}
           >
-              <MenuItem key={2} value={2}>
-                {"Distributer"}
-              </MenuItem>
+            <MenuItem key={2} value={2}>
+              {"Distributer"}
+            </MenuItem>
           </TextField>
           <Grid container spacing={2} style={{ marginLeft: "-2vw" }}>
             <Grid item sm={6}>

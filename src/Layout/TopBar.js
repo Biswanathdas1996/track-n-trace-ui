@@ -16,6 +16,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useToken } from "../Context/token";
 import { useUser } from "../Context/user";
 import { getRequestLoggedIn } from "../functions/apiClient";
+import { logout } from "../endpoint";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -40,7 +41,7 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = async (e) => {
     if (e.target.innerHTML === "Logout") {
-      const res = await getRequestLoggedIn("/logout");
+      const res = await getRequestLoggedIn(logout);
       if (res?.status_code === "200") {
         setToken(0);
         navigation("/");

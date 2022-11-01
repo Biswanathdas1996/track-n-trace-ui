@@ -8,6 +8,7 @@ import {
   postRequestLoggedIn,
   getRequestLoggedIn,
 } from "../functions/apiClient";
+import { addEditCategory, categoryList } from "../endpoint";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
@@ -15,7 +16,7 @@ export default function CategoryDetails() {
   const { categoryDataArray, setCategoryDataArray } =
     useContext(ApplicationContext);
   const getCategoryList = async () => {
-    const res = await getRequestLoggedIn("/categoryList");
+    const res = await getRequestLoggedIn(categoryList);
     if (res?.status_code === "200") {
       return res.categoryList.map((obj) => obj);
     }
@@ -28,7 +29,7 @@ export default function CategoryDetails() {
       category_name: categoryName,
       category_id: "",
     };
-    const res = await postRequestLoggedIn("/add_edit_category", data);
+    const res = await postRequestLoggedIn(addEditCategory, data);
     if (res.status_code === "200") {
       const categoryArr = await getCategoryList();
       setCategoryDataArray(categoryArr);

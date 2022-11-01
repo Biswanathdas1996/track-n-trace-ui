@@ -8,6 +8,11 @@ import {
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
+import {
+  addEditSubCategory,
+  deleteSubCategory,
+  subCategoryList,
+} from "../endpoint";
 
 export default function SubCategoryTableBodyUI({
   category,
@@ -28,7 +33,7 @@ export default function SubCategoryTableBodyUI({
   };
 
   const getSubCategoryList = async () => {
-    const res = await getRequestLoggedIn("/sub_categoryList");
+    const res = await getRequestLoggedIn(subCategoryList);
     if (res?.status_code === "200") {
       return res.sub_categoryList.map((obj) => {
         return obj, console.log("obj", obj);
@@ -37,9 +42,7 @@ export default function SubCategoryTableBodyUI({
     return null;
   };
   const getSubCategoryDetail = async (id) => {
-    const response = await getRequestLoggedIn(
-      `/subcategoryDetails?subcat_id=${id}`
-    );
+    const response = await getRequestLoggedIn(subCategoryDetails(id));
     if ((response.state_code = "200")) {
       setSubCategoryDetails({
         categoryId: response?.data?.category_id,
@@ -57,7 +60,7 @@ export default function SubCategoryTableBodyUI({
       sub_category_id: id,
       sub_category_name: subCategoryText,
     };
-    const res = await postRequestLoggedIn("/add_edit_subcategory", data);
+    const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res?.status_code === "200") {
       const resData = await getSubCategoryList();
       const subCategoryNameArray =
@@ -75,7 +78,7 @@ export default function SubCategoryTableBodyUI({
       subcategory_id: id,
     };
     console.log("data", data);
-    const res = await postRequestLoggedIn("/deleteSubCategory", data);
+    const res = await postRequestLoggedIn(deleteSubCategory, data);
     if (res?.status_code === "200") {
       const resData = await getSubCategoryList();
       const subCategoryNameArray =

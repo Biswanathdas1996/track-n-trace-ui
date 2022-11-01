@@ -17,6 +17,12 @@ import {
   postRequestLoggedIn,
   getRequestLoggedIn,
 } from "../functions/apiClient";
+import {
+  addEditProduct,
+  productList,
+  subCategoryDetails,
+  subCategoryListForCat,
+} from "../endpoint";
 
 export default function ProductDetails({ editFormObject }) {
   const [defaultSubCat, setDefaultSubCat] = useState();
@@ -38,9 +44,7 @@ export default function ProductDetails({ editFormObject }) {
   useEffect(() => {
     const idParam = searchParams.get("subCatId");
     const getSubCatDetail = async () => {
-      const res = await getRequestLoggedIn(
-        `/subcategoryDetails?subcat_id=${idParam}`
-      );
+      const res = await getRequestLoggedIn(subCategoryDetails(idParam));
 
       if ((res.state_code = "200")) {
         setProductBool(true);
@@ -52,7 +56,7 @@ export default function ProductDetails({ editFormObject }) {
   }, []);
 
   const getProductList = async () => {
-    const res = await getRequestLoggedIn("/productList");
+    const res = await getRequestLoggedIn(productList);
     if (res?.status_code === "200") {
       return res.productList.map((obj) => obj);
     }
@@ -67,7 +71,7 @@ export default function ProductDetails({ editFormObject }) {
       product_image: "",
       product_attributes: [],
     };
-    const res = await postRequestLoggedIn("/add_edit_product", data);
+    const res = await postRequestLoggedIn(addEditProduct, data);
     if (res?.status_code === "200") {
       const resData = await getProductList();
       const productNameArray =
@@ -98,7 +102,7 @@ export default function ProductDetails({ editFormObject }) {
   };
 
   const getSubCategoryList = async (val) => {
-    const res = await getRequestLoggedIn(`/sub_categoryList?cat_id=${val}`);
+    const res = await getRequestLoggedIn(subCategoryListForCat(val));
     if (res?.status_code === "200") {
       return res.sub_categoryList.map((obj) => obj);
     }
@@ -125,7 +129,7 @@ export default function ProductDetails({ editFormObject }) {
       product_image: "",
       product_attributes: [],
     };
-    const res = await postRequestLoggedIn("/add_edit_product", data);
+    const res = await postRequestLoggedIn(addEditProduct, data);
     if (res.status_code === "200") {
       const productArr = await getProductList();
       setProductDataArray(productArr);

@@ -11,6 +11,7 @@ import Logo from "../components/Logo";
 import { LoginForm } from "../sections/auth/login";
 import { useToken } from "../Context/token";
 import { getData } from "./../functions/apiClient";
+import { verifyUser } from "../endpoint";
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ export default function Login() {
   const [token, setToken] = useToken();
   useEffect(() => {
     const getVerification = async () => {
-      const res = await getData(`/verifyUser?auth_token=${token}`, null, true);
+      const res = await getData(verifyUser(token), null, true);
       if (res.status_code === "200") {
         setCurrentStep("1");
       } else {

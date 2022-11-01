@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { verifyUser } from "../src/endpoint";
 import { ApplicationProvider } from "./Context/ApplicationContext";
 import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 import { useToken } from "./Context/token";
@@ -11,7 +12,7 @@ export const ProtectedRoute = (props) => {
 
   useEffect(() => {
     const getVerification = async () => {
-      const res = await getData(`/verifyUser?auth_token=${token}`, null, true);
+      const res = await getData(verifyUser(token), null, true);
       if (res.status_code === "200") {
         setCurrentStep("1");
       } else {

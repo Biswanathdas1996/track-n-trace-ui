@@ -9,6 +9,7 @@ import {
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
+import { addEditCategory, categoryList, deleteCategory } from "../endpoint";
 
 export default function CategoryTableBodyUI({ category, id, idData }) {
   const { setCategoryDataArray } = useContext(ApplicationContext);
@@ -21,7 +22,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
   };
 
   const getCategoryList = async () => {
-    const res = await getRequestLoggedIn("/categoryList");
+    const res = await getRequestLoggedIn(categoryList);
     if (res?.status_code === "200") {
       return res.categoryList.map((obj) => {
         return obj.category_name;
@@ -35,7 +36,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
       category_name: cateoryText,
       category_id: id,
     };
-    const res = await postRequestLoggedIn("/add_edit_category", data);
+    const res = await postRequestLoggedIn(addEditCategory, data);
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
       const categoryNameArray =
@@ -52,7 +53,7 @@ export default function CategoryTableBodyUI({ category, id, idData }) {
     const data = {
       category_id: id,
     };
-    const res = await postRequestLoggedIn("/deleteCategory", data);
+    const res = await postRequestLoggedIn(deleteCategory, data);
     if (res?.status_code === "200") {
       const resData = await getCategoryList();
       const categoryNameArray =

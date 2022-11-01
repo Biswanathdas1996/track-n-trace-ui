@@ -22,6 +22,7 @@ import { useToken } from "../../Context/token";
 
 import { validateUserWithWallat } from "../../utils";
 import { getRequestLoggedIn } from "../../functions/apiClient";
+import { logout } from "../../endpoint";
 
 const pages = [
   {
@@ -62,7 +63,7 @@ const Header = () => {
   };
 
   const logOut = async () => {
-    const res = await getRequestLoggedIn("/logout");
+    const res = await getRequestLoggedIn(logout);
     if (res?.status_code === "200") {
       setToken(0);
       history("/");

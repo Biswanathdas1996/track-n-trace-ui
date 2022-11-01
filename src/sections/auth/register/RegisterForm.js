@@ -18,6 +18,7 @@ import Iconify from "../../../components/Iconify";
 import States from "../../../_mock/stateZones";
 import Roles from "../../../_mock/userRole";
 import { postData } from "../../../functions/apiClient";
+import { registration } from "../../../endpoint";
 // ----------------------------------------------------------------------
 
 const registerData = {
@@ -91,7 +92,7 @@ export default function RegisterForm({ setToken }) {
           role,
           user_password,
         };
-        const res = await postData("/registration", payLoad, null, true);
+        const res = await postData(registration, payLoad, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
           navigate("/dashboard");

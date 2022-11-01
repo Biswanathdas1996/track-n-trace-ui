@@ -8,6 +8,7 @@ import {
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
+import { deleteProduct, productDetails, productList } from "../endpoint";
 
 export default function ProductTableBodyUI({
   category,
@@ -31,7 +32,7 @@ export default function ProductTableBodyUI({
   };
 
   const getProductList = async () => {
-    const res = await getRequestLoggedIn("/productList");
+    const res = await getRequestLoggedIn(productList);
     if (res?.status_code === "200") {
       return res.productList.map((obj) => {
         return obj, console.log("obj", obj);
@@ -41,9 +42,7 @@ export default function ProductTableBodyUI({
   };
 
   const getProdDetail = async (id) => {
-    const response = await getRequestLoggedIn(
-      `/productDetails?product_id=${id}`
-    );
+    const response = await getRequestLoggedIn(productDetails(id));
     if ((response.state_code = "200")) {
       setProdDetails({
         categoryId: response?.data?.category_id,
@@ -60,7 +59,7 @@ export default function ProductTableBodyUI({
     const data = {
       product_id: id,
     };
-    const res = await postRequestLoggedIn("/deleteProduct", data);
+    const res = await postRequestLoggedIn(deleteProduct, data);
     if (res?.status_code === "200") {
       const resData = await getProductList();
       const productNameArray =
