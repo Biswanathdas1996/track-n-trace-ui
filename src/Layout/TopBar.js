@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useToken } from "../Context/token";
+import { useUser } from "../Context/user";
 import { getRequestLoggedIn } from "../functions/apiClient";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -22,6 +23,8 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [token, setToken] = useToken();
+  const user = useUser();
+  const userFirstName = user?.user_fname;
   const navigation = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -206,7 +209,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={userFirstName} src="/static/images/avatar/6.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
