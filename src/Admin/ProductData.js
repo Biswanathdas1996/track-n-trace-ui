@@ -3,10 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import "../Styles/admin-styles.css";
 import ThemeProvider from "../Theme/index";
 import ProductTable from "./components/ProductTable";
-import { TokenDetailsContext } from "../Context/TokensDetailsContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 
 function Dashboard() {
-  const [tokenDetailsArray] = useContext(TokenDetailsContext);
+  const { tokenDetailsArray } = useContext(ApplicationContext);
 
   return (
     <ThemeProvider>

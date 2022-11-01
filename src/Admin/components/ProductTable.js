@@ -11,8 +11,8 @@ import {
 import ProductTableBodyUI from "./ProductTableBodyUI";
 import { getAuthToken } from "../../functions/apiClient";
 import { useEffect, useState, useContext } from "react";
-import { TokenDetailsContext } from "../../Context/TokensDetailsContext";
 import "./components.css";
+import { ApplicationContext } from "../../Context/ApplicationContext";
 
 const TABLE_HEAD = [
   { id: "id", label: "Token", alignRight: false },
@@ -23,7 +23,7 @@ const TABLE_HEAD = [
 
 export default function UserTable() {
   const [authTok, setauthTok] = useState();
-  const [tokenDetailsArray] = useContext(TokenDetailsContext);
+  const { tokenDetailsArray } = useContext(ApplicationContext);
 
   useEffect(() => {
     const tokenGenerator = async () => {

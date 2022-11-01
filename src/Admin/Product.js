@@ -6,9 +6,9 @@ import ProductTable from "./components/ProductTable";
 import DashboardButtonCard from "./components/DashboardButtonCard";
 import Card from "./components/Card";
 import Tree from "./components/Tree";
-import { TokenDetailsContext } from "../Context/TokensDetailsContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 function Dashboard() {
-  const [tokenDetailsArray] = useContext(TokenDetailsContext);
+  const { tokenDetailsArray } = useContext(ApplicationContext);
   return (
     <ThemeProvider>
       <div className="container">

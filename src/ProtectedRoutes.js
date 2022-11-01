@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { verifyUser } from "../src/endpoint";
 import { ApplicationProvider } from "./Context/ApplicationContext";
-import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 import { useToken } from "./Context/token";
 import { getData } from "./functions/apiClient";
 import TopBar from "./Layout/TopBar";
@@ -27,9 +26,7 @@ export const ProtectedRoute = (props) => {
     return (
       <div>
         <TopBar />
-        <TokenDetailsProvider>
-          <ApplicationProvider>{props.children}</ApplicationProvider>
-        </TokenDetailsProvider>
+        <ApplicationProvider>{props.children}</ApplicationProvider>
       </div>
     );
   } else if (currentStep === "2") {
