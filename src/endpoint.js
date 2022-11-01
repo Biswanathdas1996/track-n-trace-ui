@@ -16,8 +16,9 @@ export const addEditProduct = "/add_edit_product.php";
 
 export const subCategoryListForCat = (id) =>
   `/sub_categoryList.php?cat_id=${id}`;
-export const subCategoryDetails = (id) => subCategoryDetails(id);
+export const subCategoryDetailsEp = (id) =>
+  `/subcategoryDetails.php?subcat_id=${id}`;
 
 export const productDetailForSubCat = (catId, subCatId) =>
-  `/productList?cat_id=${catId}&subcat_id=${subCatId}`;
-export const productDetails = (id) => `productDetails?product_id=${id}`;
+  `/productList.php?cat_id=${catId}&subcat_id=${subCatId}`;
+export const productDetails = (id) => `/productDetails.php?product_id=${id}`;

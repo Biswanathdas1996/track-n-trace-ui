@@ -15,8 +15,8 @@ import TextError from "./components/ErrorComponent";
 import {
   categoryList,
   createToken,
+  productDetailForSubCat,
   productDetails,
-  productList,
   subCategoryListForCat,
 } from "../endpoint";
 
@@ -107,7 +107,9 @@ const Mint = () => {
   };
 
   const getProductList = async (catId, subCatId) => {
-    const res = await getRequestLoggedIn(productList(catId, subCatId));
+    const res = await getRequestLoggedIn(
+      productDetailForSubCat(catId, subCatId)
+    );
     if (res?.status_code === "200") {
       return res && res.productList && res.productList.map((obj) => obj);
     }

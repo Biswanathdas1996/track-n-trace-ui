@@ -20,7 +20,7 @@ import {
 import {
   addEditProduct,
   productList,
-  subCategoryDetails,
+  subCategoryDetailsEp,
   subCategoryListForCat,
 } from "../endpoint";
 
@@ -44,7 +44,7 @@ export default function ProductDetails({ editFormObject }) {
   useEffect(() => {
     const idParam = searchParams.get("subCatId");
     const getSubCatDetail = async () => {
-      const res = await getRequestLoggedIn(subCategoryDetails(idParam));
+      const res = await getRequestLoggedIn(subCategoryDetailsEp(idParam));
 
       if ((res.state_code = "200")) {
         setProductBool(true);

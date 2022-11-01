@@ -11,6 +11,7 @@ import {
 import {
   addEditSubCategory,
   deleteSubCategory,
+  subCategoryDetailsEp,
   subCategoryList,
 } from "../endpoint";
 
@@ -42,7 +43,7 @@ export default function SubCategoryTableBodyUI({
     return null;
   };
   const getSubCategoryDetail = async (id) => {
-    const response = await getRequestLoggedIn(subCategoryDetails(id));
+    const response = await getRequestLoggedIn(subCategoryDetailsEp(id));
     if ((response.state_code = "200")) {
       setSubCategoryDetails({
         categoryId: response?.data?.category_id,
