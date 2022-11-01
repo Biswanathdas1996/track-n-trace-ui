@@ -3,7 +3,7 @@ import { Button, Card, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CategoryTable from "./CategoryTable";
 import "../Styles/catFormFields.css";
-import { CategoryContext } from "../Context/CategoryContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import {
   postRequestLoggedIn,
   getRequestLoggedIn,
@@ -12,7 +12,8 @@ import {
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
   const [categoryName, setCategoryName] = useState("");
-  const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
+  const { categoryDataArray, setCategoryDataArray } =
+    useContext(ApplicationContext);
   const getCategoryList = async () => {
     const res = await getRequestLoggedIn("/categoryList");
     if (res?.status_code === "200") {

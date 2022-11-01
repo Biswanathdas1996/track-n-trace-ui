@@ -3,12 +3,11 @@ import { TableRow, TableCell, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ProductContext } from "../Context/ProductContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import {
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
-import ProductDetails from "./ProductDetails";
 
 export default function ProductTableBodyUI({
   category,
@@ -21,7 +20,7 @@ export default function ProductTableBodyUI({
   prodDetails,
   setProdDetails,
 }) {
-  const [productDataArray, setProductDataArray] = useContext(ProductContext);
+  const { setProductDataArray } = useContext(ApplicationContext);
   const [productInputBool, setProductInputBool] = useState(false);
   const [productText, setProductText] = useState(product);
   const categoryText = category;

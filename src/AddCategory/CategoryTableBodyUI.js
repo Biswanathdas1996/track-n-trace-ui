@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TableRow, TableCell, TextField, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CategoryContext } from "../Context/CategoryContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -11,7 +11,7 @@ import {
 } from "../functions/apiClient";
 
 export default function CategoryTableBodyUI({ category, id, idData }) {
-  const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
+  const { setCategoryDataArray } = useContext(ApplicationContext);
   const [categoryInputBool, setCategoryInputBool] = useState(false);
   const [cateoryText, setCategoryText] = useState(category);
   const navigation = useNavigate();

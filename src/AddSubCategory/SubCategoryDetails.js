@@ -11,8 +11,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import SubCategoryTable from "./SubCategoryTable";
-import { SubCategoryContext } from "../Context/SubCategoryContext";
-import { CategoryContext } from "../Context/CategoryContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import "../Styles/catFormFields.css";
 import {
   postRequestLoggedIn,
@@ -29,9 +28,8 @@ export default function SubCategoryDetails() {
     edit: false,
   });
   const [searchParams, setSearchParams] = useSearchParams();
-  const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
-  const [subCategoryDataArray, setSubCategoryDataArray] =
-    useContext(SubCategoryContext);
+  const { categoryDataArray, subCategoryDataArray, setSubCategoryDataArray } =
+    useContext(ApplicationContext);
   useEffect(() => {
     const idParam = searchParams.get("catId");
     const getCatDetail = async () => {

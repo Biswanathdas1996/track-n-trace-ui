@@ -11,8 +11,7 @@ import {
 import TextField from "@mui/material/TextField";
 import ProductTable from "./ProductTable";
 import { useSearchParams } from "react-router-dom";
-import { ProductContext } from "../Context/ProductContext";
-import { CategoryContext } from "../Context/CategoryContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import "../Styles/catFormFields.css";
 import {
   postRequestLoggedIn,
@@ -33,8 +32,8 @@ export default function ProductDetails({ editFormObject }) {
     edit: false,
   });
   const isEditForm = productData.edit;
-  const [categoryDataArray, setCategoryDataArray] = useContext(CategoryContext);
-  const [productDataArray, setProductDataArray] = useContext(ProductContext);
+  const { categoryDataArray, productDataArray, setProductDataArray } =
+    useContext(ApplicationContext);
 
   useEffect(() => {
     const idParam = searchParams.get("subCatId");

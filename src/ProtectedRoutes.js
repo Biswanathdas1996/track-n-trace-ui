@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { CategoryProvider } from "./Context/CategoryContext";
-import { ProductProvider } from "./Context/ProductContext";
-import { SubCategoryProvider } from "./Context/SubCategoryContext";
+import { ApplicationProvider } from "./Context/ApplicationContext";
 import { TokenDetailsProvider } from "./Context/TokensDetailsContext";
 import { useToken } from "./Context/token";
 import { getData } from "./functions/apiClient";
@@ -29,11 +27,7 @@ export const ProtectedRoute = (props) => {
       <div>
         <TopBar />
         <TokenDetailsProvider>
-          <CategoryProvider>
-            <SubCategoryProvider>
-              <ProductProvider>{props.children}</ProductProvider>
-            </SubCategoryProvider>
-          </CategoryProvider>
+          <ApplicationProvider>{props.children}</ApplicationProvider>
         </TokenDetailsProvider>
       </div>
     );

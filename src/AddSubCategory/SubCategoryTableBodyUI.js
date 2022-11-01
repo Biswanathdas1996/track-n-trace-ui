@@ -3,7 +3,7 @@ import { TableRow, TableCell, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { SubCategoryContext } from "../Context/SubCategoryContext";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import {
   getRequestLoggedIn,
   postRequestLoggedIn,
@@ -18,8 +18,7 @@ export default function SubCategoryTableBodyUI({
   subCategoryDetails,
   setSubCategoryDetails,
 }) {
-  const [subCategoryDataArray, setSubCategoryDataArray] =
-    useContext(SubCategoryContext);
+  const { setSubCategoryDataArray } = useContext(ApplicationContext);
   const [subCategoryInputBool, setSubCategoryInputBool] = useState(false);
   const [subCategoryText, setSubCategoryText] = useState(subCategory);
   const categoryText = category;
