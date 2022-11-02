@@ -1,24 +1,24 @@
 import React, { Fragment } from 'react';
 import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSelect } from 'react-table';
 import { Table, Row, Col, Button, Input, CustomInput  } from 'reactstrap';
-import { Filter, DefaultColumnFilter } from './filters';
+import { Filter, DefaultColumnFilter } from '../common/filters';
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
+// const IndeterminateCheckbox = React.forwardRef(
+//   ({ indeterminate, ...rest }, ref) => {
+//     const defaultRef = React.useRef()
+//     const resolvedRef = ref || defaultRef
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
+//     React.useEffect(() => {
+//       resolvedRef.current.indeterminate = indeterminate
+//     }, [resolvedRef, indeterminate])
 
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    )
-  }
-)
+//     return (
+//       <>
+//         <input type="checkbox" ref={resolvedRef} {...rest} />
+//       </>
+//     )
+//   }
+// )
 
 const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   const {
@@ -49,29 +49,32 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   useExpanded,
   usePagination,
   useRowSelect,
-  hooks => {
-    hooks.visibleColumns.push(columns => [
-      // Making a column for selection
-      {
-        id: 'selection',
-        // The header can use the table's getToggleAllRowsSelectedProps method
-        // to render a checkbox
-        Header: ({ getToggleAllPageRowsSelectedProps }) => (
-          <div>
-            <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-          </div>
-        ),
-        // The cell can use the individual row's getToggleRowSelectedProps method
-        // to the render a checkbox
-        Cell: ({ row }) => (
-          <div>
-            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-          </div>
-        ),
-      },
-      ...columns,
-    ])
-  });
+//   hooks => {
+//     hooks.visibleColumns.push(columns => [
+//       // Making a column for selection
+//       {
+//         id: 'selection',
+//         width: "2vw",
+//         minWidth: "2vw",
+//         // The header can use the table's getToggleAllRowsSelectedProps method
+//         // to render a checkbox
+//         Header: ({ getToggleAllPageRowsSelectedProps }) => (
+//           <div>
+//             <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
+//           </div>
+//         ),
+//         // The cell can use the individual row's getToggleRowSelectedProps method
+//         // to the render a checkbox
+//         Cell: ({ row }) => (
+//           <div>
+//             <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+//           </div>
+//         ),
+//       },
+//       ...columns,
+//     ])
+//   }
+  );
 
   const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '';
@@ -94,7 +97,9 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
+                <th {...column.getHeaderProps({
+                    style: { minWidth: column.minWidth, width: column.width },
+                  })}>
                   <div {...column.getSortByToggleProps()}>
                     {column.render("Header")}
                     {generateSortingIndicator(column)}
@@ -114,7 +119,12 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
                   <tr>
                     {row.cells.map((cell) => {
                       return (
-                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        <td {...cell.getCellProps({
+                            style: {
+                              minWidth: cell.column.minWidth,
+                              width: cell.column.width,
+                            },
+                          })}>{cell.render('Cell')}</td>
                       );
                     })}
                   </tr>
@@ -190,7 +200,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Button>
           </Col>
         </Row>
-        <pre>
+        {/* <pre>
           <code>
             {JSON.stringify(
               {
@@ -203,7 +213,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
               2
             )}
           </code>
-        </pre>
+        </pre> */}
 
     </Fragment>
   );

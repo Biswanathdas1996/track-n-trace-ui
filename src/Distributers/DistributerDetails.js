@@ -13,7 +13,7 @@ import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import AddDistributer from "./AddDistributer";
 import { useToken } from "../Context/token";
-import { SelectColumnFilter } from "./filters";
+import { SelectColumnFilter } from "../common/filters";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./distributers.css";
 import { distributerList } from "../endpoint";
@@ -36,6 +36,11 @@ export default function DistributerDetails() {
     };
     getDistributerList();
   }, [distributerBool]);
+
+  const dListArray = distributerListArray.map((dist) => ({ ...dist, action: dist }));
+
+//   console.log('distributerListArray',distributerListArray);
+//   console.log('dListArray',dListArray);
 
   const renderRowSubComponent = (row) => {
     const {
@@ -64,10 +69,28 @@ export default function DistributerDetails() {
     );
   };
 
+//   const handleEdit = (row) => {
+//     console.log('handleEdit row',row);
+//   };
+
+//   const handleViewTxn = (row) => {
+//     console.log('handleViewTxn row',row);
+//   };
+
+//   const handleAddTxn = (row) => {
+//     console.log('handleAddTxn row',row);
+//   };
+
+//   const handleView = (row) => {
+//     console.log('handleView row',row);
+//   };
+
   const columns = useMemo(
     () => [
       {
         Header: () => null,
+        width: "2vw",
+        minWidth: "2vw",
         id: "expander", // 'id' is required
         Cell: ({ row }) => (
           <span {...row.getToggleRowExpandedProps()}>
@@ -104,6 +127,78 @@ export default function DistributerDetails() {
         Filter: SelectColumnFilter,
         filter: "equals",
       },
+    //   {
+    //     Header: "Action",
+    //     accessor: "action",
+    //     width: "22vw",
+    //     minWidth: "285px",
+    //     Cell: ({ value }) => (
+    //     //   <>
+    //       <Grid container spacing={2}>
+    //         <Grid item sm={3}>
+    //           <Button
+    //             type="button"
+    //             variant="contained"
+    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
+    //             style={{ width: "5vw", borderRadius: 4 }}
+    //             sx={{
+    //             //   marginRight: "20px",
+    //               textTransform: "none",
+    //             }}
+    //             onClick={() => handleEdit(value)}
+    //           >
+    //             Edit
+    //           </Button>
+    //         </Grid>
+    //         <Grid item sm={3}>
+    //           <Button
+    //             type="button"
+    //             variant="contained"
+    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
+    //             style={{ width: "5vw", borderRadius: 4 }}
+    //             sx={{
+    //             //   marginRight: "20px",
+    //               textTransform: "none",
+    //             }}
+    //             onClick={() => handleViewTxn(value)}
+    //           >
+    //             ViewTxn
+    //           </Button>
+    //         </Grid>
+    //         <Grid item sm={3}>
+    //           <Button
+    //             type="button"
+    //             variant="contained"
+    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
+    //             style={{ width: "5vw", borderRadius: 4 }}
+    //             sx={{
+    //             //   marginRight: "20px",
+    //               textTransform: "none",
+    //             }}
+    //             onClick={() => handleAddTxn(value)}
+    //           >
+    //             AddTxn
+    //           </Button>
+    //         </Grid>
+    //         <Grid item sm={3}>
+    //           <Button
+    //             type="button"
+    //             variant="contained"
+    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
+    //             style={{ width: "5vw", borderRadius: 4 }}
+    //             sx={{
+    //             //   marginRight: "20px",
+    //               textTransform: "none",
+    //             }}
+    //             onClick={() => handleView(value)}
+    //           >
+    //             View
+    //           </Button>
+    //         </Grid>
+    //       </Grid>
+    //     // </>
+    //     )
+    //   }
     ],
     []
   );
@@ -144,29 +239,16 @@ export default function DistributerDetails() {
 
             <Grid item sm={12}>
               <Container
-                style={{ marginTop: 10, maxWidth: "120vw !important" }}
+                style={{ marginTop: 10, maxWidth: "120vw !important", overflow: "scroll" }}
               >
-                {distributerListArray.length > 0 && (
+                {dListArray.length > 0 && (
                   <DistributerTable
                     columns={columns}
-                    data={distributerListArray}
+                    data={dListArray}
                     renderRowSubComponent={renderRowSubComponent}
                   />
                 )}
               </Container>
-              {/* <Button
-                type="button"
-                variant="contained"
-                style={{ float: "left", padding: 8, borderRadius: 4, marginLeft: "38%", }}
-                sx={{
-                //   marginLeft: "30vw",
-                  marginTop: "20px",
-                  textTransform: "none",
-                }}
-                onClick={getSelectedRows}
-              >
-                Get Selected Items {selectedDistributers.length}
-              </Button> */}
             </Grid>
           </>
         )}

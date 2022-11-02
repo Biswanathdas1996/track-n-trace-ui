@@ -5,6 +5,7 @@ import {
   LOCAL_BASE_URL,
   SERVER_BASE_URL,
 } from "../config";
+
 export function getAuthToken() {
   return fetch(`${AUTH_URL}${"/GetConfig.php"}`)
     .then((response) => response.json())

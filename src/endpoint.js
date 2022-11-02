@@ -22,3 +22,6 @@ export const subCategoryDetailsEp = (id) =>
 export const productDetailForSubCat = (catId, subCatId) =>
   `/productList.php?cat_id=${catId}&subcat_id=${subCatId}`;
 export const productDetails = (id) => `/productDetails.php?product_id=${id}`;
+
+export const getAllTokensData = (blankFlag) => `/getAllTokensData.php?blankTokenFlag=${blankFlag}`;
+

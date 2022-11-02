@@ -11,3 +11,17 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+
+.css-mhc70k-MuiGrid-root {
+    margin-top: 0px;
+    width: 31vw;
+    margin-left: -22px !important;
+}
+
+.css-mhc70k-MuiGrid-root>.MuiGrid-item {
+    padding-top: 0px;
+}
+
+.css-auylq4-MuiGrid-root {
+    max-width: fit-content;
+}

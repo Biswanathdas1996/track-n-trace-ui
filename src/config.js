@@ -24,5 +24,4 @@ export const QR_BASE_URL = `https://track-and-trace.netlify.app`;
 
 export const AUTH_URL = "https://sosal.in/endpoints";
 export const LOCAL_BASE_URL = "http://localhost/trackndtrace/apis";
-export const SERVER_BASE_URL =
-  "https://trckndtrce.azurewebsites.net/trackndtrace/apis";
+export const SERVER_BASE_URL = "https://trckndtrce.azurewebsites.net/trackndtrace/apis";
