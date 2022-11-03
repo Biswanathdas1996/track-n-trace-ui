@@ -182,6 +182,14 @@ const ResponsiveAppBar = () => {
               Tokens
             </Button> */}
             <Button
+              key={6}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/tokens"
+            >
+              Tokens
+            </Button>
+            <Button
               key={7}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -204,14 +212,6 @@ const ResponsiveAppBar = () => {
               href="/publishArt"
             >
               Create token
-            </Button>
-            <Button
-              key={10}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/tokens"
-            >
-              Tokens 2
             </Button>
           </Box>
 
