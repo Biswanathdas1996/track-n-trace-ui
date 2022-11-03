@@ -1,69 +1,70 @@
 // material
-import {
-  Card,
-  Table,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import ProductTableBodyUI from "./ProductTableBodyUI";
 
-const TABLE_HEAD = [
-  { id: "id", label: "ID", alignRight: false },
-  { id: "catName", label: "Category", alignRight: false },
-  { id: "subCatName", label: "Sub-Category", alignRight: false },
-  { id: "productName", label: "Product", alignRight: false },
-  { id: "action", label: "Action", alignRight: false },
-];
-
 export default function ProductTable(props) {
-  const { productData, prodDetails, setProdDetails } = props;
-  console.log("productData", productData);
-
+  const {
+    productData,
+    prodDetails,
+    setProdDetails,
+    categoryFilter,
+    subCategoryFilter,
+    productFilter,
+  } = props;
   return (
-    <>
-      <Card
-        className="user-table-container"
-        sx={{ boxShadow: 0, mb: 3, mt: 1 }}
-      >
-        <TableContainer className="user-table-container">
-          <Table>
-            <TableHead style={{ background: "#d93954" }}>
-              <TableRow>
-                {TABLE_HEAD.map((headCell) => (
-                  <TableCell
-                    sx={{ fontWeight: "bold", color: "white" }}
-                    key={headCell.id}
-                    align="center"
-                  >
-                    {headCell.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {productData?.map((data, i) => {
-                return (
-                  <ProductTableBodyUI
-                    category={data.category_name}
-                    subCategory={data.subcategory_name}
-                    product={data.product_name}
-                    id={i + 1}
-                    key={`${data.productid}-${i}`}
-                    prodIdData={data.productid}
-                    subCatIdData={data.sub_category_id}
-                    catIdData={data.category_id}
-                    prodDetails={prodDetails}
-                    setProdDetails={setProdDetails}
-                  />
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Card>
-    </>
+    <Grid>
+      <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
+        <Typography variant="h4" color="error">
+          Product List
+        </Typography>
+      </Grid>
+      <Grid container>
+        {productData
+          ?.map((data, i) => {
+            console.log("data", data);
+            return (
+              <ProductTableBodyUI
+                category={data.category_name}
+                productImage={data.product_image}
+                subCategory={data.subcategory_name}
+                product={data.product_name}
+                id={i + 1}
+                key={`${data.productid}-${i}`}
+                prodIdData={data.productid}
+                subCatIdData={data.sub_category_id}
+                catIdData={data.category_id}
+                prodDetails={prodDetails}
+                setProdDetails={setProdDetails}
+              />
+            );
+          })
+          .filter((item) => {
+            if (categoryFilter) {
+              console.log("res", item, categoryFilter);
+              if (item.props.category === categoryFilter) return true;
+              else return false;
+            } else return true;
+          })
+          .filter((item) => {
+            if (subCategoryFilter) {
+              if (item.props.subCategory === subCategoryFilter) return true;
+              else return false;
+            } else return true;
+          })
+
+          .filter((item) => {
+            if (productFilter) {
+              if (
+                item.props.product
+                  .substring(0, productFilter.length)
+                  .toLowerCase() === productFilter.toLowerCase()
+              )
+                return true;
+              else return false;
+            }
+            return true;
+          })}
+      </Grid>
+    </Grid>
   );
 }

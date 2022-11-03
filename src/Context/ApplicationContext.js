@@ -10,13 +10,16 @@ export const ApplicationProvider = (props) => {
   const [categoryDataArray, setCategoryDataArray] = useState([]);
   const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
   const [productDataArray, setProductDataArray] = useState([]);
+  const [categoryStatus, setCategoryStatus] = useState(false);
+  const [subCategoryStatus, setSubCategoryStatus] = useState(false);
+  const [productStatus, setProductStatus] = useState(false);
 
   useEffect(() => {
     const getCategoryList = async () => {
       const res = await getRequestLoggedIn(categoryList);
       if (res?.status_code === "200") {
-        const categoryNameArray = res.categoryList.map((obj) => obj);
-        setCategoryDataArray(categoryNameArray);
+        setCategoryStatus(true);
+        setCategoryDataArray(res.categoryList);
       } else {
         setCategoryDataArray([]);
       }
@@ -24,8 +27,8 @@ export const ApplicationProvider = (props) => {
     const getProductList = async () => {
       const res = await getRequestLoggedIn(productList);
       if (res?.status_code === "200") {
-        const productArray = res.productList.map((obj) => obj);
-        setProductDataArray(productArray);
+        setProductStatus(true);
+        setProductDataArray(res.productList);
       } else {
         setProductDataArray([]);
       }
@@ -33,8 +36,8 @@ export const ApplicationProvider = (props) => {
     const getSubCategoryList = async () => {
       const res = await getRequestLoggedIn(subCategoryList);
       if (res?.status_code === "200") {
-        const subCategoryArray = res.sub_categoryList.map((obj) => obj);
-        setSubCategoryDataArray(subCategoryArray);
+        setSubCategoryStatus(true);
+        setSubCategoryDataArray(res.sub_categoryList);
       } else {
         setSubCategoryDataArray([]);
       }
@@ -60,6 +63,9 @@ export const ApplicationProvider = (props) => {
         setSubCategoryDataArray,
         productDataArray,
         setProductDataArray,
+        categoryStatus,
+        subCategoryStatus,
+        productStatus,
       }}
     >
       {props.children}

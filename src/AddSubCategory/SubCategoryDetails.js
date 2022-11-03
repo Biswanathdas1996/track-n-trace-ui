@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
@@ -17,7 +18,12 @@ import {
   postRequestLoggedIn,
   getRequestLoggedIn,
 } from "../functions/apiClient";
-import { addEditSubCategory, subCategoryList } from "../endpoint";
+import {
+  addEditSubCategory,
+  categoryDetailsEp,
+  subCategoryList,
+} from "../endpoint";
+import SkeletonComponent from "../Admin/components/SkeletonComponent";
 
 export default function SubCategoryDetails() {
   const [defaultCat, setDefaultCat] = useState();
@@ -27,16 +33,24 @@ export default function SubCategoryDetails() {
     subCategoryName: "",
     subCategoryId: "",
     edit: false,
+    subCategoryImage: "",
   });
   const [searchParams, setSearchParams] = useSearchParams();
-  const { categoryDataArray, subCategoryDataArray, setSubCategoryDataArray } =
-    useContext(ApplicationContext);
+  const [base64Image, setBase64Image] = useState("");
+  const [filterState, setFilterState] = useState(false);
+  const [subCategoryFilter, setSubCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+
+  const {
+    categoryDataArray,
+    subCategoryDataArray,
+    setSubCategoryDataArray,
+    subCategoryStatus,
+  } = useContext(ApplicationContext);
   useEffect(() => {
     const idParam = searchParams.get("catId");
     const getCatDetail = async () => {
-      const res = await getRequestLoggedIn(
-        `/categoryDetails?cat_id=${idParam}`
-      );
+      const res = await getRequestLoggedIn(categoryDetailsEp(idParam));
 
       if ((res.state_code = "200")) {
         setSubCategoryBool(true);
@@ -46,6 +60,23 @@ export default function SubCategoryDetails() {
     };
     idParam && getCatDetail();
   }, []);
+  const changeHandler = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setBase64Image(base64.substring(22));
+  };
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const getSubCategoryList = async () => {
     const res = await getRequestLoggedIn(subCategoryList);
@@ -74,6 +105,18 @@ export default function SubCategoryDetails() {
       };
     });
   };
+  const addNewHandler = () => {
+    setFilterState(false);
+    setCategoryFilter("");
+    setSubCategoryFilter("");
+    setSubCategoryBool(true);
+    setSubCategoryData({
+      categoryName: "",
+      categoryId: "",
+      edit: false,
+      categoryImage: "",
+    });
+  };
 
   const handleAddSubCategory = async () => {
     setSubCategoryBool(false);
@@ -81,13 +124,14 @@ export default function SubCategoryDetails() {
       category_id: defaultCat?.category_id || subCategoryData.categoryId,
       sub_category_id: "",
       sub_category_name: subCategoryData.subCategoryName,
+      sub_category_image: base64Image,
     };
     console.log("dataAdded", data);
     const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res.status_code === "200") {
       const subCategoryArr = await getSubCategoryList();
       setSubCategoryDataArray(subCategoryArr);
-      window.location.reload();
+      //window.location.reload();
     }
   };
   const cancelFun = () => {
@@ -97,22 +141,32 @@ export default function SubCategoryDetails() {
       setSubCategoryBool(false);
     }
   };
+  const applySubCatFilter = !subCategoryBool && (
+    <Grid sx={{ paddingLeft: "26px" }}>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => setFilterState(true)}
+        sx={{ padding: "10px" }}
+      >
+        Apply Filters
+      </Button>
+    </Grid>
+  );
 
   const handleUpdateSubCategory = async () => {
     const data = {
       category_id: subCategoryData.categoryId,
       sub_category_id: subCategoryData.subCategoryId,
       sub_category_name: subCategoryData.subCategoryName,
+      sub_category_image: base64Image,
     };
     const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res?.status_code === "200") {
       const resData = await getSubCategoryList();
-      const subCategoryNameArray =
-        resData &&
-        resData.sub_categoryList &&
-        resData.sub_categoryList.map((obj) => obj);
-      setSubCategoryDataArray(subCategoryNameArray);
-      window.location.reload();
+      setSubCategoryDataArray(resData);
+      setSubCategoryData({ ...subCategoryData, edit: false });
+      //window.location.reload();
     }
   };
   return (
@@ -122,7 +176,7 @@ export default function SubCategoryDetails() {
           <Card
             sx={{
               boxShadow: 0,
-              height: "230px",
+              height: "310px",
               width: "100%",
               backgroundColor: "rgb(241 247 253)",
             }}
@@ -162,6 +216,22 @@ export default function SubCategoryDetails() {
                 onChange={(e) => handleChange(e)}
                 name="subCategoryName"
                 value={subCategoryData?.subCategoryName}
+              />
+            </Grid>
+
+            <Grid
+              item
+              sm={12}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <TextField
+                type="file"
+                id="fullWidth"
+                onChange={(e) => changeHandler(e)}
+                name="fileUpload"
+                sx={{
+                  width: "74%",
+                }}
               />
             </Grid>
             <Grid
@@ -206,13 +276,72 @@ export default function SubCategoryDetails() {
                 marginRight: "20px",
                 textTransform: "none",
               }}
-              onClick={() => setSubCategoryBool(true)}
+              onClick={addNewHandler}
             >
               Add New
             </Button>
           </Grid>
         )}
+        {filterState ? (
+          <Grid container>
+            <Grid
+              item
+              sm={3}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel>Category Filter</InputLabel>
+                <Select
+                  label="Choose the Category"
+                  id="fullWidth"
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  name="categoryFilter"
+                  value={categoryFilter}
+                >
+                  <MenuItem value="">--Please Select--</MenuItem>
 
+                  {categoryDataArray &&
+                    categoryDataArray.map((cat) => (
+                      <MenuItem key={cat.category_id} value={cat.category_name}>
+                        {cat.category_name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              sm={3}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <TextField
+                sx={{ width: "100%" }}
+                label="Sub Category Filter"
+                id="fullWidth"
+                // onChange={(e) => setProductName(e.target.value)}
+                onChange={(e) => setSubCategoryFilter(e.target.value)}
+                name="subCategoryFilter"
+                value={subCategoryFilter}
+              />
+            </Grid>
+            <Grid style={{ marginTop: "18px", paddingLeft: "17px" }}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  setFilterState(false);
+                  setCategoryFilter("");
+                  setSubCategoryFilter("");
+                }}
+                sx={{ paddingTop: "15px", paddingBottom: "15px" }}
+              >
+                Remove Filter
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
+          applySubCatFilter
+        )}
         {!subCategoryData.edit && (
           <Grid item sm={12}>
             {subCategoryDataArray?.length > 0 && (
@@ -220,7 +349,31 @@ export default function SubCategoryDetails() {
                 subCategoryData={subCategoryDataArray}
                 subCategoryDetails={subCategoryData}
                 setSubCategoryDetails={setSubCategoryData}
+                categoryFilter={categoryFilter}
+                subCategoryFilter={subCategoryFilter}
               />
+            )}
+            {!subCategoryStatus ? (
+              <SkeletonComponent number={10} />
+            ) : (
+              subCategoryDataArray?.length === 0 &&
+              !subCategoryBool && (
+                <Grid
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingTop: "100px",
+                  }}
+                >
+                  <Typography variant="h3" color="error">
+                    No Sub Categories added!!!!
+                  </Typography>
+                  <Typography variant="h5">
+                    Please click on to add new to add your sub categories
+                  </Typography>
+                </Grid>
+              )
             )}
           </Grid>
         )}

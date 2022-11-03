@@ -1,8 +1,14 @@
-import React, { useState, useContext } from "react";
-import { TableRow, TableCell, TextField, Button } from "@mui/material";
+import React, { useContext } from "react";
+import {
+  Button,
+  Box,
+  Card,
+  CardActions,
+  CardMedia,
+  Stack,
+  Grid,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { ApplicationContext } from "../Context/ApplicationContext";
 import {
   getRequestLoggedIn,
@@ -20,23 +26,15 @@ export default function ProductTableBodyUI({
   catIdData,
   prodDetails,
   setProdDetails,
+  productImage,
 }) {
   const { setProductDataArray } = useContext(ApplicationContext);
-  const [productInputBool, setProductInputBool] = useState(false);
-  const [productText, setProductText] = useState(product);
-  const categoryText = category;
-  const subCategoryText = subCategory;
   const navigation = useNavigate();
-  const handleEditProduct = () => {
-    setProductInputBool(true);
-  };
 
   const getProductList = async () => {
     const res = await getRequestLoggedIn(productList);
     if (res?.status_code === "200") {
-      return res.productList.map((obj) => {
-        return obj, console.log("obj", obj);
-      });
+      return res.productList;
     }
     return null;
   };
@@ -48,8 +46,9 @@ export default function ProductTableBodyUI({
         categoryId: response?.data?.category_id,
         sub_category_id: response?.data?.subcategory_id,
         product_id: id,
-        productName: productText,
+        productName: product,
         edit: true,
+        productImage: response?.data?.product_image,
       });
     }
     return null;
@@ -62,59 +61,80 @@ export default function ProductTableBodyUI({
     const res = await postRequestLoggedIn(deleteProduct, data);
     if (res?.status_code === "200") {
       const resData = await getProductList();
-      const productNameArray =
-        resData && resData.productList && resData.productList.map((obj) => obj);
-      setProductDataArray(productNameArray);
-      window.location.reload();
+      setProductDataArray(resData);
+      //window.location.reload();
     }
   };
 
   return (
-    <TableRow hover tabIndex={-1}>
-      <TableCell align="center">{id}</TableCell>
-      <TableCell align="center">
-        <b>{categoryText}</b>
-      </TableCell>
-      <TableCell align="center">
-        <b>{subCategoryText}</b>
-      </TableCell>
-      <TableCell align="center">
-        {productInputBool ? (
-          <div>
-            <TextField
-              label="Enter Product"
-              value={productText}
-              onChange={(e) => setProductText(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              style={{ width: 10, height: 25, marginTop: 14, marginLeft: 3 }}
-              onClick={() => getProdDetail(prodIdData)}
-            >
-              Update
-            </Button>
-          </div>
-        ) : (
-          <b>
-            {" "}
-            <Button
+    <Grid item sx={{ padding: "10px" }}>
+      <Box width="300px">
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <CardActions sx={{ height: "300px" }}>
+            <CardMedia
+              component="img"
+              width="160"
+              image={productImage}
               onClick={() => {
                 navigation(`/publishArt?prodId=${prodIdData}`);
               }}
+            />
+          </CardActions>
+          <CardActions>
+            <Grid
+              sx={{
+                fontSize: "15px",
+                fontWeight: "bold",
+                padding: "0",
+              }}
             >
-              {productText}
-            </Button>
-          </b>
-        )}
-      </TableCell>
-
-      <TableCell align="center">
-        <EditIcon onClick={() => getProdDetail(prodIdData)} />
-        <DeleteIcon
-          style={{ color: "red", marginLeft: "10px" }}
-          onClick={() => handleDeleteProduct(prodIdData)}
-        />
-      </TableCell>
-    </TableRow>
+              <Grid> Category - {category}</Grid>
+              <Grid>Sub Category - {subCategory}</Grid>
+              <CardActions
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 0,
+                }}
+              >
+                <Button
+                  size="large"
+                  onClick={() => {
+                    navigation(`/publishArt?prodId=${prodIdData}`);
+                  }}
+                >
+                  {product}
+                </Button>
+              </CardActions>
+            </Grid>
+          </CardActions>
+          <CardActions>
+            <Stack spacing={5} direction="row">
+              <Button
+                onClick={() => handleDeleteProduct(prodIdData)}
+                variant="contained"
+                color="error"
+              >
+                Delete
+              </Button>
+              <Button
+                onClick={() => getProdDetail(prodIdData)}
+                variant="contained"
+                color="error"
+              >
+                Edit
+              </Button>
+            </Stack>
+          </CardActions>
+        </Card>
+      </Box>
+    </Grid>
   );
 }

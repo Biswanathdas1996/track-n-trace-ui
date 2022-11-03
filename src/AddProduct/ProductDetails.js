@@ -7,6 +7,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Typography,
+  Skeleton,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import ProductTable from "./ProductTable";
@@ -23,24 +25,35 @@ import {
   subCategoryDetailsEp,
   subCategoryListForCat,
 } from "../endpoint";
+import SkeletonComponent from "../Admin/components/SkeletonComponent";
 
-export default function ProductDetails({ editFormObject }) {
+export default function ProductDetails() {
   const [defaultSubCat, setDefaultSubCat] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [productBool, setProductBool] = useState(false);
   const [isDefault, setDefault] = useState(true);
-  const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
+  const [base64Image, setBase64Image] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [subCategoryFilter, setSubCategoryFilter] = useState("");
+  const [productFilter, setProductFilter] = useState("");
+  const [filterState, setFilterState] = useState(false);
+  const [subCategoryDataArr, setSubCategoryDataArray] = useState([]);
   const [productData, setProductData] = useState({
     categoryId: "",
     sub_category_id: "",
     product_id: "",
     productName: "",
     edit: false,
+    productImage: "",
   });
   const isEditForm = productData.edit;
-  const { categoryDataArray, productDataArray, setProductDataArray } =
-    useContext(ApplicationContext);
-
+  const {
+    categoryDataArray,
+    subCategoryDataArray,
+    productDataArray,
+    setProductDataArray,
+    productStatus,
+  } = useContext(ApplicationContext);
   useEffect(() => {
     const idParam = searchParams.get("subCatId");
     const getSubCatDetail = async () => {
@@ -62,22 +75,41 @@ export default function ProductDetails({ editFormObject }) {
     }
     return null;
   };
+  console.log("subCategoryFilter", subCategoryFilter);
+  const handleAddProduct = async () => {
+    setProductBool(false);
+    const data = {
+      category_id: defaultSubCat?.category_id || productData?.categoryId,
+      subcategory_id:
+        (isDefault && defaultSubCat?.sub_category_id) ||
+        productData?.sub_category_id,
+      product_id: "",
+      product_name: productData?.productName,
+      product_image: base64Image,
+      product_attributes: [],
+    };
+    const res = await postRequestLoggedIn(addEditProduct, data);
+    if (res.status_code === "200") {
+      const productArr = await getProductList();
+      setProductDataArray(productArr);
+      //window.location.reload();
+    }
+  };
   const editProd = async () => {
     const data = {
       category_id: productData?.categoryId,
       subcategory_id: productData?.sub_category_id,
       product_id: productData?.product_id,
       product_name: productData?.productName,
-      product_image: "",
+      product_image: base64Image,
       product_attributes: [],
     };
     const res = await postRequestLoggedIn(addEditProduct, data);
     if (res?.status_code === "200") {
       const resData = await getProductList();
-      const productNameArray =
-        resData && resData.productList && resData.productList.map((obj) => obj);
-      setProductDataArray(productNameArray);
-      window.location.reload();
+      setProductDataArray(resData);
+      setProductData({ ...productData, edit: false });
+      //window.location.reload();
     }
   };
 
@@ -93,6 +125,7 @@ export default function ProductDetails({ editFormObject }) {
     if (nameEvent === "sub_category_id") {
       setDefault(false);
     }
+
     setProductData((prevalue) => {
       return {
         ...prevalue,
@@ -104,7 +137,7 @@ export default function ProductDetails({ editFormObject }) {
   const getSubCategoryList = async (val) => {
     const res = await getRequestLoggedIn(subCategoryListForCat(val));
     if (res?.status_code === "200") {
-      return res.sub_categoryList.map((obj) => obj);
+      return res.sub_categoryList;
     }
     return null;
   };
@@ -117,25 +150,51 @@ export default function ProductDetails({ editFormObject }) {
     }
   };
 
-  const handleAddProduct = async () => {
-    setProductBool(false);
-    const data = {
-      category_id: defaultSubCat?.category_id || productData?.categoryId,
-      subcategory_id:
-        (isDefault && defaultSubCat?.sub_category_id) ||
-        productData?.sub_category_id,
-      product_id: "",
-      product_name: productData?.productName,
-      product_image: "",
-      product_attributes: [],
-    };
-    const res = await postRequestLoggedIn(addEditProduct, data);
-    if (res.status_code === "200") {
-      const productArr = await getProductList();
-      setProductDataArray(productArr);
-      window.location.reload();
-    }
+  const changeHandler = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setBase64Image(base64.substring(22));
   };
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  const addNewHandler = () => {
+    setFilterState(false);
+    setCategoryFilter("");
+    setSubCategoryFilter("");
+    setProductFilter("");
+    setProductBool(true);
+    setProductData({
+      categoryId: "",
+      sub_category_id: "",
+      product_id: "",
+      productName: "",
+      edit: false,
+      productImage: "",
+    });
+  };
+  const applyFilter = !productBool && (
+    <Grid sx={{ paddingLeft: "26px" }}>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => setFilterState(true)}
+        sx={{ padding: "10px" }}
+      >
+        Apply Filters
+      </Button>
+    </Grid>
+  );
+
   // console.log("------>", setData);
   return (
     <div className="container">
@@ -144,7 +203,7 @@ export default function ProductDetails({ editFormObject }) {
           <Card
             sx={{
               boxShadow: 0,
-              height: "305px",
+              height: "400px",
               width: "100%",
               backgroundColor: "rgb(241 247 253)",
             }}
@@ -194,7 +253,7 @@ export default function ProductDetails({ editFormObject }) {
                       {defaultSubCat?.subcategory_name}
                     </MenuItem>
                   )}
-                  {subCategoryDataArray.map((subCat) => (
+                  {subCategoryDataArr.map((subCat) => (
                     <MenuItem
                       key={subCat.sub_category_id}
                       value={subCat.sub_category_id}
@@ -205,6 +264,7 @@ export default function ProductDetails({ editFormObject }) {
                 </Select>
               </FormControl>
             </Grid>
+
             <Grid
               item
               sm={12}
@@ -220,6 +280,23 @@ export default function ProductDetails({ editFormObject }) {
                 value={productData?.productName}
               />
             </Grid>
+            <Grid
+              item
+              sm={12}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <TextField
+                type="file"
+                id="fullWidth"
+                // onChange={(e) => setProductName(e.target.value)}
+                onChange={(e) => changeHandler(e)}
+                name="fileUpload"
+                sx={{
+                  width: "74%",
+                }}
+              />
+            </Grid>
+
             <Grid
               item
               sm={12}
@@ -258,11 +335,99 @@ export default function ProductDetails({ editFormObject }) {
                 marginRight: "20px",
                 textTransform: "none",
               }}
-              onClick={() => setProductBool(true)}
+              onClick={addNewHandler}
             >
               Add New
             </Button>
           </Grid>
+        )}
+        {filterState ? (
+          <Grid container>
+            <Grid
+              item
+              sm={3}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel>Category Filter</InputLabel>
+                <Select
+                  label="Choose the Category"
+                  id="fullWidth"
+                  onChange={(e) => {
+                    setCategoryFilter(e.target.value);
+                  }}
+                  name="categoryFilter"
+                  value={categoryFilter}
+                >
+                  {categoryDataArray &&
+                    categoryDataArray.map((cat) => (
+                      <MenuItem key={cat.category_id} value={cat.category_name}>
+                        {cat.category_name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              sm={3}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel>Sub Category Filter</InputLabel>
+
+                <Select
+                  label="Choose the Sub Category"
+                  id="fullWidth"
+                  onChange={(e) => setSubCategoryFilter(e.target.value)}
+                  name="subCategoryFilter"
+                  value={subCategoryFilter}
+                >
+                  {subCategoryDataArray &&
+                    subCategoryDataArray.map((subCat) => (
+                      <MenuItem
+                        key={subCat.sub_category_id}
+                        value={subCat.subcategory_name}
+                      >
+                        {subCat.subcategory_name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              sm={3}
+              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            >
+              <TextField
+                sx={{ width: "100%" }}
+                label="Product Filter"
+                id="fullWidth"
+                // onChange={(e) => setProductName(e.target.value)}
+                onChange={(e) => setProductFilter(e.target.value)}
+                name="productFilter"
+                value={productFilter}
+              />
+            </Grid>
+            <Grid style={{ marginTop: "18px", paddingLeft: "17px" }}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  setFilterState(false);
+                  setCategoryFilter("");
+                  setSubCategoryFilter("");
+                  setProductFilter("");
+                }}
+                sx={{ paddingTop: "15px", paddingBottom: "15px" }}
+              >
+                Remove Filter
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
+          applyFilter
         )}
 
         {!isEditForm && (
@@ -272,7 +437,32 @@ export default function ProductDetails({ editFormObject }) {
                 productData={productDataArray}
                 prodDetails={productData}
                 setProdDetails={setProductData}
+                categoryFilter={categoryFilter}
+                subCategoryFilter={subCategoryFilter}
+                productFilter={productFilter}
               />
+            )}
+            {!productStatus ? (
+              <SkeletonComponent number={10} />
+            ) : (
+              productDataArray?.length === 0 &&
+              !productBool && (
+                <Grid
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    paddingTop: "100px",
+                  }}
+                >
+                  <Typography variant="h3" color="error">
+                    No Products added!!!!
+                  </Typography>
+                  <Typography variant="h5">
+                    Please click on to add new to add your products
+                  </Typography>
+                </Grid>
+              )
             )}
           </Grid>
         )}

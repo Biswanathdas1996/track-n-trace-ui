@@ -206,6 +206,14 @@ const ResponsiveAppBar = () => {
               Create Bulk token
             </Button>
             <Button
+              key={10}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/createWorkflow"
+            >
+              Work
+            </Button>
+            <Button
               key={9}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}

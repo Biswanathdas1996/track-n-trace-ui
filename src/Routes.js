@@ -17,7 +17,8 @@ import TokenDetails from "./Tokens/TokenDetails";
 import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
 import ProductDetails from "./AddProduct/ProductDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
-// import TokenTable from "./Admin/components/ProductTable";
+//import TokenTable from "./Admin/components/ProductTable";
+import CreateWorkFlow from "./Admin/components/CreateWorkFlow";
 
 class Routing extends React.Component {
   render() {
@@ -57,6 +58,7 @@ class Routing extends React.Component {
           path="/products"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <ProductTable />{" "}
             </ProtectedRoute>
           }
@@ -66,6 +68,7 @@ class Routing extends React.Component {
           path="/category"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <CategoryDetails />{" "}
             </ProtectedRoute>
           }
@@ -75,6 +78,7 @@ class Routing extends React.Component {
           path="/sub-category"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <SubCategoryDetails />{" "}
             </ProtectedRoute>
           }
@@ -84,24 +88,28 @@ class Routing extends React.Component {
           path="/product"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <ProductDetails />{" "}
             </ProtectedRoute>
           }
         />
         {/* <Route
           exact
-          path="/tokens"
+          path="/createWorkflow"
           element={
             <ProtectedRoute>
-              <TokenTable />{" "}
+              <CreateWorkFlow />
+              <CategoryDetails />{" "}
             </ProtectedRoute>
           }
         /> */}
+
         <Route
           exact
           path="/tokens"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <TokenDetails />{" "}
             </ProtectedRoute>
           }
@@ -111,6 +119,7 @@ class Routing extends React.Component {
           path="/publishArt"
           element={
             <ProtectedRoute>
+              <CreateWorkFlow />
               <PublishArt />{" "}
             </ProtectedRoute>
           }
