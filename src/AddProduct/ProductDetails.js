@@ -75,7 +75,6 @@ export default function ProductDetails() {
     }
     return null;
   };
-  console.log("subCategoryFilter", subCategoryFilter);
   const handleAddProduct = async () => {
     setProductBool(false);
     const data = {
@@ -182,7 +181,7 @@ export default function ProductDetails() {
       productImage: "",
     });
   };
-  const applyFilter = !productBool && (
+  const applyFilter = !productBool && productDataArray.length > 0 && (
     <Grid sx={{ paddingLeft: "26px" }}>
       <Button
         variant="contained"
@@ -194,8 +193,6 @@ export default function ProductDetails() {
       </Button>
     </Grid>
   );
-
-  // console.log("------>", setData);
   return (
     <div className="container">
       <Grid container spacing={2}>

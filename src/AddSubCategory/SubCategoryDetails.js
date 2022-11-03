@@ -90,15 +90,9 @@ export default function SubCategoryDetails() {
     if (event.target.name === "categoryId") {
       setDefaultCat({ ...defaultCat, category_id: "" });
     }
-    console.log("event", event);
     let name = event.target.name;
     let val = event.target.value;
-
-    console.log("name", name);
-    console.log("val", val);
-
     setSubCategoryData((prevalue) => {
-      console.log("prevalue", prevalue);
       return {
         ...prevalue,
         [name]: val,
@@ -126,7 +120,6 @@ export default function SubCategoryDetails() {
       sub_category_name: subCategoryData.subCategoryName,
       sub_category_image: base64Image,
     };
-    console.log("dataAdded", data);
     const res = await postRequestLoggedIn(addEditSubCategory, data);
     if (res.status_code === "200") {
       const subCategoryArr = await getSubCategoryList();
@@ -141,18 +134,19 @@ export default function SubCategoryDetails() {
       setSubCategoryBool(false);
     }
   };
-  const applySubCatFilter = !subCategoryBool && (
-    <Grid sx={{ paddingLeft: "26px" }}>
-      <Button
-        variant="contained"
-        color="error"
-        onClick={() => setFilterState(true)}
-        sx={{ padding: "10px" }}
-      >
-        Apply Filters
-      </Button>
-    </Grid>
-  );
+  const applySubCatFilter = !subCategoryBool &&
+    subCategoryDataArray.length > 0 && (
+      <Grid sx={{ paddingLeft: "26px" }}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => setFilterState(true)}
+          sx={{ padding: "10px" }}
+        >
+          Apply Filters
+        </Button>
+      </Grid>
+    );
 
   const handleUpdateSubCategory = async () => {
     const data = {

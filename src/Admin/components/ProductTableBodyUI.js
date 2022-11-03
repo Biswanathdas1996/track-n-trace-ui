@@ -43,9 +43,7 @@ export default function ProductTableBodyUI({ token, authTok }) {
   const getDetails = async () => {
     setLoading(true);
     const data = await getData(`/get-token-data?token=${token}`, authTok);
-    // console.log("------>", data);
-    // console.log("typeof data", typeof(data));
-    if ((typeof(data) === 'object') && ("Batch No" in data)) {
+    if (typeof data === "object" && "Batch No" in data) {
       setNftData(data);
     } else {
       setNftData(blankObj);
@@ -150,7 +148,7 @@ export default function ProductTableBodyUI({ token, authTok }) {
                 color="warning"
                 endIcon={<AddCircleIcon />}
                 onClick={() => history(`/add-token-data/${token}`)}
-                disabled={nftData && ("Batch No" in nftData)}
+                disabled={nftData && "Batch No" in nftData}
               >
                 Add
               </Button>

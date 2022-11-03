@@ -5,7 +5,6 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 
 export default function CustomBreadCrumbs(props) {
-  console.log(props);
   const breadcrumbs = [
     <Link
       underline="hover"

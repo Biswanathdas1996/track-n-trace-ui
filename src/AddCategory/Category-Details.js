@@ -97,7 +97,7 @@ export default function CategoryDetails() {
       categoryImage: "",
     });
   };
-  const applyFilter = !categoryBool && (
+  const applyFilter = !categoryBool && categoryDataArray?.length > 0 && (
     <Grid sx={{ paddingLeft: "26px" }}>
       <Button
         variant="contained"

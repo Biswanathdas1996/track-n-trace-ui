@@ -48,7 +48,6 @@ const Mint = () => {
     });
 
     setArray(array);
-    console.log(array);
     saveBulkData(array);
   };
 
@@ -64,9 +63,10 @@ const Mint = () => {
         attributes: array[i].attributes,
       };
 
-      await getAuthDataPost(`/initiate-token-info?token=${array[i].token}`, metaData);
-      console.log("Token", array[i].token);
-      console.log("metadata", metaData);
+      await getAuthDataPost(
+        `/initiate-token-info?token=${array[i].token}`,
+        metaData
+      );
     }
     // history("/dashboard");
   };

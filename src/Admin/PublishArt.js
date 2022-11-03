@@ -76,7 +76,6 @@ const Mint = () => {
     };
     const res = await postRequestLoggedIn(createToken, metaData);
     if (res.status_code === "200") {
-      console.log("response of create token", res);
       history("/tokens");
     }
 

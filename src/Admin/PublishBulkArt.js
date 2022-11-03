@@ -18,7 +18,6 @@ const Mint = () => {
 
     for (let i = 0; i < bulkNumber; i++) {
       await getAuthDataPost(`/create`, {});
-      console.log("Called instance:", i + 1);
     }
     history("/dashboard");
   };

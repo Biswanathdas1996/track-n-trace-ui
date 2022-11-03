@@ -21,7 +21,6 @@ export default function ProductTable(props) {
       <Grid container>
         {productData
           ?.map((data, i) => {
-            console.log("data", data);
             return (
               <ProductTableBodyUI
                 category={data.category_name}
@@ -40,7 +39,6 @@ export default function ProductTable(props) {
           })
           .filter((item) => {
             if (categoryFilter) {
-              console.log("res", item, categoryFilter);
               if (item.props.category === categoryFilter) return true;
               else return false;
             } else return true;
