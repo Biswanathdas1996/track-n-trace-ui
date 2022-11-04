@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Button, Card, Grid } from "@mui/material";
+import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
 import {
   Container,
   //   Card,
@@ -33,18 +33,18 @@ export default function FilledTokens() {
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [row, setRow] = useState(null);
-//   console.log('button clicked row==>',row);
+  //   console.log('button clicked row==>',row);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
   const [distributerListArray, setDistributerList] = useState([]);
-//   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
+  //   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
   let history = useNavigate();
 
   useEffect(() => {
     const getTokenList = async () => {
-    //   const res = await getRequestLoggedIn(tokenList);
+      //   const res = await getRequestLoggedIn(tokenList);
       const ep = getAllTokensData(0);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
@@ -56,27 +56,30 @@ export default function FilledTokens() {
         });
       }
     };
-    
-    const getDistributerList = async () => {
-        const res = await getRequestLoggedIn(distributerList);
-        if (res?.status_code === "200") {
-          const dList = res.distributerList.map((obj) => obj);
-          setDistributerList(dList);
-          setDistributerList((distributerList) => {
-            return distributerList;
-          });
-        }
-      };
 
-      getTokenList();
-      getDistributerList();
+    const getDistributerList = async () => {
+      const res = await getRequestLoggedIn(distributerList);
+      if (res?.status_code === "200") {
+        const dList = res.distributerList.map((obj) => obj);
+        setDistributerList(dList);
+        setDistributerList((distributerList) => {
+          return distributerList;
+        });
+      }
+    };
+
+    getTokenList();
+    getDistributerList();
   }, [tokenBool]);
 
-  const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
-//   console.log('distributerListArray',distributerListArray);
+  const tListArray = tokenListArray.map((tokenData) => ({
+    ...tokenData,
+    action: tokenData,
+  }));
+  //   console.log('distributerListArray',distributerListArray);
 
-//   console.log('tokenListArray',tokenListArray);
-//   console.log('tListArray',tListArray);
+  //   console.log('tokenListArray',tokenListArray);
+  //   console.log('tListArray',tListArray);
 
   const renderRowSubComponent = (row) => {
     const {
@@ -93,56 +96,99 @@ export default function FilledTokens() {
         subcategoryName,
         subcategoryImage,
       },
-    //   attributes: [{
-    //     attribute_key, attribute_value
-    //   }],
+      //   attributes: [{
+      //     attribute_key, attribute_value
+      //   }],
       //   picture,
     } = row.original;
     return (
-      <Card style={{ width: "18rem", margin: "0 auto" }}>
-        <CardTitle>
-          <strong>{`${categoryName}-${subcategoryName}-${productName}-${title}`} </strong> <br />
-          <strong>Batch No.: </strong> {batch_no}
-        </CardTitle>
-        {/* ===========Category */}
-        <CardBody>
-          <CardImg top src={categoryImage.large} alt='Category image cap' />
-          <CardText>
-            <strong>Category Name</strong>: {categoryName} <br />
-          </CardText>
-        </CardBody>
-        {/* ===========Sub-Category */}
-        <CardBody>
-          <CardImg top src={subcategoryImage.large} alt='Sub-Category image cap' />
-          <CardText>
-            <strong>Sub-Category Name</strong>: {subcategoryName} <br />
-          </CardText>
-        </CardBody>
-        {/* ===========Product */}
-        <CardBody>
-          <CardImg top src={productImage.large} alt='Product image cap' />
-          <CardText>
-            <strong>Product Name</strong>: {productName} <br />
-          </CardText>
-        </CardBody>
-        {/* ===========Attributes */}
-        {/* {attributes.map((attr) => (
-        <CardBody>
-          <CardText>
-            <strong>Attributes Key</strong>: {attribute_key} <br />
-            <strong>Attributes Value</strong>: {attribute_value} <br />
-          </CardText>
-        </CardBody>
-        )} */}
-        {/* ===========description */}
-        <CardBody>
-          <CardText>
-            <strong>Description</strong>: {description} <br />
-            <strong>Created Date</strong>: {created} <br />
-            <strong>Modified Date</strong>: {modified} <br />
-          </CardText>
-        </CardBody>
-      </Card>
+      <Grid container>
+        {/* category card */}
+
+        <Grid item sm={3}>
+          <Card style={{ width: "22rem", margin: "0 auto" }}>
+            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
+              <Typography variant="h6" sx={{ margin: "auto" }}>
+                <strong>Category : </strong>
+                {categoryName} <br />
+              </Typography>
+            </CardTitle>
+            <CardMedia
+              component="img"
+              width="160"
+              image={
+                categoryImage ||
+                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
+              }
+              sx={{ height: "300px" }}
+            />
+          </Card>
+        </Grid>
+        {/* sub category card */}
+
+        <Grid item sm={3}>
+          <Card style={{ width: "22rem", margin: "0 auto" }}>
+            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
+              <Typography variant="h6" sx={{ margin: "auto" }}>
+                <strong>Sub Category: </strong>
+                {subcategoryName} <br />
+              </Typography>
+            </CardTitle>
+            <CardMedia
+              component="img"
+              width="160"
+              image={
+                subcategoryImage ||
+                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
+              }
+              sx={{ height: "300px" }}
+            />
+          </Card>
+        </Grid>
+        {/* product*/}
+
+        <Grid item sm={3}>
+          <Card style={{ width: "22rem", margin: "0 auto" }}>
+            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
+              <Typography variant="h6" sx={{ margin: "auto" }}>
+                <strong>Product :</strong> {productName}
+                <br />
+                <strong>Title : </strong>
+                {title}
+                <br />
+                <strong>Description :</strong>
+                {description}
+                <br />
+              </Typography>
+            </CardTitle>
+            <CardMedia
+              component="img"
+              width="160"
+              image={
+                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png" ||
+                productImage
+              }
+              sx={{ height: "300px" }}
+            />
+          </Card>
+        </Grid>
+        {/* tokens card */}
+
+        <Grid item sm={3}>
+          <Card style={{ width: "22rem", margin: "0 auto" }}>
+            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
+              <Typography variant="h6" sx={{ margin: "auto" }}>
+                <strong>Batch No. : </strong> {batch_no}
+                <br />
+                <strong>Created Date: </strong>: {created}
+                <br />
+                <strong>Modified Date: </strong>: {modified}
+                <br />
+              </Typography>
+            </CardTitle>
+          </Card>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -217,7 +263,7 @@ export default function FilledTokens() {
         width: "22vw",
         minWidth: "285px",
         Cell: ({ value }) => (
-        //   <>
+          //   <>
           <Grid container spacing={2}>
             <Grid item sm={3}>
               <Button
@@ -271,9 +317,9 @@ export default function FilledTokens() {
               </Button>
             </Grid>
           </Grid>
-        // </>
-        )
-      }
+          // </>
+        ),
+      },
     ],
     []
   );
@@ -292,7 +338,7 @@ export default function FilledTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -307,7 +353,7 @@ export default function FilledTokens() {
           />
         </Box>
       </Modal>
-  
+
       <Modal
         open={openForm}
         onClose={handleCloseForm}
@@ -320,7 +366,7 @@ export default function FilledTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -344,7 +390,11 @@ export default function FilledTokens() {
 
             <Grid item sm={12}>
               <Container
-                style={{ marginTop: 10, maxWidth: "80vw !important", overflowX: "scroll" }}
+                style={{
+                  marginTop: 10,
+                  maxWidth: "80vw !important",
+                  overflowX: "scroll",
+                }}
               >
                 {tListArray.length > 0 && (
                   <FilledTokensTable
