@@ -19,6 +19,7 @@ import ProductDetails from "./AddProduct/ProductDetails";
 import { ProtectedRoute } from "./ProtectedRoutes";
 //import TokenTable from "./Admin/components/ProductTable";
 import CreateWorkFlow from "./Admin/components/CreateWorkFlow";
+import Profile from "./components/profile";
 
 class Routing extends React.Component {
   render() {
@@ -100,6 +101,15 @@ class Routing extends React.Component {
             <ProtectedRoute>
               <CreateWorkFlow />
               <CategoryDetails />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />{" "}
             </ProtectedRoute>
           }
         />

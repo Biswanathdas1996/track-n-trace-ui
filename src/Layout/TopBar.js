@@ -47,6 +47,9 @@ const ResponsiveAppBar = () => {
         navigation("/");
       }
     }
+    if (e.target.innerHTML === "Profile") {
+      navigation("/profile");
+    }
     setAnchorElUser(null);
   };
 
