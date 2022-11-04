@@ -8,11 +8,13 @@ import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
 import {
+  getAuthDataPost,
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
 import TextError from "./components/ErrorComponent";
 import {
+  assignToken,
   categoryList,
   createToken,
   productDetailForSubCat,
@@ -27,7 +29,7 @@ const validationSchema = Yup.object().shape({
   attributes: Yup.array().required("Attributes are required"),
 });
 
-const Mint = () => {
+const Mint = ({ token }) => {
   const [start, setStart] = useState(false);
   const [response, setResponse] = useState(null);
   const [cat, setCat] = useState();
@@ -74,11 +76,19 @@ const Mint = () => {
       batch_no: batchNumber,
       transction: [],
     };
-    const res = await postRequestLoggedIn(createToken, metaData);
-    if (res.status_code === "200") {
+    let res;
+    if (token) {
+      res = await getAuthDataPost(
+        `/initiate-token-info?token=${token}`,
+        metaData
+      );
       history("/tokens");
+    } else {
+      res = await postRequestLoggedIn(createToken, metaData);
+      if (res.status_code === "200") {
+        history("/tokens");
+      }
     }
-
     setResponse(responseData);
   };
 
@@ -132,7 +142,7 @@ const Mint = () => {
                       background: "white",
                     }}
                   >
-                    <h4>Create Tokens</h4>
+                    <h4>{token ? `Add info to #${token}` : "Create Tokens"}</h4>
                     <Formik
                       initialValues={{
                         title: "",
