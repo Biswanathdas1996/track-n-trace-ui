@@ -1,24 +1,7 @@
 import React, { Fragment } from 'react';
 import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSelect } from 'react-table';
-import { Table, Row, Col, Button, Input, CustomInput  } from 'reactstrap';
+import { Table, Row, Col, Button, Input } from 'reactstrap';
 import { Filter, DefaultColumnFilter } from '../common/filters';
-
-// const IndeterminateCheckbox = React.forwardRef(
-//   ({ indeterminate, ...rest }, ref) => {
-//     const defaultRef = React.useRef()
-//     const resolvedRef = ref || defaultRef
-
-//     React.useEffect(() => {
-//       resolvedRef.current.indeterminate = indeterminate
-//     }, [resolvedRef, indeterminate])
-
-//     return (
-//       <>
-//         <input type="checkbox" ref={resolvedRef} {...rest} />
-//       </>
-//     )
-//   }
-// )
 
 const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   const {
@@ -36,8 +19,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
     nextPage,
     previousPage,
     setPageSize,
-    selectedFlatRows,
-    state: { pageIndex, pageSize, selectedRowIds },
+    state: { pageIndex, pageSize },
   } = useTable({
     columns,
     data,
@@ -49,31 +31,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   useExpanded,
   usePagination,
   useRowSelect,
-//   hooks => {
-//     hooks.visibleColumns.push(columns => [
-//       // Making a column for selection
-//       {
-//         id: 'selection',
-//         width: "2vw",
-//         minWidth: "2vw",
-//         // The header can use the table's getToggleAllRowsSelectedProps method
-//         // to render a checkbox
-//         Header: ({ getToggleAllPageRowsSelectedProps }) => (
-//           <div>
-//             <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-//           </div>
-//         ),
-//         // The cell can use the individual row's getToggleRowSelectedProps method
-//         // to the render a checkbox
-//         Cell: ({ row }) => (
-//           <div>
-//             <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-//           </div>
-//         ),
-//       },
-//       ...columns,
-//     ])
-//   }
   );
 
   const generateSortingIndicator = (column) => {
@@ -200,20 +157,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Button>
           </Col>
         </Row>
-        {/* <pre>
-          <code>
-            {JSON.stringify(
-              {
-                selectedRowIds: selectedRowIds,
-                'selectedFlatRows[].original': selectedFlatRows.map(
-                  d => d.original
-                ),
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre> */}
 
     </Fragment>
   );
