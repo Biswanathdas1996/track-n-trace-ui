@@ -93,7 +93,7 @@ class Routing extends React.Component {
             </ProtectedRoute>
           }
         />
-        {/* <Route
+        <Route
           exact
           path="/createWorkflow"
           element={
@@ -102,7 +102,7 @@ class Routing extends React.Component {
               <CategoryDetails />{" "}
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         <Route
           exact

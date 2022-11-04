@@ -134,6 +134,14 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
+              key={10}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/createWorkflow"
+            >
+              Initiate Work Flow
+            </Button>
+            <Button
               key={1}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -204,14 +212,6 @@ const ResponsiveAppBar = () => {
               href="/publishBulkArt"
             >
               Create Bulk token
-            </Button>
-            <Button
-              key={10}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/createWorkflow"
-            >
-              Work
             </Button>
             <Button
               key={9}
