@@ -1,9 +1,7 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, Grid } from "@mui/material";
 import {
   Container,
-  //   Card,
-  CardImg,
   CardText,
   CardBody,
   CardTitle,
@@ -38,23 +36,17 @@ export default function DistributerDetails() {
   }, [distributerBool]);
 
   const dListArray = distributerListArray.map((dist) => ({ ...dist, action: dist }));
-
-//   console.log('distributerListArray',distributerListArray);
-//   console.log('dListArray',dListArray);
-
   const renderRowSubComponent = (row) => {
     const {
       user_fname,
       user_lname,
       user_email,
-      //   picture,
       user_phone,
       state_name,
       zone,
     } = row.original;
     return (
       <Card style={{ width: "18rem", margin: "0 auto" }}>
-        {/* <CardImg top src={picture.large} alt='Card image cap' /> */}
         <CardBody>
           <CardTitle>
             <strong>{`${user_fname} ${user_lname}`} </strong>
@@ -68,22 +60,6 @@ export default function DistributerDetails() {
       </Card>
     );
   };
-
-//   const handleEdit = (row) => {
-//     console.log('handleEdit row',row);
-//   };
-
-//   const handleViewTxn = (row) => {
-//     console.log('handleViewTxn row',row);
-//   };
-
-//   const handleAddTxn = (row) => {
-//     console.log('handleAddTxn row',row);
-//   };
-
-//   const handleView = (row) => {
-//     console.log('handleView row',row);
-//   };
 
   const columns = useMemo(
     () => [
@@ -127,78 +103,6 @@ export default function DistributerDetails() {
         Filter: SelectColumnFilter,
         filter: "equals",
       },
-    //   {
-    //     Header: "Action",
-    //     accessor: "action",
-    //     width: "22vw",
-    //     minWidth: "285px",
-    //     Cell: ({ value }) => (
-    //     //   <>
-    //       <Grid container spacing={2}>
-    //         <Grid item sm={3}>
-    //           <Button
-    //             type="button"
-    //             variant="contained"
-    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
-    //             style={{ width: "5vw", borderRadius: 4 }}
-    //             sx={{
-    //             //   marginRight: "20px",
-    //               textTransform: "none",
-    //             }}
-    //             onClick={() => handleEdit(value)}
-    //           >
-    //             Edit
-    //           </Button>
-    //         </Grid>
-    //         <Grid item sm={3}>
-    //           <Button
-    //             type="button"
-    //             variant="contained"
-    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
-    //             style={{ width: "5vw", borderRadius: 4 }}
-    //             sx={{
-    //             //   marginRight: "20px",
-    //               textTransform: "none",
-    //             }}
-    //             onClick={() => handleViewTxn(value)}
-    //           >
-    //             ViewTxn
-    //           </Button>
-    //         </Grid>
-    //         <Grid item sm={3}>
-    //           <Button
-    //             type="button"
-    //             variant="contained"
-    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
-    //             style={{ width: "5vw", borderRadius: 4 }}
-    //             sx={{
-    //             //   marginRight: "20px",
-    //               textTransform: "none",
-    //             }}
-    //             onClick={() => handleAddTxn(value)}
-    //           >
-    //             AddTxn
-    //           </Button>
-    //         </Grid>
-    //         <Grid item sm={3}>
-    //           <Button
-    //             type="button"
-    //             variant="contained"
-    //             // style={{ float: "right", padding: 8, borderRadius: 4 }}
-    //             style={{ width: "5vw", borderRadius: 4 }}
-    //             sx={{
-    //             //   marginRight: "20px",
-    //               textTransform: "none",
-    //             }}
-    //             onClick={() => handleView(value)}
-    //           >
-    //             View
-    //           </Button>
-    //         </Grid>
-    //       </Grid>
-    //     // </>
-    //     )
-    //   }
     ],
     []
   );
