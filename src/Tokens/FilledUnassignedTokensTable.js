@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSelect } from 'react-table';
-import { Table, Row, Col, Input } from 'reactstrap';
+import { Table, Row, Col, Input, Button, } from 'reactstrap';
 import { Filter, DefaultColumnFilter } from '../common/filters';
 import {
   MenuItem,
@@ -8,7 +8,6 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Button,
 } from "@mui/material";
 import { assignToken } from "../endpoint";
 import {
@@ -125,6 +124,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
     // console.log('assignData',assignData);
     if (res?.status_code === "200") {
         console.log('assignDist Success res',res);
+        selectedIds = [];
     }
 
   };
@@ -159,7 +159,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             marginRight: "20px",
             textTransform: "none",
           }}
-          color= "error"
+          color='primary'
           onClick={assignDist}
           disabled={selectedDist === ''}
         >
@@ -276,7 +276,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             </Button>
           </Col>
         </Row>
-        <pre>
+        {/* <pre>
           <code>
             {JSON.stringify(
               {
@@ -289,7 +289,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
               2
             )}
           </code>
-        </pre>
+        </pre> */}
 
     </Fragment>
   );

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Grid } from "@mui/material";
-import BlankTokens from "./BlankTokens"
-import FilledTokenDetails from "./FilledTokenDetails";
+import FilledAssignedTokens from "./FilledAssignedTokens";
+import FilledUnassignedTokens from "./FilledUnassignedTokens"
 import "../Styles/catFormFields.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 
-export default function TokenDetails() {
-  const [blankTokenFlag, setBlankTokenFlag] = useState(0);
+export default function FilledTokenDetails() {
+  const [assignedFlag, setAssignedFlag] = useState(0);
 
   return (
     <div className="container">
@@ -22,9 +22,9 @@ export default function TokenDetails() {
               marginRight: "20px",
               textTransform: "none",
             }}
-            onClick={() => setBlankTokenFlag(0)}
+            onClick={() => setAssignedFlag(0)}
           >
-            Filled Tokens Table
+            Filled & Unassigned Tokens
           </Button>
         </Grid>
         <Grid item sm={2}>
@@ -36,20 +36,20 @@ export default function TokenDetails() {
               marginRight: "20px",
               textTransform: "none",
             }}
-            onClick={() => setBlankTokenFlag(1)}
+            onClick={() => setAssignedFlag(1)}
           >
-            Blank Tokens Table
+            Filled & Assigned Tokens
           </Button>
         </Grid>
 
-        {blankTokenFlag === 0 && (
+        {assignedFlag === 0 && (
             <Grid item sm={12}>
-                <FilledTokenDetails />
+                <FilledUnassignedTokens />
             </Grid>
         )}
-        {blankTokenFlag === 1 && (
+        {assignedFlag === 1 && (
             <Grid item sm={12}>
-                <BlankTokens />
+                <FilledAssignedTokens />
             </Grid>
         )}
       </Grid>

@@ -2,19 +2,12 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
 import {
   Container,
-  //   Card,
-  CardImg,
-  CardText,
-  CardBody,
   CardTitle,
 } from "reactstrap";
-import FilledTokensTable from "./FilledTokensTable";
+import FilledAssignedTokensTable from "./FilledAssignedTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
-import { getAllTokensData, distributerList } from "../endpoint";
-// import AssignDistributer from "./AssignDistributer";
-import { useToken } from "../Context/token";
-import { SelectColumnFilter } from "../common/filters";
+import { getAllTokensData } from "../endpoint";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 import { useNavigate } from "react-router-dom";
@@ -26,29 +19,22 @@ import SendIcon from "@mui/icons-material/Send";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export default function FilledTokens() {
-  const [tokenBool, setTokenBool] = useState(false);
-  const [token, setToken] = useToken();
+export default function FilledAssignedTokens() {
   const [tokenListArray, setTokenList] = useState([]);
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [row, setRow] = useState(null);
-  //   console.log('button clicked row==>',row);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
-  const [distributerListArray, setDistributerList] = useState([]);
-  //   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
   let history = useNavigate();
 
   useEffect(() => {
     const getTokenList = async () => {
-      //   const res = await getRequestLoggedIn(tokenList);
-      const ep = getAllTokensData(0);
+      const ep = getAllTokensData(0,1);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
-        // console.log('res',res);
         const tokenList = res.data.map((obj) => obj);
         setTokenList(tokenList);
         setTokenList((tokenListArray) => {
@@ -57,29 +43,10 @@ export default function FilledTokens() {
       }
     };
 
-    const getDistributerList = async () => {
-      const res = await getRequestLoggedIn(distributerList);
-      if (res?.status_code === "200") {
-        const dList = res.distributerList.map((obj) => obj);
-        setDistributerList(dList);
-        setDistributerList((distributerList) => {
-          return distributerList;
-        });
-      }
-    };
+      getTokenList();
+  }, []);
 
-    getTokenList();
-    getDistributerList();
-  }, [tokenBool]);
-
-  const tListArray = tokenListArray.map((tokenData) => ({
-    ...tokenData,
-    action: tokenData,
-  }));
-  //   console.log('distributerListArray',distributerListArray);
-
-  //   console.log('tokenListArray',tokenListArray);
-  //   console.log('tListArray',tListArray);
+  const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
 
   const renderRowSubComponent = (row) => {
     const {
@@ -96,9 +63,9 @@ export default function FilledTokens() {
         subcategoryName,
         subcategoryImage,
       },
-      //   attributes: [{
-      //     attribute_key, attribute_value
-      //   }],
+    //   attributes: [{
+    //     attribute_key, attribute_value
+    //   }],
       //   picture,
     } = row.original;
     return (
@@ -263,7 +230,7 @@ export default function FilledTokens() {
         width: "22vw",
         minWidth: "285px",
         Cell: ({ value }) => (
-          //   <>
+        //   <>
           <Grid container spacing={2}>
             <Grid item sm={3}>
               <Button
@@ -317,9 +284,9 @@ export default function FilledTokens() {
               </Button>
             </Grid>
           </Grid>
-          // </>
-        ),
-      },
+        // </>
+        )
+      }
     ],
     []
   );
@@ -338,7 +305,7 @@ export default function FilledTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-
+  
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -353,7 +320,7 @@ export default function FilledTokens() {
           />
         </Box>
       </Modal>
-
+  
       <Modal
         open={openForm}
         onClose={handleCloseForm}
@@ -366,7 +333,7 @@ export default function FilledTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-
+  
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -382,32 +349,23 @@ export default function FilledTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        {!tokenBool && (
-          <>
             <Grid item sm={12}>
-              <h1>FILLED TOKENS</h1>
+              <h1>FILLED ASSIGNED TOKENS</h1>
             </Grid>
 
             <Grid item sm={12}>
               <Container
-                style={{
-                  marginTop: 10,
-                  maxWidth: "80vw !important",
-                  overflowX: "scroll",
-                }}
+                style={{ marginTop: 10, maxWidth: "80vw !important", overflowX: "scroll" }}
               >
                 {tListArray.length > 0 && (
-                  <FilledTokensTable
+                  <FilledAssignedTokensTable
                     columns={columns}
                     data={tListArray}
                     renderRowSubComponent={renderRowSubComponent}
-                    distributerListArray={distributerListArray}
                   />
                 )}
               </Container>
             </Grid>
-          </>
-        )}
       </Grid>
     </div>
   );
