@@ -1,47 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSelect } from 'react-table';
 import { Table, Row, Col, Input, Button, } from 'reactstrap';
 import { Filter, DefaultColumnFilter } from '../common/filters';
-import {
-  MenuItem,
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@mui/material";
-import { assignToken } from "../endpoint";
-import {
-  postRequestLoggedIn,
-} from "../functions/apiClient";
-
-// const IndeterminateCheckbox = React.forwardRef(
-//   ({ indeterminate, ...rest }, ref) => {
-//     const defaultRef = React.useRef()
-//     const resolvedRef = ref || defaultRef
-//     // console.log('indeterminate',indeterminate);
-//     // console.log('rest',rest);
-
-//     React.useEffect(() => {
-//       resolvedRef.current.indeterminate = indeterminate
-//     }, [resolvedRef, indeterminate])
-
-//     return (
-//       <>
-//         <input type="checkbox" ref={resolvedRef} {...rest} />
-//       </>
-//     )
-//   }
-// )
 
 const TableContainer = ({ columns, data, renderRowSubComponent }) => {
-
-//   const [selectedDist, setSelectedDist] = useState('');
-
-//   const handleChange = async (event) => {
-//     let valEvent = event.target.value;
-//     // console.log('valEvent',valEvent);
-//     setSelectedDist(valEvent);
-//   };
 
   const {
     getTableProps,
@@ -58,8 +20,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
     nextPage,
     previousPage,
     setPageSize,
-    selectedFlatRows,
-    state: { pageIndex, pageSize, selectedRowIds },
+    state: { pageIndex, pageSize },
   } = useTable({
     columns,
     data,
@@ -71,36 +32,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   useExpanded,
   usePagination,
   useRowSelect,
-//   hooks => {
-//     hooks.visibleColumns.push(columns => [
-//       // Making a column for selection
-//       {
-//         id: 'selection',
-//         width: "2vw",
-//         minWidth: "2vw",
-//         // The header can use the table's getToggleAllRowsSelectedProps method
-//         // to render a checkbox
-//         Header: ({ getToggleAllPageRowsSelectedProps }) => (
-//           <div>
-//             <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-//           </div>
-//         ),
-//         // The cell can use the individual row's getToggleRowSelectedProps method
-//         // to the render a checkbox
-//         Cell: ({ row }) => (
-//           <div>
-//             <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-//           </div>
-//         ),
-//       },
-//       ...columns,
-//     ])
-//   }
   );
-
-//   const selectedT = selectedFlatRows.map(d => d.original);
-//   const selectedIds = selectedT.map(tokens => tokens.id);
-//   console.log('selectedIds',selectedIds);
 
   const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '';
@@ -115,59 +47,8 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
     gotoPage(page);
   };
 
-//   const assignDist = async () => {
-//     const assignData = {
-//         tokenIds: selectedIds,
-//         assignTo: selectedDist,
-//         trnxtnMsg: "Transaction Started. Token Assigned to distributer."
-//     };
-//     const res = await postRequestLoggedIn(assignToken, assignData);
-//     // console.log('assignData',assignData);
-//     if (res?.status_code === "200") {
-//         console.log('assignDist Success res',res);
-//     }
-
-//   };
-
-
   return (
     <Fragment>
-    {/* {(selectedIds?.length > 0) && (
-      <Grid item sm={12}>
-        <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px" }}>
-          <FormControl sx={{ width: "74%" }}>
-            <InputLabel>Distributer</InputLabel>
-            <Select
-              label="Distributer"
-            //   id="fullWidth"
-              onChange={(e) => handleChange(e)}
-              value={selectedDist.id}
-              name="id"
-            >
-              {distributerListArray.map((dList) => (
-                <MenuItem key={dList.id} value={dList.id}>
-                  {`${dList.user_fname} ${dList.user_lname}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        <Button
-          type="button"
-          variant="contained"
-          style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
-          sx={{
-            marginRight: "20px",
-            textTransform: "none",
-          }}
-          color= "error"
-          onClick={assignDist}
-          disabled={selectedDist === ''}
-        >
-          Assign
-        </Button>
-        </Grid>
-      </Grid>
-    )} */}
         <Table bordered hover {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -276,21 +157,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Button>
           </Col>
         </Row>
-        {/* <pre>
-          <code>
-            {JSON.stringify(
-              {
-                selectedRowIds: selectedRowIds,
-                'selectedFlatRows[].original': selectedFlatRows.map(
-                  d => d.original
-                ),
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre> */}
-
     </Fragment>
   );
 };

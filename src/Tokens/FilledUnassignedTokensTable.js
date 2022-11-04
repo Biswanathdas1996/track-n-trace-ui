@@ -18,8 +18,6 @@ const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef()
     const resolvedRef = ref || defaultRef
-    // console.log('indeterminate',indeterminate);
-    // console.log('rest',rest);
 
     React.useEffect(() => {
       resolvedRef.current.indeterminate = indeterminate
@@ -39,7 +37,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
 
   const handleChange = async (event) => {
     let valEvent = event.target.value;
-    // console.log('valEvent',valEvent);
     setSelectedDist(valEvent);
   };
 
@@ -78,15 +75,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
         id: 'selection',
         width: "2vw",
         minWidth: "2vw",
-        // The header can use the table's getToggleAllRowsSelectedProps method
-        // to render a checkbox
         Header: ({ getToggleAllPageRowsSelectedProps }) => (
           <div>
             <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
           </div>
         ),
-        // The cell can use the individual row's getToggleRowSelectedProps method
-        // to the render a checkbox
         Cell: ({ row }) => (
           <div>
             <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
@@ -99,7 +92,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
 
   const selectedT = selectedFlatRows.map(d => d.original);
   const selectedIds = selectedT.map(tokens => tokens.id);
-//   console.log('selectedIds',selectedIds);
 
   const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '';
@@ -121,7 +113,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
         trnxtnMsg: "Transaction Started. Token Assigned to distributer."
     };
     const res = await postRequestLoggedIn(assignToken, assignData);
-    // console.log('assignData',assignData);
     if (res?.status_code === "200") {
         console.log('assignDist Success res',res);
         selectedIds = [];
@@ -139,7 +130,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             <InputLabel>Distributer</InputLabel>
             <Select
               label="Distributer"
-            //   id="fullWidth"
               onChange={(e) => handleChange(e)}
               value={selectedDist.id}
               name="id"
@@ -276,21 +266,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             </Button>
           </Col>
         </Row>
-        {/* <pre>
-          <code>
-            {JSON.stringify(
-              {
-                selectedRowIds: selectedRowIds,
-                'selectedFlatRows[].original': selectedFlatRows.map(
-                  d => d.original
-                ),
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre> */}
-
     </Fragment>
   );
 };
