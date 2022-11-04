@@ -82,14 +82,15 @@ const Mint = ({ token }) => {
         `/initiate-token-info?token=${token}`,
         metaData
       );
+      setResponse(responseData);
       history("/tokens");
     } else {
       res = await postRequestLoggedIn(createToken, metaData);
       if (res.status_code === "200") {
+        setResponse(responseData);
         history("/tokens");
       }
     }
-    setResponse(responseData);
   };
 
   const modalClose = () => {
