@@ -383,8 +383,8 @@ export default function ProductDetails() {
                     name="subCategoryFilter"
                     value={subCategoryFilter}
                   >
-                    {subCategoryDataArr &&
-                      subCategoryDataArr.map((subCat) => (
+                    {subCategoryDataArray &&
+                      subCategoryDataArray.map((subCat) => (
                         <MenuItem
                           key={subCat.sub_category_id}
                           value={subCat.subcategory_name}
