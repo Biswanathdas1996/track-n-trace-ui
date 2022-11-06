@@ -27,6 +27,7 @@ import SkeletonComponent from "../Admin/components/SkeletonComponent";
 
 export default function SubCategoryDetails() {
   const [defaultCat, setDefaultCat] = useState();
+  const [selectedFilter, setSelectedFilter] = useState(false);
   const [subCategoryBool, setSubCategoryBool] = useState(false);
   const [subCategoryData, setSubCategoryData] = useState({
     categoryId: "",
@@ -53,9 +54,10 @@ export default function SubCategoryDetails() {
       const res = await getRequestLoggedIn(categoryDetailsEp(idParam));
 
       if ((res.state_code = "200")) {
-        setSubCategoryBool(true);
         setDefaultCat(res.data);
+        setCategoryFilter(res.data.category_name);
         setSearchParams({});
+        setSelectedFilter(true);
       }
     };
     idParam && getCatDetail();
@@ -100,8 +102,8 @@ export default function SubCategoryDetails() {
     });
   };
   const addNewHandler = () => {
-    setFilterState(false);
-    setCategoryFilter("");
+    !selectedFilter && setFilterState(false);
+    !selectedFilter && setCategoryFilter("");
     setSubCategoryFilter("");
     setSubCategoryBool(true);
     setSubCategoryData({
@@ -149,6 +151,7 @@ export default function SubCategoryDetails() {
     );
 
   const handleUpdateSubCategory = async () => {
+    setSubCategoryBool(true);
     const data = {
       category_id: subCategoryData.categoryId,
       sub_category_id: subCategoryData.subCategoryId,
@@ -278,31 +281,36 @@ export default function SubCategoryDetails() {
         )}
         {filterState ? (
           <Grid container>
-            <Grid
-              item
-              sm={3}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
-              <FormControl sx={{ width: "100%" }}>
-                <InputLabel>Category Filter</InputLabel>
-                <Select
-                  label="Choose the Category"
-                  id="fullWidth"
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  name="categoryFilter"
-                  value={categoryFilter}
-                >
-                  <MenuItem value="">--Please Select--</MenuItem>
+            {!selectedFilter && (
+              <Grid
+                item
+                sm={3}
+                style={{ marginTop: "18px", paddingLeft: "17px" }}
+              >
+                <FormControl sx={{ width: "100%" }}>
+                  <InputLabel>Category Filter</InputLabel>
+                  <Select
+                    label="Choose the Category"
+                    id="fullWidth"
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                    name="categoryFilter"
+                    value={categoryFilter}
+                  >
+                    <MenuItem value="">--Please Select--</MenuItem>
 
-                  {categoryDataArray &&
-                    categoryDataArray.map((cat) => (
-                      <MenuItem key={cat.category_id} value={cat.category_name}>
-                        {cat.category_name}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </FormControl>
-            </Grid>
+                    {categoryDataArray &&
+                      categoryDataArray.map((cat) => (
+                        <MenuItem
+                          key={cat.category_id}
+                          value={cat.category_name}
+                        >
+                          {cat.category_name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
             <Grid
               item
               sm={3}
@@ -324,7 +332,7 @@ export default function SubCategoryDetails() {
                 color="error"
                 onClick={() => {
                   setFilterState(false);
-                  setCategoryFilter("");
+                  !selectedFilter && setCategoryFilter("");
                   setSubCategoryFilter("");
                 }}
                 sx={{ paddingTop: "15px", paddingBottom: "15px" }}
@@ -345,6 +353,8 @@ export default function SubCategoryDetails() {
                 setSubCategoryDetails={setSubCategoryData}
                 categoryFilter={categoryFilter}
                 subCategoryFilter={subCategoryFilter}
+                selectedFilter={selectedFilter}
+                setSubCategoryBool={setSubCategoryBool}
               />
             )}
             {!subCategoryStatus ? (

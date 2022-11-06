@@ -27,6 +27,7 @@ export default function ProductTableBodyUI({
   prodDetails,
   setProdDetails,
   productImage,
+  setProductBool,
 }) {
   const { setProductDataArray } = useContext(ApplicationContext);
   const navigation = useNavigate();
@@ -40,6 +41,7 @@ export default function ProductTableBodyUI({
   };
 
   const getProdDetail = async (id) => {
+    setProductBool(true);
     const response = await getRequestLoggedIn(productDetails(id));
     if ((response.state_code = "200")) {
       setProdDetails({

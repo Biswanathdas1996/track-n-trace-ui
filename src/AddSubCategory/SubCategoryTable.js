@@ -9,13 +9,15 @@ export default function SubCategoryTable(props) {
     setSubCategoryDetails,
     categoryFilter,
     subCategoryFilter,
+    selectedFilter,
+    setSubCategoryBool,
   } = props;
-
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
         <Typography variant="h4" color="error">
-          Sub Category List
+          Sub Category List{" "}
+          {selectedFilter ? `for ${categoryFilter.toUpperCase()}` : ""}
         </Typography>
       </Grid>
       <Grid container>
@@ -32,6 +34,7 @@ export default function SubCategoryTable(props) {
                 subCategoryDetails={subCategoryDetails}
                 setSubCategoryDetails={setSubCategoryDetails}
                 subCategoryImage={data.subcategory_image}
+                setSubCategoryBool={setSubCategoryBool}
               />
             );
           })

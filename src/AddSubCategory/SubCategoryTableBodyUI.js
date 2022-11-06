@@ -28,6 +28,7 @@ export default function SubCategoryTableBodyUI({
   catIdData,
   setSubCategoryDetails,
   subCategoryImage,
+  setSubCategoryBool,
 }) {
   const { setSubCategoryDataArray } = useContext(ApplicationContext);
 
@@ -41,6 +42,7 @@ export default function SubCategoryTableBodyUI({
     return null;
   };
   const getSubCategoryDetail = async (id) => {
+    setSubCategoryBool(true);
     const response = await getRequestLoggedIn(subCategoryDetailsEp(id));
     if ((response.state_code = "200")) {
       setSubCategoryDetails({

@@ -10,12 +10,17 @@ export default function ProductTable(props) {
     categoryFilter,
     subCategoryFilter,
     productFilter,
+    selectedFilter,
+    setProductBool,
   } = props;
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
         <Typography variant="h4" color="error">
           Product List
+          {selectedFilter
+            ? `for ${subCategoryFilter.toUpperCase()} under ${categoryFilter.toUpperCase()}`
+            : ""}
         </Typography>
       </Grid>
       <Grid container>
@@ -34,6 +39,7 @@ export default function ProductTable(props) {
                 catIdData={data.category_id}
                 prodDetails={prodDetails}
                 setProdDetails={setProdDetails}
+                setProductBool={setProductBool}
               />
             );
           })
