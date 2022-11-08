@@ -20,6 +20,7 @@ import Card from "@mui/material/Card";
 
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
 
@@ -27,10 +28,12 @@ import Grid from "@mui/material/Grid";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { getTokenDetails } from "../endpoint";
 import Roles from "../_mock/userRole";
+import { useNavigate } from "react-router-dom";
 
 export default function CustomizedTimeline() {
   const { token } = useParams();
   const [tokenData, setTokenData] = useState(null);
+  let history = useNavigate();
 
   useEffect(() => {
     const getDetails = async () => {
@@ -52,10 +55,14 @@ export default function CustomizedTimeline() {
     return userRole.roleName;
   }
 
+  const handleBack = () => {
+    history("/tokens");
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container style={{ marginTop: 30 }}>
+        <Grid container style={{ marginTop: 30, marginBottom: 30 }}>
           <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <Card style={{ margin: 20 }}>
@@ -175,6 +182,21 @@ export default function CustomizedTimeline() {
               </center>
             )}
 
+          </Grid>
+          <Grid item lg={12} md={12}>
+            <Button
+              onClick={handleBack}
+              variant="contained"
+              color="primary"
+              style={{ float: "right", padding: 8, borderRadius: 4 }}
+              component="label"
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
+            >
+              GO BACK
+            </Button>
           </Grid>
         </Grid>
       </Box>
