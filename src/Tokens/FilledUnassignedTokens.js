@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
-import {
-  Container,
-  CardTitle,
-} from "reactstrap";
+import { Container, CardTitle } from "reactstrap";
 import FilledUnassignedTokensTable from "./FilledUnassignedTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
@@ -33,7 +30,7 @@ export default function FilledUnassignedTokens() {
 
   useEffect(() => {
     const getTokenList = async () => {
-      const ep = getAllTokensData(0,0);
+      const ep = getAllTokensData(0, 0);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
         const tokenList = res.data.map((obj) => obj);
@@ -43,23 +40,26 @@ export default function FilledUnassignedTokens() {
         });
       }
     };
-    
-    const getDistributerList = async () => {
-        const res = await getRequestLoggedIn(distributerList);
-        if (res?.status_code === "200") {
-          const dList = res.distributerList.map((obj) => obj);
-          setDistributerList(dList);
-          setDistributerList((distributerList) => {
-            return distributerList;
-          });
-        }
-      };
 
-      getTokenList();
-      getDistributerList();
+    const getDistributerList = async () => {
+      const res = await getRequestLoggedIn(distributerList);
+      if (res?.status_code === "200") {
+        const dList = res.distributerList.map((obj) => obj);
+        setDistributerList(dList);
+        setDistributerList((distributerList) => {
+          return distributerList;
+        });
+      }
+    };
+
+    getTokenList();
+    getDistributerList();
   }, []);
 
-  const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
+  const tListArray = tokenListArray.map((tokenData) => ({
+    ...tokenData,
+    action: tokenData,
+  }));
 
   const renderRowSubComponent = (row) => {
     const {
@@ -76,98 +76,175 @@ export default function FilledUnassignedTokens() {
         subcategoryName,
         subcategoryImage,
       },
-    //   attributes: [{
-    //     attribute_key, attribute_value
-    //   }],
+      attributes,
+      //   attributes: [{
+      //     attribute_key, attribute_value
+      //   }],
       //   picture,
     } = row.original;
     return (
-      <Grid container>
+      <Grid container justifyContent="center" alignItems="center">
         {/* category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "22rem", margin: "0 auto" }}>
-            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
-              <Typography variant="h6" sx={{ margin: "auto" }}>
-                <strong>Category : </strong>
-                {categoryName} <br />
-              </Typography>
-            </CardTitle>
-            <CardMedia
-              component="img"
-              width="160"
-              image={
-                categoryImage ||
-                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-              }
-              sx={{ height: "300px" }}
-            />
+          <Card style={{ width: "290px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "15px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography variant="h6">
+                  <strong>Category : </strong>
+                  {categoryName} <br />
+                </Typography>
+              </Grid>
+              <Grid sx={{ paddingTop: "20px" }}>
+                <CardMedia
+                  component="img"
+                  width="160"
+                  image={
+                    categoryImage ||
+                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
+                  }
+                  sx={{ height: "190px" }}
+                />
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
         {/* sub category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "22rem", margin: "0 auto" }}>
-            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
-              <Typography variant="h6" sx={{ margin: "auto" }}>
-                <strong>Sub Category: </strong>
-                {subcategoryName} <br />
-              </Typography>
-            </CardTitle>
-            <CardMedia
-              component="img"
-              width="160"
-              image={
-                subcategoryImage ||
-                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-              }
-              sx={{ height: "300px" }}
-            />
+          <Card style={{ width: "290px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "15px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography variant="h6">
+                  <strong>Sub Category : </strong>
+                  {subcategoryName} <br />
+                </Typography>
+              </Grid>
+              <Grid sx={{ paddingTop: "20px" }}>
+                <CardMedia
+                  component="img"
+                  width="160"
+                  image={
+                    subcategoryImage ||
+                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
+                  }
+                  sx={{ height: "190px" }}
+                />
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
         {/* product*/}
-
         <Grid item sm={3}>
-          <Card style={{ width: "22rem", margin: "0 auto" }}>
-            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
-              <Typography variant="h6" sx={{ margin: "auto" }}>
-                <strong>Product :</strong> {productName}
-                <br />
-                <strong>Title : </strong>
-                {title}
-                <br />
-                <strong>Description :</strong>
-                {description}
-                <br />
-              </Typography>
-            </CardTitle>
-            <CardMedia
-              component="img"
-              width="160"
-              image={
-                "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png" ||
-                productImage
-              }
-              sx={{ height: "300px" }}
-            />
+          <Card style={{ width: "290px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "15px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography variant="h6">
+                  <strong>Product : </strong>
+                  {productName} <br />
+                </Typography>
+              </Grid>
+              <Grid item sx={{ paddingTop: "20px" }}>
+                <CardMedia
+                  component="img"
+                  width="160"
+                  image={
+                    productImage ||
+                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
+                  }
+                  sx={{ height: "190px" }}
+                />
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
+
+        <Grid item sm={3}>
+          <Card style={{ width: "380px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "15px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography variant="h5">
+                  <strong>More Information </strong>
+                </Typography>
+              </Grid>
+              <Grid item sx={{ paddingTop: "20px" }}>
+                <Typography variant="h6">
+                  <strong>Product Title : </strong>
+                  {title}
+                  <br />
+                  <strong> Product Description : </strong>
+                  {description} <br />
+                  <strong>Batch No. : </strong> {batch_no}
+                  <br />
+                  <strong>Created Date: </strong> {created}
+                  <br />
+                  <strong>Modified Date: </strong>
+                  {modified}
+                  <br />
+                  <strong> Below are the Product Attributes : </strong>
+                  <Grid
+                    container
+                    flexDirection="column"
+                    sx={{ paddingLeft: "15px" }}
+                  >
+                    {attributes.map((attr, index) => {
+                      return (
+                        <Grid key={index}>
+                          <strong>
+                            {index + 1} . {attr.attribute_key} :{" "}
+                          </strong>
+                          {attr.attribute_value}
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Card>
+        </Grid>
+
         {/* tokens card */}
-
-        <Grid item sm={3}>
-          <Card style={{ width: "22rem", margin: "0 auto" }}>
-            <CardTitle style={{ height: "100px", paddingBottom: "10px" }}>
-              <Typography variant="h6" sx={{ margin: "auto" }}>
-                <strong>Batch No. : </strong> {batch_no}
-                <br />
-                <strong>Created Date: </strong>: {created}
-                <br />
-                <strong>Modified Date: </strong>: {modified}
-                <br />
-              </Typography>
-            </CardTitle>
-          </Card>
-        </Grid>
       </Grid>
     );
   };
@@ -256,14 +333,19 @@ export default function FilledUnassignedTokens() {
         minWidth: "450px",
         disableFilters: true,
         Cell: ({ value }) => (
-        //   <>
+          //   <>
           <Grid container spacing={2}>
             <Grid item sm={3}>
               <Button
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "110px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAddTxn(value)}
               >
@@ -275,7 +357,12 @@ export default function FilledUnassignedTokens() {
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "110px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleView(value)}
               >
@@ -287,7 +374,12 @@ export default function FilledUnassignedTokens() {
                 endIcon={<SendIcon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "90px", maxWidth: "100px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "90px",
+                  maxWidth: "100px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleViewTxn(value)}
               >
@@ -299,7 +391,13 @@ export default function FilledUnassignedTokens() {
                 endIcon={<AddCircleIcon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "100px",
+                  width: "100px !important",
+                  marginLeft: "5px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAdd(value)}
                 // disabled={value && ("Batch No" in value)}
@@ -310,9 +408,9 @@ export default function FilledUnassignedTokens() {
               </Button>
             </Grid>
           </Grid>
-        // </>
-        )
-      }
+          // </>
+        ),
+      },
     ],
     []
   );
@@ -331,7 +429,7 @@ export default function FilledUnassignedTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -346,7 +444,7 @@ export default function FilledUnassignedTokens() {
           />
         </Box>
       </Modal>
-  
+
       <Modal
         open={openForm}
         onClose={handleCloseForm}
@@ -359,7 +457,7 @@ export default function FilledUnassignedTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -375,32 +473,28 @@ export default function FilledUnassignedTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-            <Grid item sm={12}>
-              <h1
-                style={{ marginLeft: 10}}
-              >
-                FILLED UNASSIGNED TOKENS
-              </h1>
-            </Grid>
+        <Grid item sm={12}>
+          <h1 style={{ marginLeft: 10 }}>FILLED UNASSIGNED TOKENS</h1>
+        </Grid>
 
-            <Grid item sm={12}>
-              <Container
-                style={{
-                  marginTop: 10,
-                  maxWidth: "80vw !important",
-                  overflowX: "scroll",
-                }}
-              >
-                {tListArray.length > 0 && (
-                  <FilledUnassignedTokensTable
-                    columns={columns}
-                    data={tListArray}
-                    renderRowSubComponent={renderRowSubComponent}
-                    distributerListArray={distributerListArray}
-                  />
-                )}
-              </Container>
-            </Grid>
+        <Grid item sm={12}>
+          <Container
+            style={{
+              marginTop: 10,
+              maxWidth: "80vw !important",
+              overflowX: "scroll",
+            }}
+          >
+            {tListArray.length > 0 && (
+              <FilledUnassignedTokensTable
+                columns={columns}
+                data={tListArray}
+                renderRowSubComponent={renderRowSubComponent}
+                distributerListArray={distributerListArray}
+              />
+            )}
+          </Container>
+        </Grid>
       </Grid>
     </div>
   );
