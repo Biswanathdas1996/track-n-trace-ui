@@ -105,9 +105,9 @@ export default function CustomizedTimeline() {
               </Typography>
             </center>
 
-            <Timeline position="alternate">
-              {tokenData &&
-                tokenData?.transactions?.map((data, index) => {
+            {tokenData?.transactions?.length > 0 ? (
+              <Timeline position="alternate">
+                {tokenData && tokenData?.transactions?.map((data, index) => {
                   return (
                     <TimelineItem key={index}>
                       <TimelineOppositeContent
@@ -164,9 +164,17 @@ export default function CustomizedTimeline() {
                         </Typography>
                       </TimelineContent>
                     </TimelineItem>
-                  );
+                    );
                 })}
-            </Timeline>
+              </Timeline>
+            ) : (
+              <center>
+                <Typography variant="subtitle1" component="span">
+                  <strong>No transaction done for the token. </strong>
+                </Typography>
+              </center>
+            )}
+
           </Grid>
         </Grid>
       </Box>
