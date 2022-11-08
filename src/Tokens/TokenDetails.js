@@ -1,58 +1,94 @@
 import React, { useState } from "react";
 import { Button, Grid } from "@mui/material";
 import BlankTokens from "./BlankTokens"
-import FilledTokenDetails from "./FilledTokenDetails";
+import FilledAssignedTokens from "./FilledAssignedTokens";
+import FilledUnassignedTokens from "./FilledUnassignedTokens"
 import "../Styles/catFormFields.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 
 export default function TokenDetails() {
-  const [blankTokenFlag, setBlankTokenFlag] = useState(0);
+  const [blankTokenFlag, setBlankTokenFlag] = useState(1);
+  const [assignedFlag, setAssignedFlag] = useState(0);
+
+  const setFlag = (aFlag, bFlag) => {
+
+    setBlankTokenFlag(bFlag);
+    setBlankTokenFlag((blankTokenFlag) => {
+      return blankTokenFlag;
+    });
+
+    setAssignedFlag(aFlag);
+    setAssignedFlag((assignedFlag) => {
+      return assignedFlag;
+    });
+  }
 
   return (
     <div className="container">
-      <Grid container spacing={2}>
-        <Grid item sm={8} />
+      <Grid container spacing={2}
+          style={{ paddingRight: "18px" }}
+        >
+        <Grid item sm={6} />
         <Grid item sm={2}>
           <Button
             type="button"
             variant="contained"
-            style={{ float: "right", padding: 8, borderRadius: 4 }}
+            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
             sx={{
               marginRight: "20px",
               textTransform: "none",
             }}
-            onClick={() => setBlankTokenFlag(0)}
+            onClick={() => setFlag(0,0)}
           >
-            Filled Tokens Table
+            Filled Unassigned Tokens
           </Button>
         </Grid>
         <Grid item sm={2}>
           <Button
             type="button"
             variant="contained"
-            style={{ float: "right", padding: 8, borderRadius: 4 }}
+            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
             sx={{
               marginRight: "20px",
               textTransform: "none",
             }}
-            onClick={() => setBlankTokenFlag(1)}
+            onClick={() => setFlag(1,0)}
+          >
+            Filled Assigned Tokens
+          </Button>
+        </Grid>
+        <Grid item sm={2}>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            onClick={() => setFlag(0,1)}
           >
             Blank Tokens Table
           </Button>
         </Grid>
-
-        {blankTokenFlag === 0 && (
-            <Grid item sm={12}>
-                <FilledTokenDetails />
-            </Grid>
-        )}
-        {blankTokenFlag === 1 && (
-            <Grid item sm={12}>
-                <BlankTokens />
-            </Grid>
-        )}
       </Grid>
+
+{(assignedFlag === 0 && blankTokenFlag === 0) && (
+    <Grid item sm={12}>
+        <FilledUnassignedTokens />
+    </Grid>
+)}
+{(assignedFlag === 1 && blankTokenFlag === 0) && (
+    <Grid item sm={12}>
+        <FilledAssignedTokens />
+    </Grid>
+)}
+{(assignedFlag === 0 && blankTokenFlag === 1) && (
+    <Grid item sm={12}>
+        <BlankTokens />
+    </Grid>
+)}
     </div>
   );
 }

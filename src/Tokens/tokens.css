@@ -1,14 +1,9 @@
 .container, .container-md, .container-sm {
-    max-width: 95%;
+    max-width: 100%;
 }
 
-.btn-primary.disabled, .btn-primary:disabled {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    margin-left: 5px;
+.container2 {
+    max-width: 100%;
     margin-right: 5px;
 }
 
@@ -25,3 +20,14 @@
 .css-auylq4-MuiGrid-root {
     max-width: fit-content;
 }
+
+.MuiButton-containedPrimary {
+    background-color: #d93954 !important;
+    border-color: #d93954 !important;
+    color: #ffffff !important;
+  }
+  
+  .MuiButton-outlinedPrimary {
+    border-color: #d93954 !important;
+    color: #d93954 !important;
+  }

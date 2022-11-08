@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, Grid } from "@mui/material";
 import {
   Container,
-  //   Card,
   CardImg,
   CardText,
   CardBody,
@@ -11,10 +10,8 @@ import {
 import BlankTokensTable from "./BlankTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
-import { getAllTokensData, distributerList } from "../endpoint";
-// import AssignDistributer from "./AssignDistributer";
+import { getAllTokensData } from "../endpoint";
 import { useToken } from "../Context/token";
-import { SelectColumnFilter } from "../common/filters";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 import { useNavigate } from "react-router-dom";
@@ -27,28 +24,21 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function BlankTokens() {
-//   const [tokenBool, setTokenBool] = useState(false);
-  const [token, setToken] = useToken();
   const [tokenListArray, setTokenList] = useState([]);
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [row, setRow] = useState(null);
-//   console.log('button clicked row==>',row);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
-//   const [distributerListArray, setDistributerList] = useState([]);
-//   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
   let history = useNavigate();
 
   useEffect(() => {
     const getTokenList = async () => {
-    //   const res = await getRequestLoggedIn(tokenList);
-      const ep = getAllTokensData(1);
+      const ep = getAllTokensData(1,0);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
-        // console.log('res',res);
         const tokenList = res.data.map((obj) => obj);
         setTokenList(tokenList);
         setTokenList((tokenListArray) => {
@@ -56,27 +46,11 @@ export default function BlankTokens() {
         });
       }
     };
-    
-    // const getDistributerList = async () => {
-    //     const res = await getRequestLoggedIn(distributerList);
-    //     if (res?.status_code === "200") {
-    //       const dList = res.distributerList.map((obj) => obj);
-    //       setDistributerList(dList);
-    //       setDistributerList((distributerList) => {
-    //         return distributerList;
-    //       });
-    //     }
-    //   };
 
     getTokenList();
-    // getDistributerList();
   }, []);
 
   const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
-
-//   console.log('distributerListArray',distributerListArray);
-//   console.log('tokenListArray',tokenListArray);
-//   console.log('tListArray',tListArray);
 
   const renderRowSubComponent = (row) => {
     const {
@@ -137,14 +111,16 @@ export default function BlankTokens() {
         ),
       },
       {
+        width: "8vw",
+        minWidth: "8vw",
         Header: "Token ID",
         accessor: "id",
       },
       {
         Header: "Action",
         accessor: "action",
-        width: "22vw",
-        minWidth: "285px",
+        width: "450px",
+        minWidth: "450px",
         Cell: ({ value }) => (
         //   <>
           <Grid container spacing={2}>
@@ -153,7 +129,7 @@ export default function BlankTokens() {
               startIcon={<QrCode2Icon />}
               type="button"
               variant="contained"
-              style={{ width: "5vw", borderRadius: 4 }}
+              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
               sx={{ textTransform: "none" }}
               onClick={() => handleAddTxn(value)}
               color="warning"
@@ -167,7 +143,7 @@ export default function BlankTokens() {
               startIcon={<QrCode2Icon />}
               type="button"
               variant="contained"
-              style={{ width: "5vw", borderRadius: 4 }}
+              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
               sx={{ textTransform: "none" }}
               onClick={() => handleView(value)}
               color="warning"
@@ -181,7 +157,7 @@ export default function BlankTokens() {
               endIcon={<SendIcon />}
               type="button"
               variant="contained"
-              style={{ width: "5vw", borderRadius: 4 }}
+              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
               sx={{ textTransform: "none" }}
               onClick={() => handleViewTxn(value)}
               color="warning"
@@ -195,10 +171,9 @@ export default function BlankTokens() {
               endIcon={<AddCircleIcon />}
               type="button"
               variant="contained"
-              style={{ width: "5vw", borderRadius: 4 }}
+              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
               sx={{ textTransform: "none" }}
               onClick={() => handleAdd(value)}
-              // disabled={value && ("Batch No" in value)}
             >
               Add
             </Button>
@@ -271,7 +246,11 @@ export default function BlankTokens() {
       <Grid container spacing={2}>
           <>
             <Grid item sm={12}>
-              <h1>BLANK TOKENS</h1>
+              <h1
+                style={{ marginLeft: 10}}
+              >
+                BLANK TOKENS
+              </h1>
             </Grid>
 
             <Grid item sm={12}>
@@ -283,7 +262,6 @@ export default function BlankTokens() {
                     columns={columns}
                     data={tListArray}
                     renderRowSubComponent={renderRowSubComponent}
-                    // distributerListArray={distributerListArray}
                   />
                 )}
               </Container>

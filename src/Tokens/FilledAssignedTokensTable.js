@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSelect } from 'react-table';
-import { Table, Row, Col, Input, Button, } from 'reactstrap';
+import { Table, Row, Col, Input } from 'reactstrap';
+import Button from "@mui/material/Button";
 import { Filter, DefaultColumnFilter } from '../common/filters';
 
 const TableContainer = ({ columns, data, renderRowSubComponent }) => {
@@ -101,18 +102,28 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
         <Row style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
           <Col md={3}>
             <Button
-              color='primary'
+              variant="contained"
+              color="error"
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
             >
-              {'<<'}
+            {'<<'}
             </Button>
             <Button
-              color='primary'
+              variant="contained"
+              color="error"
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
               onClick={previousPage}
               disabled={!canPreviousPage}
             >
-              {'<'}
+            {'<'}
             </Button>
           </Col>
           <Col md={2} style={{ marginTop: 7 }}>
@@ -145,15 +156,29 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Input>
           </Col>
           <Col md={3}>
-            <Button color='primary' onClick={nextPage} disabled={!canNextPage}>
-              {'>'}
+            <Button
+              variant="contained"
+              color="error"
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
+              onClick={nextPage}
+              disabled={!canNextPage}
+            >
+            {'>'}
             </Button>
             <Button
-              color='primary'
+              variant="contained"
+              color="error"
+              sx={{
+                marginRight: "20px",
+                textTransform: "none",
+              }}
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
             >
-              {'>>'}
+            {'>>'}
             </Button>
           </Col>
         </Row>

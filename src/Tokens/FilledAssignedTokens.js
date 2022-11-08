@@ -197,28 +197,40 @@ export default function FilledAssignedTokens() {
         ),
       },
       {
+        width: "8vw",
+        minWidth: "8vw",
         Header: "Token ID",
         accessor: "id",
       },
       {
+        width: "9vw",
+        minWidth: "9vw",
         Header: "Batch No",
         accessor: "tokenDetails.batch_no",
       },
       {
+        width: "9vw",
+        minWidth: "9vw",
         Header: "Category Name",
         accessor: "tokenDetails.categoryName",
       },
       {
+        width: "9vw",
+        minWidth: "9vw",
         Header: "Sub-Category Name",
         accessor: "tokenDetails.subcategoryName",
       },
       {
+        width: "9vw",
+        minWidth: "9vw",
         Header: "Product Name",
         accessor: "tokenDetails.productName",
         // Filter: SelectColumnFilter,
         // filter: "equals",
       },
       {
+        width: "9vw",
+        minWidth: "9vw",
         Header: "Title",
         accessor: "tokenDetails.title",
         // Filter: SelectColumnFilter,
@@ -227,8 +239,8 @@ export default function FilledAssignedTokens() {
       {
         Header: "Action",
         accessor: "action",
-        width: "22vw",
-        minWidth: "285px",
+        width: "450px",
+        minWidth: "450px",
         Cell: ({ value }) => (
         //   <>
           <Grid container spacing={2}>
@@ -237,7 +249,7 @@ export default function FilledAssignedTokens() {
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ width: "5vw", borderRadius: 4 }}
+                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAddTxn(value)}
               >
@@ -249,7 +261,7 @@ export default function FilledAssignedTokens() {
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ width: "5vw", borderRadius: 4 }}
+                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleView(value)}
               >
@@ -261,7 +273,7 @@ export default function FilledAssignedTokens() {
                 endIcon={<SendIcon />}
                 type="button"
                 variant="contained"
-                style={{ width: "5vw", borderRadius: 4 }}
+                style={{ minWidth: "90px", maxWidth: "100px", width: "100px", borderRadius: 4 }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleViewTxn(value)}
               >
@@ -273,7 +285,7 @@ export default function FilledAssignedTokens() {
                 endIcon={<AddCircleIcon />}
                 type="button"
                 variant="contained"
-                style={{ width: "5vw", borderRadius: 4 }}
+                style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAdd(value)}
                 // disabled={value && ("Batch No" in value)}
@@ -350,12 +362,16 @@ export default function FilledAssignedTokens() {
       </Modal>
       <Grid container spacing={2}>
             <Grid item sm={12}>
-              <h1>FILLED ASSIGNED TOKENS</h1>
+              <h1
+                style={{ marginLeft: 10}}
+              >
+                FILLED ASSIGNED TOKENS
+              </h1>
             </Grid>
 
             <Grid item sm={12}>
               <Container
-                style={{ marginTop: 10, maxWidth: "80vw !important", overflowX: "scroll" }}
+                style={{ marginTop: 10, maxWidth: "100% !important", overflowX: "scroll" }}
               >
                 {tListArray.length > 0 && (
                   <FilledAssignedTokensTable
