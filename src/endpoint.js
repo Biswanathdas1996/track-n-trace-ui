@@ -27,3 +27,5 @@ export const productDetails = (id) => `/productDetails.php?product_id=${id}`;
 export const categoryDetailsEp = (id) => `/categoryDetails.php?cat_id=${id}`;
 
 export const getAllTokensData = (blankFlag, assignedFlag) => `/getAllTokensData.php?assignedFlag=${assignedFlag}&blankTokenFlag=${blankFlag}`;
+
+export const getTokenDetails = (token) => `/tokenDetails.php?tokenId=${token}`;

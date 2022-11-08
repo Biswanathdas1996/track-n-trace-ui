@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect }  from "react";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -8,10 +8,13 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
-import { getAuthData } from "../functions/apiClient";
 
 import Card from "@mui/material/Card";
 
@@ -21,22 +24,33 @@ import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 
 import Grid from "@mui/material/Grid";
+import { getRequestLoggedIn } from "../functions/apiClient";
+import { getTokenDetails } from "../endpoint";
+import Roles from "../_mock/userRole";
 
 export default function CustomizedTimeline() {
   const { token } = useParams();
-  const [nftData, setNftData] = React.useState(null);
+  const [tokenData, setTokenData] = useState(null);
 
-  React.useEffect(() => {
-    getDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const getDetails = async () => {
+      const ep = getTokenDetails(token);
+      const res = await getRequestLoggedIn(ep);
+      if (res?.status_code === "200") {
+        setTokenData(res);
+        setTokenData((tokenData) => {
+          return tokenData;
+        });
+      }
+    };
+
+      getDetails();
   }, []);
 
-  const getDetails = async () => {
-    const data = await getAuthData(`/get-token-data?token=${token}`);
-    setNftData(data);
-  };
-
-  console.log("---nftData-->", nftData);
+  const getRole = (roleId) => {
+    const userRole = Roles.find(({id}) => id == roleId);
+    return userRole.roleName;
+  }
 
   return (
     <>
@@ -45,11 +59,11 @@ export default function CustomizedTimeline() {
           <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <Card style={{ margin: 20 }}>
-              {nftData?.image && (
+              {tokenData?.tokenDetails?.productImage && (
                 <CardMedia
                   component="img"
                   // height="140"
-                  image={nftData?.image}
+                  image={tokenData?.tokenDetails?.productImage}
                   alt="green iguana"
                 />
               )}
@@ -63,10 +77,23 @@ export default function CustomizedTimeline() {
                   #Token {token}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="div">
-                  {nftData?.name}
+                <strong>Batch Number: </strong> {tokenData?.tokenDetails?.batch_no}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {nftData?.description}
+                <Typography gutterBottom variant="h6" component="div">
+                <strong>Category Name: </strong> {tokenData?.tokenDetails?.categoryName}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                <strong>Sub-Category Name: </strong> {tokenData?.tokenDetails?.subcategoryName}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                <strong>Product Name: </strong> {tokenData?.tokenDetails?.productName}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                <strong>Token Title: </strong> {tokenData?.tokenDetails?.title}
+                </Typography>
+                {/* <Typography variant="body2" color="text.secondary"> */}
+                <Typography gutterBottom variant="h6" component="div">
+                <strong>Description: </strong> {tokenData?.tokenDetails?.description}
                 </Typography>
               </CardContent>
             </Card>
@@ -79,8 +106,8 @@ export default function CustomizedTimeline() {
             </center>
 
             <Timeline position="alternate">
-              {nftData &&
-                nftData?.transction?.map((data, index) => {
+              {tokenData &&
+                tokenData?.transactions?.map((data, index) => {
                   return (
                     <TimelineItem key={index}>
                       <TimelineOppositeContent
@@ -89,7 +116,7 @@ export default function CustomizedTimeline() {
                         variant="body2"
                         color="text.secondary"
                       >
-                        {data?.date}
+                        {data?.created}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <TimelineConnector />
@@ -99,10 +126,42 @@ export default function CustomizedTimeline() {
                         <TimelineConnector />
                       </TimelineSeparator>
                       <TimelineContent sx={{ py: "12px", px: 2 }}>
-                        <Typography variant="h6" component="span">
-                          {data?.status}
+                        <Typography variant="subtitle2" component="span">
+                          <strong>{data?.trnxtn_details}</strong> <br />
                         </Typography>
-                        <Typography>{data?.place}</Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <LocationOnOutlinedIcon />{data?.location} <br />
+                        </Typography>
+                        <Typography variant="subtitle1" component="span">
+                          <strong>Assigned By:- </strong>
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <strong>{getRole(data?.tranxtnInitiaterRole)}</strong> <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <BadgeOutlinedIcon />{data?.tranxtnInitiaterFname} {data?.tranxtnInitiaterLname} <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <EmailOutlinedIcon />{data?.tranxtnInitiaterEmail} <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <PhoneInTalkOutlinedIcon />{data?.tranxtnInitiaterPhone} <br />
+                        </Typography>
+                        <Typography variant="subtitle1" component="span">
+                          <strong>Assigned To:- </strong>
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <strong>{getRole(data?.tranxtnEndUserRole)}</strong> <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <BadgeOutlinedIcon />{data?.tranxtnEndUserFname} {data?.tranxtnEndUserLname} <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <EmailOutlinedIcon />{data?.tranxtnEndUserEmail} <br />
+                        </Typography>
+                        <Typography variant="subtitle2" component="span">
+                          <PhoneInTalkOutlinedIcon />{data?.tranxtnEndUserPhone} <br />
+                        </Typography>
                       </TimelineContent>
                     </TimelineItem>
                   );
