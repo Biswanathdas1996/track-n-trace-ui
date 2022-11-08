@@ -69,19 +69,21 @@ export default function SubCategoryTableBodyUI({
   };
 
   return (
-    <Grid item sx={{ padding: "10px" }}>
-      <Box width="300px">
+    <Grid item sx={{ padding: "15px" }}>
+      <Box width="220px">
         <Card
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            padding: "12px",
+            background: "#ebecf0",
+            boxShadow: "8px 8px 4px #d3d3d3",
           }}
         >
-          <CardActions sx={{ height: "300px" }}>
+          <CardActions sx={{ height: "190px" }}>
             <CardMedia
               component="img"
-              width="160"
               image={subCategoryImage}
               onClick={() =>
                 navigation(
@@ -91,7 +93,9 @@ export default function SubCategoryTableBodyUI({
             />
           </CardActions>
           <CardActions>
-            <Grid sx={{ fontSize: "15px", fontWeight: "bold" }}>
+            <Grid
+              sx={{ fontSize: "15px", fontWeight: "bold", textAlign: "center" }}
+            >
               <Grid>Category - {category}</Grid>
               <CardActions
                 sx={{
@@ -114,7 +118,7 @@ export default function SubCategoryTableBodyUI({
               </CardActions>
             </Grid>
           </CardActions>
-          <CardActions>
+          <CardActions sx={{ padding: 0 }}>
             <Stack spacing={5} direction="row">
               <Button
                 onClick={() => handleDeleteSubCategory(subCatIdData)}

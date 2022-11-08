@@ -69,19 +69,21 @@ export default function ProductTableBodyUI({
   };
 
   return (
-    <Grid item sx={{ padding: "10px" }}>
-      <Box width="300px">
+    <Grid item sx={{ padding: "15px" }}>
+      <Box width="220px">
         <Card
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            padding: "12px",
+            background: "#ebecf0",
+            boxShadow: "8px 8px 4px #d3d3d3",
           }}
         >
-          <CardActions sx={{ height: "300px" }}>
+          <CardActions sx={{ height: "190px" }}>
             <CardMedia
               component="img"
-              width="160"
               image={productImage}
               onClick={() => {
                 navigation(`/publishArt?prodId=${prodIdData}`);
@@ -94,6 +96,7 @@ export default function ProductTableBodyUI({
                 fontSize: "15px",
                 fontWeight: "bold",
                 padding: "0",
+                textAlign: "center",
               }}
             >
               <Grid> Category - {category}</Grid>
@@ -117,7 +120,7 @@ export default function ProductTableBodyUI({
               </CardActions>
             </Grid>
           </CardActions>
-          <CardActions>
+          <CardActions sx={{ padding: 0 }}>
             <Stack spacing={5} direction="row">
               <Button
                 onClick={() => handleDeleteProduct(prodIdData)}
