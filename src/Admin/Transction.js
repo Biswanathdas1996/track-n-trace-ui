@@ -69,6 +69,7 @@ export default function CustomizedTimeline() {
               {tokenData?.tokenDetails?.productImage && (
                 <CardMedia
                   component="img"
+                  style={{padding: "15px"}}
                   // height="140"
                   image={tokenData?.tokenDetails?.productImage}
                   alt="green iguana"
