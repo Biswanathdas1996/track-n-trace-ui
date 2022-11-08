@@ -98,7 +98,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             })}
           </tbody>
         </Table>
-        <Row style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
+        <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
           <Col md={3}>
             <Button
               variant="contained"
