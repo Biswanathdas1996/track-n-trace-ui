@@ -15,6 +15,7 @@ export const addEditCategory = "/add_edit_category.php";
 export const addEditSubCategory = "/add_edit_subcategory.php";
 export const addEditProduct = "/add_edit_product.php";
 export const assignToken = "/assignToken.php";
+export const unAssignToken = "/unAssignToken.php";
 
 export const subCategoryListForCat = (id) =>
   `/sub_categoryList.php?cat_id=${id}`;

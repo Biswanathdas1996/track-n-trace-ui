@@ -3,8 +3,32 @@ import { useTable, useSortBy, useFilters, useExpanded, usePagination, useRowSele
 import { Table, Row, Col, Input } from 'reactstrap';
 import Button from "@mui/material/Button";
 import { Filter, DefaultColumnFilter } from '../common/filters';
+import {
+  Grid,
+} from "@mui/material";
+import { unAssignToken } from "../endpoint";
+import {
+  postRequestLoggedIn,
+} from "../functions/apiClient";
 
-const TableContainer = ({ columns, data, renderRowSubComponent }) => {
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+
+    return (
+      <>
+        <input type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    )
+  }
+)
+
+const TableContainer = ({ columns, data, renderRowSubComponent, setDist, dist }) => {
 
   const {
     getTableProps,
@@ -21,6 +45,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
     nextPage,
     previousPage,
     setPageSize,
+    selectedFlatRows,
     state: { pageIndex, pageSize },
   } = useTable({
     columns,
@@ -33,7 +58,31 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   useExpanded,
   usePagination,
   useRowSelect,
-  );
+  hooks => {
+    hooks.visibleColumns.push(columns => [
+      // Making a column for selection
+      {
+        id: 'selection',
+        width: "2vw",
+        minWidth: "2vw",
+        Header: ({ getToggleAllPageRowsSelectedProps }) => (
+          <div>
+            Select Rows <br/>
+            <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
+          </div>
+        ),
+        Cell: ({ row }) => (
+          <div>
+            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+          </div>
+        ),
+      },
+      ...columns,
+    ])
+  });
+
+  const selectedT = selectedFlatRows.map(d => d.original);
+  let selectedIds = selectedT.map(tokens => tokens.id);
 
   const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '';
@@ -48,8 +97,47 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
     gotoPage(page);
   };
 
+  const resetPage = () => {
+    selectedIds = [];
+    if(selectedIds.length == 0)
+      setDist(!dist);
+      setDist((dist) => {
+        return dist;
+      });
+  };
+
+  const unAssignDist = async () => {
+    const unAssignData = {
+        tokenIds: selectedIds,
+    };
+    const res = await postRequestLoggedIn(unAssignToken, unAssignData);
+    if (res?.status_code === "200") {
+      resetPage();
+    }
+  };
+
   return (
     <Fragment>
+      {(selectedIds?.length > 0) && (
+        <Grid item sm={12}>
+          <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px", float: "right" }}>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            // color='primary'
+            onClick={unAssignDist}
+            disabled={selectedIds.length == 0}
+          >
+            Unassign
+          </Button>
+          </Grid>
+        </Grid>
+      )}
         <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
           <thead>
             {headerGroups.map((headerGroup) => (

@@ -28,6 +28,7 @@ export default function FilledAssignedTokens() {
   const handleClose = () => setOpen(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
+  const [dist, setDist] = useState(false);
   let history = useNavigate();
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function FilledAssignedTokens() {
     };
 
       getTokenList();
-  }, []);
+  }, [dist]);
 
   const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
 
@@ -460,6 +461,8 @@ export default function FilledAssignedTokens() {
                     columns={columns}
                     data={tListArray}
                     renderRowSubComponent={renderRowSubComponent}
+                    setDist={setDist}
+                    dist={dist}
                   />
                 )}
               </Container>

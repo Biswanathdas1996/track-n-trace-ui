@@ -130,176 +130,175 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
     }
   };
 
-
   return (
     <Fragment>
-    {(selectedIds?.length > 0) && (
-      <Grid item sm={12}>
-        <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px" }}>
-          <FormControl sx={{ width: "74%" }}>
-            <InputLabel>Distributer</InputLabel>
-            <Select
-              label="Distributer"
-              onChange={(e) => handleChange(e)}
-              value={selectedDist.id}
-              name="id"
-            >
-              {distributerListArray.map((dList) => (
-                <MenuItem key={dList.id} value={dList.id}>
-                  {`${dList.user_fname} ${dList.user_lname}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        <Button
-          type="button"
-          variant="contained"
-          style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
-          sx={{
-            marginRight: "20px",
-            textTransform: "none",
-          }}
-          color='primary'
-          onClick={assignDist}
-          disabled={selectedDist === ''}
-        >
-          Assign
-        </Button>
-        </Grid>
-      </Grid>
-    )}
-        <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps({
-                    style: { minWidth: column.minWidth, width: column.width },
-                  })}>
-                  <div {...column.getSortByToggleProps()}>
-                    {column.render("Header")}
-                    {generateSortingIndicator(column)}
-                  </div>
-                  <Filter column={column} />
-                </th>
+      {(selectedIds?.length > 0) && (
+        <Grid item sm={12}>
+          <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px" }}>
+            <FormControl sx={{ width: "74%" }}>
+              <InputLabel>Distributer</InputLabel>
+              <Select
+                label="Distributer"
+                onChange={(e) => handleChange(e)}
+                value={selectedDist.id}
+                name="id"
+              >
+                {distributerListArray.map((dList) => (
+                  <MenuItem key={dList.id} value={dList.id}>
+                    {`${dList.user_fname} ${dList.user_lname}`}
+                  </MenuItem>
                 ))}
-              </tr>
-            ))}
-          </thead>
-        
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <Fragment key={row.getRowProps().key}>
-                  <tr>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps({
-                            style: {
-                              minWidth: cell.column.minWidth,
-                              width: cell.column.width,
-                            },
-                          })}>{cell.render('Cell')}</td>
-                      );
-                    })}
-                  </tr>
-                  {row.isExpanded && (
-                    <tr>
-                      <td colSpan={visibleColumns.length}>
-                        {renderRowSubComponent(row)}
-                      </td>
-                    </tr>
-                  )}
-                </Fragment>
-              );
-            })}
-          </tbody>
-        </Table>
-        
-        <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
-          <Col md={3}>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              onClick={() => gotoPage(0)}
-              disabled={!canPreviousPage}
-            >
-            {'<<'}
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              onClick={previousPage}
-              disabled={!canPreviousPage}
-            >
-            {'<'}
-            </Button>
-          </Col>
-          <Col md={2} style={{ marginTop: 7 }}>
-            Page{' '}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>
-          </Col>
-          <Col md={2}>
-            <Input
-              type='number'
-              min={1}
-              style={{ width: 70 }}
-              max={pageOptions.length}
-              defaultValue={pageIndex + 1}
-              onChange={onChangeInInput}
-            />
-          </Col>
-          <Col md={2}>
-            <Input
-              type='select'
-              value={pageSize}
-              onChange={onChangeInSelect}
-            >
-              {[2, 5, 10, 20, 30, 40, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
+              </Select>
+            </FormControl>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            // color='primary'
+            onClick={assignDist}
+            disabled={selectedDist === ''}
+          >
+            Assign
+          </Button>
+          </Grid>
+        </Grid>
+      )}
+      <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps({
+                  style: { minWidth: column.minWidth, width: column.width },
+                })}>
+                <div {...column.getSortByToggleProps()}>
+                  {column.render("Header")}
+                  {generateSortingIndicator(column)}
+                </div>
+                <Filter column={column} />
+              </th>
               ))}
-            </Input>
-          </Col>
-          <Col md={3}>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              onClick={nextPage}
-              disabled={!canNextPage}
-            >
-            {'>'}
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
-            >
-            {'>>'}
-            </Button>
-          </Col>
-        </Row>
+            </tr>
+          ))}
+        </thead>
+      
+        <tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <Fragment key={row.getRowProps().key}>
+                <tr>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps({
+                          style: {
+                            minWidth: cell.column.minWidth,
+                            width: cell.column.width,
+                          },
+                        })}>{cell.render('Cell')}</td>
+                    );
+                  })}
+                </tr>
+                {row.isExpanded && (
+                  <tr>
+                    <td colSpan={visibleColumns.length}>
+                      {renderRowSubComponent(row)}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </Table>
+        
+      <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
+        <Col md={3}>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
+          {'<<'}
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            onClick={previousPage}
+            disabled={!canPreviousPage}
+          >
+          {'<'}
+          </Button>
+        </Col>
+        <Col md={2} style={{ marginTop: 7 }}>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>
+        </Col>
+        <Col md={2}>
+          <Input
+            type='number'
+            min={1}
+            style={{ width: 70 }}
+            max={pageOptions.length}
+            defaultValue={pageIndex + 1}
+            onChange={onChangeInInput}
+          />
+        </Col>
+        <Col md={2}>
+          <Input
+            type='select'
+            value={pageSize}
+            onChange={onChangeInSelect}
+          >
+            {[2, 5, 10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </Input>
+        </Col>
+        <Col md={3}>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            onClick={nextPage}
+            disabled={!canNextPage}
+          >
+          {'>'}
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{
+              marginRight: "20px",
+              textTransform: "none",
+            }}
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+          {'>>'}
+          </Button>
+        </Col>
+      </Row>
     </Fragment>
   );
 };
