@@ -20,6 +20,7 @@ import { ProtectedRoute } from "./ProtectedRoutes";
 //import TokenTable from "./Admin/components/ProductTable";
 import CreateWorkFlow from "./Admin/components/CreateWorkFlow";
 import Profile from "./components/profile";
+import ViewAssignedTokens from "./components/shared/ViewAssignedTokens";
 
 class Routing extends React.Component {
   render() {
@@ -176,6 +177,15 @@ class Routing extends React.Component {
           element={
             <ProtectedRoute>
               <AddTokenData />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/viewAssignedTokens"
+          element={
+            <ProtectedRoute>
+              <ViewAssignedTokens />{" "}
             </ProtectedRoute>
           }
         />

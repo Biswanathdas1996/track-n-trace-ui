@@ -20,7 +20,7 @@ import { logout } from "../endpoint";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ role }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [token, setToken] = useToken();
@@ -138,14 +138,6 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              key={10}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/createWorkflow"
-            >
-              Initiate Work Flow
-            </Button>
-            <Button
               key={1}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -153,39 +145,50 @@ const ResponsiveAppBar = () => {
             >
               Dashboard
             </Button>
-            <Button
-              key={2}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/distributer"
-            >
-              Distributers
-            </Button>
-            <Button
-              key={3}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/category"
-            >
-              Category
-            </Button>
-            <Button
-              key={4}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/sub-category"
-            >
-              Sub Category
-            </Button>
-            <Button
-              key={5}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/product"
-            >
-              Product
-            </Button>
-            {/* <Button
+            {role === "1" && (
+              <>
+                <Button
+                  key={10}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/createWorkflow"
+                >
+                  Initiate Work Flow
+                </Button>
+                <Button
+                  key={2}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/distributer"
+                >
+                  Distributers
+                </Button>
+                <Button
+                  key={3}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/category"
+                >
+                  Category
+                </Button>
+
+                <Button
+                  key={4}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/sub-category"
+                >
+                  Sub Category
+                </Button>
+                <Button
+                  key={5}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/product"
+                >
+                  Product
+                </Button>
+                {/* <Button
               key={6}
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -193,38 +196,50 @@ const ResponsiveAppBar = () => {
             >
               Tokens
             </Button> */}
-            <Button
-              key={6}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/tokens"
-            >
-              Tokens
-            </Button>
-            <Button
-              key={7}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/uploadBulkData"
-            >
-              Upload Bulk Data
-            </Button>
-            <Button
-              key={8}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/publishBulkArt"
-            >
-              Create Bulk token
-            </Button>
-            <Button
-              key={9}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/publishArt"
-            >
-              Create token
-            </Button>
+                <Button
+                  key={6}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/tokens"
+                >
+                  Tokens
+                </Button>
+                <Button
+                  key={7}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/uploadBulkData"
+                >
+                  Upload Bulk Data
+                </Button>
+                <Button
+                  key={8}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/publishBulkArt"
+                >
+                  Create Bulk token
+                </Button>
+                <Button
+                  key={9}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  href="/publishArt"
+                >
+                  Create token
+                </Button>
+              </>
+            )}
+            {role === "2" && (
+              <Button
+                key={10}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                href="/viewAssignedTokens"
+              >
+                View Assigned Tokens
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
