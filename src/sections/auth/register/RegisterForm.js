@@ -91,6 +91,7 @@ export default function RegisterForm({ setToken }) {
           state_code,
           role,
           user_password,
+          pswd_reqd: "1",
         };
         const res = await postData(registration, payLoad, null, true);
         if (res.status_code === "200") {
