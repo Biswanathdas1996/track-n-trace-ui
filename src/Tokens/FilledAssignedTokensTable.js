@@ -50,7 +50,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
 
   return (
     <Fragment>
-        <Table bordered hover {...getTableProps()}>
+        <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>

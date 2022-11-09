@@ -32,7 +32,7 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-const TableContainer = ({ columns, data, renderRowSubComponent, distributerListArray }) => {
+const TableContainer = ({ columns, data, renderRowSubComponent, distributerListArray, setDist, dist, location }) => {
 
   const [selectedDist, setSelectedDist] = useState('');
 
@@ -78,6 +78,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
         minWidth: "2vw",
         Header: ({ getToggleAllPageRowsSelectedProps }) => (
           <div>
+            Select Rows <br/>
             <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
           </div>
         ),
@@ -92,7 +93,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
   });
 
   const selectedT = selectedFlatRows.map(d => d.original);
-  const selectedIds = selectedT.map(tokens => tokens.id);
+  let selectedIds = selectedT.map(tokens => tokens.id);
 
   const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : '';
@@ -107,18 +108,26 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
     gotoPage(page);
   };
 
+  const resetPage = () => {
+    selectedIds = [];
+    if(selectedIds.length == 0)
+      setDist(!dist);
+      setDist((dist) => {
+        return dist;
+      });
+  };
+
   const assignDist = async () => {
     const assignData = {
         tokenIds: selectedIds,
         assignTo: selectedDist,
-        trnxtnMsg: "Transaction Started. Token Assigned to distributer."
+        trnxtnMsg: "Transaction Started. Token Assigned to distributer.",
+        trnxlocation: location,
     };
     const res = await postRequestLoggedIn(assignToken, assignData);
     if (res?.status_code === "200") {
-        console.log('assignDist Success res',res);
-        selectedIds = [];
+      resetPage();
     }
-
   };
 
 
@@ -159,7 +168,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
         </Grid>
       </Grid>
     )}
-        <Table bordered hover {...getTableProps()}>
+        <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>

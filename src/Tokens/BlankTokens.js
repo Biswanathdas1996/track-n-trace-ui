@@ -100,7 +100,8 @@ export default function BlankTokens() {
   const columns = useMemo(
     () => [
       {
-        Header: () => null,
+        // Header: () => null,
+        Header: "Expand Rows",
         width: "2vw",
         minWidth: "2vw",
         id: "expander", // 'id' is required
@@ -121,6 +122,7 @@ export default function BlankTokens() {
         accessor: "action",
         width: "450px",
         minWidth: "450px",
+        disableFilters: true,
         Cell: ({ value }) => (
         //   <>
           <Grid container spacing={2}>

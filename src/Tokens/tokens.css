@@ -2,11 +2,6 @@
     max-width: 100%;
 }
 
-.container2 {
-    max-width: 100%;
-    margin-right: 5px;
-}
-
 .css-mhc70k-MuiGrid-root {
     margin-top: 0px;
     width: 31vw;
@@ -22,12 +17,21 @@
 }
 
 .MuiButton-containedPrimary {
-    background-color: #d93954 !important;
-    border-color: #d93954 !important;
+    background-color: #D92E1D !important;
+    border-color: #D92E1D !important;
     color: #ffffff !important;
   }
   
   .MuiButton-outlinedPrimary {
-    border-color: #d93954 !important;
-    color: #d93954 !important;
+    border-color: #D92E1D !important;
+    color: #D92E1D !important;
   }
+
+  .table>:not(:first-child) {
+    border-top: 2px solid #AD1B02;
+}
+
+.table>:not(caption)>*>* {
+    vertical-align: baseline !important;
+    padding: 1rem 0.5rem;
+}

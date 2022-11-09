@@ -20,6 +20,7 @@ import {
   subCategoryDetailsEp,
   subCategoryList,
 } from "../endpoint";
+import "../App.css"
 
 export default function SubCategoryTableBodyUI({
   category,

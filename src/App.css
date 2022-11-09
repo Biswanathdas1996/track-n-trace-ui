@@ -49,12 +49,42 @@
 }
 
 .MuiButton-containedPrimary {
-  background-color: #d93954 !important;
-  border-color: #d93954 !important;
+  background-color: #D92E1D !important;
+  border-color: #D92E1D !important;
   color: #ffffff !important;
 }
 
 .MuiButton-outlinedPrimary {
-  border-color: #d93954 !important;
-  color: #d93954 !important;
+  border-color: #D92E1D !important;
+  color: #D92E1D !important;
+}
+
+.css-1q39md6-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #AD1B02 !important;
+}
+
+a:hover {
+  color: #F3BE26 !important;
+}
+
+.css-17dcqu8-MuiTypography-root-MuiLink-root {
+  color: #AD1B02 !important;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #AD1B02 !important;
+  font-weight: 600 !important;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root:hover {
+  color: #E88D14 !important;
+}
+
+.css-kpm0tx-MuiButtonBase-root-MuiButton-root {
+  color: #AD1B02 !important;
+  font-weight: 600 !important;
+}
+
+.css-kpm0tx-MuiButtonBase-root-MuiButton-root:hover {
+  color: #E88D14 !important;
 }

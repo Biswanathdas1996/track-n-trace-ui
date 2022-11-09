@@ -17,6 +17,7 @@ import {
   postRequestLoggedIn,
 } from "../functions/apiClient";
 import { categoryDetailsEp, categoryList, deleteCategory } from "../endpoint";
+import "../App.css"
 
 export default function CategoryTableBodyUI({
   category,

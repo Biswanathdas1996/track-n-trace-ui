@@ -49,12 +49,12 @@ export default function DistributerDetails() {
       <Card style={{ width: "18rem", margin: "0 auto" }}>
         <CardBody>
           <CardTitle>
-            <strong>{`${user_fname} ${user_lname}`} </strong>
+            <strong>Name: </strong>{`${user_fname} ${user_lname}`}
           </CardTitle>
           <CardText>
-            <strong>Phone</strong>: {user_phone} <br />
-            <strong>Email</strong>: {user_email} <br />
-            <strong>Location</strong>: {`${zone} ${state_name}`}
+            <strong>Phone: </strong> {user_phone} <br />
+            <strong>Email: </strong> {user_email} <br />
+            <strong>Location: </strong> {`${zone} - ${state_name}`}
           </CardText>
         </CardBody>
       </Card>
@@ -64,7 +64,8 @@ export default function DistributerDetails() {
   const columns = useMemo(
     () => [
       {
-        Header: () => null,
+        // Header: () => null,
+        Header: "Expand Rows",
         width: "2vw",
         minWidth: "2vw",
         id: "expander", // 'id' is required

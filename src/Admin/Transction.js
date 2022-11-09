@@ -99,7 +99,6 @@ export default function CustomizedTimeline() {
                 <Typography gutterBottom variant="h6" component="div">
                 <strong>Token Title: </strong> {tokenData?.tokenDetails?.title}
                 </Typography>
-                {/* <Typography variant="body2" color="text.secondary"> */}
                 <Typography gutterBottom variant="h6" component="div">
                 <strong>Description: </strong> {tokenData?.tokenDetails?.description}
                 </Typography>
@@ -138,7 +137,7 @@ export default function CustomizedTimeline() {
                           <strong>{data?.trnxtn_details}</strong> <br />
                         </Typography>
                         <Typography variant="subtitle2" component="span">
-                          <LocationOnOutlinedIcon />{data?.location} <br />
+                          <LocationOnOutlinedIcon />{data?.trntxnLocation} <br />
                         </Typography>
                         <Typography variant="subtitle1" component="span">
                           <strong>Assigned By:- </strong>

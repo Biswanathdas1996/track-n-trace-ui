@@ -15,6 +15,7 @@ import {
   postRequestLoggedIn,
 } from "../functions/apiClient";
 import { deleteProduct, productDetails, productList } from "../endpoint";
+import "../App.css"
 
 export default function ProductTableBodyUI({
   category,

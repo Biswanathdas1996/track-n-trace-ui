@@ -462,7 +462,7 @@ export default function ProductDetails() {
                     No Products added!!!!
                   </Typography>
                   <Typography variant="h5">
-                    Please click on to add new to add your products
+                    Please click on Add New to add your products
                   </Typography>
                 </Grid>
               )

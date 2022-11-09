@@ -374,7 +374,7 @@ export default function SubCategoryDetails() {
                     No Sub Categories added!!!!
                   </Typography>
                   <Typography variant="h5">
-                    Please click on to add new to add your sub categories
+                    Please click on Add New to add your sub categories
                   </Typography>
                 </Grid>
               )

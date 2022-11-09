@@ -268,7 +268,7 @@ export default function CategoryDetails() {
                   </Grid>
                   <Grid>
                     <Typography variant="h5">
-                      Please click on to add new to add your categories
+                      Please click on Add New to add your categories
                     </Typography>
                   </Grid>
                 </Grid>

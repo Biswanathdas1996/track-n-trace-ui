@@ -26,6 +26,8 @@ export default function FilledUnassignedTokens() {
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
   const [distributerListArray, setDistributerList] = useState([]);
+  const [dist, setDist] = useState(false);
+  const [location, setLocation] = useState(null);
   let history = useNavigate();
 
   useEffect(() => {
@@ -52,9 +54,19 @@ export default function FilledUnassignedTokens() {
       }
     };
 
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
     getTokenList();
     getDistributerList();
-  }, []);
+    getLocation();
+  }, [dist]);
+
 
   const tListArray = tokenListArray.map((tokenData) => ({
     ...tokenData,
@@ -77,10 +89,6 @@ export default function FilledUnassignedTokens() {
         subcategoryImage,
       },
       attributes,
-      //   attributes: [{
-      //     attribute_key, attribute_value
-      //   }],
-      //   picture,
     } = row.original;
     return (
       <Grid container justifyContent="center" alignItems="center">
@@ -256,6 +264,15 @@ export default function FilledUnassignedTokens() {
     );
   };
 
+  function showPosition(position) {
+    setLocation(
+      "Latitude: " +
+        position.coords.latitude +
+        " Longitude: " +
+        position.coords.longitude
+    );
+  }
+
   const handleAdd = (row) => {
     // console.log('handleAdd row',row);
     setRow(row);
@@ -283,7 +300,8 @@ export default function FilledUnassignedTokens() {
   const columns = useMemo(
     () => [
       {
-        Header: () => null,
+        // Header: () => null,
+        Header: "Expand Rows",
         width: "2vw",
         minWidth: "2vw",
         id: "expander", // 'id' is required
@@ -498,6 +516,9 @@ export default function FilledUnassignedTokens() {
                 data={tListArray}
                 renderRowSubComponent={renderRowSubComponent}
                 distributerListArray={distributerListArray}
+                setDist={setDist}
+                dist={dist}
+                location={location}
               />
             )}
           </Container>
