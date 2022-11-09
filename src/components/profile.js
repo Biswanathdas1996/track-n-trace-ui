@@ -27,7 +27,13 @@ const Profile = () => {
   } = user;
   return (
     <Grid item sx={{ padding: "10px" }}>
-      <Box width="500px" sx={{ margin: "auto", paddingTop: "100px" }}>
+      <Box
+        width="500px"
+        sx={{
+          margin: "auto",
+          paddingTop: "100px",
+        }}
+      >
         {user_fname && (
           <Card
             sx={{
@@ -35,6 +41,7 @@ const Profile = () => {
               flexDirection: "column",
               alignItems: "center",
               padding: "30px",
+              boxShadow: "8px 8px 4px #d3d3d3",
             }}
           >
             <Grid
