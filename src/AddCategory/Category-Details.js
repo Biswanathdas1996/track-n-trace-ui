@@ -88,7 +88,7 @@ export default function CategoryDetails() {
     }
   };
   const addNewHandler = () => {
-    setFilterState("");
+    setFilterState(false);
     setCategoryBool(true);
     setCategoryDetails({
       categoryName: "",
