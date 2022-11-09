@@ -221,7 +221,11 @@ export default function FilledUnassignedTokens() {
                   <strong>Modified Date: </strong>
                   {modified}
                   <br />
-                  <strong> Below are the Product Attributes : </strong>
+                  {attributes.length > 0 ? (
+                    <strong>Attributes associated with product : </strong>
+                  ) : (
+                    ""
+                  )}
                   <Grid
                     container
                     flexDirection="column"
@@ -229,11 +233,14 @@ export default function FilledUnassignedTokens() {
                   >
                     {attributes.map((attr, index) => {
                       return (
-                        <Grid key={index}>
-                          <strong>
-                            {index + 1} . {attr.attribute_key} :{" "}
-                          </strong>
-                          {attr.attribute_value}
+                        <Grid key={index} container>
+                          <Grid sm={4}>
+                            <strong>
+                              {index + 1} . {attr.attribute_key}
+                            </strong>
+                          </Grid>
+                          <Grid sm={1}>{" : "}</Grid>{" "}
+                          <Grid sm={7}>{attr.attribute_value}</Grid>
                         </Grid>
                       );
                     })}
