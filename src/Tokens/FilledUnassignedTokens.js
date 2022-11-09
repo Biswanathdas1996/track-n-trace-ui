@@ -239,7 +239,7 @@ export default function FilledUnassignedTokens() {
                               {index + 1} . {attr.attribute_key}
                             </strong>
                           </Grid>
-                          <Grid sm={1}>{" : "}</Grid>{" "}
+                          <Grid sm={1}>:</Grid>
                           <Grid sm={7}>{attr.attribute_value}</Grid>
                         </Grid>
                       );
