@@ -41,6 +41,7 @@ const Profile = () => {
               flexDirection: "column",
               alignItems: "center",
               padding: "30px",
+              background: "#ebecf0",
               boxShadow: "8px 8px 4px #d3d3d3",
             }}
           >
