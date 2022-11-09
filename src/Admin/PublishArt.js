@@ -14,9 +14,9 @@ import {
 } from "../functions/apiClient";
 import TextError from "./components/ErrorComponent";
 import {
-  assignToken,
   categoryList,
   createToken,
+  addTokenData,
   productDetailForSubCat,
   productDetails,
   subCategoryListForCat,
@@ -65,7 +65,7 @@ const Mint = ({ token }) => {
     setStart(true);
     let responseData;
 
-    const metaData = {
+    let metaData = {
       category_id: defaultProd?.category_id || cat,
       subcategory_id: defaultProd?.subcategory_id || subCat,
       product_id: defaultProd?.product_id || product,
@@ -76,20 +76,16 @@ const Mint = ({ token }) => {
       batch_no: batchNumber,
       transction: [],
     };
-    let res;
     if (token) {
-      res = await getAuthDataPost(
-        `/initiate-token-info?token=${token}`,
-        metaData
-      );
+      metaData = { ...metaData, token_id: token };
+    }
+    const res = await postRequestLoggedIn(
+      token ? addTokenData : createToken,
+      metaData
+    );
+    if (res.status_code === "200") {
       setResponse(responseData);
       history("/tokens");
-    } else {
-      res = await postRequestLoggedIn(createToken, metaData);
-      if (res.status_code === "200") {
-        setResponse(responseData);
-        history("/tokens");
-      }
     }
   };
 

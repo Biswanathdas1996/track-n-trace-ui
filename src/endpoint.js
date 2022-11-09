@@ -2,6 +2,7 @@ export const login = "/login.php";
 export const logout = "/logout.php";
 export const registration = "/registration.php";
 export const createToken = "/createToken.php";
+export const addTokenData = "/addTokenData.php";
 export const verifyUser = (token) => `/verifyUser.php?auth-token=${token}`;
 export const categoryList = "/categoryList.php";
 export const subCategoryList = "/sub_categoryList.php";
@@ -26,6 +27,7 @@ export const productDetails = (id) => `/productDetails.php?product_id=${id}`;
 
 export const categoryDetailsEp = (id) => `/categoryDetails.php?cat_id=${id}`;
 
-export const getAllTokensData = (blankFlag, assignedFlag) => `/getAllTokensData.php?assignedFlag=${assignedFlag}&blankTokenFlag=${blankFlag}`;
+export const getAllTokensData = (blankFlag, assignedFlag) =>
+  `/getAllTokensData.php?assignedFlag=${assignedFlag}&blankTokenFlag=${blankFlag}`;
 
 export const getTokenDetails = (token) => `/tokenDetails.php?tokenId=${token}`;
