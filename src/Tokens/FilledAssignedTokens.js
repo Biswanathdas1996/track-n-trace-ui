@@ -218,13 +218,13 @@ export default function FilledAssignedTokens() {
                     {attributes.map((attr, index) => {
                       return (
                         <Grid key={index} container>
-                          <Grid sm={4}>
+                          <Grid item sm={4}>
                             <strong>
                               {index + 1} . {attr.attribute_key}
                             </strong>
                           </Grid>
-                          <Grid sm={1}>:</Grid>
-                          <Grid sm={7}>{attr.attribute_value}</Grid>
+                          <Grid item sm={1}>:</Grid>
+                          <Grid item sm={7}>{attr.attribute_value}</Grid>
                         </Grid>
                       );
                     })}
@@ -268,7 +268,13 @@ export default function FilledAssignedTokens() {
     () => [
       {
         // Header: () => null,
-        Header: "Expand Rows",
+        // Header: "Expand Rows",
+        Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
+          <span {...getToggleAllRowsExpandedProps()}>
+            Expand Rows <br />
+            {isAllRowsExpanded ? '👇' : '👉'}
+          </span>
+        ),
         width: "2vw",
         minWidth: "2vw",
         id: "expander", // 'id' is required

@@ -65,7 +65,13 @@ export default function DistributerDetails() {
     () => [
       {
         // Header: () => null,
-        Header: "Expand Rows",
+        // Header: "Expand Rows",
+        Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
+          <span {...getToggleAllRowsExpandedProps()}>
+            Expand Rows <br />
+            {isAllRowsExpanded ? '👇' : '👉'}
+          </span>
+        ),
         width: "2vw",
         minWidth: "2vw",
         id: "expander", // 'id' is required
