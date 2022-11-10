@@ -34,6 +34,7 @@ export const ProtectedRoute = (props) => {
     "/",
     "/Register",
     "/dashboard",
+    "/profile",
     "/viewAssignedTokens",
   ];
   useEffect(() => {
@@ -53,10 +54,10 @@ export const ProtectedRoute = (props) => {
     return null; //show loader
   } else if (currentStep === "1") {
     const matchManufacturerArray = allowedRoutesForManufacturer.filter(
-      (path) => path.startsWith(window.location.pathname) === true
+      (path) => window.location.pathname.startsWith(path) === true
     );
     const matchDistributorArray = allowedRoutesForDistributor.filter(
-      (path) => path.startsWith(window.location.pathname) === true
+      (path) => window.location.pathname.startsWith(path) === true
     );
 
     if (role === "1") {
