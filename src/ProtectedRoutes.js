@@ -61,7 +61,7 @@ export const ProtectedRoute = (props) => {
     );
 
     if (role === "1") {
-      if (matchManufacturerArray.length > 0) {
+      if (matchManufacturerArray.length > 1) {
         return (
           <div>
             <TopBar role={role} />
@@ -70,7 +70,7 @@ export const ProtectedRoute = (props) => {
         );
       } else return <NotFoundPage />;
     } else if (role === "2") {
-      if (matchDistributorArray.length > 0) {
+      if (matchDistributorArray.length > 1) {
         return (
           <div>
             <TopBar role={role} />
