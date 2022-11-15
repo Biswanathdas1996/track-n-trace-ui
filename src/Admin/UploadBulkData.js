@@ -17,7 +17,6 @@ const Mint = () => {
   const handleOnChange = (e) => {
     let fileData = e.target.files[0];
     setFile(fileData);
-    console.log(fileData);
   };
 
   const handleOnSubmit = (e) => {
@@ -27,7 +26,6 @@ const Mint = () => {
       fileReader.onload = function (event) {
         csvOutput = event.target.result;
         csvFileToArray(csvOutput);
-        console.log(csvOutput);
       };
 
       fileReader.readAsText(file);

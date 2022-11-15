@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { verifyUser } from "../src/endpoint";
-import CreateWorkFlow from "./Admin/components/CreateWorkFlow";
 import NotFoundPage from "./components/shared/NotFoundComponent";
 import { ApplicationProvider } from "./Context/ApplicationContext";
 import { useToken } from "./Context/token";
@@ -41,7 +40,6 @@ export const ProtectedRoute = (props) => {
     const getVerification = async () => {
       const res = await getData(verifyUser(token), null, true);
       if (res.status_code === "200") {
-        console.log("res", res);
         setRole(res.data.user_role);
         setCurrentStep("1");
       } else {

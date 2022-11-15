@@ -1,20 +1,8 @@
-import React, { useContext } from "react";
-import {
-  Button,
-  Box,
-  Card,
-  CardActions,
-  CardMedia,
-  Stack,
-  Grid,
-  Typography,
-  Cell,
-} from "@mui/material";
-
+import React from "react";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import { useUser } from "../Context/user";
 const Profile = () => {
   const user = useUser();
-  console.log("user", user);
   const {
     role_type,
     state_name,
