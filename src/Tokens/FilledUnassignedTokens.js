@@ -60,13 +60,12 @@ export default function FilledUnassignedTokens() {
       } else {
         alert("Geolocation is not supported by this browser.");
       }
-    }
+    };
 
     getTokenList();
     getDistributerList();
     getLocation();
   }, [dist]);
-
 
   const tListArray = tokenListArray.map((tokenData) => ({
     ...tokenData,
@@ -117,10 +116,7 @@ export default function FilledUnassignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    categoryImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
+                  image={categoryImage}
                   sx={{ height: "190px" }}
                 />
               </Grid>
@@ -152,10 +148,7 @@ export default function FilledUnassignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    subcategoryImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
+                  image={subcategoryImage}
                   sx={{ height: "190px" }}
                 />
               </Grid>
@@ -186,10 +179,7 @@ export default function FilledUnassignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    productImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
+                  image={productImage}
                   sx={{ height: "190px" }}
                 />
               </Grid>
@@ -247,8 +237,12 @@ export default function FilledUnassignedTokens() {
                               {index + 1} . {attr.attribute_key}
                             </strong>
                           </Grid>
-                          <Grid item sm={1}>:</Grid>
-                          <Grid item sm={7}>{attr.attribute_value}</Grid>
+                          <Grid item sm={1}>
+                            :
+                          </Grid>
+                          <Grid item sm={7}>
+                            {attr.attribute_value}
+                          </Grid>
                         </Grid>
                       );
                     })}
@@ -305,7 +299,7 @@ export default function FilledUnassignedTokens() {
         Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
           <span {...getToggleAllRowsExpandedProps()}>
             Expand Rows <br />
-            {isAllRowsExpanded ? '👇' : '👉'}
+            {isAllRowsExpanded ? "👇" : "👉"}
           </span>
         ),
         width: "2vw",

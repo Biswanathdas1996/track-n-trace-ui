@@ -5,7 +5,8 @@ import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import TransctionModal from "../components/shared/TransctionModal";
-import { getAuthDataPost } from "../functions/apiClient";
+import { postRequestLoggedIn } from "../functions/apiClient";
+import { createBulkToken } from "../endpoint";
 
 const Mint = () => {
   const [start, setStart] = useState(false);
@@ -15,10 +16,9 @@ const Mint = () => {
 
   const saveBulkData = async () => {
     setStart(true);
-
-    for (let i = 0; i < bulkNumber; i++) {
-      await getAuthDataPost(`/create`, {});
-    }
+    await postRequestLoggedIn(createBulkToken, {
+      total_tokens: bulkNumber,
+    });
     history("/dashboard");
   };
 
