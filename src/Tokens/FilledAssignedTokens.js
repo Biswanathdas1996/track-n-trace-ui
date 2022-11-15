@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
 import {
   Container,
-  CardTitle,
 } from "reactstrap";
 import FilledAssignedTokensTable from "./FilledAssignedTokensTable";
 import "../Styles/catFormFields.css";
