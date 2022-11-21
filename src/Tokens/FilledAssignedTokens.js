@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
-import {
-  Container,
-} from "reactstrap";
+import { Container } from "reactstrap";
 import FilledAssignedTokensTable from "./FilledAssignedTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
@@ -32,7 +30,7 @@ export default function FilledAssignedTokens() {
 
   useEffect(() => {
     const getTokenList = async () => {
-      const ep = getAllTokensData(0,1);
+      const ep = getAllTokensData(0, 1);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
         const tokenList = res.data.map((obj) => obj);
@@ -43,10 +41,13 @@ export default function FilledAssignedTokens() {
       }
     };
 
-      getTokenList();
+    getTokenList();
   }, [dist]);
 
-  const tListArray = tokenListArray.map((tokenData) => ({ ...tokenData, action: tokenData }));
+  const tListArray = tokenListArray.map((tokenData) => ({
+    ...tokenData,
+    action: tokenData,
+  }));
 
   const renderRowSubComponent = (row) => {
     const {
@@ -222,8 +223,12 @@ export default function FilledAssignedTokens() {
                               {index + 1} . {attr.attribute_key}
                             </strong>
                           </Grid>
-                          <Grid item sm={1}>:</Grid>
-                          <Grid item sm={7}>{attr.attribute_value}</Grid>
+                          <Grid item sm={1}>
+                            :
+                          </Grid>
+                          <Grid item sm={7}>
+                            {attr.attribute_value}
+                          </Grid>
                         </Grid>
                       );
                     })}
@@ -271,7 +276,7 @@ export default function FilledAssignedTokens() {
         Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
           <span {...getToggleAllRowsExpandedProps()}>
             Expand Rows <br />
-            {isAllRowsExpanded ? '👇' : '👉'}
+            {isAllRowsExpanded ? "👇" : "👉"}
           </span>
         ),
         width: "2vw",
@@ -330,14 +335,19 @@ export default function FilledAssignedTokens() {
         minWidth: "450px",
         disableFilters: true,
         Cell: ({ value }) => (
-        //   <>
+          //   <>
           <Grid container spacing={2}>
             <Grid item sm={3}>
               <Button
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "110px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAddTxn(value)}
               >
@@ -349,7 +359,12 @@ export default function FilledAssignedTokens() {
                 startIcon={<QrCode2Icon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "110px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "110px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleView(value)}
               >
@@ -361,7 +376,12 @@ export default function FilledAssignedTokens() {
                 endIcon={<SendIcon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "90px", maxWidth: "100px", width: "100px", borderRadius: 4 }}
+                style={{
+                  minWidth: "90px",
+                  maxWidth: "100px",
+                  width: "100px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleViewTxn(value)}
               >
@@ -373,7 +393,13 @@ export default function FilledAssignedTokens() {
                 endIcon={<AddCircleIcon />}
                 type="button"
                 variant="contained"
-                style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
+                style={{
+                  minWidth: "100px",
+                  maxWidth: "100px",
+                  width: "100px !important",
+                  marginLeft: "5px",
+                  borderRadius: 4,
+                }}
                 sx={{ textTransform: "none" }}
                 onClick={() => handleAdd(value)}
                 // disabled={value && ("Batch No" in value)}
@@ -384,9 +410,9 @@ export default function FilledAssignedTokens() {
               </Button>
             </Grid>
           </Grid>
-        // </>
-        )
-      }
+          // </>
+        ),
+      },
     ],
     []
   );
@@ -405,7 +431,7 @@ export default function FilledAssignedTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -415,12 +441,12 @@ export default function FilledAssignedTokens() {
           }}
         >
           <QRCode
-            value={`${QR_BASE_URL}/transctions/${row?.id}`}
+            value={`https://trackndtrace.netlify.app/transctions/${row?.id}`}
             title={row?.tokenDetails.title}
           />
         </Box>
       </Modal>
-  
+
       <Modal
         open={openForm}
         onClose={handleCloseForm}
@@ -433,7 +459,7 @@ export default function FilledAssignedTokens() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-  
+
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -449,29 +475,29 @@ export default function FilledAssignedTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-            <Grid item sm={12}>
-              <h1
-                style={{ marginLeft: 10}}
-              >
-                FILLED ASSIGNED TOKENS
-              </h1>
-            </Grid>
+        <Grid item sm={12}>
+          <h1 style={{ marginLeft: 10 }}>FILLED ASSIGNED TOKENS</h1>
+        </Grid>
 
-            <Grid item sm={12}>
-              <Container
-                style={{ marginTop: 10, maxWidth: "100% !important", overflowX: "scroll" }}
-              >
-                {tListArray.length > 0 && (
-                  <FilledAssignedTokensTable
-                    columns={columns}
-                    data={tListArray}
-                    renderRowSubComponent={renderRowSubComponent}
-                    setDist={setDist}
-                    dist={dist}
-                  />
-                )}
-              </Container>
-            </Grid>
+        <Grid item sm={12}>
+          <Container
+            style={{
+              marginTop: 10,
+              maxWidth: "100% !important",
+              overflowX: "scroll",
+            }}
+          >
+            {tListArray.length > 0 && (
+              <FilledAssignedTokensTable
+                columns={columns}
+                data={tListArray}
+                renderRowSubComponent={renderRowSubComponent}
+                setDist={setDist}
+                dist={dist}
+              />
+            )}
+          </Container>
+        </Grid>
       </Grid>
     </div>
   );
