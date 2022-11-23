@@ -1,62 +1,60 @@
 .container {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .header-box {
-    width: 10rem;
-    height: 5rem;
-    border: 2px solid black;
-    margin-left: 4rem;
-    text-align: center;
-    padding-top: 1rem;
+  width: 10rem;
+  height: 5rem;
+  border: 2px solid black;
+  margin-left: 4rem;
+  padding-top: 1rem;
 }
 
 .MuiContainer-root {
-    margin-bottom: 10px;
-    margin-top: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .send-coin-input {
-    width: 100%;
-    margin-top: 5px;
-    padding: 5px;
-    border-color: #979999;
-    background-color: #F8F9F9;
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  border-color: #979999;
+  background-color: #f8f9f9;
 }
 
 .send-coin-modal-container {
-    border: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    box-shadow: 24px;
-    padding: 4px;
-    background-color: #F8F9F9;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  box-shadow: 24px;
+  padding: 4px;
+  background-color: #f8f9f9;
 }
 
 .modal-close-icon {
-    float: right; 
-    color: black;
-    padding-right: 0;
+  float: right;
+  color: black;
+  padding-right: 0;
 }
 
 .css-9cpvyd-MuiStack-root {
-    width: 102%;
-    margin-left: -3.8px;
-    margin-top: -3.7px;
-    padding: 5px;
+  margin-left: -3.8px;
+  margin-top: -3.7px;
+  padding: 5px;
 }
 
 .modal-body {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 label.Mui-focused {
-    color: #d93954 !important;
+  color: #d93954 !important;
 }
 
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #d93954;
+  border-color: #d93954;
 }

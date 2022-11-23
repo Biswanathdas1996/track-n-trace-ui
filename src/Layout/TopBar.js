@@ -17,6 +17,7 @@ import { useToken } from "../Context/token";
 import { useUser } from "../Context/user";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { logout } from "../endpoint";
+import { Grid } from "@mui/material";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -26,6 +27,8 @@ const ResponsiveAppBar = ({ role }) => {
   const [token, setToken] = useToken();
   const user = useUser();
   const userFirstName = user?.user_fname;
+  const userRole = user?.role_type;
+
   const navigation = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -60,26 +63,39 @@ const ResponsiveAppBar = ({ role }) => {
       // style={{ background: "rgb(217 57 84 / 70%)" }}
       style={{ background: "#AD1B02" }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="95%">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/dashboard"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Track & Trace
-          </Typography>
+          <Grid container sm={2}>
+            <Grid item sm={1} sx={{ marginTop: "5px" }}>
+              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 2 }} />
+            </Grid>
+            <Grid item sm={11}>
+              <Grid container sm={12} sx={{ paddingLeft: "10px" }}>
+                <Grid item sm={12}>
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    component="a"
+                    href="/dashboard"
+                    sx={{
+                      mr: 2,
+                      display: { xs: "none", md: "flex" },
+                      fontFamily: "monospace",
+                      fontWeight: 700,
+                      letterSpacing: ".2rem",
+                      color: "inherit",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Track & Trace
+                  </Typography>
+                </Grid>
+                <Grid item sm={12} sx={{ fontSize: "16px" }}>
+                  {userRole}
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
