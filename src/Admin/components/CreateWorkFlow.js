@@ -18,7 +18,7 @@ const CreateWorkFlow = () => {
           Product
         </Link>
         <Link underline="hover" href="/publishArt">
-          Create Tokens
+          Create Order Tokens
         </Link>
         <Link underline="hover" href="/tokens">
           Assign Tokens To Distributor

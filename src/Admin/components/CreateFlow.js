@@ -23,7 +23,7 @@ const CreateFlow = () => {
           Product
         </Link>
         <Link underline="hover" href="/publishArt">
-          Token
+          Order Token
         </Link>
       </Breadcrumbs>
     </Box>

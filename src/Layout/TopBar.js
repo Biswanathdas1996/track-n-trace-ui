@@ -242,7 +242,7 @@ const ResponsiveAppBar = ({ role }) => {
                   sx={{ my: 2, color: "white", display: "block" }}
                   href="/publishArt"
                 >
-                  Create token
+                  Create Order Token
                 </Button>
               </>
             )}

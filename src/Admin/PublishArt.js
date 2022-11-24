@@ -139,7 +139,7 @@ const Mint = ({ token }) => {
                       background: "white",
                     }}
                   >
-                    <h4>{token ? `Add info to #${token}` : "Create Tokens"}</h4>
+                    <h4>{token ? `Add info to #${token}` : "Create Order Tokens"}</h4>
                     <Formik
                       initialValues={{
                         title: "",
