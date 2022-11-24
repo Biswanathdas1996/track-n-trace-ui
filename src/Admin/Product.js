@@ -14,7 +14,7 @@ function Dashboard() {
       <div className="container">
         <Grid container spacing={2}>
           <Grid item sm={4}>
-            <DashboardButtonCard text="Create token" link="/publishArt" />
+            <DashboardButtonCard text="Create Order Token" link="/publishArt" />
           </Grid>
           <Grid item sm={4}>
             <DashboardButtonCard
