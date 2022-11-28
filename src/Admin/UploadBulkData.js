@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Grid } from "@mui/material";
+import { Card, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -23,7 +23,8 @@ import {
 import "./UploadBulkData.css"
 import { toNumber } from "lodash";
 
-const UploadBulkData = () => {  
+const UploadBulkData = () => {
+  const hiddenFileInput = React.useRef(null);
   const [excelDataQuery, setExcelDataQuery] = useState({
     totalTokens: "",
     category_id: "",
@@ -35,7 +36,7 @@ const UploadBulkData = () => {
   const [catArray, setCatArray] = useState([]);
   const [subCatArray, setSubCatArray] = useState([]);
   const [productArray, setProductArray] = useState([]);
-  const [file, setFile] = useState();
+  const [file, setFile] = useState("");
   const [array, setArray] = useState([]);
   const [initial, setInitial] = useState(true);
 
@@ -182,6 +183,10 @@ const UploadBulkData = () => {
     clickLink.click();
   };
 
+  const handleFileUpload = (event) => {
+    hiddenFileInput.current.click();
+  };
+
   const handleBack = () => {
     history("/tokens");
   };
@@ -292,7 +297,7 @@ const UploadBulkData = () => {
                       name="sub_category_id"
                       autoWidth
                       required
-                      disabled={excelDataQuery?.category_id == ""}
+                      disabled={excelDataQuery?.category_id === ""}
                       value={excelDataQuery.sub_category_id}
                       style={{ marginRight: 10, width: "14vw" }}
                     >
@@ -306,7 +311,7 @@ const UploadBulkData = () => {
                           </MenuItem>
                         ))}
                     </Select>
-                    <FormHelperText>{excelDataQuery?.category_id == "" ? "Please select Category to access this field" : "Please select a Sub-Category"}</FormHelperText>
+                    <FormHelperText>{excelDataQuery?.category_id === "" ? "Please select Category to access this field" : "Please select a Sub-Category"}</FormHelperText>
                   </FormControl>
                 </Grid>
 
@@ -324,7 +329,7 @@ const UploadBulkData = () => {
                       name="productId"
                       autoWidth
                       required
-                      disabled={excelDataQuery?.sub_category_id == ""}
+                      disabled={excelDataQuery?.sub_category_id === ""}
                       value={excelDataQuery.productId}
                       style={{ marginRight: 10, width: "14vw" }}
                     >
@@ -338,7 +343,7 @@ const UploadBulkData = () => {
                           </MenuItem>
                         ))}
                     </Select>
-                    <FormHelperText>{excelDataQuery?.sub_category_id == "" ? "Please select Sub-Category to access this field" : "Please select a Product"}</FormHelperText>
+                    <FormHelperText>{excelDataQuery?.sub_category_id === "" ? "Please select Sub-Category to access this field" : "Please select a Product"}</FormHelperText>
                   </FormControl>
                 </Grid>
 
@@ -351,7 +356,7 @@ const UploadBulkData = () => {
                     onClick={onDownload}
                     variant="contained"
                     color="primary"
-                    disabled={excelDataQuery?.productId == "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
+                    disabled={excelDataQuery?.productId === "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
                     component="label"
                     sx={{
                       marginRight: "20px",
@@ -375,25 +380,65 @@ const UploadBulkData = () => {
                   </div>
                 </Grid>
 
-                <Grid item lg={6} md={6} sm={12} xs={12}>
+                <Grid item lg={3} md={3} sm={12} xs={12}>
                   <div
                     style={{
                       padding: "20px",
                       background: "white",
                     }}
                   >
-                    <form>
-                      <input
-                        type={"file"}
-                        id={"csvFileInput"}
-                        accept={".csv"}
-                        onChange={(e) => {
-                          handleOnChange(e);
+                    <>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component="label"
+                        onClick={handleFileUpload}
+                        sx={{
+                          marginRight: "20px",
+                          textTransform: "none",
                         }}
-                      />
-                    </form>
+                      >
+                        SELECT CSV FILE
+                      </Button>
+                      <form>
+                        <input
+                          type={"file"}
+                          id={"csvFileInput"}
+                          ref={hiddenFileInput}
+                          accept={".csv"}
+                          style={{display: 'none'}}
+                          onChange={(e) => {
+                            handleOnChange(e);
+                          }}
+                        />
+                      </form>
+                    </>
                   </div>
                 </Grid>
+
+                {file && file === "" ? (
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <div
+                      style={{
+                        padding: "20px",
+                        background: "white",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: 'bold' }}>No file selected yet.</Typography>
+                    </div>
+                  </Grid>
+                ) : (
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <div
+                      style={{
+                        padding: "20px",
+                        background: "white",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: 'bold' }}>Selected File: {file.name}</Typography>
+                    </div>
+                  </Grid>
+                )}
 
                 <Grid item lg={6} md={6} sm={12} xs={12}>
                   <div
@@ -407,6 +452,7 @@ const UploadBulkData = () => {
                       variant="contained"
                       color="primary"
                       component="label"
+                      disabled={file === ""}
                       onClick={(e) => {
                         handleOnSubmit(e);
                       }}
