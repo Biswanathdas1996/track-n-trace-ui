@@ -19,6 +19,7 @@ export const unAssignToken = "/unAssignToken.php";
 export const createBulkToken = "/createBulkToken.php";
 export const totalBlankTokens = "/getTotalBlnkTokens.php";
 export const downloadCsv = "/downloadCsv.php";
+export const uploadCsvData = "/uploadCsvData.php"
 
 export const subCategoryListForCat = (id) =>
   `/sub_categoryList.php?cat_id=${id}`;

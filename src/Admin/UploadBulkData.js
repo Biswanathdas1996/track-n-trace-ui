@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {
@@ -17,7 +18,10 @@ import {
   productDetailForSubCat,
   totalBlankTokens,
   downloadCsv,
+  uploadCsvData,
 } from "../endpoint";
+import "./UploadBulkData.css"
+import { toNumber } from "lodash";
 
 const UploadBulkData = () => {  
   const [excelDataQuery, setExcelDataQuery] = useState({
@@ -27,11 +31,13 @@ const UploadBulkData = () => {
     productId: "",
   });
   const [totalBlnkTokens, setTotalBlnkTokens] = useState(0);
+  const [tokenHelperText, setTokenHelperText] = useState("");
   const [catArray, setCatArray] = useState([]);
   const [subCatArray, setSubCatArray] = useState([]);
   const [productArray, setProductArray] = useState([]);
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
+  const [initial, setInitial] = useState(true);
 
   let history = useNavigate();
 
@@ -40,6 +46,7 @@ const UploadBulkData = () => {
       const res = await getRequestLoggedIn(totalBlankTokens);
       if (res?.status_code === "200") {
         setTotalBlnkTokens(res.totalBlankTokens);
+        setTokenHelperText("Please Enter a value between 1 to " + res.totalBlankTokens)
       } else {
         setTotalBlnkTokens(0);
       }
@@ -91,9 +98,22 @@ const UploadBulkData = () => {
     let valEvent = event.target.value;
 
     if (nameEvent === "category_id") {
+      setExcelDataQuery((prevalue) => {
+        return {
+          ...prevalue,
+          sub_category_id: "",
+          productId: "",
+        };
+      });
       getSubCategoryList(valEvent);
     }
     if (nameEvent === "sub_category_id") {
+      setExcelDataQuery((prevalue) => {
+        return {
+          ...prevalue,
+          productId: "",
+        };
+      });
       getProductList(excelDataQuery.category_id , valEvent);
     }
 
@@ -103,6 +123,7 @@ const UploadBulkData = () => {
         [nameEvent]: valEvent,
       };
     });
+    setInitial(false);
   };
 
   const fileReader = new FileReader();
@@ -125,14 +146,13 @@ const UploadBulkData = () => {
     }
   };
 
-  const csvFileToArray = (string) => {
+  const csvFileToArray = async (string) => {
     const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
     const array = csvRows.map((i) => {
       const values = i.split(",");
       const obj = csvHeader.reduce((object, header, index) => {
-        object[header] = values[index];
+        object[header] = (values[index] === undefined || values[index] === "" ) ? "" : values[index];
         return object;
       }, {});
       return obj;
@@ -141,6 +161,10 @@ const UploadBulkData = () => {
     console.log('array',array);
 
     setArray(array);
+    
+    await postRequestLoggedIn(uploadCsvData, {
+      csvData: array,
+    });
   };
 
   const onDownload = async () => {
@@ -162,15 +186,11 @@ const UploadBulkData = () => {
     history("/tokens");
   };
 
-  const headerKeys = Object.keys(Object.assign({}, ...array));
-
   return (
     <>
-      {/* {start && <TransctionModal response={response} modalClose={modalClose} />} */}
-
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
-        <Grid item lg={8} md={8} sm={12} xs={12}>
+        <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
+        <Grid item lg={10} md={10} sm={12} xs={12}>
           <div style={{ margin: 20 }}>
             <Card>
               <Grid container>
@@ -178,11 +198,13 @@ const UploadBulkData = () => {
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <div
                     style={{
-                      padding: "20px 0px 0px 20px",
+                      padding: "20px 20px 0px 20px",
                       background: "white",
                     }}
                   >
-                    <h4>Upload Bulk Data</h4>
+                    <h3><center>Upload Bulk Data</center></h3>
+                    <hr/>
+                    <h4><strong>Generate Sample CSV</strong></h4>
                   </div>
                 </Grid>
 
@@ -193,7 +215,7 @@ const UploadBulkData = () => {
                       background: "white",
                     }}
                   >
-                    <h5>Blank order tokens available: {totalBlnkTokens}</h5>
+                    <h5>Blank order tokens available: <strong>{totalBlnkTokens}</strong></h5>
                   </div>
                 </Grid>
 
@@ -215,6 +237,9 @@ const UploadBulkData = () => {
                       onChange={(e) => handleChange(e)}
                       autoComplete="false"
                       placeholder="Enter Bulk Number"
+                      helperText={tokenHelperText}
+                      error={initial ? false : toNumber(excelDataQuery.totalTokens) <= 0}
+                      required
                       value={excelDataQuery.totalTokens}
                       style={{ marginRight: 10, padding: 9, width: "15vw" }}
                       InputProps = {{ inputProps: { min: 0, max: totalBlnkTokens } }}
@@ -235,6 +260,7 @@ const UploadBulkData = () => {
                       onChange={(e) => handleChange(e)}
                       name="category_id"
                       autoWidth
+                      required
                       value={excelDataQuery.category_id}
                       style={{ marginRight: 10, width: "14vw" }}
                     >
@@ -248,6 +274,7 @@ const UploadBulkData = () => {
                           </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText>{"Please select a Category"}</FormHelperText>
                   </FormControl>
                 </Grid>
 
@@ -264,6 +291,8 @@ const UploadBulkData = () => {
                       onChange={(e) => handleChange(e)}
                       name="sub_category_id"
                       autoWidth
+                      required
+                      disabled={excelDataQuery?.category_id == ""}
                       value={excelDataQuery.sub_category_id}
                       style={{ marginRight: 10, width: "14vw" }}
                     >
@@ -277,6 +306,7 @@ const UploadBulkData = () => {
                           </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText>{excelDataQuery?.category_id == "" ? "Please select Category to access this field" : "Please select a Sub-Category"}</FormHelperText>
                   </FormControl>
                 </Grid>
 
@@ -293,6 +323,8 @@ const UploadBulkData = () => {
                       onChange={(e) => handleChange(e)}
                       name="productId"
                       autoWidth
+                      required
+                      disabled={excelDataQuery?.sub_category_id == ""}
                       value={excelDataQuery.productId}
                       style={{ marginRight: 10, width: "14vw" }}
                     >
@@ -306,6 +338,7 @@ const UploadBulkData = () => {
                           </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText>{excelDataQuery?.sub_category_id == "" ? "Please select Sub-Category to access this field" : "Please select a Product"}</FormHelperText>
                   </FormControl>
                 </Grid>
 
@@ -318,6 +351,7 @@ const UploadBulkData = () => {
                     onClick={onDownload}
                     variant="contained"
                     color="primary"
+                    disabled={excelDataQuery?.productId == "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
                     component="label"
                     sx={{
                       marginRight: "20px",
@@ -325,8 +359,20 @@ const UploadBulkData = () => {
                       textTransform: "none",
                     }}
                   >
-                    DOWNLOAD CSV
+                    DOWNLOAD CSV {"{"}{toNumber(excelDataQuery?.totalTokens)} Rows{"}"}
                   </Button>
+                </Grid>
+                
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                  <div
+                    style={{
+                      padding: "20px 20px 0px 20px",
+                      background: "white",
+                    }}
+                  >
+                    <hr/>
+                    <h4><strong>Upload CSV Data</strong></h4>
+                  </div>
                 </Grid>
 
                 <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -398,39 +444,11 @@ const UploadBulkData = () => {
                   </div>
                 </Grid>
 
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "20px",
-                      background: "white",
-                    }}
-                  >
-                    <br />
-                    <table>
-                      <thead>
-                        <tr key={"header"}>
-                          {headerKeys.map((key) => (
-                            <th>{key}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {array.map((item) => (
-                          <tr key={item.id}>
-                            {Object.values(item).map((val) => (
-                              <td>{val}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Grid>
               </Grid>
             </Card>
           </div>
         </Grid>
-        <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
+        <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
       </Grid>
     </>
   );
