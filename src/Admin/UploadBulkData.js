@@ -37,6 +37,7 @@ const UploadBulkData = () => {
   const [subCatArray, setSubCatArray] = useState([]);
   const [productArray, setProductArray] = useState([]);
   const [file, setFile] = useState("");
+  const [fileUploadMsg, setFileUploadMsg] = useState("No file selected yet.");
   const [array, setArray] = useState([]);
   const [initial, setInitial] = useState(true);
 
@@ -72,6 +73,7 @@ const UploadBulkData = () => {
       sub_category_id: "",
       productId: "",
     });
+    setFile("");
   }
 
   const getSubCategoryList = async (catId) => {
@@ -132,6 +134,12 @@ const UploadBulkData = () => {
   const handleOnChange = (e) => {
     let fileData = e.target.files[0];
     setFile(fileData);
+    setFile((fileData) => {
+      console.log('fileData',fileData);
+      return fileData;
+    });
+
+    setFileUploadMsg("Selected File: " + fileData.name)
   };
 
   const handleOnSubmit = (e) => {
@@ -159,13 +167,15 @@ const UploadBulkData = () => {
       return obj;
     });
 
-    console.log('array',array);
+    array.pop(); //to remove the last header array
 
     setArray(array);
     
-    await postRequestLoggedIn(uploadCsvData, {
-      csvData: array,
-    });
+    const res = await postRequestLoggedIn(uploadCsvData, {csvData: array});
+    if (res.status_code === "200") {
+      handleReset();
+      setFileUploadMsg(res.message)
+    }
   };
 
   const onDownload = async () => {
@@ -380,10 +390,10 @@ const UploadBulkData = () => {
                   </div>
                 </Grid>
 
-                <Grid item lg={3} md={3} sm={12} xs={12}>
+                <Grid item lg={2} md={2} sm={12} xs={12}>
                   <div
                     style={{
-                      padding: "20px",
+                      padding: "20px 0px 20px 20px",
                       background: "white",
                     }}
                   >
@@ -416,34 +426,21 @@ const UploadBulkData = () => {
                   </div>
                 </Grid>
 
-                {file && file === "" ? (
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    <div
-                      style={{
-                        padding: "20px",
-                        background: "white",
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: 'bold' }}>No file selected yet.</Typography>
-                    </div>
-                  </Grid>
-                ) : (
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    <div
-                      style={{
-                        padding: "20px",
-                        background: "white",
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: 'bold' }}>Selected File: {file.name}</Typography>
-                    </div>
-                  </Grid>
-                )}
-
-                <Grid item lg={6} md={6} sm={12} xs={12}>
+                <Grid item lg={5} md={5} sm={12} xs={12}>
                   <div
                     style={{
-                      padding: "20px",
+                      padding: "26px 0px 20px 0px",
+                      background: "white",
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: 'bold' }}> {fileUploadMsg} </Typography>
+                  </div>
+                </Grid>
+
+                <Grid item lg={5} md={5} sm={12} xs={12}>
+                  <div
+                    style={{
+                      padding: "20px 0px",
                       background: "white",
                       float: "right",
                     }}
