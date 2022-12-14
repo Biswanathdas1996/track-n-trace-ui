@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import Link from '@mui/material/Link';
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
@@ -18,6 +19,7 @@ import { useUser } from "../Context/user";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { logout } from "../endpoint";
 import { Grid } from "@mui/material";
+import pwcLogo from "../trkNdTrcIcons/pwcLogo.png";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -26,7 +28,9 @@ const ResponsiveAppBar = ({ role }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [token, setToken] = useToken();
   const user = useUser();
+  // console.log('TopBar1 ==>>',user);
   const userFirstName = user?.user_fname;
+  const userLastName = user?.user_lname;
   const userRole = user?.role_type;
 
   const navigation = useNavigate();
@@ -61,22 +65,23 @@ const ResponsiveAppBar = ({ role }) => {
       position="static"
       color="primary"
       // style={{ background: "rgb(217 57 84 / 70%)" }}
-      style={{ background: "#AD1B02" }}
+      style={{ background: "#C52A1A" }}
     >
       <Container maxWidth="95%">
         <Toolbar disableGutters>
-          <Grid container sm={2}>
+          <Grid container sm={4}>
             <Grid item sm={1} sx={{ marginTop: "5px" }}>
-              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 2 }} />
+              {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 2 }} /> */}
+              <img src={pwcLogo} style={{ marginTop: "15px"}} />
             </Grid>
-            <Grid item sm={11}>
-              <Grid container sm={12} sx={{ paddingLeft: "10px" }}>
+            <Grid item sm={10}>
+              <Grid container sm={12} sx={{ paddingLeft: "25px" }}>
                 <Grid item sm={12}>
                   <Typography
                     variant="h6"
                     noWrap
                     component="a"
-                    href="/dashboard"
+                    // href="/dashboard"
                     sx={{
                       mr: 2,
                       display: { xs: "none", md: "flex" },
@@ -85,19 +90,22 @@ const ResponsiveAppBar = ({ role }) => {
                       letterSpacing: ".2rem",
                       color: "inherit",
                       textDecoration: "none",
+                      // paddingLeft: "25px"
                     }}
                   >
                     Track & Trace
                   </Typography>
                 </Grid>
-                <Grid item sm={12} sx={{ fontSize: "16px" }}>
+                <Grid item sm={12} sx={{ fontSize: "16px", 
+                  // marginLeft: "-28px"
+                }}>
                   {userRole}
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -126,14 +134,27 @@ const ResponsiveAppBar = ({ role }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
+              <MenuItem key={1} onClick={handleCloseNavMenu}>
+                <Link textAlign="center" href="/category">Category</Link>
+              </MenuItem>
+              <MenuItem key={2} onClick={handleCloseNavMenu}>
+                <Link textAlign="center" href="/category">Category</Link>
+              </MenuItem>
               <MenuItem key={3} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center" href="/category">
-                  Category
-                </Typography>
+                <Link textAlign="center" href="/category">Category</Link>
+              </MenuItem>
+              <MenuItem key={4} onClick={handleCloseNavMenu}>
+                <Link textAlign="center" href="/category">Category</Link>
+              </MenuItem>
+              <MenuItem key={5} onClick={handleCloseNavMenu}>
+                <Link textAlign="center" href="/category">Category</Link>
+              </MenuItem>
+              <MenuItem key={6} onClick={handleCloseNavMenu}>
+                <Link textAlign="center" href="/category">Category</Link>
               </MenuItem>
             </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          </Box> */}
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -151,8 +172,8 @@ const ResponsiveAppBar = ({ role }) => {
             }}
           >
             LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          </Typography> */}
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               key={1}
               onClick={handleCloseNavMenu}
@@ -204,21 +225,13 @@ const ResponsiveAppBar = ({ role }) => {
                 >
                   Product
                 </Button>
-                {/* <Button
-              key={6}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              href="/tokens"
-            >
-              Tokens
-            </Button> */}
                 <Button
                   key={6}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                   href="/tokens"
                 >
-                  Tokens
+                  Order Tokens
                 </Button>
                 <Button
                   key={7}
@@ -256,9 +269,9 @@ const ResponsiveAppBar = ({ role }) => {
                 View Assigned Tokens
               </Button>
             )}
-          </Box>
+          </Box> */}
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0 }} style={{ marginLeft: "70%"}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={userFirstName} src="/static/images/avatar/6.jpg" />

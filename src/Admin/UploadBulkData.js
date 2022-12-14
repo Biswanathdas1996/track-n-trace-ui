@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
@@ -19,6 +19,7 @@ import {
   totalBlankTokens,
   downloadCsv,
   uploadCsvData,
+  uploadHistory,
 } from "../endpoint";
 import "./UploadBulkData.css"
 import { toNumber } from "lodash";
@@ -40,6 +41,8 @@ const UploadBulkData = () => {
   const [fileUploadMsg, setFileUploadMsg] = useState("No file selected yet.");
   const [array, setArray] = useState([]);
   const [initial, setInitial] = useState(true);
+  const [uploadCsvHistory, setUploadCsvHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
 
   let history = useNavigate();
 
@@ -61,9 +64,18 @@ const UploadBulkData = () => {
         setCatArray([]);
       }
     };
+    const getUploadHistory = async () => {
+      const res = await getRequestLoggedIn(uploadHistory);
+      if (res?.status_code === "200") {
+        setUploadCsvHistory(res.uploadHistory);
+      } else {
+        setUploadCsvHistory([]);
+      }
+    };
 
     getTotalBlnkTokens();
     getCategoryList();
+    getUploadHistory();
   }, []);
 
   const handleReset = () => {
@@ -74,6 +86,14 @@ const UploadBulkData = () => {
       productId: "",
     });
     setFile("");
+    setFileUploadMsg("No file selected yet.");
+  }
+
+  const toggleUploadHistory = () => {
+    setShowHistory(!showHistory);
+    setShowHistory ((showHistory) => {
+      return showHistory;
+    });
   }
 
   const getSubCategoryList = async (catId) => {
@@ -134,9 +154,8 @@ const UploadBulkData = () => {
   const handleOnChange = (e) => {
     let fileData = e.target.files[0];
     setFile(fileData);
-    setFile((fileData) => {
-      console.log('fileData',fileData);
-      return fileData;
+    setFile((file) => {
+      return file;
     });
 
     setFileUploadMsg("Selected File: " + fileData.name)
@@ -206,7 +225,7 @@ const UploadBulkData = () => {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
         <Grid item lg={10} md={10} sm={12} xs={12}>
-          <div style={{ margin: 20 }}>
+          <div className="uploadBulkDataContainer">
             <Card>
               <Grid container>
 
@@ -219,273 +238,326 @@ const UploadBulkData = () => {
                   >
                     <h3><center>Upload Bulk Data</center></h3>
                     <hr/>
-                    <h4><strong>Generate Sample CSV</strong></h4>
-                  </div>
-                </Grid>
-
-                <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "20px 0px 0px 20px",
-                      background: "white",
-                    }}
-                  >
-                    <h5>Blank order tokens available: <strong>{totalBlnkTokens}</strong></h5>
-                  </div>
-                </Grid>
-
-                <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "10px 0px 0px 20px",
-                      background: "white",
-                    }}
-                  >
-                    <label htmlFor="title" style={{marginTop: "26px"}}>
-                      Blank order tokens required for data entry
-                      <span className="text-danger">*</span>
-                    </label>
-
-                    <TextField
-                      type="number"
-                      name="totalTokens"
-                      onChange={(e) => handleChange(e)}
-                      autoComplete="false"
-                      placeholder="Enter Bulk Number"
-                      helperText={tokenHelperText}
-                      error={initial ? false : toNumber(excelDataQuery.totalTokens) <= 0}
-                      required
-                      value={excelDataQuery.totalTokens}
-                      style={{ marginRight: 10, padding: 9, width: "15vw" }}
-                      InputProps = {{ inputProps: { min: 0, max: totalBlnkTokens } }}
-                    />
-                  </div>
-                </Grid>
-
-                <Grid
-                  item
-                  sm={3}
-                  style={{ marginTop: "18px", paddingLeft: "17px" }}
-                >
-                  <FormControl sx={{ width: "100%" }}>
-                    <InputLabel>Select Category </InputLabel>
-                    <Select
-                      label="Choose Category"
-                      id="fullWidth"
-                      onChange={(e) => handleChange(e)}
-                      name="category_id"
-                      autoWidth
-                      required
-                      value={excelDataQuery.category_id}
-                      style={{ marginRight: 10, width: "14vw" }}
-                    >
-                      {catArray &&
-                        catArray.map((cat) => (
-                          <MenuItem
-                            key={cat.category_id}
-                            value={cat.category_id}
-                          >
-                            {cat.category_name}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                    <FormHelperText>{"Please select a Category"}</FormHelperText>
-                  </FormControl>
-                </Grid>
-
-                <Grid
-                  item
-                  sm={3}
-                  style={{ marginTop: "18px", paddingLeft: "17px" }}
-                >
-                  <FormControl sx={{ width: "100%" }}>
-                    <InputLabel>Select Sub-Category </InputLabel>
-                    <Select
-                      label="Choose Sub-Category"
-                      id="fullWidth"
-                      onChange={(e) => handleChange(e)}
-                      name="sub_category_id"
-                      autoWidth
-                      required
-                      disabled={excelDataQuery?.category_id === ""}
-                      value={excelDataQuery.sub_category_id}
-                      style={{ marginRight: 10, width: "14vw" }}
-                    >
-                      {subCatArray &&
-                        subCatArray.map((subCat) => (
-                          <MenuItem
-                            key={subCat.sub_category_id}
-                            value={subCat.sub_category_id}
-                          >
-                            {subCat.subcategory_name}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                    <FormHelperText>{excelDataQuery?.category_id === "" ? "Please select Category to access this field" : "Please select a Sub-Category"}</FormHelperText>
-                  </FormControl>
-                </Grid>
-
-                <Grid
-                  item
-                  sm={3}
-                  style={{ marginTop: "18px", paddingLeft: "17px" }}
-                >
-                  <FormControl sx={{ width: "100%" }}>
-                    <InputLabel>Select Product </InputLabel>
-                    <Select
-                      label="Choose Product"
-                      id="fullWidth"
-                      onChange={(e) => handleChange(e)}
-                      name="productId"
-                      autoWidth
-                      required
-                      disabled={excelDataQuery?.sub_category_id === ""}
-                      value={excelDataQuery.productId}
-                      style={{ marginRight: 10, width: "14vw" }}
-                    >
-                      {productArray &&
-                        productArray.map((prod) => (
-                          <MenuItem
-                            key={prod.productid}
-                            value={prod.productid}
-                          >
-                            {prod.product_name}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                    <FormHelperText>{excelDataQuery?.sub_category_id === "" ? "Please select Sub-Category to access this field" : "Please select a Product"}</FormHelperText>
-                  </FormControl>
-                </Grid>
-
-                <Grid
-                  item
-                  sm={3}
-                  style={{ marginTop: "18px", paddingLeft: "17px" }}
-                >
-                  <Button
-                    onClick={onDownload}
-                    variant="contained"
-                    color="primary"
-                    disabled={excelDataQuery?.productId === "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
-                    component="label"
-                    sx={{
-                      marginRight: "20px",
-                      marginTop: "10px",
-                      textTransform: "none",
-                    }}
-                  >
-                    DOWNLOAD CSV {"{"}{toNumber(excelDataQuery?.totalTokens)} Rows{"}"}
-                  </Button>
-                </Grid>
-                
-                <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "20px 20px 0px 20px",
-                      background: "white",
-                    }}
-                  >
-                    <hr/>
-                    <h4><strong>Upload CSV Data</strong></h4>
-                  </div>
-                </Grid>
-
-                <Grid item lg={2} md={2} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "20px 0px 20px 20px",
-                      background: "white",
-                    }}
-                  >
-                    <>
+                    <h4>
+                      <strong>{showHistory ? "Uploaded CSV File History" : "Generate Sample CSV"}</strong>
                       <Button
+                        onClick={toggleUploadHistory}
                         variant="contained"
                         color="primary"
                         component="label"
-                        onClick={handleFileUpload}
                         sx={{
                           marginRight: "20px",
                           textTransform: "none",
                         }}
+                        style={{
+                          float: "right",
+                        }}
                       >
-                        SELECT CSV FILE
+                        {showHistory ? "CLOSE HISTORY" : "CSV UPLOAD HISTORY"}
                       </Button>
-                      <form>
-                        <input
-                          type={"file"}
-                          id={"csvFileInput"}
-                          ref={hiddenFileInput}
-                          accept={".csv"}
-                          style={{display: 'none'}}
-                          onChange={(e) => {
-                            handleOnChange(e);
-                          }}
+                    </h4>
+                  </div>
+                </Grid>
+
+                {showHistory && (
+                  <div style={{ width: "74vw", margin: "20px 20px 20px 20px" }}>
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
+                      {uploadCsvHistory.map((csvHistory, i) => (
+                        <Grid item sm={12}>
+                          <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
+                            <span className="input-group-btn">
+                            <Grid container>
+                              <Grid item sm={1}>
+                                <div style={{ paddingTop: "10px", width: "28vw" }}>{i+1}. </div>
+                              </Grid>
+                              <Grid item sm={3} style={{ marginTop: "10px"}}>
+                                <a href={csvHistory.file_url} download>
+                                  {csvHistory.file_url.slice(csvHistory.file_url.indexOf("UploadedCsv"))}
+                                </a>
+                              </Grid>
+                              <Grid item sm={8}>
+                                <div style={{  paddingTop: "10px", width: "28vw" }}>Created on: {csvHistory.created}</div>
+                              </Grid>
+                            </Grid>
+                            </span>
+                            <hr/>
+                          </div>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  </div>
+                )}
+
+                {!showHistory && (
+                  <>
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "20px 0px 0px 20px",
+                          background: "white",
+                        }}
+                      >
+                        <h5>Blank order tokens available: <strong>{totalBlnkTokens}</strong></h5>
+                      </div>
+                    </Grid>
+
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "10px 0px 0px 20px",
+                          background: "white",
+                        }}
+                      >
+                        <label htmlFor="title" style={{marginTop: "18px"}}>
+                          Blank order tokens required for data entry
+                          <span className="text-danger">*</span>
+                        </label>
+
+                        <TextField
+                          type="number"
+                          name="totalTokens"
+                          onChange={(e) => handleChange(e)}
+                          autoComplete="false"
+                          placeholder="Enter Bulk Number"
+                          helperText={tokenHelperText}
+                          error={initial ? false : toNumber(excelDataQuery.totalTokens) <= 0}
+                          required
+                          value={excelDataQuery.totalTokens}
+                          style={{ marginRight: 10, padding: 9, width: "15vw" }}
+                          InputProps = {{ inputProps: { min: 0, max: totalBlnkTokens } }}
                         />
-                      </form>
-                    </>
-                  </div>
-                </Grid>
+                      </div>
+                    </Grid>
 
-                <Grid item lg={5} md={5} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "26px 0px 20px 0px",
-                      background: "white",
-                    }}
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}> {fileUploadMsg} </Typography>
-                  </div>
-                </Grid>
+                    <Grid
+                      item
+                      sm={3}
+                      style={{ marginTop: "18px", paddingLeft: "17px" }}
+                    >
+                      <FormControl sx={{ width: "100%" }}>
+                        <InputLabel>Select Category </InputLabel>
+                        <Select
+                          label="Choose Category"
+                          id="fullWidth"
+                          onChange={(e) => handleChange(e)}
+                          name="category_id"
+                          autoWidth
+                          required
+                          value={excelDataQuery.category_id}
+                          style={{ marginRight: 10, width: "14vw" }}
+                        >
+                          {catArray &&
+                            catArray.map((cat) => (
+                              <MenuItem
+                                key={cat.category_id}
+                                value={cat.category_id}
+                              >
+                                {cat.category_name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{"Please select a Category"}</FormHelperText>
+                      </FormControl>
+                    </Grid>
 
-                <Grid item lg={5} md={5} sm={12} xs={12}>
-                  <div
-                    style={{
-                      padding: "20px 0px",
-                      background: "white",
-                      float: "right",
-                    }}
-                  >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component="label"
-                      disabled={file === ""}
-                      onClick={(e) => {
-                        handleOnSubmit(e);
-                      }}
-                      sx={{
-                        marginRight: "20px",
-                        textTransform: "none",
-                      }}
+                    <Grid
+                      item
+                      sm={3}
+                      style={{ marginTop: "18px", paddingLeft: "17px" }}
                     >
-                      IMPORT CSV
-                    </Button>
-                    <Button
-                      onClick={handleReset}
-                      variant="contained"
-                      color="primary"
-                      component="label"
-                      sx={{
-                        marginRight: "20px",
-                        textTransform: "none",
-                      }}
+                      <FormControl sx={{ width: "100%" }}>
+                        <InputLabel>Select Sub-Category </InputLabel>
+                        <Select
+                          label="Choose Sub-Category"
+                          id="fullWidth"
+                          onChange={(e) => handleChange(e)}
+                          name="sub_category_id"
+                          autoWidth
+                          required
+                          disabled={excelDataQuery?.category_id === ""}
+                          value={excelDataQuery.sub_category_id}
+                          style={{ marginRight: 10, width: "14vw" }}
+                        >
+                          {subCatArray &&
+                            subCatArray.map((subCat) => (
+                              <MenuItem
+                                key={subCat.sub_category_id}
+                                value={subCat.sub_category_id}
+                              >
+                                {subCat.subcategory_name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{excelDataQuery?.category_id === "" ? "Please select Category to access this field" : "Please select a Sub-Category"}</FormHelperText>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid
+                      item
+                      sm={3}
+                      style={{ marginTop: "18px", paddingLeft: "17px" }}
                     >
-                      RESET
-                    </Button>
-                    <Button
-                      onClick={handleBack}
-                      variant="contained"
-                      color="primary"
-                      component="label"
-                      sx={{
-                        marginRight: "20px",
-                        textTransform: "none",
-                      }}
+                      <FormControl sx={{ width: "100%" }}>
+                        <InputLabel>Select Product </InputLabel>
+                        <Select
+                          label="Choose Product"
+                          id="fullWidth"
+                          onChange={(e) => handleChange(e)}
+                          name="productId"
+                          autoWidth
+                          required
+                          disabled={excelDataQuery?.sub_category_id === ""}
+                          value={excelDataQuery.productId}
+                          style={{ marginRight: 10, width: "14vw" }}
+                        >
+                          {productArray &&
+                            productArray.map((prod) => (
+                              <MenuItem
+                                key={prod.productid}
+                                value={prod.productid}
+                              >
+                                {prod.product_name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{excelDataQuery?.sub_category_id === "" ? "Please select Sub-Category to access this field" : "Please select a Product"}</FormHelperText>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid
+                      item
+                      sm={3}
+                      style={{ marginTop: "18px", paddingLeft: "17px" }}
                     >
-                      GO BACK
-                    </Button>
-                  </div>
-                </Grid>
+                      <Button
+                        onClick={onDownload}
+                        variant="contained"
+                        color="primary"
+                        disabled={excelDataQuery?.productId === "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
+                        component="label"
+                        sx={{
+                          marginRight: "20px",
+                          marginTop: "10px",
+                          textTransform: "none",
+                        }}
+                      >
+                        DOWNLOAD CSV {"{"}{toNumber(excelDataQuery?.totalTokens)} Rows{"}"}
+                      </Button>
+                    </Grid>
+                
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "20px 20px 0px 20px",
+                          background: "white",
+                        }}
+                      >
+                        <hr/>
+                        <h4><strong>Upload CSV Data</strong></h4>
+                      </div>
+                    </Grid>
+
+                    <Grid item lg={2} md={2} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "20px 0px 20px 20px",
+                          background: "white",
+                          width: "190px",
+                        }}
+                      >
+                        <>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            component="label"
+                            onClick={handleFileUpload}
+                            sx={{
+                              marginRight: "20px",
+                              textTransform: "none",
+                            }}
+                          >
+                            SELECT CSV FILE
+                          </Button>
+                          <form>
+                            <input
+                              type={"file"}
+                              id={"csvFileInput"}
+                              ref={hiddenFileInput}
+                              accept={".csv"}
+                              style={{display: 'none'}}
+                              onChange={(e) => {
+                                handleOnChange(e);
+                              }}
+                            />
+                          </form>
+                        </>
+                      </div>
+                    </Grid>
+
+                    <Grid item lg={5} md={5} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "26px 0px 20px 0px",
+                          background: "white",
+                          marginLeft: "15px"
+                        }}
+                      >
+                        <Typography sx={{ fontWeight: 'bold',
+                          overflow: "hidden", }}> {fileUploadMsg} </Typography>
+                      </div>
+                    </Grid>
+
+                    <Grid item lg={5} md={5} sm={12} xs={12}>
+                      <div
+                        style={{
+                          padding: "20px 0px",
+                          background: "white",
+                          float: "right",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          component="label"
+                          disabled={file === ""}
+                          onClick={(e) => {
+                            handleOnSubmit(e);
+                          }}
+                          sx={{
+                            marginRight: "20px",
+                            textTransform: "none",
+                          }}
+                        >
+                          IMPORT CSV
+                        </Button>
+                        <Button
+                          onClick={handleReset}
+                          variant="contained"
+                          color="primary"
+                          component="label"
+                          sx={{
+                            marginRight: "20px",
+                            textTransform: "none",
+                          }}
+                        >
+                          RESET
+                        </Button>
+                        <Button
+                          onClick={handleBack}
+                          variant="contained"
+                          color="primary"
+                          component="label"
+                          sx={{
+                            marginRight: "20px",
+                            textTransform: "none",
+                          }}
+                        >
+                          GO BACK
+                        </Button>
+                      </div>
+                    </Grid>
+                  </>
+                )}
 
               </Grid>
             </Card>

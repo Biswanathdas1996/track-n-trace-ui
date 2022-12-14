@@ -21,6 +21,7 @@ import {
   productDetails,
   subCategoryListForCat,
 } from "../endpoint";
+import "./publishArt.css";
 
 const validationSchema = Yup.object().shape({
   batchNumber: Yup.string().required("Batch Number is required"),
@@ -129,7 +130,7 @@ const Mint = ({ token }) => {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
         <Grid item lg={6} md={6} sm={12} xs={12}>
-          <div style={{ margin: 20 }}>
+          <div className="publishArtContainer" style={{ margin: 20 }}>
             <Card>
               <Grid container>
                 <Grid item lg={12} md={12} sm={12} xs={12}>

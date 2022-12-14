@@ -6,6 +6,8 @@ import { ApplicationProvider } from "./Context/ApplicationContext";
 import { useToken } from "./Context/token";
 import { getData } from "./functions/apiClient";
 import TopBar from "./Layout/TopBar";
+import TopBar2 from "./Layout/TopBar2";
+
 export const ProtectedRoute = (props) => {
   const [token] = useToken();
   const [currentStep, setCurrentStep] = useState("0");
@@ -28,6 +30,7 @@ export const ProtectedRoute = (props) => {
     "/add-tracking-data",
     "/transctions",
     "/add-token-data",
+    "/resetPassword",
   ];
   const allowedRoutesForDistributor = [
     "/",
@@ -35,6 +38,7 @@ export const ProtectedRoute = (props) => {
     "/dashboard",
     "/profile",
     "/viewAssignedTokens",
+    "/resetPassword",
   ];
   useEffect(() => {
     const getVerification = async () => {
@@ -61,9 +65,10 @@ export const ProtectedRoute = (props) => {
     if (role === "1") {
       if (matchManufacturerArray.length > 1) {
         return (
-          <div>
-            <TopBar role={role} />
-            <ApplicationProvider>{props.children}</ApplicationProvider>
+          <div className="contaier-class">
+            <TopBar2 role={role} props={props}/>
+            {/* <TopBar role={role} /> */}
+            {/* <ApplicationProvider>{props.children}</ApplicationProvider> */}
           </div>
         );
       } else return <NotFoundPage />;
@@ -71,8 +76,9 @@ export const ProtectedRoute = (props) => {
       if (matchDistributorArray.length > 1) {
         return (
           <div>
-            <TopBar role={role} />
-            <ApplicationProvider>{props.children}</ApplicationProvider>
+            <TopBar2 role={role} props={props}/>
+            {/* <TopBar role={role} /> */}
+            {/* <ApplicationProvider>{props.children}</ApplicationProvider> */}
           </div>
         );
       } else return <NotFoundPage />;

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // form
 import { useFormik } from "formik";
 // @mui
@@ -18,7 +18,7 @@ import { LoadingButton } from "@mui/lab";
 import { postData } from "../../../functions/apiClient";
 // components
 import Iconify from "../../../components/Iconify";
-import { login } from "../../../endpoint";
+import { login, verifyEmail, resetPassword } from "../../../endpoint";
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ const loginData = {
   remember: true,
 };
 
-export default function LoginForm({ setToken }) {
+export default function ResetPassword({ setToken }) {
   const Navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const LoginSchema = Yup.object().shape({
@@ -77,6 +77,7 @@ export default function LoginForm({ setToken }) {
           onBlur={handleBlur}
           error={!!errors.email && touched.email}
           helperText={errors.email && touched.email ? errors.email : ""}
+          
         />
 
         <TextField
@@ -124,9 +125,9 @@ export default function LoginForm({ setToken }) {
             label="Remember me"
           />
         </FormGroup>
-        <Link variant="subtitle2" component={RouterLink} to="/resetPassword">
-        Forgot password?
-        </Link>
+        {/* <Link variant="subtitle2" underline="hover">
+          Forgot password?
+        </Link> */}
       </Stack>
 
       <LoadingButton

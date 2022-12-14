@@ -4,13 +4,14 @@ import PublishArt from "./Admin/PublishArt";
 import PublishBulkArt from "./Admin/PublishBulkArt";
 import UploadBulkData from "./Admin/UploadBulkData";
 // import Dashboard from "./Admin/Dashboard";
-import Product from "./Admin/Product";
+import Dashboard from "./Admin/Dashboard";
 import ProductTable from "./Admin/ProductData";
 import AddTracking from "./Admin/AddTracking";
 import Transction from "./Admin/Transction";
 import AddTokenData from "./Admin/AddTokenData";
 import Login from "./Admin/Login";
 import Register from "./Admin/Register";
+import ResetPassword from "./Admin/ResetPassword";
 import CategoryDetails from "./AddCategory/Category-Details";
 import DistributerDetails from "./Distributers/DistributerDetails";
 import TokenDetails from "./Tokens/TokenDetails";
@@ -37,12 +38,13 @@ class Routing extends React.Component {
         /> */}
         <Route exact path="/" element={<Login />} />
         <Route exact path="/Register" element={<Register />} />
+        <Route exact path="/resetPassword" element={<ResetPassword />} />
         <Route
           exact
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Product />
+              <Dashboard />
             </ProtectedRoute>
           }
         />

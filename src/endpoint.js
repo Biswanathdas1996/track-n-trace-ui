@@ -1,6 +1,8 @@
 export const login = "/login.php";
 export const logout = "/logout.php";
 export const registration = "/registration.php";
+export const verifyEmail = "/forgotPasswordSendCode.php";
+export const resetPassword = "/verifyCodeNUpdatePassword.php";
 export const createToken = "/createToken.php";
 export const addTokenData = "/addTokenData.php";
 export const verifyUser = (token) => `/verifyUser.php?auth-token=${token}`;
@@ -19,7 +21,11 @@ export const unAssignToken = "/unAssignToken.php";
 export const createBulkToken = "/createBulkToken.php";
 export const totalBlankTokens = "/getTotalBlnkTokens.php";
 export const downloadCsv = "/downloadCsv.php";
-export const uploadCsvData = "/uploadCsvData.php"
+export const uploadCsvData = "/uploadCsvData.php";
+export const bulkTokenUploadHistory = "/bulkTokenUploadHistory.php";
+export const uploadHistory = "/uploadHistory.php";
+export const dashboardData = "/getRecords.php";
+export const getLatestUpdates = "/getLatestUpdates.php";
 
 export const subCategoryListForCat = (id) =>
   `/sub_categoryList.php?cat_id=${id}`;

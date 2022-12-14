@@ -10,6 +10,7 @@ import {
 } from "../functions/apiClient";
 import { addEditCategory, categoryList } from "../endpoint";
 import SkeletonComponent from "../Admin/components/SkeletonComponent";
+import "./category.css";
 
 export default function CategoryDetails() {
   const [categoryBool, setCategoryBool] = useState(false);
@@ -111,13 +112,14 @@ export default function CategoryDetails() {
   );
 
   return (
-    <div className="container">
+    <div className="container catContainer">
       <Grid container spacing={2}>
         {(categoryBool || categoryDetails.edit) && (
           <Card
             sx={{
               boxShadow: 0,
-              width: "100%",
+              width: "90%",
+              marginLeft: "20px",
               backgroundColor: "rgb(241 247 253)",
             }}
           >
@@ -207,7 +209,7 @@ export default function CategoryDetails() {
             <Grid
               item
               sm={3}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
+              style={{ marginTop: "18px", paddingLeft: "17px", marginLeft: "14px", }}
             >
               <TextField
                 sx={{ width: "100%" }}

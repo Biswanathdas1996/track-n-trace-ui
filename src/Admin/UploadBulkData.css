@@ -9,13 +9,22 @@
     color: #D92E1D !important;
   } */
 
-  .css-i4ucx8-MuiButtonBase-root-MuiButton-root.Mui-disabled {
-    color: rgba(0, 0, 0, 0.26) !important;
-    box-shadow: none;
-    background-color: rgba(0, 0, 0, 0.12) !important;
+.css-i4ucx8-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26) !important;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 .css-i4ucx8-MuiButtonBase-root-MuiButton-root {
     margin-top: 0px !important;
     height: 56px !important;
+}
+
+.uploadBulkDataContainer {
+  width: 100% !important;
+  overflow-y: scroll;
+  height: 85vh;
+  padding-left: 0px !important;
+  margin-left: 2px !important;
+  margin-top: 0px !important;
 }

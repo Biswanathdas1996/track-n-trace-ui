@@ -1,0 +1,105 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans', sans-serif;
+  }
+  
+  .home,
+  .services,
+  .products,
+  .contact-us,
+  .sign-up,
+  .marketing,
+  .consulting {
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  } */
+
+.w3-dropdown-content {
+    cursor: auto;
+    color: #000;
+    background-color: #fff;
+    display: none;
+    position: relative !important;
+    min-width: 160px;
+    margin-left: 20px;
+    padding: 0;
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.menu-title {
+  height: 84px;
+  background-color: #C52A1A;
+  color: white;
+}
+
+.w3-sub-menu-button {
+  border: none;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 0px !important;
+}
+
+.w3-sub-menu-link {
+  border: none;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 8px 16px 4px 10px !important;
+}
+
+.w3-sub-menu-link:hover {
+  color: #000!important;
+  background-color: #ccc!important;
+}
+
+.w3-bar-block .w3-bar-item {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.button-link {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.current {
+  background-color: #415385;
+  color: white;
+  opacity: 100%;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+  padding: 8px 16px;
+  text-align: left;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
+}
+
+.w3-container {
+  margin-left: 200px;
+  z-index: -1 !important;
+  margin-top: 86px;
+  position: absolute;
+  width: 90%;
+}

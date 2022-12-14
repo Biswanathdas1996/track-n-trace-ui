@@ -1,0 +1,13 @@
+.bulkArtLabel {
+    margin-top: 22px!important;
+    margin-bottom: 0.5rem!important;
+}
+
+.publishBulkArtContainer {
+    width: 97% !important;
+    /* overflow-y: scroll; */
+    height: 83vh;
+    padding-left: 0px !important;
+    margin-left: 2px !important;
+    margin-top: 5px !important;
+}

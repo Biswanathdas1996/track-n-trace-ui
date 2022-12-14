@@ -25,6 +25,7 @@ import {
   subCategoryListForCat,
 } from "../endpoint";
 import SkeletonComponent from "../Admin/components/SkeletonComponent";
+import "./product.css";
 
 export default function ProductDetails() {
   const [defaultSubCat, setDefaultSubCat] = useState();
@@ -195,14 +196,15 @@ export default function ProductDetails() {
     </Grid>
   );
   return (
-    <div className="container">
+    <div className="container prodContainer">
       <Grid container spacing={2}>
         {(productBool || isEditForm) && (
           <Card
             sx={{
               boxShadow: 0,
               height: "400px",
-              width: "100%",
+              width: "90%",
+              marginLeft: "20px",
               backgroundColor: "rgb(241 247 253)",
             }}
           >
@@ -341,7 +343,7 @@ export default function ProductDetails() {
               <Grid
                 item
                 sm={3}
-                style={{ marginTop: "18px", paddingLeft: "17px" }}
+                style={{ marginTop: "18px", paddingLeft: "17px", marginLeft: "14px", }}
               >
                 <FormControl sx={{ width: "100%" }}>
                   <InputLabel>Category Filter</InputLabel>

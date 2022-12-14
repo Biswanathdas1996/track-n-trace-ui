@@ -1,5 +1,6 @@
 .container, .container-md, .container-sm {
     max-width: 100%;
+    /* margin-top: 100px; */
 }
 
 .css-mhc70k-MuiGrid-root {
@@ -40,4 +41,13 @@
     color: rgba(0, 0, 0, 0.26) !important;
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.css-x238qu-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+    margin-right: 10px !important;
+}
+
+.css-auylq4-MuiGrid-root .btn-primary.disabled, .btn-primary:disabled, [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    margin-left: 5px;
+    margin-right: 5px;
 }
