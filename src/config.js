@@ -20,7 +20,8 @@ export const ViewTransctionDetailsLink = (transactionHash) =>
   `https://${Network}.etherscan.io/tx/${transactionHash}`;
 
 export const API_BASE_URL = `https://track-n-trace-bc.herokuapp.com`;
-export const QR_BASE_URL = `https://track-and-trace.netlify.app`;
+export const QR_BASE_URL = `https://hosted-trackndtrace.netlify.app`;
+// export const QR_BASE_URL = `https://track-and-trace.netlify.app`;
 
 export const AUTH_URL = "https://sosal.in/endpoints";
 export const LOCAL_BASE_URL = "http://localhost/trackndtrace/apis";
