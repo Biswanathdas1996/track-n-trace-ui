@@ -58,12 +58,12 @@ export default function DistributerDetails() {
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h5">
+                <Typography >
                   <strong>Associate Information </strong>
                 </Typography>
               </Grid>
-              <Grid item sx={{ paddingTop: "20px" }}>
-                <Typography variant="h6">
+              <Grid item sx={{ paddingTop: "10px" }}>
+                <Typography >
                   <strong>Name : </strong>
                   {`${user_fname} ${user_lname}`}
                   <br />
