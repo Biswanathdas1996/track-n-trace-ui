@@ -25,7 +25,7 @@ const TopBar2 = ({role, props}) => {
               <NavLink to="/dashboard" className={({ isActive }) => isActive ? current : general} >
               <img src={DashMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />Dashboard
               </NavLink>
-              {(role === 1) && (<div className="w3-dropdown-hover">
+              {(role == 1) && (<div className="w3-dropdown-hover">
                 <NavLink to="/createWorkflow" className={({ isActive }) => isActive ? currentDD : generalDD} end>
                   <button className="w3-sub-menu-button"><img src={FlowMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />{"Initiate Workflow "}
                     <i className="fa fa-caret-down"></i>
@@ -46,7 +46,7 @@ const TopBar2 = ({role, props}) => {
                   </NavLink>
                 </div>
               </div>)}
-              {(role === 1) && (<div className="w3-dropdown-hover">
+              {(role == 1) && (<div className="w3-dropdown-hover">
                 <a className="w3-bar-item w3-sub-menu-link">
                   <button className="w3-sub-menu-button"><img src={BulkMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />{"Bulk Order Tokens "}
                     <i className="fa fa-caret-down"></i>
