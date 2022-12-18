@@ -9,7 +9,7 @@ import "./tokens.css";
 
 export default function TokenDetails() {
   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
-  const [assignedFlag, setAssignedFlag] = useState(1);
+  const [assignedFlag, setAssignedFlag] = useState(0);
 
   const setFlag = (aFlag, bFlag) => {
 
