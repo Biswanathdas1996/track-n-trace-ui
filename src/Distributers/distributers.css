@@ -2,15 +2,14 @@
     max-width: 95%;
 }
 
-/* .btn-primary.disabled, .btn-primary:disabled {
-    margin-left: 5px;
-    margin-right: 5px;
+.distributorContainer {
+    width: 95% !important;
+    overflow-y: scroll;
+    height: 82vh;
+    padding-left: 0px !important;
+    margin-left: 2px !important;
+    margin-top: 08px !important;
 }
-
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    margin-left: 5px;
-    margin-right: 5px;
-} */
 
 .css-mhc70k-MuiGrid-root {
     margin-top: 0px;

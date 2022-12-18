@@ -9,8 +9,8 @@ export default function CategoryTable(props) {
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
-        <Typography variant="h4" color="error">
-          Category List
+        <Typography variant="h4" color="error" sx={{ fontWeight: 800 }}>
+          Categories List
         </Typography>
       </Grid>
       <Grid container>

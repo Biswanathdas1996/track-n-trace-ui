@@ -16,10 +16,10 @@ const Profile = () => {
   return (
     <Grid item sx={{ padding: "10px" }}>
       <Box
-        width="500px"
+        width="900px"
         sx={{
           margin: "auto",
-          paddingTop: "100px",
+          paddingTop: "50px",
         }}
       >
         {user_fname && (

@@ -8,7 +8,6 @@ import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import TransctionModal from "../components/shared/TransctionModal";
 import {
-  getAuthDataPost,
   getRequestLoggedIn,
   postRequestLoggedIn,
 } from "../functions/apiClient";
@@ -171,7 +170,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="title" className="my-2">
                                     Category{" "}
@@ -185,7 +184,7 @@ const Mint = ({ token }) => {
                                         ? "is-invalid"
                                         : ""
                                     }`}
-                                    style={{ marginRight: 10, padding: 9 }}
+                                    style={{ marginRight: 10, padding: "2px 9px", borderRadius: "8px" }}
                                     onChange={async (e) => {
                                       setDefaultProd({
                                         ...defaultProd,
@@ -218,7 +217,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="title" className="my-2">
                                     Sub Category{" "}
@@ -232,7 +231,7 @@ const Mint = ({ token }) => {
                                         ? "is-invalid"
                                         : ""
                                     }`}
-                                    style={{ marginRight: 10, padding: 9 }}
+                                    style={{ marginRight: 10, padding: "2px 9px", borderRadius: "8px"  }}
                                     onChange={async (e) => {
                                       setDefaultProd({
                                         ...defaultProd,
@@ -281,7 +280,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="title" className="my-2">
                                     Product{" "}
@@ -295,7 +294,7 @@ const Mint = ({ token }) => {
                                         ? "is-invalid"
                                         : ""
                                     }`}
-                                    style={{ marginRight: 10, padding: 9 }}
+                                    style={{ marginRight: 10, padding: "2px 9px", borderRadius: "8px" }}
                                     onChange={(e) => {
                                       setDefaultProd({
                                         ...defaultProd,
@@ -334,7 +333,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="title" className="my-2">
                                     Batch Number{" "}
@@ -348,7 +347,7 @@ const Mint = ({ token }) => {
                                         "is-invalid"
                                         : ""
                                     }`}
-                                    style={{ marginRight: 10, padding: 9 }}
+                                    style={{ marginRight: 10, padding: "2px 9px", borderRadius: "8px" }}
                                     disabled={
                                       !(defaultProd?.product_id || product)
                                     }
@@ -362,7 +361,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="title" className="my-2">
                                     Item Title{" "}
@@ -377,7 +376,7 @@ const Mint = ({ token }) => {
                                         ? "is-invalid"
                                         : ""
                                     }`}
-                                    style={{ marginRight: 10, padding: 9 }}
+                                    style={{ marginRight: 10, padding: "2px 9px", borderRadius: "8px" }}
                                     disabled={
                                       !(defaultProd?.product_id || product)
                                     }
@@ -392,7 +391,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <label htmlFor="description" className="my-2">
                                     Description{" "}
@@ -404,7 +403,7 @@ const Mint = ({ token }) => {
                                     minRows={3}
                                     name="description"
                                     placeholder="Please enter some descriptions"
-                                    style={{ width: "100%" }}
+                                    style={{ width: "100%", borderRadius: "8px"  }}
                                     disabled={
                                       !(defaultProd?.product_id || product)
                                     }
@@ -424,7 +423,7 @@ const Mint = ({ token }) => {
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
-                                  style={{ marginLeft: 10, marginTop: 10 }}
+                                  style={{ marginLeft: 10, marginTop: 5 }}
                                 >
                                   <FieldArray
                                     name="attributes"
@@ -439,7 +438,7 @@ const Mint = ({ token }) => {
                                                   border: "1px solid #c7c9cc",
                                                   borderRadius: 5,
                                                   padding: 12,
-                                                  marginTop: 15,
+                                                  marginTop: 10,
                                                 }}
                                                 key={index}
                                               >
@@ -449,7 +448,6 @@ const Mint = ({ token }) => {
                                                   }
                                                   sx={{ color: pink[500] }}
                                                   style={{
-                                                    marginBottom: 10,
                                                     float: "right",
                                                     cursor: "pointer",
                                                   }}
@@ -469,8 +467,9 @@ const Mint = ({ token }) => {
                                                       placeholder="Enter Properties name"
                                                       className={`form-control text-muted `}
                                                       style={{
-                                                        marginTop: 10,
-                                                        padding: 9,
+                                                        marginTop: 5,
+                                                        padding: "2px 9px",
+                                                        borderRadius: "8px" 
                                                       }}
                                                     />
                                                   </Grid>
@@ -487,8 +486,9 @@ const Mint = ({ token }) => {
                                                       placeholder="Enter value"
                                                       className={`form-control text-muted`}
                                                       style={{
-                                                        marginTop: 10,
-                                                        padding: 9,
+                                                        marginTop: 5,
+                                                        padding: "2px 9px",
+                                                        borderRadius: "8px" 
                                                       }}
                                                     />
                                                   </Grid>
@@ -534,7 +534,7 @@ const Mint = ({ token }) => {
                                               marginTop: 10,
                                             }}
                                           >
-                                            + Add
+                                            ADD ATTRIBUTES
                                           </Button>
                                         )}
                                       </div>

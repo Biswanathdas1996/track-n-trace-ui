@@ -9,6 +9,7 @@ import Logo from "../components/Logo";
 // sections
 import { RegisterForm } from "../sections/auth/register";
 import { useToken } from "../Context/token";
+import BackImg from "../trkNdTrcIcons/BackImg.png";
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +63,15 @@ export default function Register() {
   const [token, setToken] = useToken();
 
   return (
-    <div title="Register">
+    <div title="Register" style={{
+      backgroundColor: "#F3F3F3",
+      backgroundImage: `url(${BackImg})`,
+      backgroundSize: "54%",
+      backgroundRepeat: "no-repeat",
+      backgroundPositionX: "48vw",
+      backgroundPositionY: "1vh",
+      backgroundAttachment: "fixed",
+    }}>
       <RootStyle>
         {token && <Navigate to="/dashboard" />}
         <HeaderStyle>

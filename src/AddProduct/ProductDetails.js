@@ -10,6 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import ProductTable from "./ProductTable";
 import { useSearchParams } from "react-router-dom";
 import { ApplicationContext } from "../Context/ApplicationContext";
@@ -184,36 +189,40 @@ export default function ProductDetails() {
     });
   };
   const applyFilter = !productBool && productDataArray.length > 0 && (
-    <Grid sx={{ paddingLeft: "26px" }}>
-      <Button
-        variant="contained"
-        color="error"
-        onClick={() => setFilterState(true)}
-        sx={{ padding: "10px" }}
+    <span className="input-group-btn">
+      <Button type="button" variant="outlined" 
+        sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+        style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+        onClick={() => setFilterState(true)} 
       >
-        Apply Filters
+        FILTERS
       </Button>
-    </Grid>
+    </span>
   );
   return (
     <div className="container prodContainer">
       <Grid container spacing={2}>
         {(productBool || isEditForm) && (
-          <Card
-            sx={{
-              boxShadow: 0,
-              height: "400px",
-              width: "90%",
-              marginLeft: "20px",
-              backgroundColor: "rgb(241 247 253)",
-            }}
-          >
-            <Grid
-              item
-              sm={12}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
-              <FormControl sx={{ width: "74%" }}>
+          <Dialog open={productBool || isEditForm} onClose={cancelFun}>
+            <DialogTitle
+              sx={{ paddingBottom: "0px", fontWeight: 800}}
+            >Add New Sub-Category</DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                sx={{ color: "#000000"}}
+              >
+                Please enter the details below to create a Category
+              </DialogContentText>
+              <DialogContentText
+                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
+              >
+                Please select a Category from available options below
+              </DialogContentText>
+              <FormControl sx={{ width: "100%",
+                  ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                  ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+                >
                 <InputLabel>Category</InputLabel>
                 <Select
                   label="Category"
@@ -222,215 +231,221 @@ export default function ProductDetails() {
                   value={defaultSubCat?.category_id || productData?.categoryId}
                   name="categoryId"
                 >
-                  {categoryDataArray &&
-                    categoryDataArray.map((cat) => (
-                      <MenuItem key={cat.category_id} value={cat.category_id}>
-                        {cat.category_name}
-                      </MenuItem>
-                    ))}
+                  {categoryDataArray && categoryDataArray.map((cat) => (
+                    <MenuItem key={cat.category_id} value={cat.category_id}>
+                      {cat.category_name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid
-              item
-              sm={12}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
-              <FormControl sx={{ width: "74%" }}>
-                <InputLabel>Sub Category</InputLabel>
+              <DialogContentText
+                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
+              >
+                Please select a Sub-Category from available options below
+              </DialogContentText>
+              <FormControl sx={{ width: "100%",
+                  ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                  ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+                >
+                <InputLabel>Sub-Category</InputLabel>
                 <Select
                   label="Sub Category"
                   id="fullWidth"
                   onChange={(e) => handleChange(e)}
-                  value={
-                    (isDefault && defaultSubCat?.sub_category_id) ||
-                    productData?.sub_category_id
-                  }
+                  value={(isDefault && defaultSubCat?.sub_category_id) || productData?.sub_category_id}
                   name="sub_category_id"
                 >
-                  {subCategoryDataArray &&
-                    subCategoryDataArray.map((subCat) => (
-                      <MenuItem
-                        key={subCat.sub_category_id}
-                        value={subCat.sub_category_id}
-                      >
-                        {subCat.subcategory_name}
-                      </MenuItem>
-                    ))}
+                  {subCategoryDataArray && subCategoryDataArray.map((subCat) => (
+                    <MenuItem
+                      key={subCat.sub_category_id}
+                      value={subCat.sub_category_id}
+                    >
+                      {subCat.subcategory_name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-            </Grid>
-
-            <Grid
-              item
-              sm={12}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
+              <DialogContentText
+                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
+              >
+                Please enter Product Name
+              </DialogContentText>
               <TextField
-                sx={{ width: "74%" }}
+                sx={{ 
+                  width: "100%",
+                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                }}
                 label="Product"
                 id="fullWidth"
-                // onChange={(e) => setProductName(e.target.value)}
-                onChange={(e) => handleChange(e)}
-                name="productName"
                 value={productData?.productName}
+                required
+                name="productName"
+                onChange={(e) => handleChange(e)}
               />
-            </Grid>
-            <Grid
-              item
-              sm={12}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
+              <DialogContentText
+                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
+              >
+                Please upload a Product Image
+              </DialogContentText>
               <TextField
                 type="file"
                 id="fullWidth"
-                // onChange={(e) => setProductName(e.target.value)}
+                required
                 onChange={(e) => changeHandler(e)}
                 name="fileUpload"
                 sx={{
-                  width: "74%",
+                  width: "100%",
+                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px 12px 14px"},
+                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
                 }}
               />
-            </Grid>
-
-            <Grid
-              item
-              sm={12}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
+            </DialogContent>
+            <DialogActions>
+            <Button
+              type="button"
+              variant="outlined"
+              style={{
+                padding: "2px 16px",
+                borderRadius: 4,
+              }}
+              className="cancel-button"
+              onClick={cancelFun}
             >
-              <Button
-                type="button"
-                variant="contained"
-                style={{ margin: 9, padding: 8, borderRadius: 4 }}
-                onClick={productData.edit ? editProd : () => handleAddProduct()}
-              >
-                Submit
-              </Button>
-              <Button
-                type="button"
-                variant="outlined"
-                style={{
-                  padding: 8,
-                  borderRadius: 4,
-                }}
-                className="cancel-button"
-                onClick={cancelFun}
-              >
-                Cancel
-              </Button>
-            </Grid>
-          </Card>
-        )}
-        {!(productBool || productData.edit) && (
-          <Grid item sm={12}>
+              Cancel
+            </Button>
             <Button
               type="button"
               variant="contained"
-              style={{ float: "right", padding: 8, borderRadius: 4 }}
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-              onClick={addNewHandler}
+              style={{ margin: 10, padding: "3px 16px", borderRadius: 4 }}
+              onClick={productData.edit ? editProd : () => handleAddProduct()}
             >
-              Add New
+              Submit
             </Button>
-          </Grid>
+            </DialogActions>
+          </Dialog>
         )}
-        {filterState ? (
-          <Grid container>
-            {!selectedFilter && (
-              <Grid
-                item
-                sm={3}
-                style={{ marginTop: "18px", paddingLeft: "17px", marginLeft: "14px", }}
+        {(productDataArray.length>0) && !(productBool || productData.edit) && (
+          <Grid item sm={12}>
+            <span className="input-group-btn">
+              <Button type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+                style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+                onClick={addNewHandler} 
               >
-                <FormControl sx={{ width: "100%" }}>
-                  <InputLabel>Category Filter</InputLabel>
-                  <Select
-                    label="Choose the Category"
-                    id="fullWidth"
-                    onChange={(e) => {
-                      setCategoryFilter(e.target.value);
-                    }}
-                    name="categoryFilter"
-                    value={categoryFilter}
-                  >
-                    {categoryDataArray &&
-                      categoryDataArray.map((cat) => (
-                        <MenuItem
-                          key={cat.category_id}
-                          value={cat.category_name}
-                        >
-                          {cat.category_name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            )}
-            {!selectedFilter && (
-              <Grid
-                item
-                sm={3}
-                style={{ marginTop: "18px", paddingLeft: "17px" }}
-              >
-                <FormControl sx={{ width: "100%" }}>
-                  <InputLabel>Sub Category Filter</InputLabel>
-
-                  <Select
-                    label="Choose the Sub Category"
-                    id="fullWidth"
-                    onChange={(e) => setSubCategoryFilter(e.target.value)}
-                    name="subCategoryFilter"
-                    value={subCategoryFilter}
-                  >
-                    {subCategoryDataArray &&
-                      subCategoryDataArray.map((subCat) => (
-                        <MenuItem
-                          key={subCat.sub_category_id}
-                          value={subCat.subcategory_name}
-                        >
-                          {subCat.subcategory_name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            )}
-            <Grid
-              item
-              sm={3}
-              style={{ marginTop: "18px", paddingLeft: "17px" }}
-            >
-              <TextField
-                sx={{ width: "100%" }}
-                label="Product Filter"
-                id="fullWidth"
-                // onChange={(e) => setProductName(e.target.value)}
-                onChange={(e) => setProductFilter(e.target.value)}
-                name="productFilter"
-                value={productFilter}
-              />
-            </Grid>
-            <Grid style={{ marginTop: "18px", paddingLeft: "17px" }}>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => {
-                  setFilterState(false);
-                  !selectedFilter && setCategoryFilter("");
-                  !selectedFilter && setSubCategoryFilter("");
-                  setProductFilter("");
-                }}
-                sx={{ paddingTop: "15px", paddingBottom: "15px" }}
-              >
-                Remove Filter
+                ADD NEW
               </Button>
-            </Grid>
+            </span>
+            {filterState ? (
+              <Grid container>
+                {!selectedFilter && (
+                  <Grid
+                    item
+                    sm={3}
+                    style={{ paddingLeft: "17px", marginLeft: "14px", }}
+                  >
+                    <FormControl sx={{ width: "100%",
+                      ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                      ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                      ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+                    >
+                      <InputLabel>Category Filter</InputLabel>
+                      <Select
+                        label="Choose the Category"
+                        id="fullWidth"
+                        onChange={(e) => {
+                          setCategoryFilter(e.target.value);
+                        }}
+                        name="categoryFilter"
+                        value={categoryFilter}
+                      >
+                        {categoryDataArray &&
+                          categoryDataArray.map((cat) => (
+                            <MenuItem
+                              key={cat.category_id}
+                              value={cat.category_name}
+                            >
+                              {cat.category_name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                )}
+                {!selectedFilter && (
+                  <Grid
+                    item
+                    sm={3}
+                    style={{ paddingLeft: "17px" }}
+                  >
+                    <FormControl sx={{ width: "100%",
+                      ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                      ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                      ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+                    >
+                      <InputLabel>Sub-Category Filter</InputLabel>
+
+                      <Select
+                        label="Choose the Sub Category"
+                        id="fullWidth"
+                        onChange={(e) => setSubCategoryFilter(e.target.value)}
+                        name="subCategoryFilter"
+                        value={subCategoryFilter}
+                      >
+                        {subCategoryDataArray &&
+                          subCategoryDataArray.map((subCat) => (
+                            <MenuItem
+                              key={subCat.sub_category_id}
+                              value={subCat.subcategory_name}
+                            >
+                              {subCat.subcategory_name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                )}
+                <Grid
+                  item
+                  sm={3}
+                  style={{ paddingLeft: "17px" }}
+                >
+                  <TextField
+                    sx={{ width: "100%",
+                      ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                      ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                      ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"} 
+                    }}
+                    label="Product Filter"
+                    id="fullWidth"
+                    // onChange={(e) => setProductName(e.target.value)}
+                    onChange={(e) => setProductFilter(e.target.value)}
+                    name="productFilter"
+                    value={productFilter}
+                  />
+                </Grid>
+                <Grid style={{ paddingLeft: "17px" }}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => {
+                      setFilterState(false);
+                      !selectedFilter && setCategoryFilter("");
+                      !selectedFilter && setSubCategoryFilter("");
+                      setProductFilter("");
+                    }}
+                    sx={{ lineHeight: 1.5, borderRadius: "8px" }}
+                  >
+                    Remove Filter
+                  </Button>
+                </Grid>
+              </Grid>
+            ) : (
+              applyFilter
+            )}
           </Grid>
-        ) : (
-          applyFilter
         )}
 
         {!isEditForm && (
@@ -461,11 +476,20 @@ export default function ProductDetails() {
                   }}
                 >
                   <Typography variant="h3" color="error">
-                    No Products added!!!!
+                    No Products added !!!!
                   </Typography>
                   <Typography variant="h5">
                     Please click on Add New to add your products
                   </Typography>
+                  <span className="input-group-btn">
+                    <Button type="button" variant="outlined" 
+                      sx={{ marginRight: "20px", marginTop: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }}
+                      style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+                      onClick={addNewHandler} 
+                    >
+                      ADD NEW
+                    </Button>
+                  </span>
                 </Grid>
               )
             )}

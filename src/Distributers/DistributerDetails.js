@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Button, Card, Grid } from "@mui/material";
+import { Button, Card, Grid, Typography } from "@mui/material";
 import {
   Container,
-  CardText,
-  CardBody,
-  CardTitle,
 } from "reactstrap";
 import DistributerTable from "./DistributerTable";
 import "../Styles/catFormFields.css";
@@ -46,18 +43,43 @@ export default function DistributerDetails() {
       zone,
     } = row.original;
     return (
-      <Card style={{ width: "18rem", margin: "0 auto" }}>
-        <CardBody>
-          <CardTitle>
-            <strong>Name: </strong>{`${user_fname} ${user_lname}`}
-          </CardTitle>
-          <CardText>
-            <strong>Phone: </strong> {user_phone} <br />
-            <strong>Email: </strong> {user_email} <br />
-            <strong>Location: </strong> {`${zone} - ${state_name}`}
-          </CardText>
-        </CardBody>
-      </Card>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item sm={3}>
+          <Card style={{ width: "380px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "15px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography variant="h5">
+                  <strong>Associate Information </strong>
+                </Typography>
+              </Grid>
+              <Grid item sx={{ paddingTop: "20px" }}>
+                <Typography variant="h6">
+                  <strong>Name : </strong>
+                  {`${user_fname} ${user_lname}`}
+                  <br />
+                  <strong> Phone : </strong>
+                  {user_phone} <br />
+                  <strong>Email : </strong> {user_email}
+                  <br />
+                  <strong>State : </strong> {state_name}
+                  <br />
+                  <strong>Zone : </strong> {zone}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Card>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -115,7 +137,7 @@ export default function DistributerDetails() {
   );
 
   return (
-    <div className="container">
+    <div className="container distributorContainer">
       <Grid container spacing={2}>
         {distributerBool && (
           <Card
@@ -128,29 +150,31 @@ export default function DistributerDetails() {
             <AddDistributer
               setToken={setToken}
               setDistributerBool={setDistributerBool}
+              distributerBool={distributerBool}
             />
           </Card>
         )}
         {!distributerBool && (
           <>
-            <Grid item sm={12}>
-              <Button
-                type="button"
-                variant="contained"
-                style={{ float: "right", padding: 8, borderRadius: 4 }}
-                sx={{
-                  marginRight: "20px",
-                  textTransform: "none",
-                }}
-                onClick={() => setDistributerBool(true)}
-              >
-                Add New
-              </Button>
+            <Grid item sm={8} sx={{ marginTop: "5px" }}>
+              <h3 style={{ marginLeft: "10px" }}>Distributor Table</h3>
+            </Grid>
+
+            <Grid item sm={4}>
+              <span className="input-group-btn">
+                <Button type="button" variant="outlined" 
+                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+                  style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+                  onClick={() => setDistributerBool(true)} 
+                >
+                  ADD NEW
+                </Button>
+              </span>
             </Grid>
 
             <Grid item sm={12}>
               <Container
-                style={{ marginTop: 10, maxWidth: "120vw !important", overflow: "scroll" }}
+                style={{ marginTop: 10, maxWidth: "120vw !important" }}
               >
                 {dListArray.length > 0 && (
                   <DistributerTable

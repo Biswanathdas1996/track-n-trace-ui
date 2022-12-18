@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
-import { Container, CardTitle } from "reactstrap";
+import { Container } from "reactstrap";
 import FilledUnassignedTokensTable from "./FilledUnassignedTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
@@ -94,20 +94,20 @@ export default function FilledUnassignedTokens() {
         {/* category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Category : </strong>
                   {categoryName} <br />
                 </Typography>
@@ -117,7 +117,7 @@ export default function FilledUnassignedTokens() {
                   component="img"
                   width="160"
                   image={categoryImage}
-                  sx={{ height: "190px" }}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -126,20 +126,20 @@ export default function FilledUnassignedTokens() {
         {/* sub category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Sub Category : </strong>
                   {subcategoryName} <br />
                 </Typography>
@@ -149,7 +149,7 @@ export default function FilledUnassignedTokens() {
                   component="img"
                   width="160"
                   image={subcategoryImage}
-                  sx={{ height: "190px" }}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -157,20 +157,20 @@ export default function FilledUnassignedTokens() {
         </Grid>
         {/* product*/}
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Product : </strong>
                   {productName} <br />
                 </Typography>
@@ -180,7 +180,7 @@ export default function FilledUnassignedTokens() {
                   component="img"
                   width="160"
                   image={productImage}
-                  sx={{ height: "190px" }}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -188,25 +188,25 @@ export default function FilledUnassignedTokens() {
         </Grid>
 
         <Grid item sm={3}>
-          <Card style={{ width: "380px" }}>
+          <Card style={{ width: "250px", height: "220px", overflowY: "scroll" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h5">
+                <Typography >
                   <strong>More Information </strong>
                 </Typography>
               </Grid>
               <Grid item sx={{ paddingTop: "20px" }}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Product Title : </strong>
                   {title}
                   <br />
@@ -318,120 +318,93 @@ export default function FilledUnassignedTokens() {
         accessor: "id",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
+        width: "8vw",
+        minWidth: "8vw",
         Header: "Batch No",
         accessor: "tokenDetails.batch_no",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Category Name",
+        width: "8vw",
+        minWidth: "8vw",
+        Header: "Category",
         accessor: "tokenDetails.categoryName",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Sub-Category Name",
+        width: "8vw",
+        minWidth: "8vw",
+        Header: "Sub-Category",
         accessor: "tokenDetails.subcategoryName",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Product Name",
+        width: "8vw",
+        minWidth: "8vw",
+        Header: "Product",
         accessor: "tokenDetails.productName",
         // Filter: SelectColumnFilter,
         // filter: "equals",
       },
-      {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Title",
-        accessor: "tokenDetails.title",
-        // Filter: SelectColumnFilter,
-        // filter: "equals",
-      },
+      // {
+      //   width: "8vw",
+      //   minWidth: "8vw",
+      //   Header: "Title",
+      //   accessor: "tokenDetails.title",
+      //   // Filter: SelectColumnFilter,
+      //   // filter: "equals",
+      // },
       {
         Header: "Action",
         accessor: "action",
-        width: "450px",
-        minWidth: "450px",
+        width: "350px",
+        minWidth: "350px",
         disableFilters: true,
         Cell: ({ value }) => (
           //   <>
-          <Grid container spacing={2}>
-            <Grid item sm={3}>
-              <Button
-                startIcon={<QrCode2Icon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "110px",
-                  width: "100px",
-                  borderRadius: 4,
+          <Grid container spacing={2} sx={{ marginLeft: "2px", marginTop: "2px"}}>
+            <span>
+              <Button startIcon={<QrCode2Icon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleAddTxn(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleAddTxn(value)} 
               >
                 AddTxn
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                startIcon={<QrCode2Icon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "110px",
-                  width: "100px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button startIcon={<QrCode2Icon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleView(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleView(value)} 
               >
                 View
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                endIcon={<SendIcon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "90px",
-                  maxWidth: "100px",
-                  width: "100px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button endIcon={<SendIcon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleViewTxn(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleViewTxn(value)} 
               >
                 ViewTxn
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                endIcon={<AddCircleIcon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "100px",
-                  width: "100px !important",
-                  marginLeft: "5px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button endIcon={<AddCircleIcon />} type="button" variant="outlined" disabled
+                sx={{ marginRight: "20px", marginLeft: "5px", textTransform: "none", fontWeight: 800,
+                  backgroundColor: "rgba(0, 0, 0, 0.12) !important", color: "rgba(0, 0, 0, 0.26) !important", boxShadow: "none", borderColor: "rgba(0, 0, 0, 0.26) !important",
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleAdd(value)}
-                // disabled={value && ("Batch No" in value)}
-                color="warning"
-                disabled
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleAdd(value)} 
               >
                 Add
               </Button>
-            </Grid>
+            </span>
           </Grid>
           // </>
         ),
@@ -441,7 +414,7 @@ export default function FilledUnassignedTokens() {
   );
 
   return (
-    <div className="container">
+    <div style={{ marginTop: "0px"}}>
       <Modal
         open={open}
         onClose={handleClose}
@@ -498,16 +471,15 @@ export default function FilledUnassignedTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        <Grid item sm={12}>
-          <h1 style={{ marginLeft: 10 }}>FILLED UNASSIGNED TOKENS</h1>
+        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10 }}>FILLED UNASSIGNED TOKENS</h3>
         </Grid>
 
         <Grid item sm={12}>
           <Container
             style={{
-              marginTop: 10,
-              maxWidth: "80vw !important",
-              overflowX: "scroll",
+              marginTop: 0,
+              maxWidth: "100% !important",
             }}
           >
             {tListArray.length > 0 && (

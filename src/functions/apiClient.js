@@ -2,7 +2,6 @@
 import {
   API_BASE_URL,
   AUTH_URL,
-  LOCAL_BASE_URL,
   SERVER_BASE_URL,
 } from "../config";
 

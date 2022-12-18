@@ -96,6 +96,22 @@
   outline: 0;
 }
 
+.currentDD {
+  background-color: #415385;
+  color: white;
+  opacity: 100%;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: left;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
+}
+
 .w3-container {
   margin-left: 200px;
   z-index: -1 !important;

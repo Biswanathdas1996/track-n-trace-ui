@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Button, Card, Grid } from "@mui/material";
-import {
-  Container,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-} from "reactstrap";
+import { Button, Card, Grid, Typography } from "@mui/material";
+import { Container } from "reactstrap";
 import BlankTokensTable from "./BlankTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { getAllTokensData } from "../endpoint";
-import { useToken } from "../Context/token";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 import { useNavigate } from "react-router-dom";
@@ -59,17 +52,34 @@ export default function BlankTokens() {
       },
     } = row.original;
     return (
-      <Card style={{ width: "18rem", margin: "0 auto" }}>
-        <CardTitle>
-          <strong>Token Creation Date: </strong> {created} <br />
-        </CardTitle>
-        {/* ===========description */}
-        <CardBody>
-          <CardText>
-            <strong>No data assigned to this Token</strong><br />
-          </CardText>
-        </CardBody>
-      </Card>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item sm={3}>
+          <Card style={{ width: "250px", height: "105px" }}>
+            <Grid
+              container
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              sx={{
+                padding: "10px",
+                background: "#ebecf0",
+                boxShadow: "8px 8px 4px #000000",
+              }}
+            >
+              <Grid item sm={12}>
+                <Typography >
+                  <strong>Token Creation Date: </strong> {created} 
+                </Typography>
+              </Grid>
+              <Grid item sx={{ paddingTop: "20px" }}>
+                <Typography >
+                  <strong>No data assigned to this Token </strong>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Card>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -131,61 +141,54 @@ export default function BlankTokens() {
         disableFilters: true,
         Cell: ({ value }) => (
         //   <>
-          <Grid container spacing={2}>
-          <Grid item sm={3}>
-            <Button
-              startIcon={<QrCode2Icon />}
-              type="button"
-              variant="contained"
-              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
-              sx={{ textTransform: "none" }}
-              onClick={() => handleAddTxn(value)}
-              color="warning"
-              disabled
+          <Grid container spacing={2} sx={{ marginLeft: "2px", marginTop: "2px"}}>
+          <span>
+            <Button startIcon={<QrCode2Icon />} type="button" variant="outlined"  disabled
+              sx={{ marginRight: "20px", marginLeft: "5px", textTransform: "none", fontWeight: 800,
+                backgroundColor: "rgba(0, 0, 0, 0.12) !important", color: "rgba(0, 0, 0, 0.26) !important", boxShadow: "none", borderColor: "rgba(0, 0, 0, 0.26) !important",
+                ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
+              }}
+              style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }}
+              onClick={() => handleAddTxn(value)} 
             >
               AddTxn
             </Button>
-          </Grid>
-          <Grid item sm={3}>
-            <Button
-              startIcon={<QrCode2Icon />}
-              type="button"
-              variant="contained"
-              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
-              sx={{ textTransform: "none" }}
-              onClick={() => handleView(value)}
-              color="warning"
-              disabled
+          </span>
+          <span>
+            <Button startIcon={<QrCode2Icon />} type="button" variant="outlined"  disabled
+              sx={{ marginRight: "20px", marginLeft: "5px", textTransform: "none", fontWeight: 800,
+                backgroundColor: "rgba(0, 0, 0, 0.12) !important", color: "rgba(0, 0, 0, 0.26) !important", boxShadow: "none", borderColor: "rgba(0, 0, 0, 0.26) !important",
+                ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
+              }}
+              style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }}
+              onClick={() => handleView(value)} 
             >
               View
             </Button>
-          </Grid>
-          <Grid item sm={3}>
-            <Button
-              endIcon={<SendIcon />}
-              type="button"
-              variant="contained"
-              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
-              sx={{ textTransform: "none" }}
-              onClick={() => handleViewTxn(value)}
-              color="warning"
-              disabled
+          </span>
+          <span>
+            <Button endIcon={<SendIcon />} type="button" variant="outlined"  disabled
+              sx={{ marginRight: "20px", marginLeft: "5px", textTransform: "none", fontWeight: 800,
+                backgroundColor: "rgba(0, 0, 0, 0.12) !important", color: "rgba(0, 0, 0, 0.26) !important", boxShadow: "none", borderColor: "rgba(0, 0, 0, 0.26) !important",
+                ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
+              }}
+              style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }}
+              onClick={() => handleViewTxn(value)} 
             >
               ViewTxn
             </Button>
-          </Grid>
-          <Grid item sm={3}>
-            <Button
-              endIcon={<AddCircleIcon />}
-              type="button"
-              variant="contained"
-              style={{ minWidth: "100px", maxWidth: "100px", width: "100px !important", marginLeft: "5px",borderRadius: 4 }}
-              sx={{ textTransform: "none" }}
-              onClick={() => handleAdd(value)}
+          </span>
+          <span>
+            <Button endIcon={<AddCircleIcon />} type="button" variant="outlined"
+              sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
+              }}
+              style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }}
+              onClick={() => handleAdd(value)} 
             >
               Add
             </Button>
-          </Grid>
+          </span>
         </Grid>
         // </>
         )
@@ -195,7 +198,7 @@ export default function BlankTokens() {
   );
 
   return (
-    <div className="container">
+    <div style={{ marginTop: "0px"}}>
       <Modal
         open={open}
         onClose={handleClose}
@@ -252,30 +255,23 @@ export default function BlankTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-          <>
-            <Grid item sm={12}>
-              <h1
-                style={{ marginLeft: 10}}
-              >
-                BLANK TOKENS
-              </h1>
-            </Grid>
-
-            <Grid item sm={12}>
-              <Container
-                style={{ marginTop: 10, maxWidth: "120vw !important", overflowX: "scroll" }}
-              >
-                {tListArray.length > 0 && (
-                  <BlankTokensTable
-                    columns={columns}
-                    data={tListArray}
-                    renderRowSubComponent={renderRowSubComponent}
-                  />
-                )}
-              </Container>
-            </Grid>
-          </>
-        {/* )} */}
+        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10}}> BLANK TOKENS</h3>
+        </Grid>
+        <Grid item sm={2}/>
+        <Grid item sm={8}>
+          <Container
+            style={{ marginTop: 10, maxWidth: "100% !important", overflowX: "scroll" }}
+          >
+            {tListArray.length > 0 && (
+              <BlankTokensTable
+                columns={columns}
+                data={tListArray}
+                renderRowSubComponent={renderRowSubComponent}
+              />
+            )}
+          </Container>
+        </Grid>
       </Grid>
     </div>
   );

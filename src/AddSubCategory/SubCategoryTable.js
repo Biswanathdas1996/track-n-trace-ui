@@ -15,9 +15,9 @@ export default function SubCategoryTable(props) {
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
-        <Typography variant="h4" color="error">
-          Sub Category List{" "}
-          {selectedFilter ? `for ${categoryFilter.toUpperCase()}` : ""}
+        <Typography variant="h4" color="error" sx={{ fontWeight: 800 }}>
+          Sub-Categories List
+          {selectedFilter ? ` for ${categoryFilter.toUpperCase()}` : ""}
         </Typography>
       </Grid>
       <Grid container>

@@ -120,21 +120,17 @@ const TableContainer = ({ columns, data, renderRowSubComponent, setDist, dist })
     <Fragment>
       {(selectedIds?.length > 0) && (
         <Grid item sm={12}>
-          <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px", float: "right" }}>
-          <Button
-            type="button"
-            variant="contained"
-            style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
-            sx={{
-              marginRight: "20px",
-              textTransform: "none",
-            }}
-            // color='primary'
-            onClick={unAssignDist}
-            disabled={selectedIds.length == 0}
-          >
-            Unassign
-          </Button>
+          <Grid item sm={12} style={{ marginBottom: "10px" , paddingLeft: "17px", float: "right" }}>
+            <Button
+              type="button"
+              variant="contained"
+              color="error"
+              onClick={unAssignDist}
+              disabled={selectedIds.length == 0}
+              sx={{ lineHeight: 1.6, borderRadius: "8px", marginLeft: "25px !important", marginTop: "-1px" }}
+            >
+              UNASSIGN
+            </Button>
           </Grid>
         </Grid>
       )}

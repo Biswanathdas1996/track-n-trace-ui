@@ -1,6 +1,14 @@
 .container, .container-md, .container-sm {
     max-width: 100%;
-    /* margin-top: 100px; */
+}
+
+.tokenContainer {
+    width: 95% !important;
+    overflow-y: scroll;
+    height: 72vh;
+    padding-left: 0px !important;
+    margin-left: 2px !important;
+    margin-top: 0px !important;
 }
 
 .css-mhc70k-MuiGrid-root {
@@ -33,8 +41,8 @@
 }
 
 .table>:not(caption)>*>* {
-    vertical-align: baseline !important;
-    padding: 1rem 0.5rem;
+    vertical-align: middle !important;
+    padding: 0.1rem 0.4rem;
 }
 
 .css-3w3yta-MuiButtonBase-root-MuiButton-root.Mui-disabled {

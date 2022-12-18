@@ -17,8 +17,6 @@ import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 
 import Card from "@mui/material/Card";
-
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 
@@ -61,16 +59,26 @@ export default function CustomizedTimeline() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container style={{ marginTop: 30, marginBottom: 30 }}>
-          <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
+      <Box sx={{ flexGrow: 1, width: "100%" }}>
+        <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
+          <Grid item lg={12} md={12} sx={{ marginRight: 12, marginBottom: 2}}>
+            <span>
+              <Button type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
+                }}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={handleBack} 
+              >
+                GO BACK
+              </Button>
+            </span>
+          </Grid>
           <Grid item lg={3} md={3} sm={12} xs={12}>
-            <Card style={{ margin: 20 }}>
+            <Card style={{ margin: "0px 20px 0px 20px", width: 225, marginBottom: 2, height: 450 }}>
               <Grid
                 container
                 flexDirection="column"
-                // justifyContent="center"
-                // alignItems="center"
                 sx={{ padding: "15px" }}
               >
                 {tokenData?.tokenDetails?.productImage && (
@@ -89,34 +97,35 @@ export default function CustomizedTimeline() {
                 <Grid item sm={12}>
                   <Typography
                     gutterBottom
-                    variant="h5"
                     component="div"
+                    variant="h6"
                     color="text.secondary"
                     paddingTop="15px"
+                    sx={{ fontWeight: 800}}
                   >
                     #Token {token}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
-                    <strong>Batch Number: </strong>{" "}
+                  <Typography gutterBottom component="div">
+                    <strong>Batch: </strong>{" "}
                     {tokenData?.tokenDetails?.batch_no}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
-                    <strong>Category Name: </strong>{" "}
+                  <Typography gutterBottom component="div">
+                    <strong>Category: </strong>{" "}
                     {tokenData?.tokenDetails?.categoryName}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
-                    <strong>Sub-Category Name: </strong>{" "}
+                  <Typography gutterBottom component="div">
+                    <strong>Sub-Category: </strong>{" "}
                     {tokenData?.tokenDetails?.subcategoryName}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
-                    <strong>Product Name: </strong>{" "}
+                  <Typography gutterBottom component="div">
+                    <strong>Product: </strong>{" "}
                     {tokenData?.tokenDetails?.productName}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
-                    <strong>Token Title: </strong>{" "}
+                  <Typography gutterBottom component="div">
+                    <strong>Title: </strong>{" "}
                     {tokenData?.tokenDetails?.title}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography gutterBottom component="div">
                     <strong>Description: </strong>{" "}
                     {tokenData?.tokenDetails?.description}
                   </Typography>
@@ -125,110 +134,96 @@ export default function CustomizedTimeline() {
             </Card>
           </Grid>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <center>
-              <Typography gutterBottom variant="h6" component="div">
-                Tracking
-              </Typography>
-            </center>
-
-            {tokenData?.transactions?.length > 0 ? (
-              <Timeline position="alternate">
-                {tokenData &&
-                  tokenData?.transactions?.map((data, index) => {
-                    return (
-                      <TimelineItem key={index}>
-                        <TimelineOppositeContent
-                          sx={{ m: "auto 0" }}
-                          align="right"
-                          variant="body2"
-                          color="text.secondary"
-                        >
-                          {data?.created}
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                          <TimelineConnector />
-                          <TimelineDot color="primary">
-                            <LaptopMacIcon />
-                          </TimelineDot>
-                          <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent sx={{ py: "12px", px: 2 }}>
-                          <Typography variant="subtitle2" component="span">
-                            <strong>{data?.trnxtn_details}</strong> <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <LocationOnOutlinedIcon />
-                            {data?.trntxnLocation} <br />
-                          </Typography>
-                          <Typography variant="subtitle1" component="span">
-                            <strong>Assigned By:- </strong>
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <strong>
-                              {getRole(data?.tranxtnInitiaterRole)}
-                            </strong>{" "}
-                            <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <BadgeOutlinedIcon />
-                            {data?.tranxtnInitiaterFname}{" "}
-                            {data?.tranxtnInitiaterLname} <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <EmailOutlinedIcon />
-                            {data?.tranxtnInitiaterEmail} <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <PhoneInTalkOutlinedIcon />
-                            {data?.tranxtnInitiaterPhone} <br />
-                          </Typography>
-                          <Typography variant="subtitle1" component="span">
-                            <strong>Assigned To:- </strong>
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <strong>{getRole(data?.tranxtnEndUserRole)}</strong>{" "}
-                            <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <BadgeOutlinedIcon />
-                            {data?.tranxtnEndUserFname}{" "}
-                            {data?.tranxtnEndUserLname} <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <EmailOutlinedIcon />
-                            {data?.tranxtnEndUserEmail} <br />
-                          </Typography>
-                          <Typography variant="subtitle2" component="span">
-                            <PhoneInTalkOutlinedIcon />
-                            {data?.tranxtnEndUserPhone} <br />
-                          </Typography>
-                        </TimelineContent>
-                      </TimelineItem>
-                    );
-                  })}
-              </Timeline>
-            ) : (
+            <Card sx={{ backgroundColor: "transparent", height: 450, overflowY: "scroll"}}>
               <center>
-                <Typography variant="subtitle1" component="span">
-                  <strong>No transaction done for the token. </strong>
+                <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 800 }}>
+                  Tracking
                 </Typography>
               </center>
-            )}
-          </Grid>
-          <Grid item lg={12} md={12}>
-            <Button
-              onClick={handleBack}
-              variant="contained"
-              color="primary"
-              style={{ float: "right", padding: 8, borderRadius: 4 }}
-              component="label"
-              sx={{
-                marginRight: "20px",
-                textTransform: "none",
-              }}
-            >
-              GO BACK
-            </Button>
+              {tokenData?.transactions?.length > 0 ? (
+                <Timeline position="alternate" sx={{ padding: "5px 5px" }}>
+                  {tokenData &&
+                    tokenData?.transactions?.map((data, index) => {
+                      return (
+                        <TimelineItem key={index}>
+                          <TimelineOppositeContent
+                            sx={{ m: "auto 0" }}
+                            align="right"
+                            variant="body2"
+                            color="text.secondary"
+                          >
+                            {data?.created}
+                          </TimelineOppositeContent>
+                          <TimelineSeparator>
+                            <TimelineConnector />
+                            <TimelineDot color="primary">
+                              <LaptopMacIcon />
+                            </TimelineDot>
+                            <TimelineConnector />
+                          </TimelineSeparator>
+                          <TimelineContent sx={{ py: "8px", px: 2 }}>
+                            <Typography variant="subtitle2" component="span">
+                              <strong>{data?.trnxtn_details}</strong> <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <LocationOnOutlinedIcon />
+                              {data?.trntxnLocation} <br />
+                            </Typography>
+                            <Typography variant="subtitle1" component="span">
+                              <strong>Assigned By:- </strong>
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <strong>
+                                {getRole(data?.tranxtnInitiaterRole)}
+                              </strong>{" "}
+                              <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <BadgeOutlinedIcon />
+                              {data?.tranxtnInitiaterFname}{" "}
+                              {data?.tranxtnInitiaterLname} <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <EmailOutlinedIcon />
+                              {data?.tranxtnInitiaterEmail} <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <PhoneInTalkOutlinedIcon />
+                              {data?.tranxtnInitiaterPhone} <br />
+                            </Typography>
+                            <Typography variant="subtitle1" component="span">
+                              <strong>Assigned To:- </strong>
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <strong>{getRole(data?.tranxtnEndUserRole)}</strong>{" "}
+                              <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <BadgeOutlinedIcon />
+                              {data?.tranxtnEndUserFname}{" "}
+                              {data?.tranxtnEndUserLname} <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <EmailOutlinedIcon />
+                              {data?.tranxtnEndUserEmail} <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <PhoneInTalkOutlinedIcon />
+                              {data?.tranxtnEndUserPhone} <br />
+                            </Typography>
+                          </TimelineContent>
+                        </TimelineItem>
+                      );
+                    })}
+                </Timeline>
+              ) : (
+                <center>
+                  <Typography variant="subtitle1" component="span">
+                    <strong>No transaction done for the token. </strong>
+                  </Typography>
+                </center>
+              )}
+            </Card>
           </Grid>
         </Grid>
       </Box>

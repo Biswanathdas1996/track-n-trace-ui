@@ -134,8 +134,12 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
     <Fragment>
       {(selectedIds?.length > 0) && (
         <Grid item sm={12}>
-          <Grid item sm={12} style={{ marginTop: "18px", marginBottom: "18px" , paddingLeft: "17px" }}>
-            <FormControl sx={{ width: "74%" }}>
+          <Grid item sm={12} style={{ marginBottom: "10px" }}>
+            <FormControl sx={{ width: "70%",
+              ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+            >
               <InputLabel>Distributer</InputLabel>
               <Select
                 label="Distributer"
@@ -150,20 +154,16 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
                 ))}
               </Select>
             </FormControl>
-          <Button
-            type="button"
-            variant="contained"
-            style={{ padding: 8, borderRadius: 4, marginTop: 6, marginLeft: "2vw", width: "7vw" }}
-            sx={{
-              marginRight: "20px",
-              textTransform: "none",
-            }}
-            // color='primary'
-            onClick={assignDist}
-            disabled={selectedDist === ''}
-          >
-            Assign
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="error"
+              onClick={assignDist}
+              disabled={selectedDist === ''}
+              sx={{ lineHeight: 1.6, borderRadius: "8px", marginLeft: "25px !important", marginTop: "-1px" }}
+            >
+              ASSIGN
+            </Button>
           </Grid>
         </Grid>
       )}

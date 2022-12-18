@@ -16,10 +16,10 @@ export default function ProductTable(props) {
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
-        <Typography variant="h4" color="error">
-          Product List{" "}
+        <Typography variant="h4" color="error" sx={{ fontWeight: 800 }}>
+          Products List
           {selectedFilter
-            ? `for ${subCategoryFilter.toUpperCase()} under ${categoryFilter.toUpperCase()}`
+            ? ` for ${subCategoryFilter.toUpperCase()} under ${categoryFilter.toUpperCase()}`
             : ""}
         </Typography>
       </Grid>

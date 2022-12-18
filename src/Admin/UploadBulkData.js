@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Card, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
@@ -87,6 +87,7 @@ const UploadBulkData = () => {
     });
     setFile("");
     setFileUploadMsg("No file selected yet.");
+    setInitial(true);
   }
 
   const toggleUploadHistory = () => {
@@ -223,8 +224,7 @@ const UploadBulkData = () => {
   return (
     <>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
-        <Grid item lg={10} md={10} sm={12} xs={12}>
+        <Grid item lg={11} md={11} sm={12} xs={12}>
           <div className="uploadBulkDataContainer">
             <Card>
               <Grid container>
@@ -236,9 +236,9 @@ const UploadBulkData = () => {
                       background: "white",
                     }}
                   >
-                    <h3><center>Upload Bulk Data</center></h3>
+                    <h3>Upload Bulk Data</h3>
                     <hr/>
-                    <h4>
+                    <h5>
                       <strong>{showHistory ? "Uploaded CSV File History" : "Generate Sample CSV"}</strong>
                       <Button
                         onClick={toggleUploadHistory}
@@ -248,19 +248,17 @@ const UploadBulkData = () => {
                         sx={{
                           marginRight: "20px",
                           textTransform: "none",
-                        }}
-                        style={{
                           float: "right",
                         }}
                       >
                         {showHistory ? "CLOSE HISTORY" : "CSV UPLOAD HISTORY"}
                       </Button>
-                    </h4>
+                    </h5>
                   </div>
                 </Grid>
 
                 {showHistory && (
-                  <div style={{ width: "74vw", margin: "20px 20px 20px 20px" }}>
+                  <div style={{ width: "74vw", margin: "20px 20px 10px 20px" }}>
                     <Grid item lg={12} md={12} sm={12} xs={12}>
                       {uploadCsvHistory.map((csvHistory, i) => (
                         <Grid item sm={12}>
@@ -270,7 +268,7 @@ const UploadBulkData = () => {
                               <Grid item sm={1}>
                                 <div style={{ paddingTop: "10px", width: "28vw" }}>{i+1}. </div>
                               </Grid>
-                              <Grid item sm={3} style={{ marginTop: "10px"}}>
+                              <Grid item sm={3} sx={{ marginTop: "10px"}}>
                                 <a href={csvHistory.file_url} download>
                                   {csvHistory.file_url.slice(csvHistory.file_url.indexOf("UploadedCsv"))}
                                 </a>
@@ -293,11 +291,11 @@ const UploadBulkData = () => {
                     <Grid item lg={12} md={12} sm={12} xs={12}>
                       <div
                         style={{
-                          padding: "20px 0px 0px 20px",
+                          padding: "5px 0px 0px 20px",
                           background: "white",
                         }}
                       >
-                        <h5>Blank order tokens available: <strong>{totalBlnkTokens}</strong></h5>
+                        <h6>Blank order tokens available: <strong>{totalBlnkTokens}</strong></h6>
                       </div>
                     </Grid>
 
@@ -308,7 +306,7 @@ const UploadBulkData = () => {
                           background: "white",
                         }}
                       >
-                        <label htmlFor="title" style={{marginTop: "18px"}}>
+                        <label htmlFor="title" style={{marginTop: "10px"}}>
                           Blank order tokens required for data entry
                           <span className="text-danger">*</span>
                         </label>
@@ -323,7 +321,10 @@ const UploadBulkData = () => {
                           error={initial ? false : toNumber(excelDataQuery.totalTokens) <= 0}
                           required
                           value={excelDataQuery.totalTokens}
-                          style={{ marginRight: 10, padding: 9, width: "15vw" }}
+                          sx={{ 
+                            marginRight: 10, paddingLeft: "9px",
+                            ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "10px 10px" }, 
+                          }}
                           InputProps = {{ inputProps: { min: 0, max: totalBlnkTokens } }}
                         />
                       </div>
@@ -332,10 +333,10 @@ const UploadBulkData = () => {
                     <Grid
                       item
                       sm={3}
-                      style={{ marginTop: "18px", paddingLeft: "17px" }}
+                      sx={{ marginTop: "15px", paddingLeft: "22px" }}
                     >
                       <FormControl sx={{ width: "100%" }}>
-                        <InputLabel>Select Category </InputLabel>
+                        <InputLabel sx={{top: "-6px"}}>Select Category </InputLabel>
                         <Select
                           label="Choose Category"
                           id="fullWidth"
@@ -344,7 +345,11 @@ const UploadBulkData = () => {
                           autoWidth
                           required
                           value={excelDataQuery.category_id}
-                          style={{ marginRight: 10, width: "14vw" }}
+                          sx={{ 
+                            marginRight: 10, width: "17vw", padding: "2px 12px",
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                          }}
                         >
                           {catArray &&
                             catArray.map((cat) => (
@@ -363,10 +368,10 @@ const UploadBulkData = () => {
                     <Grid
                       item
                       sm={3}
-                      style={{ marginTop: "18px", paddingLeft: "17px" }}
+                      sx={{ marginTop: "15px", paddingLeft: "22px" }}
                     >
                       <FormControl sx={{ width: "100%" }}>
-                        <InputLabel>Select Sub-Category </InputLabel>
+                        <InputLabel sx={{top: "-6px"}}>Select Sub-Category </InputLabel>
                         <Select
                           label="Choose Sub-Category"
                           id="fullWidth"
@@ -376,7 +381,11 @@ const UploadBulkData = () => {
                           required
                           disabled={excelDataQuery?.category_id === ""}
                           value={excelDataQuery.sub_category_id}
-                          style={{ marginRight: 10, width: "14vw" }}
+                          sx={{ 
+                            marginRight: 10, width: "17vw", padding: "2px 12px",
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                          }}
                         >
                           {subCatArray &&
                             subCatArray.map((subCat) => (
@@ -395,10 +404,10 @@ const UploadBulkData = () => {
                     <Grid
                       item
                       sm={3}
-                      style={{ marginTop: "18px", paddingLeft: "17px" }}
+                      sx={{ marginTop: "15px", paddingLeft: "22px" }}
                     >
                       <FormControl sx={{ width: "100%" }}>
-                        <InputLabel>Select Product </InputLabel>
+                        <InputLabel sx={{top: "-6px"}}>Select Product </InputLabel>
                         <Select
                           label="Choose Product"
                           id="fullWidth"
@@ -408,7 +417,11 @@ const UploadBulkData = () => {
                           required
                           disabled={excelDataQuery?.sub_category_id === ""}
                           value={excelDataQuery.productId}
-                          style={{ marginRight: 10, width: "14vw" }}
+                          sx={{ 
+                            marginRight: 10, width: "17vw", padding: "2px 12px",
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                          }}
                         >
                           {productArray &&
                             productArray.map((prod) => (
@@ -427,7 +440,7 @@ const UploadBulkData = () => {
                     <Grid
                       item
                       sm={3}
-                      style={{ marginTop: "18px", paddingLeft: "17px" }}
+                      sx={{ marginTop: "5px", paddingLeft: "22px" }}
                     >
                       <Button
                         onClick={onDownload}
@@ -563,7 +576,6 @@ const UploadBulkData = () => {
             </Card>
           </div>
         </Grid>
-        <Grid item lg={1} md={1} sm={12} xs={12}></Grid>
       </Grid>
     </>
   );

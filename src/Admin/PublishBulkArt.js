@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import * as Yup from "yup";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import TransctionModal from "../components/shared/TransctionModal";
 import { getRequestLoggedIn, postRequestLoggedIn } from "../functions/apiClient";
@@ -25,7 +23,6 @@ const PublishBulkArt = () => {
       const res = await getRequestLoggedIn(totalBlankTokens);
       if (res?.status_code === "200") {
         setTotalBlnkTokens(res.totalBlankTokens);
-        // setTokenHelperText("Please Enter a value between 1 to " + res.totalBlankTokens)
       } else {
         setTotalBlnkTokens(0);
       }
@@ -48,30 +45,23 @@ const PublishBulkArt = () => {
   }, []);
 
   const incDecBulkNum = (e) => {
-    // console.log('e.target.value',e.target.value);
     let newNum = e.target.value;
     setBulkNumber(toNumber(newNum));
     setBulkNumber ((bulkNumber) => {
-      // console.log('incDecBulkNum bulkNumber',bulkNumber);
       return bulkNumber;
     });
   }
 
   const addBulkNumber = (num) => {
     let newBulkNum = bulkNumber + num;
-    // console.log('num',num);
-    // console.log('newBulkNum',newBulkNum);
     setBulkNumber(newBulkNum);
     setBulkNumber ((bulkNumber) => {
-      // console.log('addBulkNumber bulkNumber',bulkNumber);
       return bulkNumber;
     });
   };
 
   const saveBulkData = async () => {
     setStart(true);
-    // console.log('bulkNumber',bulkNumber);
-    
     await postRequestLoggedIn(createBulkToken, {
       total_tokens: bulkNumber,
     });
@@ -82,7 +72,6 @@ const PublishBulkArt = () => {
     setStart(false);
     setBulkNumber(0);
     setBulkNumber ((bulkNumber) => {
-      // console.log('handleReset bulkNumber',bulkNumber);
       return bulkNumber;
     });
   }
@@ -127,60 +116,60 @@ const PublishBulkArt = () => {
                       <Grid item lg={12} md={12} sm={12} xs={12}>
                         <div
                           className="form-group"
-                          style={{ marginLeft: 10, marginTop: 10 }}
+                          style={{ marginLeft: 10, marginTop: 0 }}
                         >
                           <label htmlFor="title" className="bulkArtLabel" >
-                            Bulk Item Number
+                            Bulk Token Number
                             <span className="text-danger">*</span>
                           </label>
                           
                           <TextField
-                            // className="bulkTokenField" //<<<==============
                             type="number"
                             name="totalTokens"
                             onChange={(e) => incDecBulkNum(e)}
                             autoComplete="false"
                             placeholder="Enter Bulk Number"
-                            // helperText={tokenHelperText}
-                            // error={initial ? false : toNumber(bulkNumber) <= 0}
                             error={bulkNumber <= 0}
                             required
                             value={bulkNumber}
                             style={{ marginRight: 10, paddingTop: 5, paddingLeft: 10 }}
+                            sx={{
+                              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                            }}
                             InputProps = {{ inputProps: { min: 0 } }}
                           />
                           <div
                             style={{
-                              padding: "20px 0px",
+                              padding: "4px 0px",
                               background: "white",
                               float: "right",
                             }}
                           >
-                            <Button
-                              onClick={handleReset}
-                              variant="contained"
-                              color="primary"
-                              component="label"
-                              sx={{
-                                marginRight: "20px",
-                                textTransform: "none",
-                              }}
-                            >
-                              RESET
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              component="label"
-                              disabled={bulkNumber <= 0}
-                              onClick={saveBulkData}
-                              sx={{
-                                marginRight: "20px",
-                                textTransform: "none",
-                              }}
-                            >
-                              SUBMIT
-                            </Button>
+                            <span className="input-group-btn">
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                component="label"
+                                onClick={handleReset}
+                                sx={{ marginRight: "20px", lineHeight: 1.5, borderRadius: "8px" }}
+                              >
+                                RESET
+                              </Button>
+                            </span>
+                            <span className="input-group-btn">
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                component="label"
+                                disabled={bulkNumber <= 0}
+                                onClick={saveBulkData}
+                                sx={{ marginRight: "20px", lineHeight: 1.5, borderRadius: "8px" }}
+                              >
+                                SUBMIT
+                              </Button>
+                            </span>
                           </div>
                         </div>
                       </Grid>
@@ -192,14 +181,20 @@ const PublishBulkArt = () => {
                             background: "white",
                           }}
                         >
-                          <h5>Add Token Helpers</h5>
-                          {/* <h6>Order Tokens Quantity</h6> */}
+                          <h5>{"Quick Action (Add Token Buttons)"}</h5>
                         </div>
                         <Grid container>
                           <Grid item sm={2}>
                             <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
                               <span className="input-group-btn">
-                                <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(100)} >
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(100)} >
                                   + 100{" "}
                                 </Button>
                               </span>
@@ -208,16 +203,14 @@ const PublishBulkArt = () => {
                           <Grid item sm={2}>
                             <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
                               <span className="input-group-btn">
-                                <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(500)} >
-                                  + 500{" "}
-                                </Button>
-                              </span>
-                            </div>
-                          </Grid>
-                          <Grid item sm={2}>
-                            <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
-                              <span className="input-group-btn">
-                                <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(1000)} >
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(1000)} >
                                   + 1000{" "}
                                 </Button>
                               </span>
@@ -226,16 +219,14 @@ const PublishBulkArt = () => {
                           <Grid item sm={2}>
                             <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
                               <span className="input-group-btn">
-                                <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(5000)} >
-                                  + 5000{" "}
-                                </Button>
-                              </span>
-                            </div>
-                          </Grid>
-                          <Grid item sm={2}>
-                            <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
-                              <span className="input-group-btn">
-                                <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(10000)} >
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(10000)} >
                                   + 10000{" "}
                                 </Button>
                               </span>
@@ -244,7 +235,47 @@ const PublishBulkArt = () => {
                           <Grid item sm={2}>
                             <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
                               <span className="input-group-btn">
-                                <Button type="button" variant="outlined" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => addBulkNumber(50000)} >
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(500)}
+                                >
+                                  + 500{" "}
+                                </Button>
+                              </span>
+                            </div>
+                          </Grid>
+                          <Grid item sm={2}>
+                            <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
+                              <span className="input-group-btn">
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(5000)} >
+                                  + 5000{" "}
+                                </Button>
+                              </span>
+                            </div>
+                          </Grid>
+                          <Grid item sm={2}>
+                            <div className="form-group" style={{ marginLeft: 10, marginTop: 10, float: "left", }} >
+                              <span className="input-group-btn">
+                                <Button
+                                  type="button"
+                                  variant="outlined"
+                                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                    ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                  }}
+                                  style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                  onClick={() => addBulkNumber(50000)} >
                                   + 50000{" "}
                                 </Button>
                               </span>
@@ -262,7 +293,6 @@ const PublishBulkArt = () => {
                           }}
                         >
                           <h5>Repeat Last Transaction</h5>
-                          {/* <h6>Order Tokens Quantity</h6> */}
                         </div>
                         <Grid container>
                           {bulkTokenUpldHistory.map((bulkHistory, i) => (
@@ -271,15 +301,23 @@ const PublishBulkArt = () => {
                                 <span className="input-group-btn">
                                 <Grid container>
                                   <Grid item sm={1}>
-                                    <div style={{  paddingTop: "10px", width: "28vw" }}>{i+1}. </div>
+                                    <div style={{  paddingTop: "5px", width: "28vw" }}>{i+1}. </div>
                                   </Grid>
                                   <Grid item sm={2}>
-                                    <Button type="button" variant="contained" sx={{ marginRight: "20px", textTransform: "none" }} style={{ minWidth: "4vw", maxWidth: "5vw", float: "left", padding: 8, borderRadius: 4 }} onClick={() => setBulkNumber(toNumber(bulkHistory.total_tokens))} >
+                                    <Button
+                                      type="button"
+                                      variant="outlined"
+                                      sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                                        ".css-1pqxanb-MuiButtonBase-root-MuiButton-root": { lineHeight: 1 },
+                                      }}
+                                      style={{ minWidth: "70px", maxWidth: "80px", float: "left", padding: 2, borderRadius: 8 }}
+                                      onClick={() => setBulkNumber(toNumber(bulkHistory.total_tokens))} 
+                                    >
                                       {bulkHistory.total_tokens}
                                     </Button>
                                   </Grid>
                                   <Grid item sm={9}>
-                                    <div style={{  paddingTop: "10px", width: "28vw" }}>Created on: {bulkHistory.created}</div>
+                                    <div style={{  paddingTop: "5px", width: "28vw" }}>Tokens Created on: {bulkHistory.created}</div>
                                   </Grid>
                                 </Grid>
                                 </span>

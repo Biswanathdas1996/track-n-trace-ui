@@ -1,22 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from 'prop-types';
-// import Grid from "@material-ui/core/Grid";
 import "../Styles/admin-styles.css";
 import ThemeProvider from "../Theme/index";
-// import ProductTable from "./components/ProductTable";
-// import DashboardButtonCard from "./components/DashboardButtonCard";
-// import Card from "./components/Card";
-// import pwcLogo from "../logo.svg";
 import T1 from "../trkNdTrcIcons/T1.png";
 import T2 from "../trkNdTrcIcons/T2.png";
 import T3 from "../trkNdTrcIcons/T3.png";
 import T4 from "../trkNdTrcIcons/T4.png";
 import T5 from "../trkNdTrcIcons/T5.png";
+import DashAvatarIcon from "../trkNdTrcIcons/DashAvatarIcon.png";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { visuallyHidden } from '@mui/utils';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { NavLink } from "react-router-dom";
 import {
   Button,
   Box,
@@ -42,8 +39,7 @@ import {
   dashboardData,
   getLatestUpdates,
 } from "../endpoint";
-// import Tree from "./components/Tree";
-import { ApplicationContext } from "../Context/ApplicationContext";
+// import { ApplicationContext } from "../Context/ApplicationContext";
 import { toNumber } from "lodash";
 import { useUser } from "../Context/user";
 
@@ -63,7 +59,6 @@ function Dashboard() {
     const getDashboardTileData = async () => {
       const res = await getRequestLoggedIn(dashboardData);
       if (res?.status_code === "200") {
-        // console.log('Tile res',res);
         setDashboardTileData(res);
       } else {
         setDashboardTileData({});
@@ -74,16 +69,11 @@ function Dashboard() {
       if (res?.status_code === "200") {
         let data = res.data;
         let newData = data.map(obj => {
-          // console.log('obj',typeof(obj.tokenId) === "string", obj);
           if(typeof(obj.tokenId) === "string") {
-            // console.log('num obj', typeof(toNumber(obj.tokenId)));
             let temp = toNumber(obj.tokenId);
-            // console.log('num obj===>>', temp);
             obj.tokenId = temp;
           }
-          // console.log('UPDT obj',obj);
         })
-        // console.log('Table data',data);
 
         setDashboardTableData(data);
       } else {
@@ -110,9 +100,7 @@ function Dashboard() {
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
-  
-  // This method is created for cross-browser compatibility, if you don't
-  // need to support IE11, you can use Array.prototype.sort() directly
+
   function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -225,51 +213,20 @@ function Dashboard() {
     setOrderBy(property);
   };
 
-  // const handleClick = (event, name) => {
-  //   const selectedIndex = selected.indexOf(name);
-  //   let newSelected = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, name);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       selected.slice(0, selectedIndex),
-  //       selected.slice(selectedIndex + 1),
-  //     );
-  //   }
-
-  //   setSelected(newSelected);
-  // };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  // const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  function stringAvatar(name) {
-    return {
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
-  }
-
-  // const { tokenDetailsArray } = useContext(ApplicationContext);
   return (
     <ThemeProvider>
       <div className="dashboardContainer">
         <Grid container spacing={2} sx={{ width: "98vw" }}>
-          {/* <Grid item sx={{ paddingTop: "0px" }} sm={12}> */}
-            <Grid item sx={{ marginTop: "5px !important" }} sm={0.7}>
+            <Grid item sx={{ marginTop: "5px !important" }} sm={0.6}>
               <Grid container>
                 <Grid item sx={{ paddingLeft: "5px", fontSize: "18px" }} sm={12}>
-                  <Box width="50px">
+                  <Box width="40px">
                     <Card
                       sx={{
                         display: "flex",
@@ -279,21 +236,12 @@ function Dashboard() {
                         borderRadius: "25px" ,
                       }}
                     >
-                      <CardActions sx={{ height: "50px", padding: "0px"}}>
-                        {/* <CardMedia
-                           sx={{ height: "56px" }}
+                      <CardActions sx={{ height: "40px", padding: "0px"}}>
+                        <CardMedia
+                           sx={{ height: "40px" }}
                           component="img"
-                          image={pwcLogo}
-                        /> */}
-                        {/* <Tooltip> */}
-                          {/* <IconButton sx={{ p: 0, cursor: "none" }}> */}
-                            <Avatar sx={{ height: "50px", width: "50px", fontSize: "1.5rem", fontWeight: 600, backgroundColor: "black", textTransform: "uppercase" }} 
-                              alt={user.user_fname}
-                              src="/static/images/avatar/6.jpg"
-                              {...stringAvatar(user.user_fname + " " + user.user_lname)}
-                            />
-                          {/* </IconButton> */}
-                        {/* </Tooltip> */}
+                          image={DashAvatarIcon}
+                        />
                       </CardActions>
                     </Card>
                   </Box>
@@ -306,7 +254,6 @@ function Dashboard() {
                 <Grid item sx={{ paddingLeft: "5px", fontSize: "14px" }} sm={12}><strong>{user.role_type}</strong></Grid>
               </Grid>
             </Grid>
-          {/* </Grid> */}
           <Grid item sx={{ padding: "15px", paddingTop: "5px !important", paddingBottom: "0px" }} sm={2}>
             <Box width="190px">
               <Card
@@ -334,12 +281,11 @@ function Dashboard() {
                     >
                       <div
                         style={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none", paddingLeft: "8px" }}
-                        // onClick={() => navigation(`/sub-category?catId=${idData}`)}
                       >
                         {"Token Count"}
                       </div>
                     </CardActions>
-                    <a href="/tokens"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></a>
+                    <NavLink to="/tokens"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
                 </CardActions>
                 <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
@@ -356,7 +302,7 @@ function Dashboard() {
                       <div
                         style={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
-                        {dashboardTileData.totalTokens}
+                        {dashboardTileData.totalTokens || 0}
                       </div>
                     </CardActions>
                   </Grid>
@@ -400,7 +346,7 @@ function Dashboard() {
                       {"Product Count"}
                     </div>
                     </CardActions>
-                    <ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} />
+                    <NavLink to="/product"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
                 </CardActions>
                 <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
@@ -417,7 +363,7 @@ function Dashboard() {
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
-                        {dashboardTileData.totalProducts}
+                        {dashboardTileData.totalProducts || 0}
                       </Button>
                     </CardActions>
                   </Grid>
@@ -459,12 +405,11 @@ function Dashboard() {
                     >
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                        // onClick={() => navigation(`/sub-category?catId=${idData}`)}
                       >
                         {"Blank Token Count"}
                       </Button>
                     </CardActions>
-                    <ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} />
+                    <NavLink to="/publishBulkArt"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
                 </CardActions>
                 <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
@@ -481,7 +426,7 @@ function Dashboard() {
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
-                        {dashboardTileData.totalBlankTokens}
+                        {dashboardTileData.totalBlankTokens || 0}
                       </Button>
                     </CardActions>
                   </Grid>
@@ -523,12 +468,11 @@ function Dashboard() {
                     >
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                        // onClick={() => navigation(`/sub-category?catId=${idData}`)}
                       >
                         {"Distributor"}
                       </Button>
                     </CardActions>
-                    <ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} />
+                    <NavLink to="/distributer"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
                 </CardActions>
                 <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
@@ -545,7 +489,7 @@ function Dashboard() {
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
-                        {dashboardTileData.totalDistributers}
+                        {dashboardTileData.totalDistributers || 0}
                       </Button>
                     </CardActions>
                   </Grid>
@@ -587,12 +531,11 @@ function Dashboard() {
                     >
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                        // onClick={() => navigation(`/sub-category?catId=${idData}`)}
                       >
                         {"Retailer"}
                       </Button>
                     </CardActions>
-                    <ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} />
+                    <a><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></a>
                   </Grid>
                 </CardActions>
                 <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
@@ -609,7 +552,7 @@ function Dashboard() {
                       <Button
                         sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
-                        {dashboardTileData.totalRetailers}
+                        {dashboardTileData.totalRetailers || 0}
                       </Button>
                     </CardActions>
                   </Grid>
@@ -653,37 +596,12 @@ function Dashboard() {
                               height: "30px",
                             }}
                           >
-                            {/* <Button
-                              sx={{ justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}
-                            >
-                              {"Create Order Tokens"}
-                            </Button> */}
-                            <a href="/category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Category</a>
-                            <a href="/sub-category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Sub Category</a>
-                            <a href="/product" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Product</a>
-                            <a href="/publishBulkArt" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Create Bulk Tokens</a>
-                            <a href="/uploadBulkData" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Upload Bulk Tokens</a>
-                            <a href="/tokens" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Track Tokens</a>
-                            {/* <Button
-                              sx={{ justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}
-                            >
-                              {"Create Bulk Tokens"}
-                            </Button>
-                            <Button
-                              sx={{ justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}
-                            >
-                              {"Upload Bulk Tokens"}
-                            </Button>
-                            <Button
-                              sx={{ justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}
-                            >
-                              {"Track Tokens"}
-                            </Button>
-                            <Button
-                              sx={{ justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}
-                            >
-                              {"Create Product"}
-                            </Button> */}
+                            <NavLink to="/category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Category</NavLink>
+                            <NavLink to="/sub-category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Sub Category</NavLink>
+                            <NavLink to="/product" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Product</NavLink>
+                            <NavLink to="/publishBulkArt" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Create Bulk Tokens</NavLink>
+                            <NavLink to="/uploadBulkData" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Upload Bulk Tokens</NavLink>
+                            <NavLink to="/tokens" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Track Tokens</NavLink>
                           </CardActions>
                         </Grid>
                       </CardActions>
@@ -703,17 +621,12 @@ function Dashboard() {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "flex-start",
-                        // paddingTop: "4px",
-                        height: "160px",
+                        maxHeight: "165px",
                         width: "80vw",
                         background: "#FFFFFF",
-                        // boxShadow: "4px 4px 2px #d3d3d3",
-                        // overflowY: "scroll",
                       }}
                     >
                     <Box sx={{ width: '100%' }}>
-                      {/* <Paper sx={{ width: '100%', mb: 2 }}> */}
-                        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
                         <TableContainer>
                           <Table
                             sx={{ minWidth: 750 }}
@@ -721,38 +634,25 @@ function Dashboard() {
                             size={'small'}
                           >
                             <EnhancedTableHead
-                              // numSelected={selected.length}
                               order={order}
                               orderBy={orderBy}
-                              // onSelectAllClick={handleSelectAllClick}
                               onRequestSort={handleRequestSort}
                               rowCount={rows.length}
                             />
-                            <TableBody>
-                              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                                 rows.sort(getComparator(order, orderBy)).slice() */}
+                            {rows && (rows.length > 0) && (<TableBody>
                               {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                  // const isItemSelected = isSelected(row.name);
-                                  // const labelId = `enhanced-table-checkbox-${index}`;
-                                  // console.log('row',row);
                 
                                   return (
                                     <TableRow
                                       hover
-                                      // onClick={(event) => handleClick(event, row.name)}
                                       role="checkbox"
                                       tabIndex={-1}
                                       key={index}
                                     >
                                       <TableCell
-                                        // component="th"
-                                        // id={labelId}
                                         align="left"
-                                        // scope="row"
-                                        // padding="normal"
-                                        // sx={{ paddingTop: '0px', paddingBottom: "0px" }}
                                         sx={{ fontSize: "0.8rem !important", padding: "8px 0px 0px 8px !important", lineHeight: "0.9rem !important" }}
                                       >
                                         {row.tokenId}
@@ -776,7 +676,14 @@ function Dashboard() {
                                   <TableCell colSpan={8} />
                                 </TableRow>
                               )}
-                            </TableBody>
+                            </TableBody>)}{(rows.length == 0) && (<TableBody>
+                              {
+                                <TableRow style={{ height: 22, }}
+                                >
+                                  <TableCell colSpan={8}>No records available to display.</TableCell>
+                                </TableRow>
+                              }
+                            </TableBody>)}
                           </Table>
                         </TableContainer>
                         <TablePagination
@@ -785,7 +692,7 @@ function Dashboard() {
                             flexDirection: "row",
                             alignItems: "baseline",
                             justifyContent: "flex-end",
-                            height: "20px",
+                            height: "25px",
                             overflow: "hidden",
                             ".MuiTablePagination-toolbar": {
                               flexDirection: "row !important",
@@ -805,7 +712,6 @@ function Dashboard() {
                           page={page}
                           onPageChange={handleChangePage}
                         />
-                      {/* </Paper> */}
                     </Box>
                     </Card>
                   </Box>

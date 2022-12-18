@@ -1,12 +1,10 @@
 import React, { useState, useEffect, createContext } from "react";
 import { categoryList, productList, subCategoryList } from "../endpoint";
 import { getRequestLoggedIn } from "../functions/apiClient";
-import { getAuthData } from "../functions/apiClient";
 
 export const ApplicationContext = createContext();
 
 export const ApplicationProvider = (props) => {
-  const [tokenDetailsArray, setTokenDetailsArray] = useState([]);
   const [categoryDataArray, setCategoryDataArray] = useState([]);
   const [subCategoryDataArray, setSubCategoryDataArray] = useState([]);
   const [productDataArray, setProductDataArray] = useState([]);
@@ -42,12 +40,7 @@ export const ApplicationProvider = (props) => {
         setSubCategoryDataArray([]);
       }
     };
-    async function fetchAllPosts() {
-      const data = await getAuthData(`/get-all-token`);
-      setTokenDetailsArray(data);
-    }
 
-    fetchAllPosts();
     getCategoryList();
     getSubCategoryList();
     getProductList();
@@ -55,8 +48,6 @@ export const ApplicationProvider = (props) => {
   return (
     <ApplicationContext.Provider
       value={{
-        tokenDetailsArray,
-        setTokenDetailsArray,
         categoryDataArray,
         setCategoryDataArray,
         subCategoryDataArray,

@@ -9,7 +9,7 @@ import "./tokens.css";
 
 export default function TokenDetails() {
   const [blankTokenFlag, setBlankTokenFlag] = useState(0);
-  const [assignedFlag, setAssignedFlag] = useState(0);
+  const [assignedFlag, setAssignedFlag] = useState(1);
 
   const setFlag = (aFlag, bFlag) => {
 
@@ -25,52 +25,38 @@ export default function TokenDetails() {
   }
 
   return (
-    <div className="container">
+    <div className="container tokenContainer">
       <Grid container spacing={2}
           style={{ paddingRight: "18px" }}
         >
-        <Grid item sm={6} />
-        <Grid item sm={2}>
-          <Button
-            type="button"
-            variant="contained"
-            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
-            sx={{
-              marginRight: "20px",
-              textTransform: "none",
-            }}
-            onClick={() => setFlag(0,0)}
-          >
-            Filled Unassigned Tokens
-          </Button>
-        </Grid>
-        <Grid item sm={2}>
-          <Button
-            type="button"
-            variant="contained"
-            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
-            sx={{
-              marginRight: "20px",
-              textTransform: "none",
-            }}
-            onClick={() => setFlag(1,0)}
-          >
-            Filled Assigned Tokens
-          </Button>
-        </Grid>
-        <Grid item sm={2}>
-          <Button
-            type="button"
-            variant="contained"
-            style={{ minWidth: "12vw", maxWidth: "15vw", float: "right", padding: 8, borderRadius: 4 }}
-            sx={{
-              marginRight: "20px",
-              textTransform: "none",
-            }}
-            onClick={() => setFlag(0,1)}
-          >
-            Blank Tokens Table
-          </Button>
+        <Grid item sm={12} sx={{ ".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "0px" }}}>
+          <span className="input-group-btn">
+            <Button type="button" variant="outlined" 
+              sx={{ marginRight: "20px", fontWeight: 600, marginTop: "5px", letterSpacing: "0.1em", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }}
+              style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+              onClick={() => setFlag(0,1)} 
+            >
+              Blank Tokens Table
+            </Button>
+          </span>
+          <span className="input-group-btn">
+            <Button type="button" variant="outlined" 
+              sx={{ marginRight: "20px", fontWeight: 600, marginTop: "5px", letterSpacing: "0.1em", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }}
+              style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+              onClick={() => setFlag(1,0)} 
+            >
+              Filled Assigned Tokens
+            </Button>
+          </span>
+          <span className="input-group-btn">
+            <Button type="button" variant="outlined" 
+              sx={{ marginRight: "20px", fontWeight: 600, marginTop: "5px", letterSpacing: "0.1em", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }}
+              style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
+              onClick={() => setFlag(0,0)} 
+            >
+              Filled Unassigned Tokens
+            </Button>
+          </span>
         </Grid>
       </Grid>
 

@@ -101,7 +101,7 @@ export default function ProductTableBodyUI({
               }}
             >
               <Grid> Category - {category}</Grid>
-              <Grid>Sub Category - {subCategory}</Grid>
+              <Grid>Sub-Cat - {subCategory}</Grid>
               <CardActions
                 sx={{
                   display: "flex",

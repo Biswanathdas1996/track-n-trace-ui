@@ -12,6 +12,7 @@ import { LoginForm } from "../sections/auth/login";
 import { useToken } from "../Context/token";
 import { getData } from "./../functions/apiClient";
 import { verifyUser } from "../endpoint";
+import BackImg from "../trkNdTrcIcons/BackImg.png";
 
 // ----------------------------------------------------------------------
 
@@ -76,7 +77,15 @@ export default function Login() {
   }, []);
 
   return (
-    <div title="Login">
+    <div title="Login" style={{
+      backgroundColor: "#F3F3F3",
+      backgroundImage: `url(${BackImg})`,
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPositionX: "48vw",
+      backgroundPositionY: "1vh",
+      backgroundAttachment: "fixed",
+    }}>
       <RootStyle>
         {currentStep === "1" && <Navigate to="/dashboard" />}
         <HeaderStyle>

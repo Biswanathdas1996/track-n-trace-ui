@@ -71,20 +71,20 @@ export default function FilledAssignedTokens() {
         {/* category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Category : </strong>
                   {categoryName} <br />
                 </Typography>
@@ -93,11 +93,8 @@ export default function FilledAssignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    categoryImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
-                  sx={{ height: "190px" }}
+                  image={categoryImage}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -106,20 +103,20 @@ export default function FilledAssignedTokens() {
         {/* sub category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Sub Category : </strong>
                   {subcategoryName} <br />
                 </Typography>
@@ -128,11 +125,8 @@ export default function FilledAssignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    subcategoryImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
-                  sx={{ height: "190px" }}
+                  image={subcategoryImage}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -140,20 +134,20 @@ export default function FilledAssignedTokens() {
         </Grid>
         {/* product*/}
         <Grid item sm={3}>
-          <Card style={{ width: "290px" }}>
+          <Card style={{ width: "220" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Product : </strong>
                   {productName} <br />
                 </Typography>
@@ -162,11 +156,8 @@ export default function FilledAssignedTokens() {
                 <CardMedia
                   component="img"
                   width="160"
-                  image={
-                    productImage ||
-                    "https://trckndtrce.azurewebsites.net/trackndtrace/product_images/img1667541515.png"
-                  }
-                  sx={{ height: "190px" }}
+                  image={productImage}
+                  sx={{ height: "110px" }}
                 />
               </Grid>
             </Grid>
@@ -174,25 +165,25 @@ export default function FilledAssignedTokens() {
         </Grid>
 
         <Grid item sm={3}>
-          <Card style={{ width: "380px" }}>
+          <Card style={{ width: "250px", height: "220px", overflowY: "scroll" }}>
             <Grid
               container
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
               sx={{
-                padding: "15px",
+                padding: "10px",
                 background: "#ebecf0",
                 boxShadow: "8px 8px 4px #000000",
               }}
             >
               <Grid item sm={12}>
-                <Typography variant="h5">
+                <Typography >
                   <strong>More Information </strong>
                 </Typography>
               </Grid>
               <Grid item sx={{ paddingTop: "20px" }}>
-                <Typography variant="h6">
+                <Typography >
                   <strong>Product Title : </strong>
                   {title}
                   <br />
@@ -295,120 +286,93 @@ export default function FilledAssignedTokens() {
         accessor: "id",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
+        width: " 8vw",
+        minWidth: " 8vw",
         Header: "Batch No",
         accessor: "tokenDetails.batch_no",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Category Name",
+        width: " 8vw",
+        minWidth: " 8vw",
+        Header: "Category",
         accessor: "tokenDetails.categoryName",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Sub-Category Name",
+        width: " 8vw",
+        minWidth: " 8vw",
+        Header: "Sub-Category",
         accessor: "tokenDetails.subcategoryName",
       },
       {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Product Name",
+        width: " 8vw",
+        minWidth: " 8vw",
+        Header: "Product",
         accessor: "tokenDetails.productName",
         // Filter: SelectColumnFilter,
         // filter: "equals",
       },
-      {
-        width: "9vw",
-        minWidth: "9vw",
-        Header: "Title",
-        accessor: "tokenDetails.title",
-        // Filter: SelectColumnFilter,
-        // filter: "equals",
-      },
+      // {
+      //   width: " 8vw",
+      //   minWidth: " 8vw",
+      //   Header: "Title",
+      //   accessor: "tokenDetails.title",
+      //   // Filter: SelectColumnFilter,
+      //   // filter: "equals",
+      // },
       {
         Header: "Action",
         accessor: "action",
-        width: "450px",
-        minWidth: "450px",
+        width: "350px",
+        minWidth: "350px",
         disableFilters: true,
         Cell: ({ value }) => (
           //   <>
-          <Grid container spacing={2}>
-            <Grid item sm={3}>
-              <Button
-                startIcon={<QrCode2Icon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "110px",
-                  width: "100px",
-                  borderRadius: 4,
+          <Grid container spacing={2} sx={{ marginLeft: "2px", marginTop: "2px"}}>
+            <span>
+              <Button startIcon={<QrCode2Icon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleAddTxn(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleAddTxn(value)} 
               >
                 AddTxn
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                startIcon={<QrCode2Icon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "110px",
-                  width: "100px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button startIcon={<QrCode2Icon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleView(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleView(value)} 
               >
                 View
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                endIcon={<SendIcon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "90px",
-                  maxWidth: "100px",
-                  width: "100px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button endIcon={<SendIcon />} type="button" variant="outlined" 
+                sx={{ marginRight: "20px", textTransform: "none", fontWeight: 800, "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" },
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleViewTxn(value)}
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleViewTxn(value)} 
               >
                 ViewTxn
               </Button>
-            </Grid>
-            <Grid item sm={3}>
-              <Button
-                endIcon={<AddCircleIcon />}
-                type="button"
-                variant="contained"
-                style={{
-                  minWidth: "100px",
-                  maxWidth: "100px",
-                  width: "100px !important",
-                  marginLeft: "5px",
-                  borderRadius: 4,
+            </span>
+            <span>
+              <Button endIcon={<AddCircleIcon />} type="button" variant="outlined" disabled
+                sx={{ marginRight: "20px", marginLeft: "5px", textTransform: "none", fontWeight: 800,
+                  backgroundColor: "rgba(0, 0, 0, 0.12) !important", color: "rgba(0, 0, 0, 0.26) !important", boxShadow: "none", borderColor: "rgba(0, 0, 0, 0.26) !important",
+                  ".css-16ssjge-MuiButtonBase-root-MuiButton-root": {fontWeight: 800, fontSize: "0.8rem", lineHeight: "0.6em" }
                 }}
-                sx={{ textTransform: "none" }}
-                onClick={() => handleAdd(value)}
-                // disabled={value && ("Batch No" in value)}
-                color="warning"
-                disabled
+                style={{ minWidth: "4vw", float: "right", padding: "1px 8px", borderRadius: 4 }} 
+                onClick={() => handleAdd(value)} 
               >
                 Add
               </Button>
-            </Grid>
+            </span>
           </Grid>
           // </>
         ),
@@ -418,7 +382,7 @@ export default function FilledAssignedTokens() {
   );
 
   return (
-    <div className="container">
+    <div style={{ marginTop: "0px"}}>
       <Modal
         open={open}
         onClose={handleClose}
@@ -441,7 +405,8 @@ export default function FilledAssignedTokens() {
           }}
         >
           <QRCode
-            value={`https://trackndtrace.netlify.app/transctions/${row?.id}`}
+            value={`${QR_BASE_URL}/transctions/${row?.id}`}
+            // value={`https://trackndtrace.netlify.app/transctions/${row?.id}`}
             title={row?.tokenDetails.title}
           />
         </Box>
@@ -470,21 +435,21 @@ export default function FilledAssignedTokens() {
         >
           <QRCode
             value={`${QR_BASE_URL}/add-tracking-data/${row?.id}`}
+            // value={`http://localhost:3000/add-tracking-data/${row?.id}`}
             title={row?.tokenDetails.title}
           />
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        <Grid item sm={12}>
-          <h1 style={{ marginLeft: 10 }}>FILLED ASSIGNED TOKENS</h1>
+        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10 }}>FILLED ASSIGNED TOKENS</h3>
         </Grid>
 
         <Grid item sm={12}>
           <Container
             style={{
-              marginTop: 10,
+              marginTop: 0,
               maxWidth: "100% !important",
-              overflowX: "scroll",
             }}
           >
             {tListArray.length > 0 && (

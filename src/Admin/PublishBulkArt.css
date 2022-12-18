@@ -1,13 +1,18 @@
 .bulkArtLabel {
-    margin-top: 22px!important;
-    margin-bottom: 0.5rem!important;
+    margin-top: 14px !important;
+    margin-bottom: 0.5rem !important;
 }
 
 .publishBulkArtContainer {
     width: 97% !important;
-    /* overflow-y: scroll; */
     height: 83vh;
     padding-left: 0px !important;
     margin-left: 2px !important;
     margin-top: 5px !important;
+}
+
+.css-gh4nyv-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26) !important;
+    box-shadow: none !important;
+    background-color: rgba(0, 0, 0, 0.12) !important;
 }

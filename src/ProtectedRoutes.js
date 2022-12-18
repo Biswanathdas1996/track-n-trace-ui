@@ -38,7 +38,9 @@ export const ProtectedRoute = (props) => {
     "/dashboard",
     "/profile",
     "/viewAssignedTokens",
+    "/tokens",
     "/resetPassword",
+    "/distributer",
   ];
   useEffect(() => {
     const getVerification = async () => {
