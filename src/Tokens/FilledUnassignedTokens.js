@@ -15,8 +15,11 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useUser } from "../Context/user";
 
 export default function FilledUnassignedTokens() {
+  const user = useUser();
+  const role = user.user_role;
   const [tokenListArray, setTokenList] = useState([]);
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -466,14 +469,18 @@ export default function FilledUnassignedTokens() {
         >
           <QRCode
             value={`${QR_BASE_URL}/add-tracking-data/${row?.id}`}
+            // value={`http://localhost:3000/add-tracking-data/${row?.id}`}
             title={row?.tokenDetails.title}
           />
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+        {(role === '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
           <h3 style={{ marginLeft: 10 }}>FILLED UNASSIGNED TOKENS</h3>
-        </Grid>
+        </Grid>)}
+        {(role !== '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10 }}>RECEIVED TOKENS</h3>
+        </Grid>)}
 
         <Grid item sm={12}>
           <Container

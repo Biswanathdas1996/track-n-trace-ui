@@ -15,8 +15,11 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useUser } from "../Context/user";
 
 export default function FilledAssignedTokens() {
+  const user = useUser();
+  const role = user.user_role;
   const [tokenListArray, setTokenList] = useState([]);
   const [open, setOpen] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -441,9 +444,12 @@ export default function FilledAssignedTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+        {(role === '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
           <h3 style={{ marginLeft: 10 }}>FILLED ASSIGNED TOKENS</h3>
-        </Grid>
+        </Grid>)}
+        {(role !== '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10 }}>ASSIGNED TOKENS</h3>
+        </Grid>)}
 
         <Grid item sm={12}>
           <Container

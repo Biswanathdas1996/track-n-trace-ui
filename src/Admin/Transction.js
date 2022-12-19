@@ -50,6 +50,7 @@ export default function CustomizedTimeline() {
 
   const getRole = (roleId) => {
     const userRole = Roles.find(({ id }) => id == roleId);
+    console.log('userRole',userRole);
     return userRole.roleName;
   };
 
@@ -75,7 +76,7 @@ export default function CustomizedTimeline() {
             </span>
           </Grid>
           <Grid item lg={3} md={3} sm={12} xs={12}>
-            <Card style={{ margin: "0px 20px 0px 20px", width: 225, marginBottom: 2, height: 450 }}>
+            <Card style={{ margin: "0px 20px 0px 20px", width: 225, marginBottom: 2, height: 450, overflowY: "scroll" }}>
               <Grid
                 container
                 flexDirection="column"
@@ -163,13 +164,24 @@ export default function CustomizedTimeline() {
                           </TimelineSeparator>
                           <TimelineContent sx={{ py: "8px", px: 2 }}>
                             <Typography variant="subtitle2" component="span">
-                              <strong>{data?.trnxtn_details}</strong> <br />
+                              <strong>{data?.message}</strong> <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <strong>Transaction By:- </strong>
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              {getRole(data?.userRole)}
+                              <br />
+                            </Typography>
+                            <Typography variant="subtitle2" component="span">
+                              <EmailOutlinedIcon />
+                              {data?.userEmail} <br />
                             </Typography>
                             <Typography variant="subtitle2" component="span">
                               <LocationOnOutlinedIcon />
-                              {data?.trntxnLocation} <br />
+                              {data?.location} <br />
                             </Typography>
-                            <Typography variant="subtitle1" component="span">
+                            {/* <Typography variant="subtitle1" component="span">
                               <strong>Assigned By:- </strong>
                             </Typography>
                             <Typography variant="subtitle2" component="span">
@@ -190,27 +202,16 @@ export default function CustomizedTimeline() {
                             <Typography variant="subtitle2" component="span">
                               <PhoneInTalkOutlinedIcon />
                               {data?.tranxtnInitiaterPhone} <br />
-                            </Typography>
-                            <Typography variant="subtitle1" component="span">
-                              <strong>Assigned To:- </strong>
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <strong>{getRole(data?.tranxtnEndUserRole)}</strong>{" "}
-                              <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
+                            </Typography> */}
+                            {/* <Typography variant="subtitle2" component="span">
                               <BadgeOutlinedIcon />
                               {data?.tranxtnEndUserFname}{" "}
                               {data?.tranxtnEndUserLname} <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <EmailOutlinedIcon />
-                              {data?.tranxtnEndUserEmail} <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
+                            </Typography> */}
+                            {/* <Typography variant="subtitle2" component="span">
                               <PhoneInTalkOutlinedIcon />
                               {data?.tranxtnEndUserPhone} <br />
-                            </Typography>
+                            </Typography> */}
                           </TimelineContent>
                         </TimelineItem>
                       );

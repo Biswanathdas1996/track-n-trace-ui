@@ -144,6 +144,7 @@ export default function ProductDetails() {
   const getSubCategoryList = async (val) => {
     const res = await getRequestLoggedIn(subCategoryListForCat(val));
     if (res?.status_code === "200") {
+      console.log('getSubCategoryList res',res); //==================review: check for the conditional dropdown
       setSubCategoryDataArray(res.sub_categoryList);
     }
   };
@@ -206,12 +207,12 @@ export default function ProductDetails() {
           <Dialog open={productBool || isEditForm} onClose={cancelFun}>
             <DialogTitle
               sx={{ paddingBottom: "0px", fontWeight: 800}}
-            >Add New Sub-Category</DialogTitle>
+            >Add New Product</DialogTitle>
             <DialogContent>
               <DialogContentText
                 sx={{ color: "#000000"}}
               >
-                Please enter the details below to create a Category
+                Please enter the details below to create a Product
               </DialogContentText>
               <DialogContentText
                 sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}

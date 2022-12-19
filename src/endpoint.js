@@ -26,6 +26,7 @@ export const bulkTokenUploadHistory = "/bulkTokenUploadHistory.php";
 export const uploadHistory = "/uploadHistory.php";
 export const dashboardData = "/getRecords.php";
 export const getLatestUpdates = "/getLatestUpdates.php";
+export const addTransaction = "/addTransaction.php";
 
 export const subCategoryListForCat = (id) =>
   `/sub_categoryList.php?cat_id=${id}`;

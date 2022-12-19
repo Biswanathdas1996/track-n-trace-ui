@@ -7,17 +7,11 @@ import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 
 import { useParams } from "react-router-dom";
-import { getAuthDataPost } from "../functions/apiClient";
+import { postRequestLoggedIn } from "../functions/apiClient";
+import { addTransaction } from "../endpoint";
 import swal from "sweetalert";
 
-// const VendorSchema = Yup.object().shape({
-//   name: Yup.string().required("Name is required"),
-//   authorname: Yup.string().required("Authorname is required"),
-//   price: Yup.string().required("Price is required"),
-//   royelty: Yup.string().required("Royelty amount is required"),
-// });
-
-const Mint = () => {
+const AddTracking = () => {
   const { token } = useParams();
   const [submitting, setSubmitting] = useState(false);
   const [location, setLocation] = useState(null);
@@ -43,16 +37,21 @@ const Mint = () => {
     );
   }
 
-  const saveData = async ({ title, category, attributes }) => {
-    setSubmitting(true);
+  const saveData = async ({ status }) => {
+    // setSubmitting(true);
     const metaData = {
-      place: title,
-      status: category,
-      date: "2022-08-02T13:19:34.122Z",
+      tokenId: token,
+      location: location,
+      message: status,
     };
-
-    await getAuthDataPost(`/add-to-token?id=${token}`, metaData);
-    swal("Success !", "Data successfully add", "success");
+    console.log('metaData',metaData);
+    const res = await postRequestLoggedIn(addTransaction, metaData);
+    if (res.status_code === "200") {
+      setSubmitting(true);
+      swal("Success !", "Data successfully add", "success");
+    } else {
+      swal({ icon: "warning", dangerMode: true, text: res.message });
+    }
   };
 
   return (
@@ -76,8 +75,8 @@ const Mint = () => {
                       <small> Add transction data</small>
                       <Formik
                         initialValues={{
-                          title: location,
-                          category: "",
+                          location: location,
+                          status: "",
                         }}
                         // validationSchema={VendorSchema}
                         onSubmit={(values, { setSubmitting }) => {
@@ -98,10 +97,10 @@ const Mint = () => {
                                     <span className="text-danger">*</span>
                                   </label>
                                   <Field
-                                    name="category"
+                                    name="status"
                                     component="select"
                                     className={`form-control text-muted ${
-                                      touched.category && errors.category
+                                      touched.status && errors.status
                                         ? "is-invalid"
                                         : ""
                                     }`}
@@ -137,11 +136,11 @@ const Mint = () => {
                                   </label>
                                   <Field
                                     type="text"
-                                    name="title"
+                                    name="location"
                                     autoComplete="flase"
-                                    placeholder="Enter title"
+                                    placeholder="Enter Location"
                                     className={`form-control text-muted ${
-                                      touched.title && errors.title
+                                      touched.location && errors.location
                                         ? "is-invalid"
                                         : ""
                                     }`}
@@ -207,4 +206,4 @@ const Mint = () => {
     </>
   );
 };
-export default Mint;
+export default AddTracking;
