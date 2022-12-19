@@ -29,7 +29,7 @@ const distributerData = {
   pswd_reqd: false,
 };
 
-export default function AddDistributer({ setToken, distributerBool, setDistributerBool }) {
+export default function AddDistributer({ distributerBool, setDistributerBool }) {
   const [modalView, setModalView] = useState(false);
   const [errorRegister, setErrorRegister] = useState("");
   const navigate = useNavigate();
@@ -83,7 +83,6 @@ export default function AddDistributer({ setToken, distributerBool, setDistribut
         };
         const res = await postData(registration, payLoad, null, true);
         if (res.status_code === "200") {
-          setToken(res.data.user_token);
           setDistributerBool(false);
           //   window.location.reload();
         } else if (res.status_code === "500") {

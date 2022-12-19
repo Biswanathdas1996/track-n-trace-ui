@@ -37,12 +37,16 @@ export const ProtectedRoute = (props) => {
     "/Register",
     "/dashboard",
     "/profile",
-    "/viewAssignedTokens",
+    // "/viewAssignedTokens",
+    "/add-tracking-data",
+    "/transctions",
     "/tokens",
     "/resetPassword",
     "/distributer",
   ];
   useEffect(() => {
+    const prevRoute = window.location.pathname;
+    window.sessionStorage.setItem("prevRoute", prevRoute);
     const getVerification = async () => {
       const res = await getData(verifyUser(token), null, true);
       if (res.status_code === "200") {

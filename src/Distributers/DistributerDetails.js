@@ -148,7 +148,6 @@ export default function DistributerDetails() {
             }}
           >
             <AddDistributer
-              setToken={setToken}
               setDistributerBool={setDistributerBool}
               distributerBool={distributerBool}
             />

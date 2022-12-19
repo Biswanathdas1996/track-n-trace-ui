@@ -56,7 +56,9 @@ export default function LoginForm({ setToken }) {
         const res = await postData(login, values, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
-          Navigate("/dashboard");
+          const prevRoute = sessionStorage.getItem("prevRoute");
+          const addTrack = prevRoute.startsWith("/add-tracking-data");
+          prevRoute.startsWith("/add-tracking-data") ? Navigate(prevRoute) : Navigate("/dashboard");
         } else alert("something went wrong");
       },
     });
