@@ -56,9 +56,11 @@ export default function LoginForm({ setToken }) {
         const res = await postData(login, values, null, true);
         if (res.status_code === "200") {
           setToken(res.data.user_token);
-          const prevRoute = sessionStorage.getItem("prevRoute");
+          const prevRoute = sessionStorage.getItem("prevRoute") || "/dashboard";
           const addTrack = prevRoute.startsWith("/add-tracking-data");
-          prevRoute.startsWith("/add-tracking-data") ? Navigate(prevRoute) : Navigate("/dashboard");
+          console.log('prevRoute',prevRoute);
+          console.log('addTrack',addTrack);
+          addTrack ? Navigate(prevRoute) : Navigate("/dashboard");
         } else alert("something went wrong");
       },
     });
