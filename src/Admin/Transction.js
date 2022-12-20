@@ -165,7 +165,7 @@ export default function CustomizedTimeline() {
                               <strong>{data?.message}</strong> <br />
                             </Typography>
                             <Typography variant="subtitle2" component="span">
-                              <strong>Current Holder: </strong>
+                              <strong>Transaction By: </strong>
                             </Typography>
                             <Typography variant="subtitle2" component="span">
                               {getRole(data?.userRole)}
