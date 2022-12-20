@@ -9,8 +9,6 @@ import TimelineDot from "@mui/lab/TimelineDot";
 
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 import Typography from "@mui/material/Typography";
@@ -167,7 +165,7 @@ export default function CustomizedTimeline() {
                               <strong>{data?.message}</strong> <br />
                             </Typography>
                             <Typography variant="subtitle2" component="span">
-                              <strong>Transaction By:- </strong>
+                              <strong>Current Holder: </strong>
                             </Typography>
                             <Typography variant="subtitle2" component="span">
                               {getRole(data?.userRole)}
@@ -181,37 +179,6 @@ export default function CustomizedTimeline() {
                               <LocationOnOutlinedIcon />
                               {data?.location} <br />
                             </Typography>
-                            {/* <Typography variant="subtitle1" component="span">
-                              <strong>Assigned By:- </strong>
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <strong>
-                                {getRole(data?.tranxtnInitiaterRole)}
-                              </strong>{" "}
-                              <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <BadgeOutlinedIcon />
-                              {data?.tranxtnInitiaterFname}{" "}
-                              {data?.tranxtnInitiaterLname} <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <EmailOutlinedIcon />
-                              {data?.tranxtnInitiaterEmail} <br />
-                            </Typography>
-                            <Typography variant="subtitle2" component="span">
-                              <PhoneInTalkOutlinedIcon />
-                              {data?.tranxtnInitiaterPhone} <br />
-                            </Typography> */}
-                            {/* <Typography variant="subtitle2" component="span">
-                              <BadgeOutlinedIcon />
-                              {data?.tranxtnEndUserFname}{" "}
-                              {data?.tranxtnEndUserLname} <br />
-                            </Typography> */}
-                            {/* <Typography variant="subtitle2" component="span">
-                              <PhoneInTalkOutlinedIcon />
-                              {data?.tranxtnEndUserPhone} <br />
-                            </Typography> */}
                           </TimelineContent>
                         </TimelineItem>
                       );

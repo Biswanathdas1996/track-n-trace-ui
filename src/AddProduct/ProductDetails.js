@@ -121,6 +121,17 @@ export default function ProductDetails() {
     }
   };
 
+  const handleChangeCatFilter = (event) => {
+    let nameEvent = event.target.name;
+    let valEvent = event.target.value;
+    let filterCat = categoryDataArray.find((cat) => cat.category_name === valEvent);
+    let filterCatId = filterCat.category_id;
+    setCategoryFilter(valEvent);
+    if (nameEvent === "categoryFilter") {
+      getSubCategoryList(filterCatId);
+    }
+  }
+
   const handleChange = async (event) => {
     let nameEvent = event.target.name;
     let valEvent = event.target.value;
@@ -257,7 +268,7 @@ export default function ProductDetails() {
                   value={(isDefault && defaultSubCat?.sub_category_id) || productData?.sub_category_id}
                   name="sub_category_id"
                 >
-                  {subCategoryDataArray && subCategoryDataArray.map((subCat) => (
+                  {subCategoryDataArr && subCategoryDataArr.map((subCat) => (
                     <MenuItem
                       key={subCat.sub_category_id}
                       value={subCat.sub_category_id}
@@ -357,8 +368,11 @@ export default function ProductDetails() {
                         label="Choose the Category"
                         id="fullWidth"
                         onChange={(e) => {
-                          setCategoryFilter(e.target.value);
+                          handleChangeCatFilter(e);
                         }}
+                        // onChange={(e) => {
+                        //   setCategoryFilter(e.target.value);
+                        // }}
                         name="categoryFilter"
                         value={categoryFilter}
                       >
@@ -395,7 +409,7 @@ export default function ProductDetails() {
                         name="subCategoryFilter"
                         value={subCategoryFilter}
                       >
-                        {subCategoryDataArray &&
+                        {categoryFilter === "" && subCategoryDataArray &&
                           subCategoryDataArray.map((subCat) => (
                             <MenuItem
                               key={subCat.sub_category_id}
@@ -404,6 +418,15 @@ export default function ProductDetails() {
                               {subCat.subcategory_name}
                             </MenuItem>
                           ))}
+                          {categoryFilter !== "" && subCategoryDataArr &&
+                            subCategoryDataArr.map((subCat) => (
+                              <MenuItem
+                                key={subCat.sub_category_id}
+                                value={subCat.subcategory_name}
+                              >
+                                {subCat.subcategory_name}
+                              </MenuItem>
+                            ))}
                       </Select>
                     </FormControl>
                   </Grid>

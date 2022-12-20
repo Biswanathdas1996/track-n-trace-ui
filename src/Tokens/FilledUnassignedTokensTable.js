@@ -121,7 +121,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
     const assignData = {
         tokenIds: selectedIds,
         assignTo: selectedDist,
-        trnxtnMsg: "Transaction Started. Token Assigned to distributer.",
+        trnxtnMsg: "Transaction Started. Token Assigned.",
         trnxlocation: location,
     };
     const res = await postRequestLoggedIn(assignToken, assignData);
