@@ -17,18 +17,18 @@ import { postData } from "../functions/apiClient";
 import { registration } from "../endpoint";
 // ----------------------------------------------------------------------
 
-const distributerData = {
+const retailerData = {
   user_fname: "",
   user_lname: "",
   user_email: "",
   user_phoneno: "",
   state_code: "",
-  role: "2",
+  role: "3",
   user_password: "",
   pswd_reqd: false,
 };
 
-export default function AddDistributer({ distributerBool, setDistributerBool }) {
+export default function AddRetailer({ retailerBool, setRetailerBool }) {
   const [modalView, setModalView] = useState(false);
   const [errorRegister, setErrorRegister] = useState("");
   const navigate = useNavigate();
@@ -51,12 +51,12 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
   });
 
   const handleCancel = () => {
-    setDistributerBool(false);
+    setRetailerBool(false);
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: distributerData,
+      initialValues: retailerData,
       validationSchema: RegisterSchema,
 
       onSubmit: async () => {
@@ -82,7 +82,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
         };
         const res = await postData(registration, payLoad, null, true);
         if (res.status_code === "200") {
-          setDistributerBool(false);
+          setRetailerBool(false);
           //   window.location.reload();
         } else if (res.status_code === "500") {
           setModalView(true);
@@ -90,7 +90,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
         }
       },
       onCancel: () => {
-        setDistributerBool(false);
+        setRetailerBool(false);
       },
     });
 
@@ -110,19 +110,19 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
           alignItems: "center",
         }}
       >
-        <Dialog open={distributerBool} onClose={handleCancel} 
+        <Dialog open={retailerBool} onClose={handleCancel} 
           sx={{ ".css-1t1j96h-MuiPaper-root-MuiDialog-paper" : { maxWidth: "800px", width: "800px" } }}
         >
           <DialogTitle
             sx={{ paddingBottom: "0px", fontWeight: 800}}
           >
-            Add New Distributor
+            Add New Retailer
           </DialogTitle>
           <DialogContent>
             <DialogContentText
               sx={{ color: "#000000"}}
             >
-              Please enter the details below to add a Distributor
+              Please enter the details below to add a Retailer
             </DialogContentText>
             <DialogContentText
               sx={{ color: "#C52A1A"}}
@@ -134,7 +134,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
                 <DialogContentText
                   sx={{ color: "#000000", marginTop: "5px", marginBottom: "8px"}}
                 >
-                  Please enter Distributor's First Name
+                  Please enter Retailer's First Name
                 </DialogContentText>
                 <TextField
                   sx={{ 
@@ -163,7 +163,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
                   <DialogContentText
                     sx={{ color: "#000000", marginTop: "5px", marginBottom: "8px"}}
                   >
-                    Please enter Distributor's Last Name
+                    Please enter Retailer's Last Name
                   </DialogContentText>
                   <TextField
                     sx={{ 
@@ -195,7 +195,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
                 <DialogContentText
                   sx={{ color: "#000000", marginTop: "5px", marginBottom: "8px"}}
                 >
-                  Please enter Distributor's Email ID
+                  Please enter Retailer's Email ID
                 </DialogContentText>
                 <TextField
                   sx={{ 
@@ -225,7 +225,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
                   <DialogContentText
                     sx={{ color: "#000000", marginTop: "5px", marginBottom: "8px"}}
                   >
-                    Please enter Distributor's Phone Number
+                    Please enter Retailer's Phone Number
                   </DialogContentText>
                   <TextField
                     sx={{ 
@@ -318,7 +318,7 @@ export default function AddDistributer({ distributerBool, setDistributerBool }) 
                     disabled
                   >
                     <MenuItem key={2} value={2}>
-                      {"Distributor"}
+                      {"Retailer"}
                     </MenuItem>
                   </Select>
                 </FormControl>

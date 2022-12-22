@@ -32,13 +32,12 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-const TableContainer = ({ columns, data, renderRowSubComponent, distributerListArray, setDist, dist, location }) => {
+const TableContainer = ({ columns, data, renderRowSubComponent, distributerListArray, retailerListArray, role, setDist, dist, location }) => {
 
-  const [selectedDist, setSelectedDist] = useState('');
-
+  const [selectedUser, setSelectedUser] = useState('');
   const handleChange = async (event) => {
     let valEvent = event.target.value;
-    setSelectedDist(valEvent);
+    setSelectedUser(valEvent);
   };
 
   const {
@@ -117,11 +116,13 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
       });
   };
 
-  const assignDist = async () => {
+  const trxnMsg = role === '1' ? "Transaction Started. Token Assigned." : "Token Assigned to next Level.";
+
+  const assignOrder = async () => {
     const assignData = {
         tokenIds: selectedIds,
-        assignTo: selectedDist,
-        trnxtnMsg: "Transaction Started. Token Assigned.",
+        assignTo: selectedUser,
+        trnxtnMsg: trxnMsg,
         trnxlocation: location,
     };
     const res = await postRequestLoggedIn(assignToken, assignData);
@@ -135,7 +136,8 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
       {(selectedIds?.length > 0) && (
         <Grid item sm={12}>
           <Grid item sm={12} style={{ marginBottom: "10px" }}>
-            <FormControl sx={{ width: "70%",
+
+            {(role === '1') && (<FormControl sx={{ width: "70%",
               ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
               ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
@@ -144,7 +146,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
               <Select
                 label="Distributer"
                 onChange={(e) => handleChange(e)}
-                value={selectedDist.id}
+                value={selectedUser.id}
                 name="id"
               >
                 {distributerListArray.map((dList) => (
@@ -153,13 +155,33 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl>)}
+
+            {(role === '2') && (<FormControl sx={{ width: "70%",
+              ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+            >
+              <InputLabel>Retailer</InputLabel>
+              <Select
+                label="Retailer"
+                onChange={(e) => handleChange(e)}
+                value={selectedUser.id}
+                name="id"
+              >
+                {retailerListArray.map((rList) => (
+                  <MenuItem key={rList.id} value={rList.id}>
+                    {`${rList.user_fname} ${rList.user_lname}`}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>)}
             <Button
               type="button"
               variant="contained"
               color="error"
-              onClick={assignDist}
-              disabled={selectedDist === ''}
+              onClick={assignOrder}
+              disabled={selectedUser === ''}
               sx={{ lineHeight: 1.6, borderRadius: "8px", marginLeft: "25px !important", marginTop: "-1px" }}
             >
               ASSIGN

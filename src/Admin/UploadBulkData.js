@@ -446,7 +446,7 @@ const UploadBulkData = () => {
                         onClick={onDownload}
                         variant="contained"
                         color="primary"
-                        disabled={excelDataQuery?.productId === "" || (toNumber(excelDataQuery?.totalTokens)  <= 0)}
+                        disabled={excelDataQuery?.productId === "" || (toNumber(excelDataQuery?.totalTokens)  <= 0) || (toNumber(excelDataQuery?.totalTokens)  > totalBlnkTokens) }
                         component="label"
                         sx={{
                           marginRight: "20px",

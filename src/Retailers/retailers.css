@@ -1,0 +1,46 @@
+.container, .container-md, .container-sm {
+    max-width: 95%;
+}
+
+.retailerContainer {
+    width: 95% !important;
+    overflow-y: scroll;
+    height: 82vh;
+    padding-left: 0px !important;
+    margin-left: 2px !important;
+    margin-top: 08px !important;
+}
+
+.css-mhc70k-MuiGrid-root {
+    margin-top: 0px;
+    width: 31vw;
+    margin-left: -22px !important;
+}
+
+.css-mhc70k-MuiGrid-root>.MuiGrid-item {
+    padding-top: 0px;
+}
+
+.css-auylq4-MuiGrid-root {
+    max-width: fit-content;
+}
+
+.MuiButton-containedPrimary {
+    background-color: #D92E1D !important;
+    border-color: #D92E1D !important;
+    color: #ffffff !important;
+  }
+  
+  .MuiButton-outlinedPrimary {
+    border-color: #D92E1D !important;
+    color: #D92E1D !important;
+  }
+
+  .table>:not(:first-child) {
+    border-top: 2px solid #AD1B02;
+}
+
+.table>:not(caption)>*>* {
+    vertical-align: baseline !important;
+    padding: 1rem 0.5rem;
+}

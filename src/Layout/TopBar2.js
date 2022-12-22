@@ -64,19 +64,29 @@ const TopBar2 = ({role, props}) => {
               <NavLink to="/tokens" className={({ isActive }) => isActive ? current : general} >
                 <img src={TableMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />Order Token Tables
               </NavLink>
-              <NavLink to="/distributer" className={({ isActive }) => isActive ? current : general} >
+              {(role == 1) && (<NavLink to="/distributer" className={({ isActive }) => isActive ? current : general} >
                 <img src={DistMenuIcon} style={{ width: "16px", marginBottom: "2px", marginRight: "4px"}} />Distributors
-              </NavLink>
+              </NavLink>)}
+              {(role == 2) && (<NavLink to="/retailer" className={({ isActive }) => isActive ? current : general} >
+                <img src={DistMenuIcon} style={{ width: "16px", marginBottom: "2px", marginRight: "4px"}} />Retailers
+              </NavLink>)}
             </div>
 
             <div style={{ position: "fixed", width: "100%" }}>
               <TopBar role={role} />
             </div>
 
-            <div className="w3-container" style={{ marginLeft: "200px", height: "86vh",
-              backgroundColor: "#F3F3F3",
-              backgroundImage: `url(${BackImg})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPositionX: "41vw", backgroundPositionY: "1vh"
-            }}>
+            <div className="w3-container"
+              style={{marginLeft: "200px",
+                backgroundColor: "#F3F3F3",
+                backgroundImage: `url(${BackImg})`,
+                backgroundSize: "100vh",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right bottom",
+                backgroundAttachment: "fixed",
+                minHeight: "86vh",
+                height: "-webkit-fill-available",
+              }}>
               <ApplicationProvider>{props.children}</ApplicationProvider>
             </div>
         </>

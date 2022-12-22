@@ -37,12 +37,12 @@ export const ProtectedRoute = (props) => {
     "/Register",
     "/dashboard",
     "/profile",
-    // "/viewAssignedTokens",
     "/add-tracking-data",
     "/transctions",
     "/tokens",
     "/resetPassword",
     "/distributer",
+    "/retailer",
   ];
   useEffect(() => {
     const prevRoute = window.location.pathname;

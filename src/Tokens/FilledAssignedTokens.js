@@ -212,15 +212,15 @@ export default function FilledAssignedTokens() {
                     {attributes.map((attr, index) => {
                       return (
                         <Grid key={index} container>
-                          <Grid item sm={4}>
+                          <Grid item sm={5}>
                             <strong>
-                              {index + 1} . {attr.attribute_key}
+                              {index + 1}{"."} {attr.attribute_key}
                             </strong>
                           </Grid>
                           <Grid item sm={1}>
                             :
                           </Grid>
-                          <Grid item sm={7}>
+                          <Grid item sm={6}>
                             {attr.attribute_value}
                           </Grid>
                         </Grid>

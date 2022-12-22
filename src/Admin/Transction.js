@@ -168,7 +168,7 @@ export default function CustomizedTimeline() {
                               <strong>Transaction By: </strong>
                             </Typography>
                             <Typography variant="subtitle2" component="span">
-                              {getRole(data?.userRole)}
+                              {getRole(data?.userRole)} {"("} {data?.trnxtionInitiator} {")"}
                               <br />
                             </Typography>
                             <Typography variant="subtitle2" component="span">

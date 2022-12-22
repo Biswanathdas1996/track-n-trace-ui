@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import PublishArt from "./Admin/PublishArt";
 import PublishBulkArt from "./Admin/PublishBulkArt";
 import UploadBulkData from "./Admin/UploadBulkData";
-// import Dashboard from "./Admin/Dashboard";
 import Dashboard from "./Admin/Dashboard";
 import ProductTable from "./Admin/ProductData";
 import AddTracking from "./Admin/AddTracking";
@@ -14,6 +13,7 @@ import Register from "./Admin/Register";
 import ResetPassword from "./Admin/ResetPassword";
 import CategoryDetails from "./AddCategory/Category-Details";
 import DistributerDetails from "./Distributers/DistributerDetails";
+import RetailerDetails from "./Retailers/RetailerDetails";
 import TokenDetails from "./Tokens/TokenDetails";
 import SubCategoryDetails from "./AddSubCategory/SubCategoryDetails";
 import ProductDetails from "./AddProduct/ProductDetails";
@@ -27,15 +27,6 @@ class Routing extends React.Component {
   render() {
     return (
       <Routes>
-        {/* <Route
-          exact
-          path="/user"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        /> */}
         <Route exact path="/" element={<Login />} />
         <Route exact path="/Register" element={<Register />} />
         <Route exact path="/resetPassword" element={<ResetPassword />} />
@@ -54,6 +45,15 @@ class Routing extends React.Component {
           element={
             <ProtectedRoute>
               <DistributerDetails />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/retailer"
+          element={
+            <ProtectedRoute>
+              <RetailerDetails />{" "}
             </ProtectedRoute>
           }
         />

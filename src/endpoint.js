@@ -10,6 +10,7 @@ export const categoryList = "/categoryList.php";
 export const subCategoryList = "/sub_categoryList.php";
 export const productList = "/productList.php";
 export const distributerList = "/distributerList.php";
+export const retailerList = "/retailerList.php";
 export const deleteCategory = "/deleteCategory.php";
 export const deleteSubCategory = "/deleteSubCategory.php";
 export const deleteProduct = "/deleteProduct.php";

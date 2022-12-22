@@ -69,6 +69,12 @@ export default function LoginForm({ setToken }) {
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
         <TextField
+          sx={{ 
+            width: "100%",
+            ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+            ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+            ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+          }}
           id="email"
           label="Email"
           fullWidth
@@ -84,6 +90,12 @@ export default function LoginForm({ setToken }) {
         />
 
         <TextField
+          sx={{ 
+            width: "100%",
+            ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+            ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+            ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+          }}
           id="password"
           label="Enter Password"
           fullWidth
@@ -128,7 +140,7 @@ export default function LoginForm({ setToken }) {
             label="Remember me"
           />
         </FormGroup>
-        <Link variant="subtitle2" component={RouterLink} to="/resetPassword">
+        <Link variant="subtitle2" component={RouterLink} to="/resetPassword" sx={{ fontWeight: 800 }}>
         Forgot password?
         </Link>
       </Stack>
@@ -138,7 +150,7 @@ export default function LoginForm({ setToken }) {
         size="large"
         type="submit"
         variant="contained"
-        style={{ padding: "14px 22px" }}
+        style={{ padding: "5px 5px" }}
       >
         Login
       </LoadingButton>

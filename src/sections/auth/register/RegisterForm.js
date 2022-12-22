@@ -10,8 +10,8 @@ import {
   InputAdornment,
   TextField,
   MenuItem,
+  Button,
 } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import ErrorModal from "../../../components/shared/ErrorModal";
 // components
 import Iconify from "../../../components/Iconify";
@@ -116,9 +116,15 @@ export default function RegisterForm({ setToken }) {
       />
 
       <form onSubmit={handleSubmit}>
-        <Stack spacing={3}>
+        <Stack spacing={1}>
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             <TextField
+              sx={{ 
+                width: "100%",
+                ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              }}
               id="user_fname"
               label="First name"
               fullWidth
@@ -134,6 +140,12 @@ export default function RegisterForm({ setToken }) {
               }
             />
             <TextField
+              sx={{ 
+                width: "100%",
+                ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              }}
               id="user_lname"
               label="Last name"
               fullWidth
@@ -151,6 +163,12 @@ export default function RegisterForm({ setToken }) {
           </Stack>
 
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="user_email"
             label="Email"
             fullWidth
@@ -167,6 +185,12 @@ export default function RegisterForm({ setToken }) {
             }
           />
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="user_phoneno"
             label="Phone Number"
             fullWidth
@@ -185,6 +209,12 @@ export default function RegisterForm({ setToken }) {
             }
           />
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="state_code"
             select
             label="State/UT"
@@ -208,6 +238,12 @@ export default function RegisterForm({ setToken }) {
             ))}
           </TextField>
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="role"
             select
             label="User role"
@@ -229,6 +265,12 @@ export default function RegisterForm({ setToken }) {
           </TextField>
 
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="user_password"
             label="Enter Password"
             fullWidth
@@ -261,6 +303,12 @@ export default function RegisterForm({ setToken }) {
             }}
           />
           <TextField
+            sx={{ 
+              width: "100%",
+              ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+              ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+            }}
             id="confirmPassword"
             label="Confirm Password"
             fullWidth
@@ -294,15 +342,15 @@ export default function RegisterForm({ setToken }) {
               ),
             }}
           />
-          <LoadingButton
+          <Button
             fullWidth
             size="large"
             type="submit"
             variant="contained"
-            style={{ padding: "14px 22px" }}
+            sx={{ padding: "5px 5px", marginLeft: "0px !important" }}
           >
             Register
-          </LoadingButton>
+          </Button>
         </Stack>
       </form>
     </div>

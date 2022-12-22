@@ -65,6 +65,12 @@ export default function ResetPassword({ setToken }) {
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
         <TextField
+          sx={{ 
+            width: "100%",
+            ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+            ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+            ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+          }}
           id="email"
           label="Email"
           fullWidth
@@ -81,6 +87,12 @@ export default function ResetPassword({ setToken }) {
         />
 
         <TextField
+          sx={{ 
+            width: "100%",
+            ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+            ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+            ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+          }}
           id="password"
           label="Enter Password"
           fullWidth
@@ -135,7 +147,7 @@ export default function ResetPassword({ setToken }) {
         size="large"
         type="submit"
         variant="contained"
-        style={{ padding: "14px 22px" }}
+        style={{ padding: "5px 5px" }}
       >
         Login
       </LoadingButton>

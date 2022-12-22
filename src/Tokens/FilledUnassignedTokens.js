@@ -4,7 +4,7 @@ import { Container } from "reactstrap";
 import FilledUnassignedTokensTable from "./FilledUnassignedTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
-import { getAllTokensData, distributerList } from "../endpoint";
+import { getAllTokensData, distributerList, retailerList } from "../endpoint";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./tokens.css";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,7 @@ export default function FilledUnassignedTokens() {
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
   const [distributerListArray, setDistributerList] = useState([]);
+  const [retailerListArray, setRetailerList] = useState([]);
   const [dist, setDist] = useState(false);
   const [location, setLocation] = useState(null);
   let history = useNavigate();
@@ -51,8 +52,19 @@ export default function FilledUnassignedTokens() {
       if (res?.status_code === "200") {
         const dList = res.distributerList.map((obj) => obj);
         setDistributerList(dList);
-        setDistributerList((distributerList) => {
-          return distributerList;
+        setDistributerList((distributerListArray) => {
+          return distributerListArray;
+        });
+      }
+    };
+
+    const getRetailerList = async () => {
+      const res = await getRequestLoggedIn(retailerList);
+      if (res?.status_code === "200") {
+        const rList = res.retailerList.map((obj) => obj);
+        setRetailerList(rList);
+        setRetailerList((retailerListArray) => {
+          return retailerListArray;
         });
       }
     };
@@ -67,6 +79,7 @@ export default function FilledUnassignedTokens() {
 
     getTokenList();
     getDistributerList();
+    getRetailerList();
     getLocation();
   }, [dist]);
 
@@ -235,15 +248,15 @@ export default function FilledUnassignedTokens() {
                     {attributes.map((attr, index) => {
                       return (
                         <Grid key={index} container>
-                          <Grid item sm={4}>
+                          <Grid item sm={5}>
                             <strong>
-                              {index + 1} . {attr.attribute_key}
+                              {index + 1}{"."} {attr.attribute_key}
                             </strong>
                           </Grid>
                           <Grid item sm={1}>
                             :
                           </Grid>
-                          <Grid item sm={7}>
+                          <Grid item sm={6}>
                             {attr.attribute_value}
                           </Grid>
                         </Grid>
@@ -495,6 +508,8 @@ export default function FilledUnassignedTokens() {
                 data={tListArray}
                 renderRowSubComponent={renderRowSubComponent}
                 distributerListArray={distributerListArray}
+                retailerListArray={retailerListArray}
+                role={role}
                 setDist={setDist}
                 dist={dist}
                 location={location}

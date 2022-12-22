@@ -1,148 +1,60 @@
 import { Link as RouterLink, Navigate } from "react-router-dom";
-// @mui
-import { styled } from "@mui/material/styles";
-import { Card, Link, Container, Typography } from "@mui/material";
-// hooks
-import useResponsive from "../hooks/useResponsive";
+import { Link, Typography } from "@mui/material";
 // components
 import Logo from "../components/Logo";
 // sections
 import { RegisterForm } from "../sections/auth/register";
 import { useToken } from "../Context/token";
-import BackImg from "../trkNdTrcIcons/BackImg.png";
-
-// ----------------------------------------------------------------------
-
-const RootStyle = styled("div")(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    display: "flex",
-  },
-}));
-
-const HeaderStyle = styled("header")(({ theme }) => ({
-  top: 0,
-  zIndex: 9,
-  lineHeight: 0,
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  position: "absolute",
-  padding: theme.spacing(3),
-  justifyContent: "space-between",
-  [theme.breakpoints.up("md")]: {
-    alignItems: "flex-start",
-    padding: theme.spacing(7, 5, 0, 7),
-  },
-}));
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: "100%",
-  maxWidth: 464,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  margin: theme.spacing(2, 0, 2, 2),
-}));
-
-const ContentStyle = styled("div")(({ theme }) => ({
-  maxWidth: 480,
-  margin: "auto",
-  minHeight: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  padding: theme.spacing(12, 0),
-}));
-
+import BackImgHD from "../trkNdTrcIcons/BackImgHD.png";
 // ----------------------------------------------------------------------
 
 export default function Register() {
-  const smUp = useResponsive("up", "sm");
-
-  const mdUp = useResponsive("up", "md");
   const [token, setToken] = useToken();
 
   return (
     <div title="Register" style={{
       backgroundColor: "#F3F3F3",
-      backgroundImage: `url(${BackImg})`,
-      backgroundSize: "54%",
+      backgroundImage: `url(${BackImgHD})`,
+      backgroundSize: "100vh",
       backgroundRepeat: "no-repeat",
-      backgroundPositionX: "48vw",
-      backgroundPositionY: "1vh",
+      backgroundPosition: "right bottom",
       backgroundAttachment: "fixed",
+      minHeight: "100vh",
+      height: "auto",
     }}>
-      <RootStyle>
-        {token && <Navigate to="/dashboard" />}
-        <HeaderStyle>
-          <Logo />
-          {smUp && (
-            <Typography
-              variant="body2"
-              sx={{ mt: { md: -2 } }}
-              alignContent="right"
-            >
-              Already have an account? {""}
-              <Link variant="subtitle2" component={RouterLink} to="/">
-                Login
-              </Link>
-            </Typography>
-          )}
-        </HeaderStyle>
+      {token && <Navigate to="/dashboard" />}
+      <Logo />
 
-        {mdUp && (
-          <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Tracking and Tracing Products Digitally
-            </Typography>
-            <img
-              alt="register"
-              src="/static/illustrations/illustration_register.jpg"
-            />
-          </SectionStyle>
-        )}
+      <div style={{ width: "400px", margin: "40px 0px 0px 100px"}}>
+        <Typography variant="h5" gutterBottom>
+          Register to Track And Trace
+        </Typography>
+        <Typography sx={{ color: "text.secondary", mb: 2 }}>
+          Please enter your details below.
+        </Typography>
 
-        <Container>
-          <ContentStyle>
-            <Typography variant="h4" gutterBottom>
-              Register to Track And Trace
-            </Typography>
+        <RegisterForm setToken={setToken} />
 
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Please enter your details below.
-            </Typography>
-
-            <RegisterForm setToken={setToken} />
-
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ color: "text.secondary", mt: 3 }}
-            >
-              By registering, I agree to the Track and Trace Terms and
-              Conditions
-              <Link underline="always" color="text.primary" href="#">
-                <br />
-                Terms of Service
-              </Link>
-              {""} and {""}
-              <Link underline="always" color="text.primary" href="#">
-                Privacy Policy
-              </Link>
-              .
-            </Typography>
-
-            {!smUp && (
-              <Typography variant="body2" sx={{ mt: 3, textAlign: "center" }}>
-                Already have an account?{" "}
-                <Link variant="subtitle2" to="/" component={RouterLink}>
-                  Login
-                </Link>
-              </Typography>
-            )}
-          </ContentStyle>
-        </Container>
-      </RootStyle>
+        <Typography variant="body2" align="center" sx={{ color: "text.secondary", mt: 3 }}>
+          By registering, I agree to the Track and Trace Terms and
+          Conditions
+          <Link underline="always" href="#" sx={{ fontWeight: 800 }}>
+            <br />
+            Terms of Service
+          </Link>
+          {""} and {""}
+          <Link underline="always" href="#" sx={{ fontWeight: 800 }}>
+            Privacy Policy
+          </Link>
+          .
+        </Typography>
+        <Typography variant="body2" sx={{ mt: 1, textAlign: "center" }}>
+          Already have an account?{" "}
+          <Link variant="subtitle2" to="/" component={RouterLink} sx={{ fontWeight: 800 }}>
+            Login
+          </Link>
+        </Typography>
+      </div>
     </div>
   );
 }
