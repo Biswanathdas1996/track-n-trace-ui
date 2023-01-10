@@ -193,7 +193,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, setDist, role, d
       </Grid>
       </Grid>
         
-        <Row style={{ maxWidth: 1090, margin: '5px 18px 2px 0px', textAlign: 'center', backgroundColor: "#FFFFFF", padding: "4px 2px" }}>
+        <Row style={{ maxWidth: 1090, margin: '10px 18px 2px 0px', textAlign: 'center', backgroundColor: "#FFFFFF", padding: "4px 2px" }}>
           <Col md={3}>
             <Button
               variant="contained"
