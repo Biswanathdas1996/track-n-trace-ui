@@ -15,7 +15,7 @@ export default function ProductTable(props) {
   } = props;
   return (
     <Grid>
-      <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
+      <Grid sx={{ paddingBottom: "2px", paddingLeft: "10px" }}>
         <Typography variant="h4" color="error" sx={{ fontWeight: 800 }}>
           Products List
           {selectedFilter
@@ -23,9 +23,9 @@ export default function ProductTable(props) {
             : ""}
         </Typography>
       </Grid>
-      <Grid container>
-        {productData
-          ?.map((data, i) => {
+      <div className="prodContainer">
+        <Grid container>
+          {productData?.map((data, i) => {
             return (
               <ProductTableBodyUI
                 category={data.category_name}
@@ -55,7 +55,6 @@ export default function ProductTable(props) {
               else return false;
             } else return true;
           })
-
           .filter((item) => {
             if (productFilter) {
               if (
@@ -68,7 +67,8 @@ export default function ProductTable(props) {
             }
             return true;
           })}
-      </Grid>
+        </Grid>
+      </div>
     </Grid>
   );
 }

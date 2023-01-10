@@ -28,10 +28,8 @@ export default function TokenDetails() {
   }
 
   return (
-    <div className="container tokenContainer">
-      <Grid container spacing={2}
-          style={{ paddingRight: "18px" }}
-        >
+    <div className="container">
+      <Grid container spacing={2} sx={{ width: "96%" }}>
         <Grid item sm={12} sx={{ ".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "0px" }}}>
           {(role == 1) && (<span className="input-group-btn">
             <Button type="button" variant="outlined" 
@@ -65,17 +63,17 @@ export default function TokenDetails() {
       </Grid>
 
 {(assignedFlag === 0 && blankTokenFlag === 0) && (
-    <Grid item sm={12}>
+    <Grid item sm={12} sx={{ width: "96%" }}>
         <FilledUnassignedTokens />
     </Grid>
 )}
 {(assignedFlag === 1 && blankTokenFlag === 0) && (
-    <Grid item sm={12}>
+    <Grid item sm={12} sx={{ width: "96%" }}>
         <FilledAssignedTokens />
     </Grid>
 )}
 {(role == 1) && (assignedFlag === 0 && blankTokenFlag === 1) && (
-    <Grid item sm={12}>
+    <Grid item sm={12} sx={{ width: "96%" }}>
         <BlankTokens />
     </Grid>
 )}

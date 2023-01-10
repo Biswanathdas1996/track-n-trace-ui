@@ -42,7 +42,7 @@
 
 .table>:not(caption)>*>* {
     vertical-align: middle !important;
-    padding: 0.1rem 0.4rem;
+    padding: 0.4rem 0.4rem;
 }
 
 .css-3w3yta-MuiButtonBase-root-MuiButton-root.Mui-disabled {

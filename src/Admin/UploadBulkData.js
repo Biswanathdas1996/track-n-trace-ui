@@ -323,7 +323,9 @@ const UploadBulkData = () => {
                           value={excelDataQuery.totalTokens}
                           sx={{ 
                             marginRight: 10, paddingLeft: "9px",
-                            ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "10px 10px" }, 
+                            ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "10px 10px" },
+                            ".css-1x5jdmq": { padding: "8px 10px"},
+                            ".css-1v4ccyo": {borderRadius: "8px"},
                           }}
                           InputProps = {{ inputProps: { min: 0, max: totalBlnkTokens } }}
                         />
@@ -348,7 +350,9 @@ const UploadBulkData = () => {
                           sx={{ 
                             marginRight: 10, width: "17vw", padding: "2px 12px",
                             ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
-                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"},
+                            ".css-qiwgdb": { padding: "6px 10px"},
+                            ".css-1x8ac4p": {borderRadius: "8px"},
                           }}
                         >
                           {catArray &&
@@ -384,7 +388,9 @@ const UploadBulkData = () => {
                           sx={{ 
                             marginRight: 10, width: "17vw", padding: "2px 12px",
                             ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
-                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"},
+                            ".css-qiwgdb": { padding: "6px 10px"},
+                            ".css-1x8ac4p": {borderRadius: "8px"},
                           }}
                         >
                           {subCatArray &&
@@ -420,7 +426,9 @@ const UploadBulkData = () => {
                           sx={{ 
                             marginRight: 10, width: "17vw", padding: "2px 12px",
                             ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 10px" },
-                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"}
+                            ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select": { minHeight: "0.5em"},
+                            ".css-qiwgdb": { padding: "6px 10px"},
+                            ".css-1x8ac4p": {borderRadius: "8px"},
                           }}
                         >
                           {productArray &&

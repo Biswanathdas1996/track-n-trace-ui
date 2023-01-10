@@ -29,6 +29,7 @@ export default function FilledAssignedTokens() {
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
   const [dist, setDist] = useState(false);
+  const [location, setLocation] = useState(null);
   let history = useNavigate();
 
   useEffect(() => {
@@ -44,7 +45,16 @@ export default function FilledAssignedTokens() {
       }
     };
 
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    };
+
     getTokenList();
+    getLocation();
   }, [dist]);
 
   const tListArray = tokenListArray.map((tokenData) => ({
@@ -74,7 +84,7 @@ export default function FilledAssignedTokens() {
         {/* category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "220" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
@@ -106,7 +116,7 @@ export default function FilledAssignedTokens() {
         {/* sub category card */}
 
         <Grid item sm={3}>
-          <Card style={{ width: "220" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
@@ -137,7 +147,7 @@ export default function FilledAssignedTokens() {
         </Grid>
         {/* product*/}
         <Grid item sm={3}>
-          <Card style={{ width: "220" }}>
+          <Card style={{ width: "220px" }}>
             <Grid
               container
               flexDirection="column"
@@ -237,6 +247,15 @@ export default function FilledAssignedTokens() {
       </Grid>
     );
   };
+
+  function showPosition(position) {
+    setLocation(
+      "Latitude: " +
+        position.coords.latitude +
+        " Longitude: " +
+        position.coords.longitude
+    );
+  }
 
   const handleAdd = (row) => {
     // console.log('handleAdd row',row);
@@ -451,7 +470,7 @@ export default function FilledAssignedTokens() {
           <h3 style={{ marginLeft: 10 }}>ASSIGNED TOKENS</h3>
         </Grid>)}
 
-        <Grid item sm={12}>
+        <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
           <Container
             style={{
               marginTop: 0,
@@ -462,9 +481,11 @@ export default function FilledAssignedTokens() {
               <FilledAssignedTokensTable
                 columns={columns}
                 data={tListArray}
+                role={role}
                 renderRowSubComponent={renderRowSubComponent}
                 setDist={setDist}
                 dist={dist}
+                location={location}
               />
             )}
           </Container>

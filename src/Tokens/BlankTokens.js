@@ -53,8 +53,8 @@ export default function BlankTokens() {
     } = row.original;
     return (
       <Grid container justifyContent="center" alignItems="center">
-        <Grid item sm={3}>
-          <Card style={{ width: "250px", height: "105px" }}>
+        <Grid item sm={7}>
+          <Card style={{ width: "400px", height: "80px" }}>
             <Grid
               container
               flexDirection="column"
@@ -259,9 +259,9 @@ export default function BlankTokens() {
           <h3 style={{ marginLeft: 10}}> BLANK TOKENS</h3>
         </Grid>
         <Grid item sm={2}/>
-        <Grid item sm={8}>
+        <Grid item sm={8} sx={{ paddingTop: "8px !important"}}>
           <Container
-            style={{ marginTop: 10, maxWidth: "100% !important", overflowX: "scroll" }}
+            style={{ marginTop: 10, maxWidth: "100% !important" }}
           >
             {tListArray.length > 0 && (
               <BlankTokensTable

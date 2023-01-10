@@ -136,7 +136,10 @@ const PublishBulkArt = () => {
                             sx={{
                               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                              ".css-1x5jdmq": { padding: "6px 14px"},
+                              ".css-p0rm37": {top: "-8px"},
+                              ".css-1v4ccyo": {borderRadius: "8px"},
                             }}
                             InputProps = {{ inputProps: { min: 0 } }}
                           />

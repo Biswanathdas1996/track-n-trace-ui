@@ -105,8 +105,12 @@ export default function CategoryDetails() {
   };
   const applyFilter = !categoryBool && categoryDataArray?.length > 0 && (
       <span className="input-group-btn">
-        <Button type="button" variant="outlined" 
-          sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+        <Button type="button" variant="filled" 
+          sx={{ marginRight: "20px", textTransform: "none",
+            backgroundColor: "#FFFFFF !important", color: "#C52A1A !important",
+            borderColor: "#C52A1A !important", border: "solid !important", borderWidth: "thin !important", 
+            "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } 
+          }} 
           style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
           onClick={() => setFilterState(true)} 
         >
@@ -116,7 +120,7 @@ export default function CategoryDetails() {
   );
 
   return (
-    <div className="container catContainer">
+    <div className="container">
       <Grid container spacing={2}>
         {(categoryBool || categoryDetails.edit) && (
           <Dialog open={categoryBool || categoryDetails.edit} onClose={cancelFun}>
@@ -139,7 +143,10 @@ export default function CategoryDetails() {
                   width: "100%",
                   ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                   ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                  ".css-1x5jdmq": { padding: "6px 14px"},
+                  ".css-p0rm37": {top: "-8px"},
+                  ".css-1bp1ao6": {borderRadius: "8px"},
                 }}
                 label="Category"
                 id="fullWidth"
@@ -167,7 +174,9 @@ export default function CategoryDetails() {
                 sx={{
                   width: "100%",
                   ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px 12px 14px"},
-                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                  ".css-1x5jdmq": { padding: "6px 14px 12px 14px"},
+                  ".css-1v4ccyo": {borderRadius: "8px"},
                 }}
               />
             </DialogContent>
@@ -200,10 +209,14 @@ export default function CategoryDetails() {
           </Dialog>
         )}
         {(categoryDataArray.length>0) && !(categoryBool || categoryDetails.edit) && (
-          <Grid item sm={12}>
+          <Grid item sm={12} sx={{ marginRight: "55px", paddingTop: "0px !important"}}>
             <span className="input-group-btn">
-              <Button type="button" variant="outlined" 
-                sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+              <Button type="button" variant="filled" 
+                sx={{ marginRight: "20px", textTransform: "none",
+                  backgroundColor: "#FFFFFF !important", color: "#C52A1A !important",
+                  borderColor: "#C52A1A !important", border: "solid !important", borderWidth: "thin !important", 
+                  "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" }
+                }} 
                 style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
                 onClick={addNewHandler} 
               >
@@ -215,13 +228,16 @@ export default function CategoryDetails() {
                 <Grid
                   item
                   sm={3}
-                  style={{ paddingLeft: "17px", marginLeft: "14px", }}
+                  style={{ paddingLeft: "12px" }}
                 >
                   <TextField
                     sx={{ width: "100%",
                     ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                     ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                    ".css-1x5jdmq": { padding: "6px 14px"},
+                    ".css-p0rm37": {top: "-8px"},
+                    ".css-1v4ccyo": {borderRadius: "8px"},
                     }}
                     label="Category Filter"
                     id="fullWidth"
@@ -286,8 +302,12 @@ export default function CategoryDetails() {
                     </Typography>
                   </Grid>
                   <span className="input-group-btn">
-                    <Button type="button" variant="outlined" 
-                      sx={{ marginRight: "20px", marginTop: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+                    <Button type="button" variant="filled" 
+                      sx={{ marginRight: "20px", marginTop: "20px", textTransform: "none",
+                        backgroundColor: "#FFFFFF !important", color: "#C52A1A !important",
+                        borderColor: "#C52A1A !important", border: "solid !important", borderWidth: "thin !important", 
+                        "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" }
+                      }} 
                       style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
                       onClick={addNewHandler} 
                     >

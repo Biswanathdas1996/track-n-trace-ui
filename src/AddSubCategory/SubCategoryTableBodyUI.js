@@ -70,7 +70,7 @@ export default function SubCategoryTableBodyUI({
   };
 
   return (
-    <Grid item sx={{ padding: "15px" }}>
+    <Grid item sx={{ padding: "1px 20px 20px 0px" }}>
       <Box width="220px">
         <Card
           sx={{
@@ -93,9 +93,9 @@ export default function SubCategoryTableBodyUI({
               }
             />
           </CardActions>
-          <CardActions>
+          <CardActions sx={{ padding: "2px !important" }}>
             <Grid
-              sx={{ fontSize: "15px", fontWeight: "bold", textAlign: "center" }}
+              sx={{ fontSize: "13px", fontWeight: "bold", textAlign: "center" }}
             >
               <Grid>Category - {category}</Grid>
               <CardActions
@@ -103,16 +103,17 @@ export default function SubCategoryTableBodyUI({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: 0,
+                  textAlign: "center",
+                  padding: "0px"
                 }}
               >
                 <Button
                   size="large"
-                  onClick={() =>
-                    navigation(
-                      `/product?catId=${catIdData}&subCatId=${subCatIdData}`
-                    )
-                  }
+                  onClick={() => navigation(`/product?catId=${catIdData}&subCatId=${subCatIdData}`)}
+                  sx= {{ 
+                    color: "#AD1B02 !important", fontWeight: "600 !important", fontSize: "13px", padding: "2px 10px",
+                    "&:hover": { color: "#F3BE26 !important" }
+                  }}
                 >
                   {subCategory}
                 </Button>

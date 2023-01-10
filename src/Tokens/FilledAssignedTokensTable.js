@@ -28,7 +28,7 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-const TableContainer = ({ columns, data, renderRowSubComponent, setDist, dist }) => {
+const TableContainer = ({ columns, data, renderRowSubComponent, setDist, role, dist, location }) => {
 
   const {
     getTableProps,
@@ -106,9 +106,13 @@ const TableContainer = ({ columns, data, renderRowSubComponent, setDist, dist })
       });
   };
 
+  const trxnMsg = role === '1' ? "Token Unassigned from Distributor." : role === '2' ? "Token Unssigned from Retailer." : "Token Unssigned." ;
+
   const unAssignOrder = async () => {
     const unAssignData = {
         tokenIds: selectedIds,
+        trnxtnMsg: trxnMsg,
+        trnxlocation: location,
     };
     const res = await postRequestLoggedIn(unAssignToken, unAssignData);
     if (res?.status_code === "200") {
@@ -118,72 +122,78 @@ const TableContainer = ({ columns, data, renderRowSubComponent, setDist, dist })
 
   return (
     <Fragment>
+      <Grid container spacing={2}>
       {(selectedIds?.length > 0) && (
-        <Grid item sm={12}>
-          <Grid item sm={12} style={{ marginBottom: "10px" , paddingLeft: "17px", float: "right" }}>
-            <Button
-              type="button"
-              variant="contained"
-              color="error"
-              onClick={unAssignOrder}
-              disabled={selectedIds.length == 0}
-              sx={{ lineHeight: 1.6, borderRadius: "8px", marginLeft: "25px !important", marginTop: "-1px" }}
-            >
-              UNASSIGN
-            </Button>
-          </Grid>
+        <Grid item sm={12} sx={{ paddingLeft: "17px", paddingTop: "10px !important" }}>
+          <Button
+            type="button"
+            variant="contained"
+            color="error"
+            onClick={unAssignOrder}
+            disabled={selectedIds.length == 0}
+            sx={{ lineHeight: 1.6, borderRadius: "8px", marginLeft: "25px !important", marginTop: "-1px", float: "right" }}
+          >
+            UNASSIGN
+          </Button>
         </Grid>
       )}
-        <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps({
-                    style: { minWidth: column.minWidth, width: column.width },
-                  })}>
-                  <div {...column.getSortByToggleProps()}>
-                    {column.render("Header")}
-                    {generateSortingIndicator(column)}
-                  </div>
-                  <Filter column={column} />
-                </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-        
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <Fragment key={row.getRowProps().key}>
-                  <tr>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps({
-                            style: {
-                              minWidth: cell.column.minWidth,
-                              width: cell.column.width,
-                            },
-                          })}>{cell.render('Cell')}</td>
-                      );
-                    })}
-                  </tr>
-                  {row.isExpanded && (
+      <Grid item sm={12} sx={{ paddingTop: "10px !important"}}>
+        <div style={{ height: "248px", overflowY: "scroll", overflowX: "hidden" }}>
+          <Table bordered hover {...getTableProps()} style={{
+            // boxShadow: "5px 10px #eeee",
+            backgroundColor: "#ffffff"
+          }}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps({
+                      style: { minWidth: column.minWidth, width: column.width },
+                    })}>
+                    <div {...column.getSortByToggleProps()}>
+                      {column.render("Header")}
+                      {generateSortingIndicator(column)}
+                    </div>
+                    <Filter column={column} />
+                  </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row) => {
+                prepareRow(row);
+                return (
+                  <Fragment key={row.getRowProps().key}>
                     <tr>
-                      <td colSpan={visibleColumns.length}>
-                        {renderRowSubComponent(row)}
-                      </td>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td {...cell.getCellProps({
+                              style: {
+                                minWidth: cell.column.minWidth,
+                                width: cell.column.width,
+                              },
+                            })}>{cell.render('Cell')}</td>
+                        );
+                      })}
                     </tr>
-                  )}
-                </Fragment>
-              );
-            })}
-          </tbody>
-        </Table>
+                    {row.isExpanded && (
+                      <tr>
+                        <td colSpan={visibleColumns.length}>
+                          {renderRowSubComponent(row)}
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
+      </Grid>
+      </Grid>
         
-        <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
+        <Row style={{ maxWidth: 1090, margin: '5px 18px 2px 0px', textAlign: 'center', backgroundColor: "#FFFFFF", padding: "4px 2px" }}>
           <Col md={3}>
             <Button
               variant="contained"

@@ -140,8 +140,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             {(role === '1') && (<FormControl sx={{ width: "70%",
               ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
-            >
+              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"},
+              ".css-qiwgdb": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-fvipm8": {borderRadius: "8px"},
+            }}>
               <InputLabel>Distributer</InputLabel>
               <Select
                 label="Distributer"
@@ -160,8 +163,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
             {(role === '2') && (<FormControl sx={{ width: "70%",
               ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
-            >
+              ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"},
+              ".css-qiwgdb": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-fvipm8": {borderRadius: "8px"},
+            }}>
               <InputLabel>Retailer</InputLabel>
               <Select
                 label="Retailer"
@@ -189,56 +195,61 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
           </Grid>
         </Grid>
       )}
-      <Table bordered hover {...getTableProps()} style={{boxShadow: "5px 10px #eeee"}}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps({
-                  style: { minWidth: column.minWidth, width: column.width },
-                })}>
-                <div {...column.getSortByToggleProps()}>
-                  {column.render("Header")}
-                  {generateSortingIndicator(column)}
-                </div>
-                <Filter column={column} />
-              </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+      <div style={{ height: "248px", overflowY: "scroll", overflowX: "hidden" }}>
+        <Table bordered hover {...getTableProps()} style={{
+          // boxShadow: "5px 10px #eeee",
+          backgroundColor: "#ffffff"
+        }}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps({
+                    style: { minWidth: column.minWidth, width: column.width },
+                  })}>
+                  <div {...column.getSortByToggleProps()}>
+                    {column.render("Header")}
+                    {generateSortingIndicator(column)}
+                  </div>
+                  <Filter column={column} />
+                </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
       
-        <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <Fragment key={row.getRowProps().key}>
-                <tr>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps({
-                          style: {
-                            minWidth: cell.column.minWidth,
-                            width: cell.column.width,
-                          },
-                        })}>{cell.render('Cell')}</td>
-                    );
-                  })}
-                </tr>
-                {row.isExpanded && (
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <Fragment key={row.getRowProps().key}>
                   <tr>
-                    <td colSpan={visibleColumns.length}>
-                      {renderRowSubComponent(row)}
-                    </td>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps({
+                            style: {
+                              minWidth: cell.column.minWidth,
+                              width: cell.column.width,
+                            },
+                          })}>{cell.render('Cell')}</td>
+                      );
+                    })}
                   </tr>
-                )}
-              </Fragment>
-            );
-          })}
-        </tbody>
-      </Table>
+                  {row.isExpanded && (
+                    <tr>
+                      <td colSpan={visibleColumns.length}>
+                        {renderRowSubComponent(row)}
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
         
-      <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
+      <Row style={{ maxWidth: 1090, margin: '5px 18px 2px 0px', textAlign: 'center', backgroundColor: "#FFFFFF", padding: "4px 2px" }}>
         <Col md={3}>
           <Button
             variant="contained"

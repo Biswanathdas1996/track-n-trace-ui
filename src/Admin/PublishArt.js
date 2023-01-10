@@ -23,8 +23,13 @@ import {
 import "./publishArt.css";
 
 const validationSchema = Yup.object().shape({
-  batchNumber: Yup.string().required("Batch Number is required"),
-  title: Yup.string().required("Title is required"),
+  batchNumber: Yup.string()
+    .required("Batch Number is required")
+    .min(7, "Batch Number should be of 7 characters")
+    .matches(/^(?=.*[a-z])/, "Must contain at least one lowercase character")
+    .matches(/^(?=.*[A-Z])/, "Must contain at least one uppercase character")
+    .matches(/^(?=.*[0-9])/, "Must contain at least one number"),
+  title: Yup.string().required("Title is required").max(50, "Title can be maximum of 50 characters"),
   description: Yup.string().required("Description is required"),
   attributes: Yup.array().required("Attributes are required"),
 });

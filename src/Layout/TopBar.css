@@ -80,10 +80,10 @@
   border-bottom-left-radius: 8px;
 }
 
-.current {
+.currentLink {
   background-color: #415385 !important;
   color: white !important;
-  opacity: 100% !important;
+  opacity: 1 !important;
   width: 100%;
   text-decoration: none;
   display: block;
@@ -99,7 +99,7 @@
 .currentDD {
   background-color: #415385;
   color: white;
-  opacity: 100%;
+  opacity: 1 !important;
   width: 100%;
   text-decoration: none;
   display: block;

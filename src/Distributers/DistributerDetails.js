@@ -45,7 +45,7 @@ export default function DistributerDetails() {
     return (
       <Grid container justifyContent="center" alignItems="center">
         <Grid item sm={3}>
-          <Card style={{ width: "380px" }}>
+          <Card style={{ width: "380px", margin: "5px 2px 8px" }}>
             <Grid
               container
               flexDirection="column"
@@ -67,7 +67,7 @@ export default function DistributerDetails() {
                   <strong>Name : </strong>
                   {`${user_fname} ${user_lname}`}
                   <br />
-                  <strong> Phone : </strong>
+                  <strong>Phone : </strong>
                   {user_phone} <br />
                   <strong>Email : </strong> {user_email}
                   <br />
@@ -137,7 +137,7 @@ export default function DistributerDetails() {
   );
 
   return (
-    <div className="container distributorContainer">
+    <div className="container">
       <Grid container spacing={2}>
         {distributerBool && (
           <Card
@@ -154,15 +154,19 @@ export default function DistributerDetails() {
           </Card>
         )}
         {!distributerBool && (
-          <>
+          <Grid container spacing={2} sx={{ width: "96%" }}>
             <Grid item sm={8} sx={{ marginTop: "5px" }}>
               <h3 style={{ marginLeft: "10px" }}>Distributor Table</h3>
             </Grid>
 
             <Grid item sm={4}>
               <span className="input-group-btn">
-                <Button type="button" variant="outlined" 
-                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+                <Button type="button" variant="filled" 
+                  sx={{ marginRight: "20px", textTransform: "none",
+                    backgroundColor: "#FFFFFF !important", color: "#C52A1A !important",
+                    borderColor: "#C52A1A !important", border: "solid !important", borderWidth: "thin !important", 
+                    "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } 
+                  }} 
                   style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
                   onClick={() => setDistributerBool(true)} 
                 >
@@ -171,7 +175,7 @@ export default function DistributerDetails() {
               </span>
             </Grid>
 
-            <Grid item sm={12}>
+            <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
               <Container
                 style={{ marginTop: 10, maxWidth: "120vw !important" }}
               >
@@ -184,7 +188,7 @@ export default function DistributerDetails() {
                 )}
               </Container>
             </Grid>
-          </>
+          </Grid>
         )}
       </Grid>
     </div>

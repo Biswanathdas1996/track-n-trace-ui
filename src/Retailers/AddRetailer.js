@@ -141,7 +141,10 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                     width: "100%",
                     ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                     ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                    ".css-1x5jdmq": { padding: "6px 14px"},
+                    ".css-p0rm37": {top: "-8px"},
+                    ".css-1bp1ao6": {borderRadius: "8px"},
                   }}
                   id="user_fname"
                   label="First name"
@@ -170,7 +173,10 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                       width: "100%",
                       ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                       ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                      ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                      ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                      ".css-1x5jdmq": { padding: "6px 14px"},
+                      ".css-p0rm37": {top: "-8px"},
+                      ".css-1bp1ao6": {borderRadius: "8px"},
                     }}
                     id="user_lname"
                     label="Last name"
@@ -202,7 +208,10 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                     width: "100%",
                     ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                     ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                    ".css-1x5jdmq": { padding: "6px 14px"},
+                    ".css-p0rm37": {top: "-8px"},
+                    ".css-1bp1ao6": {borderRadius: "8px"},
                   }}
                   id="user_email"
                   label="Email"
@@ -232,7 +241,10 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                       width: "100%",
                       ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                       ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                      ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                      ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                      ".css-1x5jdmq": { padding: "6px 14px"},
+                      ".css-p0rm37": {top: "-8px"},
+                      ".css-1bp1ao6": {borderRadius: "8px"},
                     }}
                     id="user_phoneno"
                     label="Phone Number"
@@ -262,35 +274,38 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                 >
                   Please select your State from the dropdown
                 </DialogContentText>
-                <FormControl sx={{ width: "100%",
-                  ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
-                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                  ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
+                <TextField
+                  sx={{ 
+                    width: "100%",
+                    ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                    ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                    ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                    ".css-qiwgdb": { padding: "6px 14px"},
+                    ".css-p0rm37": {top: "-8px"},
+                    ".css-1bp1ao6": {borderRadius: "8px"},
+                  }}
+                  id="state_code"
+                  select
+                  label="State/UT"
+                  fullWidth
+                  value={values.state_code}
+                  name="state_code"
+                  autoComplete="off"
+                  placeholder="State/UT *"
+                  onChange={handleChange}
+                  // zone needs to be handled from the API
+                  onBlur={handleBlur}
+                  error={!!errors.state_code && touched.state_code}
+                  helperText={
+                    errors.state_code && touched.state_code ? errors.state_code : ""
+                  }
                 >
-                  <InputLabel>State/UT</InputLabel>
-                  <Select
-                    label="State/UT"
-                    id="state_code"
-                    fullWidth
-                    value={values.state_code}
-                    name="state_code"
-                    autoComplete="off"
-                    placeholder="State/UT"
-                    onChange={handleChange}
-                    // zone needs to be handled from the API
-                    onBlur={handleBlur}
-                    error={!!errors.state_code && touched.state_code}
-                    helperText={
-                      errors.state_code && touched.state_code ? errors.state_code : ""
-                    }
-                  >
-                    {States.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option.stateName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                  {States.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.stateName}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Stack>
               <Stack sx={{ width: "368px" }}>
                 <DialogContentText
@@ -301,8 +316,11 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                 <FormControl sx={{ width: "100%",
                   ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                   ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                  ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"} }}
-                >
+                  ".css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {borderRadius: "8px"},
+                  ".css-qiwgdb": { padding: "6px 14px"},
+                  ".css-p0rm37": {top: "-8px"},
+                  ".css-xa1gac": {borderRadius: "8px"},
+                }}>
                   <InputLabel>User role</InputLabel>
                   <Select
                     label="User role"
@@ -317,7 +335,7 @@ export default function AddRetailer({ retailerBool, setRetailerBool }) {
                     }}
                     disabled
                   >
-                    <MenuItem key={2} value={2}>
+                    <MenuItem key={3} value={3}>
                       {"Retailer"}
                     </MenuItem>
                   </Select>

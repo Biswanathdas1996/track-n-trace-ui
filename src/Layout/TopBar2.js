@@ -13,7 +13,7 @@ import BackImg from "../trkNdTrcIcons/BackImg.png";
 
 const TopBar2 = ({role, props}) => {
 
-  let current = "current";
+  let currentLink = "currentLink";
   let currentDD = "currentDD";
   let general = "w3-bar-item w3-button";
   let generalDD = "w3-bar-item w3-sub-menu-link";
@@ -22,7 +22,7 @@ const TopBar2 = ({role, props}) => {
     return(
         <>
             <div className="w3-sidebar w3-bar-block w3-card" style={{ width: "200px", marginTop: "85px", borderRadius: "8px", backgroundColor: "#DDDDDD" }}>
-              <NavLink to="/dashboard" className={({ isActive }) => isActive ? current : general} >
+              <NavLink to="/dashboard" className={({ isActive }) => isActive ? currentLink : general} >
               <img src={DashMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />Dashboard
               </NavLink>
               {(role == 1) && (<div className="w3-dropdown-hover">
@@ -32,16 +32,16 @@ const TopBar2 = ({role, props}) => {
                   </button>
                 </NavLink>
                   <div className="w3-dropdown-content w3-bar-block">
-                  <NavLink to="/category" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/category" className={({ isActive }) => isActive ? currentLink : general} >
                     Category
                   </NavLink>
-                  <NavLink to="/sub-category" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/sub-category" className={({ isActive }) => isActive ? currentLink : general} >
                     Sub Category
                   </NavLink>
-                  <NavLink to="/product" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/product" className={({ isActive }) => isActive ? currentLink : general} >
                     Product
                   </NavLink>
-                  <NavLink to="/publishArt" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/publishArt" className={({ isActive }) => isActive ? currentLink : general} >
                     Create Order Tokens
                   </NavLink>
                 </div>
@@ -53,21 +53,21 @@ const TopBar2 = ({role, props}) => {
                   </button>
                 </a>
                 <div className="w3-dropdown-content w3-bar-block">
-                  <NavLink to="/publishBulkArt" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/publishBulkArt" className={({ isActive }) => isActive ? currentLink : general} >
                     Create Bulk Order Token
                   </NavLink>
-                  <NavLink to="/uploadBulkData" className={({ isActive }) => isActive ? current : general} >
+                  <NavLink to="/uploadBulkData" className={({ isActive }) => isActive ? currentLink : general} >
                     Upload Bulk Data
                   </NavLink>
                 </div>
               </div>)}
-              <NavLink to="/tokens" className={({ isActive }) => isActive ? current : general} >
+              <NavLink to="/tokens" className={({ isActive }) => isActive ? currentLink : general} >
                 <img src={TableMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />Order Token Tables
               </NavLink>
-              {(role == 1) && (<NavLink to="/distributer" className={({ isActive }) => isActive ? current : general} >
+              {(role == 1) && (<NavLink to="/distributer" className={({ isActive }) => isActive ? currentLink : general} >
                 <img src={DistMenuIcon} style={{ width: "16px", marginBottom: "2px", marginRight: "4px"}} />Distributors
               </NavLink>)}
-              {(role == 2) && (<NavLink to="/retailer" className={({ isActive }) => isActive ? current : general} >
+              {(role == 2) && (<NavLink to="/retailer" className={({ isActive }) => isActive ? currentLink : general} >
                 <img src={DistMenuIcon} style={{ width: "16px", marginBottom: "2px", marginRight: "4px"}} />Retailers
               </NavLink>)}
             </div>

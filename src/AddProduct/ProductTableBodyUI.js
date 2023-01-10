@@ -70,7 +70,7 @@ export default function ProductTableBodyUI({
   };
 
   return (
-    <Grid item sx={{ padding: "15px" }}>
+    <Grid item sx={{ padding: "1px 20px 20px 0px" }}>
       <Box width="220px">
         <Card
           sx={{
@@ -91,10 +91,10 @@ export default function ProductTableBodyUI({
               }}
             />
           </CardActions>
-          <CardActions>
+          <CardActions sx={{ padding: "2px !important" }}>
             <Grid
               sx={{
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: "bold",
                 padding: "0",
                 textAlign: "center",
@@ -107,13 +107,16 @@ export default function ProductTableBodyUI({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: 0,
+                  textAlign: "center",
+                  padding: "0px"
                 }}
               >
                 <Button
                   size="large"
-                  onClick={() => {
-                    navigation(`/publishArt?prodId=${prodIdData}`);
+                  onClick={() => navigation(`/publishArt?prodId=${prodIdData}`)}
+                  sx= {{ 
+                    color: "#AD1B02 !important", fontWeight: "600 !important", fontSize: "13px", padding: "2px 10px",
+                    "&:hover": { color: "#F3BE26 !important" }
                   }}
                 >
                   {product}

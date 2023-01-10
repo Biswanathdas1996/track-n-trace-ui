@@ -15,7 +15,6 @@ import { retailerList } from "../endpoint";
 
 export default function RetailerDetails() {
   const [retailerBool, setRetailerBool] = useState(false);
-  const [token, setToken] = useToken();
   const [retailerListArray, setRetailerList] = useState([]);
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export default function RetailerDetails() {
     return (
       <Grid container justifyContent="center" alignItems="center">
         <Grid item sm={3}>
-          <Card style={{ width: "380px" }}>
+          <Card style={{ width: "380px", margin: "5px 2px 8px" }}>
             <Grid
               container
               flexDirection="column"
@@ -67,7 +66,7 @@ export default function RetailerDetails() {
                   <strong>Name : </strong>
                   {`${user_fname} ${user_lname}`}
                   <br />
-                  <strong> Phone : </strong>
+                  <strong>Phone : </strong>
                   {user_phone} <br />
                   <strong>Email : </strong> {user_email}
                   <br />
@@ -137,7 +136,7 @@ export default function RetailerDetails() {
   );
 
   return (
-    <div className="container retailerContainer">
+    <div className="container">
       <Grid container spacing={2}>
         {retailerBool && (
           <Card
@@ -154,15 +153,19 @@ export default function RetailerDetails() {
           </Card>
         )}
         {!retailerBool && (
-          <>
+          <Grid container spacing={2} sx={{ width: "96%" }}>
             <Grid item sm={8} sx={{ marginTop: "5px" }}>
               <h3 style={{ marginLeft: "10px" }}>Retailer Table</h3>
             </Grid>
 
             <Grid item sm={4}>
               <span className="input-group-btn">
-                <Button type="button" variant="outlined" 
-                  sx={{ marginRight: "20px", textTransform: "none", "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" } }} 
+                <Button type="button" variant="filled" 
+                  sx={{ marginRight: "20px", textTransform: "none",
+                    backgroundColor: "#FFFFFF !important", color: "#C52A1A !important",
+                    borderColor: "#C52A1A !important", border: "solid !important", borderWidth: "thin !important", 
+                    "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" }
+                  }} 
                   style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
                   onClick={() => setRetailerBool(true)} 
                 >
@@ -171,7 +174,7 @@ export default function RetailerDetails() {
               </span>
             </Grid>
 
-            <Grid item sm={12}>
+            <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
               <Container
                 style={{ marginTop: 10, maxWidth: "120vw !important" }}
               >
@@ -184,7 +187,7 @@ export default function RetailerDetails() {
                 )}
               </Container>
             </Grid>
-          </>
+          </Grid>
         )}
       </Grid>
     </div>

@@ -495,7 +495,7 @@ export default function FilledUnassignedTokens() {
           <h3 style={{ marginLeft: 10 }}>RECEIVED TOKENS</h3>
         </Grid>)}
 
-        <Grid item sm={12}>
+        <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
           <Container
             style={{
               marginTop: 0,

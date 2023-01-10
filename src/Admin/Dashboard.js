@@ -360,11 +360,11 @@ function Dashboard() {
                         height: "35px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
+                      <div
+                        style={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
                         {dashboardTileData.totalProducts || 0}
-                      </Button>
+                      </div>
                     </CardActions>
                   </Grid>
                 </CardActions>
@@ -403,11 +403,9 @@ function Dashboard() {
                         padding: "0px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                      >
+                      <div style={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none", paddingLeft: "8px" }} >
                         {"Blank Token Count"}
-                      </Button>
+                      </div>
                     </CardActions>
                     <NavLink to="/publishBulkArt"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
@@ -423,11 +421,11 @@ function Dashboard() {
                         height: "35px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
+                      <div
+                        style={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
                         {dashboardTileData.totalBlankTokens || 0}
-                      </Button>
+                      </div>
                     </CardActions>
                   </Grid>
                 </CardActions>
@@ -466,11 +464,9 @@ function Dashboard() {
                         padding: "0px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                      >
+                      <div style={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none", paddingLeft: "8px" }} >
                         {"Distributor"}
-                      </Button>
+                      </div>
                     </CardActions>
                     <NavLink to="/distributer"><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></NavLink>
                   </Grid>
@@ -486,11 +482,11 @@ function Dashboard() {
                         height: "35px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
+                      <div
+                        style={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
                         {dashboardTileData.totalDistributers || 0}
-                      </Button>
+                      </div>
                     </CardActions>
                   </Grid>
                 </CardActions>
@@ -529,11 +525,9 @@ function Dashboard() {
                         padding: "0px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none" }}
-                      >
+                      <div style={{ justifyContent: "flex-start", fontSize: "14px", fontWeight: 400, color: "white", textTransform: "none", paddingLeft: "8px" }} >
                         {"Retailer"}
-                      </Button>
+                      </div>
                     </CardActions>
                     <a><ArrowForwardIosRoundedIcon sx={{ color: "white", float: "right", marginTop: "-12px"}} /></a>
                   </Grid>
@@ -549,11 +543,11 @@ function Dashboard() {
                         height: "35px",
                       }}
                     >
-                      <Button
-                        sx={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
+                      <div
+                        style={{ justifyContent: "flex-start", fontSize: "25px", fontWeight: "bold", color: "white", paddingLeft: "2px" }}
                       >
                         {dashboardTileData.totalRetailers || 0}
-                      </Button>
+                      </div>
                     </CardActions>
                   </Grid>
                 </CardActions>
@@ -692,7 +686,7 @@ function Dashboard() {
                             flexDirection: "row",
                             alignItems: "baseline",
                             justifyContent: "flex-end",
-                            height: "25px",
+                            height: "22px",
                             overflow: "hidden",
                             ".MuiTablePagination-toolbar": {
                               flexDirection: "row !important",
@@ -703,6 +697,10 @@ function Dashboard() {
                               paddingRight: "5px !important",
                               paddingTop: "0px !important",
                               paddingBottom: "0px !important",
+                            },
+                            ".css-8nphli .MuiTablePagination-actions": {
+                              marginLeft: "15px !important",
+                              marginTop: "-8px !important",
                             }
                           }}
                           rowsPerPageOptions={[]}

@@ -123,7 +123,10 @@ export default function RegisterForm({ setToken }) {
                 width: "100%",
                 ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                 ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                ".css-1x5jdmq": { padding: "6px 14px"},
+                ".css-p0rm37": {top: "-8px"},
+                ".css-1bp1ao6": {borderRadius: "8px"},
               }}
               id="user_fname"
               label="First name"
@@ -144,7 +147,10 @@ export default function RegisterForm({ setToken }) {
                 width: "100%",
                 ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
                 ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+                ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                ".css-1x5jdmq": { padding: "6px 14px"},
+                ".css-p0rm37": {top: "-8px"},
+                ".css-1bp1ao6": {borderRadius: "8px"},
               }}
               id="user_lname"
               label="Last name"
@@ -167,7 +173,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-1x5jdmq": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-1bp1ao6": {borderRadius: "8px"},
             }}
             id="user_email"
             label="Email"
@@ -189,7 +198,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-1x5jdmq": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-1bp1ao6": {borderRadius: "8px"},
             }}
             id="user_phoneno"
             label="Phone Number"
@@ -213,7 +225,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-qiwgdb": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-1bp1ao6": {borderRadius: "8px"},
             }}
             id="state_code"
             select
@@ -242,7 +257,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-qiwgdb": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-1bp1ao6": {borderRadius: "8px"},
             }}
             id="role"
             select
@@ -269,7 +287,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-1uvydh2": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-segi59": {borderRadius: "8px"},
             }}
             id="user_password"
             label="Enter Password"
@@ -307,7 +328,10 @@ export default function RegisterForm({ setToken }) {
               width: "100%",
               ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
               ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"}
+              ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+              ".css-1uvydh2": { padding: "6px 14px"},
+              ".css-p0rm37": {top: "-8px"},
+              ".css-segi59": {borderRadius: "8px"},
             }}
             id="confirmPassword"
             label="Confirm Password"

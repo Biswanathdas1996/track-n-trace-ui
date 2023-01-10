@@ -62,7 +62,7 @@ export default function CategoryTableBodyUI({
   };
 
   return (
-    <Grid item sx={{ padding: "15px" }}>
+    <Grid item sx={{ padding: "0px 20px 20px 0px" }}>
       <Box width="220px">
         <Card
           sx={{
@@ -81,7 +81,7 @@ export default function CategoryTableBodyUI({
               onClick={() => navigation(`/sub-category?catId=${idData}`)}
             />
           </CardActions>
-          <CardActions>
+          <CardActions sx={{ padding: "2px !important" }}>
             <Grid sx={{ fontSize: "20px", fontWeight: "bold" }}>
               <CardActions
                 sx={{
@@ -89,10 +89,15 @@ export default function CategoryTableBodyUI({
                   alignItems: "center",
                   justifyContent: "center",
                   textAlign: "center",
+                  padding: "0px"
                 }}
               >
                 <Button
                   onClick={() => navigation(`/sub-category?catId=${idData}`)}
+                  sx= {{ 
+                    color: "#AD1B02 !important", fontWeight: "600 !important", fontSize: "13px",
+                    "&:hover": { color: "#F3BE26 !important" }
+                  }}
                 >
                   {category}
                 </Button>

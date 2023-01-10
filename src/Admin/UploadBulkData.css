@@ -4,6 +4,12 @@
   background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
+.css-1cq7dkh.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26) !important;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
 .css-i4ucx8-MuiButtonBase-root-MuiButton-root {
     margin-top: 9px !important;
     height: 36px !important;

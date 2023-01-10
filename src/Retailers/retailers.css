@@ -26,21 +26,21 @@
 }
 
 .MuiButton-containedPrimary {
-    background-color: #D92E1D !important;
-    border-color: #D92E1D !important;
-    color: #ffffff !important;
-  }
+  background-color: #D92E1D !important;
+  border-color: #D92E1D !important;
+  color: #ffffff !important;
+}
   
-  .MuiButton-outlinedPrimary {
-    border-color: #D92E1D !important;
-    color: #D92E1D !important;
-  }
+.MuiButton-outlinedPrimary {
+  border-color: #D92E1D !important;
+  color: #D92E1D !important;
+}
 
-  .table>:not(:first-child) {
-    border-top: 2px solid #AD1B02;
+.table>:not(:first-child) {
+  border-top: 2px solid #AD1B02;
 }
 
 .table>:not(caption)>*>* {
-    vertical-align: baseline !important;
-    padding: 1rem 0.5rem;
+  vertical-align: baseline !important;
+  padding: 1rem 0.5rem;
 }

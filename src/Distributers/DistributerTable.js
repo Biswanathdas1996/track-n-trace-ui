@@ -50,7 +50,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
 
   return (
     <Fragment>
-        <Table bordered hover {...getTableProps()}>
+      <div style={{ minHeight: "200px", maxHeight: "390px", overflowY: "scroll", overflowX: "hidden" }}>
+        <Table bordered hover {...getTableProps()} style={{
+          // boxShadow: "5px 10px #eeee",
+          backgroundColor: "#ffffff"
+        }}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -68,7 +72,6 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
               </tr>
             ))}
           </thead>
-        
           <tbody {...getTableBodyProps()}>
             {page.map((row) => {
               prepareRow(row);
@@ -98,8 +101,9 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             })}
           </tbody>
         </Table>
+      </div>
         
-        <Row style={{ maxWidth: 1000, margin: '0 auto 10px', textAlign: 'center' }}>
+        <Row style={{ maxWidth: 1090, margin: '5px 18px 2px 0px', textAlign: 'center', backgroundColor: "#FFFFFF", padding: "4px 2px" }}>
           <Col md={3}>
             <Button
               variant="contained"
