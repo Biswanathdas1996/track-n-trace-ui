@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
 import { Container } from "reactstrap";
-import FilledUnassignedTokensTable from "./FilledUnassignedTokensTable";
+import InactiveTokensTable from "./InactiveTokensTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { getAllTokensData, distributerList, retailerList } from "../endpoint";
@@ -17,7 +17,7 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useUser } from "../Context/user";
 
-export default function FilledUnassignedTokens() {
+export default function InactiveTokens() {
   const user = useUser();
   const role = user.user_role;
   const [tokenListArray, setTokenList] = useState([]);
@@ -36,7 +36,7 @@ export default function FilledUnassignedTokens() {
 
   useEffect(() => {
     const getTokenList = async () => {
-      const ep = getAllTokensData(0, 0, 0);
+      const ep = getAllTokensData(2, 2, 1);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
         const tokenList = res.data.map((obj) => obj);
@@ -488,12 +488,9 @@ export default function FilledUnassignedTokens() {
         </Box>
       </Modal>
       <Grid container spacing={2}>
-        {(role === '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
-          <h3 style={{ marginLeft: 10 }}>FILLED UNASSIGNED TOKENS</h3>
-        </Grid>)}
-        {(role !== '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
-          <h3 style={{ marginLeft: 10 }}>RECEIVED TOKENS</h3>
-        </Grid>)}
+        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h3 style={{ marginLeft: 10 }}>INACTIVE TOKENS</h3>
+        </Grid>
 
         <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
           <Container
@@ -503,7 +500,7 @@ export default function FilledUnassignedTokens() {
             }}
           >
             {tListArray.length > 0 && (
-              <FilledUnassignedTokensTable
+              <InactiveTokensTable
                 columns={columns}
                 data={tListArray}
                 renderRowSubComponent={renderRowSubComponent}

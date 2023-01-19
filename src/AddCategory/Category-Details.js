@@ -279,7 +279,7 @@ export default function CategoryDetails() {
               />
             )}
             {!subCategoryStatus ? (
-              <SkeletonComponent number={10} />
+              <SkeletonComponent number={5} />
             ) : (
               categoryDataArray?.length === 0 &&
               !categoryBool && (

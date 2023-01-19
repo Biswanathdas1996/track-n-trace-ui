@@ -37,10 +37,12 @@ export default function RegisterForm({ setToken }) {
   const navigate = useNavigate();
   const RegisterSchema = Yup.object().shape({
     user_fname: Yup.string()
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
       .min(2, "First Name is too short")
       .max(25, "First Name cannot be more than 25 characters")
       .required("First name is required"),
     user_lname: Yup.string()
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
       .min(2, "Last Name is too short")
       .max(25, "Last Name cannot be more than 25 characters")
       .required("Last name is required"),

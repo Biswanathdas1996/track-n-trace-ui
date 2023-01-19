@@ -515,7 +515,7 @@ export default function ProductDetails() {
               />
             )}
             {!productStatus ? (
-              <SkeletonComponent number={10} />
+              <SkeletonComponent number={5} />
             ) : (
               productDataArray?.length === 0 &&
               !productBool && (

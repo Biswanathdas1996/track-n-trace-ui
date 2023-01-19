@@ -34,7 +34,7 @@ export default function FilledAssignedTokens() {
 
   useEffect(() => {
     const getTokenList = async () => {
-      const ep = getAllTokensData(0, 1);
+      const ep = getAllTokensData(0, 1, 0);
       const res = await getRequestLoggedIn(ep);
       if (res?.status_code === "200") {
         const tokenList = res.data.map((obj) => obj);

@@ -29,6 +29,8 @@
     "formik": "^2.2.9",
     "ganache": "^7.0.3",
     "ganache-cli": "^6.12.2",
+    "google-map-react": "^2.2.0",
+    "google-maps-react": "^2.0.6",
     "ipfs-http-client": "^56.0.2",
     "js-base64": "^3.7.2",
     "lodash": "^4.17.21",
