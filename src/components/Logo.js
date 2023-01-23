@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Box } from '@mui/material';
 
-import pwcLogo from '../pwc.ico';
+import pwcLogo from '../trkNdTrcIcons/pwcLoginLogo.png';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ Logo.propTypes = {
 export default function Logo({ disabledLink = false, sx }) {
   const logo = (
     <Box sx={{ width: 50, height: 50, ...sx }}>
-      <img src={pwcLogo} alt='PwC_Logo' />
+      <img src={pwcLogo} alt='PwC_Logo' style={{ width: "120px"}} />
     </Box>
   );
 
