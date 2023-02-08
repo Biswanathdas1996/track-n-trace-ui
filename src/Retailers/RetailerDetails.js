@@ -7,22 +7,24 @@ import RetailerTable from "./RetailerTable";
 import "../Styles/catFormFields.css";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import AddRetailer from "./AddRetailer";
-import { useToken } from "../Context/token";
 import { SelectColumnFilter } from "../common/filters";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./retailers.css";
 import { retailerList } from "../endpoint";
+import SpinLoader from "../trkNdTrcIcons/SpinLoader.gif";
 
 export default function RetailerDetails() {
   const [retailerBool, setRetailerBool] = useState(false);
   const [retailerListArray, setRetailerList] = useState([]);
+  const [apiStatus, setApiStatus] = useState("0");
 
   useEffect(() => {
     const getRetailerList = async () => {
       const res = await getRequestLoggedIn(retailerList);
       if (res?.status_code === "200") {
-        const dList = res.retailerList.map((obj) => obj);
-        setRetailerList(dList);
+        const rList = res.retailerList.map((obj) => obj);
+        setRetailerList(rList);
+        setApiStatus("200");
         setRetailerList((retailerList) => {
           return retailerList;
         });
@@ -173,8 +175,14 @@ export default function RetailerDetails() {
                 </Button>
               </span>
             </Grid>
-
-            <Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
+            {(apiStatus === "0") && (<Grid container spacing={2}>
+              <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+                <h2 style={{ marginTop: "10%", textAlign: "center" }}>Please Hang On !!!</h2>
+                <h2 style={{ textAlign: "center" }}>We are getting things ready for you...</h2>
+                <img src={SpinLoader} style={{ width: "75px", marginTop: "15px", marginLeft: "40vw"}} />
+              </Grid>
+            </Grid>)}
+            {(apiStatus !== "0") && (<Grid item sm={12} sx={{ paddingTop: "8px !important"}}>
               <Container
                 style={{ marginTop: 10, maxWidth: "120vw !important" }}
               >
@@ -186,7 +194,7 @@ export default function RetailerDetails() {
                   />
                 )}
               </Container>
-            </Grid>
+            </Grid>)}
           </Grid>
         )}
       </Grid>

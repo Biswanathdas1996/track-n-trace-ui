@@ -36,7 +36,7 @@ export default function TokenDetails() {
 
   return (
     <div className="container">
-      <Grid container spacing={2} sx={{ width: "96%" }}>
+      {(role !== undefined) && (<Grid container spacing={2} sx={{ width: "96%" }}>
         <Grid item sm={12} sx={{ ".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "0px" }}}>
           {(role == 1) && (<span className="input-group-btn">
             <Button type="button" variant="outlined" 
@@ -62,7 +62,7 @@ export default function TokenDetails() {
               style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
               onClick={() => setFlag(1,0,0)} 
             >
-              { (role == 1) ? "Filled Assigned Tokens" : "Assigned Tokens"}
+              {(role == 1) ? "Filled Assigned Tokens" : "Assigned Tokens"}
             </Button>
           </span>
           <span className="input-group-btn">
@@ -71,33 +71,32 @@ export default function TokenDetails() {
               style={{ minWidth: "4vw", float: "right", padding: 8, borderRadius: 4 }} 
               onClick={() => setFlag(0,0,0)} 
             >
-              { (role == 1) ? "Filled Unassigned Tokens" : "Received Tokens"}
-              
+              {(role == 1) ? "Filled Unassigned Tokens" : "Received Tokens"}
             </Button>
           </span>
         </Grid>
-      </Grid>
+      </Grid>)}
 
-{(assignedFlag === 0 && blankTokenFlag === 0 && inactiveFlag === 0) && (
-    <Grid item sm={12} sx={{ width: "96%" }}>
-        <FilledUnassignedTokens />
-    </Grid>
-)}
-{(assignedFlag === 0 && blankTokenFlag === 0 && inactiveFlag === 1) && (
-    <Grid item sm={12} sx={{ width: "96%" }}>
-        <InactiveTokens />
-    </Grid>
-)}
-{(assignedFlag === 1 && blankTokenFlag === 0 && inactiveFlag === 0) && (
-    <Grid item sm={12} sx={{ width: "96%" }}>
-        <FilledAssignedTokens />
-    </Grid>
-)}
-{(role == 1) && (assignedFlag === 0 && blankTokenFlag === 1 && inactiveFlag === 0) && (
-    <Grid item sm={12} sx={{ width: "96%" }}>
-        <BlankTokens />
-    </Grid>
-)}
+      {(assignedFlag === 0 && blankTokenFlag === 0 && inactiveFlag === 0) && (
+          <Grid item sm={12} sx={{ width: "96%" }}>
+              <FilledUnassignedTokens />
+          </Grid>
+      )}
+      {(assignedFlag === 0 && blankTokenFlag === 0 && inactiveFlag === 1) && (
+          <Grid item sm={12} sx={{ width: "96%" }}>
+              <InactiveTokens />
+          </Grid>
+      )}
+      {(assignedFlag === 1 && blankTokenFlag === 0 && inactiveFlag === 0) && (
+          <Grid item sm={12} sx={{ width: "96%" }}>
+              <FilledAssignedTokens />
+          </Grid>
+      )}
+      {(role == 1) && (assignedFlag === 0 && blankTokenFlag === 1 && inactiveFlag === 0) && (
+          <Grid item sm={12} sx={{ width: "96%" }}>
+              <BlankTokens />
+          </Grid>
+      )}
     </div>
   );
 }

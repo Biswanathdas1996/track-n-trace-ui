@@ -1,25 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Button,
   Box,
   Card,
   CardActions,
   CardMedia,
-  CardContent,
   Stack,
   Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ApplicationContext } from "../Context/ApplicationContext";
-import {
-  getRequestLoggedIn,
-  postRequestLoggedIn,
-} from "../functions/apiClient";
-import {
-  deleteSubCategory,
-  subCategoryDetailsEp,
-  subCategoryList,
-} from "../endpoint";
+import { getRequestLoggedIn } from "../functions/apiClient";
+import { subCategoryDetailsEp } from "../endpoint";
 import "../App.css"
 
 export default function SubCategoryTableBodyUI({
@@ -30,18 +21,17 @@ export default function SubCategoryTableBodyUI({
   setSubCategoryDetails,
   subCategoryImage,
   setSubCategoryBool,
+  setOpenDeleteModal,
+  deleteModal,
 }) {
-  const { setSubCategoryDataArray } = useContext(ApplicationContext);
 
   const navigation = useNavigate();
 
-  const getSubCategoryList = async () => {
-    const res = await getRequestLoggedIn(subCategoryList);
-    if (res?.status_code === "200") {
-      return res.sub_categoryList;
-    }
-    return null;
-  };
+  const delSubCatFun = (id, subCat) => {
+    setOpenDeleteModal(true);
+    deleteModal(id, subCat)
+  }
+
   const getSubCategoryDetail = async (id) => {
     setSubCategoryBool(true);
     const response = await getRequestLoggedIn(subCategoryDetailsEp(id));
@@ -55,18 +45,6 @@ export default function SubCategoryTableBodyUI({
       });
     }
     return null;
-  };
-
-  const handleDeleteSubCategory = async (id) => {
-    const data = {
-      subcategory_id: id,
-    };
-    const res = await postRequestLoggedIn(deleteSubCategory, data);
-    if (res?.status_code === "200") {
-      const resData = await getSubCategoryList();
-      setSubCategoryDataArray(resData);
-      //window.location.reload();
-    }
   };
 
   return (
@@ -123,7 +101,7 @@ export default function SubCategoryTableBodyUI({
           <CardActions sx={{ padding: 0 }}>
             <Stack spacing={5} direction="row">
               <Button
-                onClick={() => handleDeleteSubCategory(subCatIdData)}
+                onClick={() => delSubCatFun(subCatIdData, subCategory)}
                 variant="contained"
                 color="error"
               >

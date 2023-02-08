@@ -1,5 +1,14 @@
+import React, { useState, useContext } from "react";
 // material
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { getRequestLoggedIn, postRequestLoggedIn } from "../functions/apiClient";
+import { subCategoryList, deleteSubCategory } from "../endpoint";
+import { ApplicationContext } from "../Context/ApplicationContext";
 import SubCategoryTableBodyUI from "./SubCategoryTableBodyUI";
 
 export default function SubCategoryTable(props) {
@@ -12,6 +21,43 @@ export default function SubCategoryTable(props) {
     selectedFilter,
     setSubCategoryBool,
   } = props;
+
+  const { setSubCategoryDataArray } = useContext(ApplicationContext);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [delSubCatId, setDelSubCatId] = useState(null);
+  const [delSubCatName, setDelSubCatName] = useState(null);
+
+  const cancelDelete = () => {
+    setOpenDeleteModal(false);
+  };
+
+  const deleteModal = (subCatId, subCatName) => {
+    setDelSubCatId(subCatId);
+    setDelSubCatName(subCatName);
+  };
+
+  const getSubCategoryList = async () => {
+    const res = await getRequestLoggedIn(subCategoryList);
+    if (res?.status_code === "200") {
+      return res.sub_categoryList;
+    }
+    return null;
+  };
+
+  const handleDeleteSubCategory = async (id) => {
+    const data = {
+      subcategory_id: id,
+    };
+    const res = await postRequestLoggedIn(deleteSubCategory, data);
+    if (res?.status_code === "200") {
+      const resData = await getSubCategoryList();
+      setSubCategoryDataArray(resData);
+    }
+    setOpenDeleteModal(false);
+    setDelSubCatId(null);
+    setDelSubCatName(null);
+  };
+
   return (
     <Grid>
       <Grid sx={{ paddingBottom: "10px", paddingLeft: "10px" }}>
@@ -20,6 +66,47 @@ export default function SubCategoryTable(props) {
           {selectedFilter ? ` for ${categoryFilter.toUpperCase()}` : ""}
         </Typography>
       </Grid>
+      {(openDeleteModal) && (
+        <Dialog open={openDeleteModal} onClose={cancelDelete}>
+          <DialogTitle
+            sx={{ paddingBottom: "0px", fontWeight: 800}}
+          >Delete Sub-Category</DialogTitle>
+          <DialogContent>
+            <DialogContentText
+              sx={{ color: "#000000", marginTop: "5px"}}
+            >
+              Deleting <strong>{delSubCatName}</strong> will delete all its associated products.
+            </DialogContentText>
+            <DialogContentText
+              sx={{ color: "#000000", marginTop: "5px", marginBottom: "8px"}}
+            >
+              Are you sure you want to permanently delete this sub-category?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+          <Button
+            type="button"
+            variant="outlined"
+            style={{
+              padding: "2px 16px",
+              borderRadius: 4,
+            }}
+            className="cancel-button"
+            onClick={cancelDelete}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            variant="contained"
+            style={{ margin: 10, padding: "3px 16px", borderRadius: 4 }}
+            onClick={() => handleDeleteSubCategory(delSubCatId)}
+          >
+            Delete
+          </Button>
+          </DialogActions>
+        </Dialog>
+      )}
       <div className="subCatContainer">
         <Grid container>
           {subCategoryData?.map((data, i) => {
@@ -35,6 +122,8 @@ export default function SubCategoryTable(props) {
                   setSubCategoryDetails={setSubCategoryDetails}
                   subCategoryImage={data.subcategory_image}
                   setSubCategoryBool={setSubCategoryBool}
+                  setOpenDeleteModal={setOpenDeleteModal}
+                  deleteModal={deleteModal}
                 />
               );
             })

@@ -16,6 +16,7 @@ import SendIcon from "@mui/icons-material/Send";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useUser } from "../Context/user";
+import SpinLoader from "../trkNdTrcIcons/SpinLoader.gif";
 
 export default function FilledAssignedTokens() {
   const user = useUser();
@@ -30,6 +31,7 @@ export default function FilledAssignedTokens() {
   const handleCloseForm = () => setOpenForm(false);
   const [dist, setDist] = useState(false);
   const [location, setLocation] = useState(null);
+  const [apiStatus, setApiStatus] = useState("0");
   let history = useNavigate();
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export default function FilledAssignedTokens() {
       if (res?.status_code === "200") {
         const tokenList = res.data.map((obj) => obj);
         setTokenList(tokenList);
+        setApiStatus("200");
         setTokenList((tokenListArray) => {
           return tokenListArray;
         });
@@ -462,7 +465,15 @@ export default function FilledAssignedTokens() {
           />
         </Box>
       </Modal>
-      <Grid container spacing={2}>
+      {((role === undefined) || (apiStatus === "0")) && (<Grid container spacing={2}>
+        <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+          <h2 style={{ marginTop: "10%", textAlign: "center" }}>Please Hang On !!!</h2>
+          <h2 style={{ textAlign: "center" }}>We are getting things ready for you...</h2>
+          <img src={SpinLoader} style={{ width: "75px", marginTop: "15px", marginLeft: "40vw"}} />
+        </Grid>
+      </Grid>)}
+
+      {((role !== undefined) && (apiStatus !== "0")) && (<Grid container spacing={2}>
         {(role === '1') && (<Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
           <h3 style={{ marginLeft: 10 }}>FILLED ASSIGNED TOKENS</h3>
         </Grid>)}
@@ -490,7 +501,7 @@ export default function FilledAssignedTokens() {
             )}
           </Container>
         </Grid>
-      </Grid>
+      </Grid>)}
     </div>
   );
 }

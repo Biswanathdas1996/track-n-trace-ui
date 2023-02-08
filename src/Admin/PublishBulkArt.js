@@ -15,6 +15,7 @@ const PublishBulkArt = () => {
   const [bulkNumber, setBulkNumber] = useState(0);
   const [totalBlnkTokens, setTotalBlnkTokens] = useState(0);
   const [bulkTokenUpldHistory, setBulkTokenUpldHistory] = useState([]);
+  const [responseState, setResponseState] = useState();
 
   let history = useNavigate();
 
@@ -30,7 +31,7 @@ const PublishBulkArt = () => {
     const getBulkTokenUploadHistory = async () => {
       const res = await getRequestLoggedIn(bulkTokenUploadHistory);
       if (res?.status_code === "200") {
-        console.log('res uploadHistory',res.uploadHistory);
+        // console.log('res uploadHistory',res.uploadHistory);
         setBulkTokenUpldHistory(res.uploadHistory);
         setBulkTokenUpldHistory ((bulkTokenUpldHistory) => {
           return bulkTokenUpldHistory;
@@ -62,10 +63,12 @@ const PublishBulkArt = () => {
 
   const saveBulkData = async () => {
     setStart(true);
-    await postRequestLoggedIn(createBulkToken, {
+    const resData = await postRequestLoggedIn(createBulkToken, {
       total_tokens: bulkNumber,
     });
-    history("/dashboard");
+    // console.log('saveBulkData resData', resData);
+    setResponseState(resData);
+    // history("/dashboard");
   };
 
   const handleReset = () => {
@@ -78,11 +81,11 @@ const PublishBulkArt = () => {
 
   const modalClose = () => {
     setStart(false);
-    history("/dashboard");
+    // history("/dashboard");
   };
   return (
     <>
-      {start && <TransctionModal modalClose={modalClose} />}
+      {start && <TransctionModal modalClose={modalClose} response={responseState} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={2} md={2} sm={12} xs={12}></Grid>

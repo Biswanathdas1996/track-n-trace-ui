@@ -35,6 +35,8 @@ export default function TransctionModal({ response, setStart, modalClose }) {
   };
 
   const domData = response?.error ? response.error.receipt : response;
+  // console.log('response', response);
+  // console.log('domData',domData);
   return (
     <div>
       <Modal

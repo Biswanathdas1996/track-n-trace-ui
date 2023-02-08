@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import {
   Button,
-  Card,
   FormControl,
   Grid,
   InputLabel,
@@ -159,7 +158,7 @@ export default function SubCategoryDetails() {
     );
 
   const handleUpdateSubCategory = async () => {
-    setSubCategoryBool(true);
+    setSubCategoryBool(false);
     const data = {
       category_id: subCategoryData.categoryId,
       sub_category_id: subCategoryData.subCategoryId,
@@ -277,7 +276,7 @@ export default function SubCategoryDetails() {
               style={{ margin: 10, padding: "3px 16px", borderRadius: 4 }}
               onClick={
                 subCategoryData?.edit
-                  ? handleUpdateSubCategory
+                  ? () => handleUpdateSubCategory()
                   : () => handleAddSubCategory()
               }
             >

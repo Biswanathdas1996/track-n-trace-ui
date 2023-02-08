@@ -51,6 +51,8 @@ export default function ProductDetails() {
     productName: "",
     edit: false,
     productImage: "",
+    product_attributes: [],
+    warranty: [],
   });
   const isEditForm = productData.edit;
   const {
@@ -94,6 +96,7 @@ export default function ProductDetails() {
       product_name: productData?.productName,
       product_image: base64Image,
       product_attributes: [],
+      warranty: [],
     };
     const res = await postRequestLoggedIn(addEditProduct, data);
     if (res.status_code === "200") {
@@ -103,7 +106,7 @@ export default function ProductDetails() {
     }
   };
   const editProd = async () => {
-    setProductBool(true);
+    setProductBool(false);
     const data = {
       category_id: productData?.categoryId,
       subcategory_id: productData?.sub_category_id,
@@ -111,6 +114,7 @@ export default function ProductDetails() {
       product_name: productData?.productName,
       product_image: base64Image,
       product_attributes: [],
+      warranty: [],
     };
     const res = await postRequestLoggedIn(addEditProduct, data);
     if (res?.status_code === "200") {
@@ -155,7 +159,6 @@ export default function ProductDetails() {
   const getSubCategoryList = async (val) => {
     const res = await getRequestLoggedIn(subCategoryListForCat(val));
     if (res?.status_code === "200") {
-      console.log('getSubCategoryList res',res); //==================review: check for the conditional dropdown
       setSubCategoryDataArray(res.sub_categoryList);
     }
   };
@@ -313,6 +316,28 @@ export default function ProductDetails() {
               <DialogContentText
                 sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
               >
+                Please enter Warrany Details below
+              </DialogContentText>
+              {/* <TextField
+                sx={{ 
+                  width: "100%",
+                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
+                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
+                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
+                  ".css-1x5jdmq": { padding: "6px 14px"},
+                  ".css-p0rm37": {top: "-8px"},
+                  ".css-1v4ccyo": {borderRadius: "8px"},
+                }}
+                label="Product"
+                id="fullWidth"
+                value={productData?.productName}
+                required
+                name="productName"
+                onChange={(e) => handleChange(e)}
+              /> */}
+              <DialogContentText
+                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
+              >
                 Please upload a Product Image
               </DialogContentText>
               <TextField
@@ -347,7 +372,7 @@ export default function ProductDetails() {
               type="button"
               variant="contained"
               style={{ margin: 10, padding: "3px 16px", borderRadius: 4 }}
-              onClick={productData.edit ? editProd : () => handleAddProduct()}
+              onClick={productData.edit ? () => editProd() : () => handleAddProduct()}
             >
               Submit
             </Button>
@@ -425,7 +450,7 @@ export default function ProductDetails() {
                       ".css-p0rm37": {top: "-8px"},
                       ".css-fvipm8": {borderRadius: "8px"}
                     }}>
-                      <InputLabel>Sub-Category Filter</InputLabel>
+                      <InputLabel>Sub-Category Filter *</InputLabel>
 
                       <Select
                         label="Choose the Sub Category"

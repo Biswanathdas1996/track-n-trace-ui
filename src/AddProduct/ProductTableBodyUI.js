@@ -9,37 +9,27 @@ import {
   Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ApplicationContext } from "../Context/ApplicationContext";
-import {
-  getRequestLoggedIn,
-  postRequestLoggedIn,
-} from "../functions/apiClient";
-import { deleteProduct, productDetails, productList } from "../endpoint";
+import { getRequestLoggedIn } from "../functions/apiClient";
+import { productDetails } from "../endpoint";
 import "../App.css"
 
 export default function ProductTableBodyUI({
   category,
   subCategory,
   product,
-  id,
   prodIdData,
-  subCatIdData,
-  catIdData,
-  prodDetails,
   setProdDetails,
   productImage,
   setProductBool,
+  setOpenDeleteModal,
+  deleteModal,
 }) {
-  const { setProductDataArray } = useContext(ApplicationContext);
   const navigation = useNavigate();
 
-  const getProductList = async () => {
-    const res = await getRequestLoggedIn(productList);
-    if (res?.status_code === "200") {
-      return res.productList;
-    }
-    return null;
-  };
+  const delProdFun = (id, prod) => {
+    setOpenDeleteModal(true);
+    deleteModal(id, prod)
+  }
 
   const getProdDetail = async (id) => {
     setProductBool(true);
@@ -55,18 +45,6 @@ export default function ProductTableBodyUI({
       });
     }
     return null;
-  };
-
-  const handleDeleteProduct = async (id) => {
-    const data = {
-      product_id: id,
-    };
-    const res = await postRequestLoggedIn(deleteProduct, data);
-    if (res?.status_code === "200") {
-      const resData = await getProductList();
-      setProductDataArray(resData);
-      //window.location.reload();
-    }
   };
 
   return (
@@ -127,7 +105,7 @@ export default function ProductTableBodyUI({
           <CardActions sx={{ padding: 0 }}>
             <Stack spacing={5} direction="row">
               <Button
-                onClick={() => handleDeleteProduct(prodIdData)}
+                onClick={() => delProdFun(prodIdData, product)}
                 variant="contained"
                 color="error"
               >

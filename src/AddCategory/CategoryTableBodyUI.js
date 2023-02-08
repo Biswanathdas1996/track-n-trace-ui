@@ -1,22 +1,18 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Button,
   Box,
   Card,
   CardActions,
   CardMedia,
-  CardContent,
   Stack,
   Grid,
 } from "@mui/material";
-import { ApplicationContext } from "../Context/ApplicationContext";
 import { useNavigate } from "react-router-dom";
-
 import {
   getRequestLoggedIn,
-  postRequestLoggedIn,
 } from "../functions/apiClient";
-import { categoryDetailsEp, categoryList, deleteCategory } from "../endpoint";
+import { categoryDetailsEp } from "../endpoint";
 import "../App.css"
 
 export default function CategoryTableBodyUI({
@@ -24,18 +20,15 @@ export default function CategoryTableBodyUI({
   idData,
   setCategoryDetails,
   categoryImage,
+  setOpenDeleteModal,
+  deleteModal,
 }) {
-  const { categoryDataArray, setCategoryDataArray } =
-    useContext(ApplicationContext);
   const navigation = useNavigate();
-
-  const getCategoryList = async () => {
-    const res = await getRequestLoggedIn(categoryList);
-    if (res?.status_code === "200") {
-      return res;
-    }
-    return null;
-  };
+  
+  const delCatFun = (id, cat) => {
+    setOpenDeleteModal(true);
+    deleteModal(id, cat)
+  }
   const getCategoryDetail = async (id) => {
     const response = await getRequestLoggedIn(categoryDetailsEp(id));
     if ((response.state_code = "200")) {
@@ -47,18 +40,6 @@ export default function CategoryTableBodyUI({
       });
     }
     return null;
-  };
-
-  const handleDeleteCategory = async (id) => {
-    const data = {
-      category_id: id,
-    };
-    const res = await postRequestLoggedIn(deleteCategory, data);
-    if (res?.status_code === "200") {
-      const resData = await getCategoryList();
-      const catArr = resData?.categoryList;
-      setCategoryDataArray([...catArr]);
-    }
   };
 
   return (
@@ -107,7 +88,7 @@ export default function CategoryTableBodyUI({
           <CardActions sx={{ padding: 0 }}>
             <Stack spacing={5} direction="row">
               <Button
-                onClick={() => handleDeleteCategory(idData)}
+                onClick={() => delCatFun(idData, category)}
                 variant="contained"
                 color="error"
               >
