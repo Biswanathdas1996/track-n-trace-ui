@@ -17,10 +17,14 @@ const TopBar2 = ({role, props}) => {
   let currentDD = "currentDD";
   let general = "w3-bar-item w3-button";
   let generalDD = "w3-bar-item w3-sub-menu-link";
-  console.log('role',role);
+  // console.log('role',role);
 
     return(
         <>
+
+        <div style={{ position: "fixed", width: "100%" }}>
+          <TopBar role={role} />
+        </div>
             <div className="w3-sidebar w3-bar-block w3-card" style={{ width: "200px", marginTop: "85px", borderRadius: "8px", backgroundColor: "#DDDDDD" }}>
               <NavLink to="/dashboard" className={({ isActive }) => isActive ? currentLink : general} >
               <img src={DashMenuIcon} style={{ width: "15px", marginBottom: "5px", marginRight: "5px"}} />Dashboard
@@ -72,19 +76,14 @@ const TopBar2 = ({role, props}) => {
               </NavLink>)}
             </div>
 
-            <div style={{ position: "fixed", width: "100%" }}>
-              <TopBar role={role} />
-            </div>
-
             <div className="w3-container"
               style={{marginLeft: "200px",
                 backgroundColor: "#F3F3F3",
                 backgroundImage: `url(${BackImg})`,
-                backgroundSize: "100vh",
+                backgroundSize: "42vw",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right bottom",
                 backgroundAttachment: "fixed",
-                minHeight: "86vh",
                 height: "-webkit-fill-available",
               }}>
               <ApplicationProvider>{props.children}</ApplicationProvider>

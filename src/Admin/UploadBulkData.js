@@ -268,12 +268,12 @@ const UploadBulkData = () => {
                               <Grid item sm={1}>
                                 <div style={{ paddingTop: "10px", width: "28vw" }}>{i+1}. </div>
                               </Grid>
-                              <Grid item sm={3} sx={{ marginTop: "10px"}}>
+                              <Grid item sm={4} sx={{ marginTop: "10px"}}>
                                 <a href={csvHistory.file_url} download>
                                   {csvHistory.file_url.slice(csvHistory.file_url.indexOf("UploadedCsv"))}
                                 </a>
                               </Grid>
-                              <Grid item sm={8}>
+                              <Grid item sm={7}>
                                 <div style={{  paddingTop: "10px", width: "28vw" }}>Created on: {csvHistory.created}</div>
                               </Grid>
                             </Grid>

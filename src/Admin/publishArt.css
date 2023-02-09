@@ -6,3 +6,11 @@
     margin-left: 2px !important;
     margin-top: 0px !important;
 }
+.addTokenDataContainer {
+    width: 97% !important;
+    overflow-y: scroll;
+    height: 81.5vh;
+    padding-left: 0px !important;
+    margin-left: 2px !important;
+    margin-top: 5px !important;
+}

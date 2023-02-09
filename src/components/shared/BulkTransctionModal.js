@@ -7,10 +7,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import CircularProgress from "@mui/material/CircularProgress";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
 
 const steps = ["Initiating", "Waiting for confirmation", "Transction Status Generated"];
 
@@ -26,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function TransctionModal({ response, setStart, modalClose }) {
+export default function BulkTransctionModal({ response, modalClose }) {
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
@@ -75,77 +71,14 @@ export default function TransctionModal({ response, setStart, modalClose }) {
                 : "Transactions have been initiated. Waiting for confirmation."} */}
               {domData ? (
                 domData?.status_code === "200" ? (
-                  "Transaction request complete."
+                  "Bulk Transaction request complete."
                 ) : (
-                  "Transaction request failed. Please try again after sometime."
+                  "Bulk Transaction request failed. Please try again after sometime."
                 )
               ) : (
-                "Transaction has been initiated. Waiting for confirmation."
+                "Transaction have been initiated. Waiting for confirmation."
               )}
             </Typography>
-
-            {domData?.status_code === "200" && (
-              <List sx={{ width: "100%", bgcolor: "background.paper", overflowY: "scroll", height: "50vh" }}>
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Order Token ID"
-                    secondary={
-                      <React.Fragment><h5 style={{ color: "green" }}>{domData?.token_id}</h5></React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Transaction hash"
-                    secondary={
-                      <React.Fragment>
-                        <a
-                          href={`https://goerli.etherscan.io/tx/${domData?.tokenHashDetails.transactionHash}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {domData?.tokenHashDetails.transactionHash}
-                        </a>
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Block hash"
-                    secondary={
-                      <React.Fragment>{domData?.tokenHashDetails?.blockHash}</React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Block number"
-                    secondary={
-                      <React.Fragment>{domData?.tokenHashDetails?.blockNumber}</React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Transction from"
-                    secondary={<React.Fragment>{domData?.tokenHashDetails?.from}</React.Fragment>}
-                  />
-                </ListItem>
-                <Divider component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    primary="Transction to"
-                    secondary={<React.Fragment>{domData?.tokenHashDetails?.to}</React.Fragment>}
-                  />
-                </ListItem>
-                <Divider component="li" />
-              </List>
-            )}
 
             {domData ? (
               <Button

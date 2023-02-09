@@ -373,8 +373,8 @@ export default function FilledUnassignedTokens() {
       {
         Header: "Action",
         accessor: "action",
-        width: "350px",
-        minWidth: "350px",
+        width: "380px",
+        minWidth: "380px",
         disableFilters: true,
         Cell: ({ value }) => (
           //   <>

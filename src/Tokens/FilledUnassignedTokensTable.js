@@ -195,7 +195,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent, distributerListA
           </Grid>
         </Grid>
       )}
-      <div style={{ height: "248px", overflowY: "scroll", overflowX: "hidden" }}>
+      <div style={{ height: "248px", overflow: "scroll" }}>
         <Table bordered hover {...getTableProps()} style={{
           // boxShadow: "5px 10px #eeee",
           backgroundColor: "#ffffff"

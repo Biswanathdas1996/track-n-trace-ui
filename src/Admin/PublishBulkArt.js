@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import TransctionModal from "../components/shared/TransctionModal";
+import BulkTransctionModal from "../components/shared/BulkTransctionModal";
 import { getRequestLoggedIn, postRequestLoggedIn } from "../functions/apiClient";
 import { createBulkToken } from "../endpoint";
 import TextField from '@mui/material/TextField';
@@ -43,7 +43,7 @@ const PublishBulkArt = () => {
 
     getTotalBlnkTokens();
     getBulkTokenUploadHistory();
-  }, []);
+  }, [start]);
 
   const incDecBulkNum = (e) => {
     let newNum = e.target.value;
@@ -81,11 +81,12 @@ const PublishBulkArt = () => {
 
   const modalClose = () => {
     setStart(false);
-    // history("/dashboard");
+    handleReset();
+    // history("/tokens");
   };
   return (
     <>
-      {start && <TransctionModal modalClose={modalClose} response={responseState} />}
+      {start && <BulkTransctionModal modalClose={modalClose} response={responseState} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={2} md={2} sm={12} xs={12}></Grid>

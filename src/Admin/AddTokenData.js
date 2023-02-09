@@ -13,7 +13,7 @@ const Mint = () => {
   const modalClose = () => {
     setStart(false);
     setResponse(null);
-    history("/dashboard");
+    history("/tokens");
   };
   return (
     <>

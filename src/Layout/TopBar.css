@@ -113,9 +113,13 @@
 }
 
 .w3-container {
-  margin-left: 200px;
   z-index: -1 !important;
   margin-top: 86px;
-  position: absolute;
+  position: fixed;
+  padding-bottom: 5px !important;
+  padding-right: 5px !important;
   width: 90%;
+  min-height: 150px;
+  overflow: hidden scroll;
+  max-height: 1000px;
 }

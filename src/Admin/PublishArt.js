@@ -35,16 +35,18 @@ const validationSchema = Yup.object().shape({
 });
 
 const Mint = ({ token }) => {
+  // console.log('token',token);
   const [start, setStart] = useState(false);
-  const [response, setResponse] = useState(null);
-  const [cat, setCat] = useState();
-  const [subCat, setSubCat] = useState();
-  const [product, setProduct] = useState();
+  const [responseState, setResponseState] = useState(null);
+  const [cat, setCat] = useState("");
+  const [subCat, setSubCat] = useState("");
+  const [product, setProduct] = useState("");
+  const [defaultProd, setDefaultProd] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams("");
   const [catArray, setCatArray] = useState([]);
   const [subCatArray, setSubCatArray] = useState([]);
-  const [defaultProd, setDefaultProd] = useState();
   const [productArray, setProductArray] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  // console.log('start,responseState,cat,subCat,product,catArray,subCatArray,defaultProd,productArray',start,responseState,cat,subCat,product,catArray,subCatArray,defaultProd,productArray);
 
   useEffect(() => {
     const catDetails = async () => {
@@ -68,7 +70,7 @@ const Mint = ({ token }) => {
 
   const saveData = async ({ title, attributes, batchNumber, description }) => {
     setStart(true);
-    let responseData;
+    // let responseData;
 
     let metaData = {
       category_id: defaultProd?.category_id || cat,
@@ -84,21 +86,47 @@ const Mint = ({ token }) => {
     if (token) {
       metaData = { ...metaData, token_id: token };
     }
-    const res = await postRequestLoggedIn(
+    let res = await postRequestLoggedIn(
       token ? addTokenData : createToken,
       metaData
     );
-    if (res.status_code === "200") {
-      setResponse(responseData);
+    // console.log('res',res);
+    // console.log('res.status_code',res.status_code);
+    // console.log('TypeError occurerd? ==>>',res.status_code === undefined);
+    if (res.status_code !== undefined) {
+      setResponseState(res);
+      // history("/tokens");
+    }
+    if (res.status_code === undefined) {
+      res.status_code = "504";
+      res.message = "Network Error Occurred";
+      // console.log('error res', res);
+      setResponseState(res);
+      // history("/tokens");
+    }
+  };
+
+  // const handleReset = () => {
+  //   setResponseState(null);
+  //   setCat("");
+  //   setSubCat("");
+  //   setProduct("");
+  //   setDefaultProd("");
+  //   setSearchParams("");
+  //   setSubCatArray([]);
+  //   setProductArray([]);
+  // };
+
+  const modalClose = () => {
+    setStart(false);
+    setResponseState(null);
+    if(responseState.status_code === "200") {
+      // handleReset();
+      // console.log('start,responseState,cat,subCat,product,catArray,subCatArray,defaultProd,productArray',start,responseState,cat,subCat,product,catArray,subCatArray,defaultProd,productArray);
       history("/tokens");
     }
   };
 
-  const modalClose = () => {
-    setStart(false);
-    setResponse(null);
-    history("/dashboard");
-  };
   const getCategoryList = async () => {
     const res = await getRequestLoggedIn(categoryList);
     if (res?.status_code === "200") {
@@ -129,12 +157,12 @@ const Mint = ({ token }) => {
 
   return (
     <>
-      {start && <TransctionModal response={response} modalClose={modalClose} />}
+      {start && <TransctionModal response={responseState} modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
         <Grid item lg={6} md={6} sm={12} xs={12}>
-          <div className="publishArtContainer" style={{ margin: 20 }}>
+          <div className={token === undefined ? "publishArtContainer" : "addTokenDataContainer"} style={{ margin: 20 }}>
             <Card>
               <Grid container>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
