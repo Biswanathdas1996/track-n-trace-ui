@@ -5,7 +5,7 @@ import Offline from "@mui/icons-material/SignalWifiConnectedNoInternet4";
 const OfflineDetector = (props) => {
   return (
     <>
-      <Detector
+      {/* <Detector
         render={({ online }) =>
           online ? (
             props?.children
@@ -36,6 +36,15 @@ const OfflineDetector = (props) => {
                 </Typography>
               </Grid>
             </Grid>
+          )
+        }
+      /> */}
+      <Detector
+        render={({ online }) =>
+          online ? (
+            props?.children
+          ) : (
+            props?.children
           )
         }
       />

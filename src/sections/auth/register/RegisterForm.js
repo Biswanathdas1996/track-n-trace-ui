@@ -29,6 +29,7 @@ const registerData = {
   state_code: "",
   role: "",
   user_password: "",
+  confirmPassword: "",
 };
 
 export default function RegisterForm({ setToken }) {
@@ -84,6 +85,7 @@ export default function RegisterForm({ setToken }) {
           state_code,
           role,
           user_password,
+          confirmPassword,
         } = values;
         const payLoad = {
           user_fname,
@@ -93,6 +95,7 @@ export default function RegisterForm({ setToken }) {
           state_code,
           role,
           user_password,
+          confirmPassword,
           pswd_reqd: "1",
         };
         const res = await postData(registration, payLoad, null, true);
