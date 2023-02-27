@@ -48,9 +48,10 @@ const AddTracking = () => {
     const res = await postRequestLoggedIn(addTransaction, metaData);
     if (res.status_code === "200") {
       setSubmitting(true);
-      swal("Success !", "Data successfully add", "success");
+      swal("Success !", "Data successfully added", "success");
     } else {
-      swal({ icon: "warning", dangerMode: true, text: res.message });
+      // swal({ icon: "warning", dangerMode: true, text: res.message });
+      swal({ icon: "warning", dangerMode: true, text: "Transaction Failed! Please Try Again." });
     }
   };
 
