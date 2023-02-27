@@ -6,6 +6,13 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { Stack } from '@mui/system';
+import { styled } from '@mui/material/styles';
 
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -19,16 +26,31 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
+import SpinLoader from "../trkNdTrcIcons/SpinLoader.gif";
+import MapLoc from "../trkNdTrcIcons/mapLoc.png";
 
 import Grid from "@mui/material/Grid";
 import { getRequestLoggedIn } from "../functions/apiClient";
 import { getTokenDetails } from "../endpoint";
 import Roles from "../_mock/userRole";
+import Map from "./Map";
 import { useNavigate } from "react-router-dom";
+import { toNumber } from "lodash";
+
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    minWidth: 140,
+    height: 35,
+  },
+});
 
 export default function CustomizedTimeline() {
   const { token } = useParams();
   const [tokenData, setTokenData] = useState(null);
+  const [txnMapOpen, setTxnMapOpen] = useState(false);
+  const [txnLoc, setTxnLoc] = useState(null);
   let history = useNavigate();
 
   useEffect(() => {
@@ -48,7 +70,6 @@ export default function CustomizedTimeline() {
 
   const getRole = (roleId) => {
     const userRole = Roles.find(({ id }) => id == roleId);
-    console.log('userRole',userRole);
     return userRole.roleName;
   };
 
@@ -56,8 +77,67 @@ export default function CustomizedTimeline() {
     history("/tokens");
   };
 
+  const cancelFun = () => {
+    setTxnMapOpen(false);
+  };
+
+  const openMap = (txnLocation) => {
+    setTxnMapOpen(true);
+    let loc = txnLocation.split(' ');
+    let defaultCenter = {
+      lat: toNumber(loc[1]),
+      lng: toNumber(loc[3])
+    };
+    if (txnLoc === null) {
+      setLocation(defaultCenter);
+    }
+  };
+
+  const setLocation = (defaultCenter) => {
+    setTxnLoc(defaultCenter);
+    setTxnLoc((txnLoc) => {
+      return txnLoc;
+    });
+  };
+
+  useEffect(() => {
+      // console.log('txnLoc',txnLoc);
+  }, [txnMapOpen]);
+
   return (
-    <>
+    <div>
+    {(tokenData === null) && (<Grid container spacing={2}>
+      <Grid item sm={12} sx={{".css-mhc70k-MuiGrid-root>.MuiGrid-item": { paddingTop: "5px !important" }}}>
+        <h2 style={{ marginTop: "10%", textAlign: "center" }}>Please Hang On !!!</h2>
+        <h2 style={{ textAlign: "center" }}>We are getting things ready for you...</h2>
+        <img src={SpinLoader} style={{ width: "75px", marginTop: "15px", marginLeft: "40vw"}} />
+      </Grid>
+    </Grid>)}
+    {(tokenData !== null) && (<>
+    {(txnMapOpen) && (
+      <Dialog open={txnMapOpen} onClose={cancelFun} fullWidth={true} maxWidth="100%">
+        <DialogTitle
+          sx={{ paddingBottom: "0px", fontWeight: 800}}
+        >Transaction Location on MAP</DialogTitle>
+        <DialogContent>
+          <Map width="100%" height="65vh" defaultCenter={txnLoc} />
+        </DialogContent>
+        <DialogActions>
+        <Button
+          type="button"
+          variant="outlined"
+          style={{
+            padding: "2px 16px",
+            borderRadius: 4,
+          }}
+          className="cancel-button"
+          onClick={cancelFun}
+        >
+          Close
+        </Button>
+        </DialogActions>
+      </Dialog>
+    )}
       <Box sx={{ flexGrow: 1, width: "100%" }}>
         <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
           <Grid item lg={12} md={12} sx={{ marginRight: 12, marginBottom: 2}}>
@@ -176,8 +256,26 @@ export default function CustomizedTimeline() {
                               {data?.userEmail} <br />
                             </Typography>
                             <Typography variant="subtitle2" component="span">
-                              <LocationOnOutlinedIcon />
-                              {data?.location} <br />
+                            <CustomWidthTooltip
+                              title={
+                                <Stack direction="row" spacing={2}>
+                                  <img src={MapLoc} style={{ width: "25px" }} />
+                                  <h6 style={{ marginTop: 4, marginLeft: 6 }}>View on Map</h6>
+                                </Stack>
+                              }
+                              arrow>
+                              <Button type="button" variant="outlined" 
+                                sx={{ margin: "0px !important", fontWeight: 600, 
+                                  letterSpacing: "0.1em", textTransform: "none", border: "none",
+                                  "&:hover": { backgroundColor: "#C52A1A !important", color: "#FFFFFF !important" }
+                                }}
+                                style={{ minWidth: "10px", padding: 0, borderRadius: 4 }} 
+                                onClick={() => openMap(data?.location)} 
+                              >
+                                <LocationOnOutlinedIcon />
+                              </Button>
+                            </CustomWidthTooltip>
+                            {data?.location}<br />
                             </Typography>
                           </TimelineContent>
                         </TimelineItem>
@@ -196,5 +294,7 @@ export default function CustomizedTimeline() {
         </Grid>
       </Box>
     </>
+    )}
+    </div>
   );
 }

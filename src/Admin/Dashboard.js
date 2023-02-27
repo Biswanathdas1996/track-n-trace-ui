@@ -573,13 +573,13 @@ function Dashboard() {
                         alignItems: "center",
                         justifyContent: "center",
                         padding: "0px",
-                        height: "45px",
+                        height: "40px",
                         width: "80vw",
                         background: "#FFFFFF",
                         boxShadow: "4px 4px 2px #d3d3d3",
                       }}
                     >
-                      <CardActions sx={{ padding: "0px", marginTop: "-6px" }}>
+                      <CardActions sx={{ padding: "0px" }}>
                         <Grid sx={{ fontSize: "30px", fontWeight: "bold"}}>
                           <CardActions
                             sx={{
@@ -590,12 +590,12 @@ function Dashboard() {
                               height: "30px",
                             }}
                           >
-                            <NavLink to="/category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Category</NavLink>
-                            <NavLink to="/sub-category" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Sub Category</NavLink>
-                            <NavLink to="/product" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Product</NavLink>
-                            <NavLink to="/publishBulkArt" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Create Bulk Tokens</NavLink>
-                            <NavLink to="/uploadBulkData" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Upload Bulk Tokens</NavLink>
-                            <NavLink to="/tokens" style={{ marginLeft: "3vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Track Tokens</NavLink>
+                            <NavLink to="/category" style={{ marginLeft: "1vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Category</NavLink>
+                            <NavLink to="/sub-category" style={{ marginLeft: "2vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Sub Category</NavLink>
+                            <NavLink to="/product" style={{ marginLeft: "2vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Product</NavLink>
+                            <NavLink to="/publishBulkArt" style={{ marginLeft: "2vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Create Bulk Tokens</NavLink>
+                            <NavLink to="/uploadBulkData" style={{ marginLeft: "2vw", marginRight: "3vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Upload Bulk Tokens</NavLink>
+                            <NavLink to="/tokens" style={{ marginLeft: "2vw", marginRight: "1vw", fontWeight: 400, justifyContent: "flex-start", fontSize: "15px", color: "#0063F9", textDecoration: "underline", textTransform: "none" }}>Track Tokens</NavLink>
                           </CardActions>
                         </Grid>
                       </CardActions>
