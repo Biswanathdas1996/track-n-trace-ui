@@ -52,7 +52,6 @@ export default function ProductDetails() {
     edit: false,
     productImage: "",
     product_attributes: [],
-    warranty: [],
   });
   const isEditForm = productData.edit;
   const {
@@ -96,7 +95,6 @@ export default function ProductDetails() {
       product_name: productData?.productName,
       product_image: base64Image,
       product_attributes: [],
-      warranty: [],
     };
     const res = await postRequestLoggedIn(addEditProduct, data);
     if (res.status_code === "200") {
@@ -114,7 +112,6 @@ export default function ProductDetails() {
       product_name: productData?.productName,
       product_image: base64Image,
       product_attributes: [],
-      warranty: [],
     };
     const res = await postRequestLoggedIn(addEditProduct, data);
     if (res?.status_code === "200") {
@@ -201,6 +198,7 @@ export default function ProductDetails() {
       productName: "",
       edit: false,
       productImage: "",
+      product_attributes: [],
     });
   };
   const applyFilter = !productBool && productDataArray.length > 0 && (
@@ -313,28 +311,6 @@ export default function ProductDetails() {
                 name="productName"
                 onChange={(e) => handleChange(e)}
               />
-              <DialogContentText
-                sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
-              >
-                Please enter Warrany Details below
-              </DialogContentText>
-              {/* <TextField
-                sx={{ 
-                  width: "100%",
-                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": { padding: "6px 14px"},
-                  ".css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {top: "-8px"},
-                  ".css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {borderRadius: "8px"},
-                  ".css-1x5jdmq": { padding: "6px 14px"},
-                  ".css-p0rm37": {top: "-8px"},
-                  ".css-1v4ccyo": {borderRadius: "8px"},
-                }}
-                label="Product"
-                id="fullWidth"
-                value={productData?.productName}
-                required
-                name="productName"
-                onChange={(e) => handleChange(e)}
-              /> */}
               <DialogContentText
                 sx={{ color: "#000000", marginTop: "15px", marginBottom: "8px"}}
               >
