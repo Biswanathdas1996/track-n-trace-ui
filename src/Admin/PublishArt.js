@@ -32,6 +32,12 @@ const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required").max(50, "Title can be maximum of 50 characters"),
   description: Yup.string().required("Description is required"),
   attributes: Yup.array().required("Attributes are required"),
+  warranty: Yup.array().of(
+    Yup.object().shape({
+      trait_type: Yup.string().min(4, "Warranty Type should be of 4 characters at least"),
+      value: Yup.number().min(0, "Minimum duration cannot be negative"),
+    })
+  ),
 });
 
 const Mint = ({ token }) => {
@@ -68,7 +74,7 @@ const Mint = ({ token }) => {
   }, []);
   let history = useNavigate();
 
-  const saveData = async ({ title, attributes, batchNumber, description }) => {
+  const saveData = async ({ title, attributes, batchNumber, description, warranty }) => {
     setStart(true);
     // let responseData;
 
@@ -82,10 +88,12 @@ const Mint = ({ token }) => {
       token_attributes: attributes,
       batch_no: batchNumber,
       transction: [],
+      warranty: warranty,
     };
     if (token) {
       metaData = { ...metaData, token_id: token };
     }
+    console.log('metaData',metaData);
     let res = await postRequestLoggedIn(
       token ? addTokenData : createToken,
       metaData
@@ -160,8 +168,8 @@ const Mint = ({ token }) => {
       {start && <TransctionModal response={responseState} modalClose={modalClose} />}
 
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
-        <Grid item lg={6} md={6} sm={12} xs={12}>
+        <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
+        <Grid item lg={8} md={8} sm={12} xs={12}>
           <div className={token === undefined ? "publishArtContainer" : "addTokenDataContainer"} style={{ margin: 20 }}>
             <Card>
               <Grid container>
@@ -182,6 +190,7 @@ const Mint = ({ token }) => {
                         product: "",
                         batchNumber: "",
                         attributes: [],
+                        warranty: [],
                       }}
                       validationSchema={validationSchema}
                       onSubmit={(values, { setSubmitting }) => {
@@ -458,77 +467,57 @@ const Mint = ({ token }) => {
                                   className="form-group"
                                   style={{ marginLeft: 10, marginTop: 5 }}
                                 >
+                                  <label htmlFor="warranty" className="my-2">
+                                    Add Warranty{" "}
+                                  </label>
                                   <FieldArray
-                                    name="attributes"
+                                    name="warranty"
                                     render={(arrayHelpers) => (
                                       <div>
-                                        {values.attributes &&
-                                        values.attributes.length > 0 ? (
-                                          values.attributes.map(
-                                            (attribut, index) => (
+                                        {values.warranty && values.warranty.length > 0 ? (
+                                          values.warranty.map(
+                                            (warr, index) => (
                                               <div
-                                                style={{
-                                                  border: "1px solid #c7c9cc",
-                                                  borderRadius: 5,
-                                                  padding: 12,
-                                                  marginTop: 10,
-                                                }}
+                                                style={{ border: "1px solid #c7c9cc", borderRadius: 5, padding: 12, marginTop: 2, marginBottom: 10 }}
                                                 key={index}
                                               >
                                                 <DeleteOutlineIcon
-                                                  onClick={() =>
-                                                    arrayHelpers.remove(index)
-                                                  }
+                                                  onClick={() => arrayHelpers.remove(index) }
                                                   sx={{ color: pink[500] }}
-                                                  style={{
-                                                    float: "right",
-                                                    cursor: "pointer",
-                                                  }}
+                                                  style={{ float: "right", cursor: "pointer" }}
                                                 />
                                                 <Grid container>
-                                                  <Grid
-                                                    item
-                                                    lg={5}
-                                                    md={5}
-                                                    sm={12}
-                                                    xs={12}
-                                                    style={{ marginRight: 20 }}
-                                                  >
+                                                  <Grid item lg={5} md={5} sm={12} xs={12} style={{ marginRight: 10 }} >
                                                     <Field
-                                                      name={`attributes.${index}.trait_type`}
+                                                      name={`warranty.${index}.trait_type`}
                                                       autoComplete="false"
-                                                      placeholder="Enter Properties name"
+                                                      placeholder="Warranty name"
                                                       className={`form-control text-muted `}
-                                                      style={{
-                                                        marginTop: 5,
-                                                        padding: "2px 9px",
-                                                        borderRadius: "8px" 
-                                                      }}
+                                                      style={{ marginTop: 5, padding: "2px 9px", borderRadius: "8px" }}
+                                                    />
+                                                    <ErrorMessage
+                                                      name={`warranty.${index}.trait_type`}
+                                                      component={TextError}
                                                     />
                                                   </Grid>
-                                                  <Grid
-                                                    item
-                                                    lg={6}
-                                                    md={6}
-                                                    sm={12}
-                                                    xs={12}
-                                                  >
+                                                  <Grid item lg={4} md={4} sm={12} xs={12} style={{ marginRight: 10 }} >
                                                     <Field
-                                                      name={`attributes.${index}.value`}
+                                                      type="number"
+                                                      name={`warranty.${index}.value`}
                                                       autoComplete="false"
-                                                      placeholder="Enter value"
+                                                      placeholder="Warranty duration"
                                                       className={`form-control text-muted`}
-                                                      style={{
-                                                        marginTop: 5,
-                                                        padding: "2px 9px",
-                                                        borderRadius: "8px" 
-                                                      }}
+                                                      style={{ marginTop: 5, padding: "2px 9px", borderRadius: "8px"  }}
                                                     />
+                                                    <ErrorMessage
+                                                      name={`warranty.${index}.value`}
+                                                      component={TextError}
+                                                    />
+                                                  </Grid>
+                                                  <Grid item lg={2} md={2} sm={12} xs={12} style={{ marginRight: 10 }} >
+                                                    <p style={{ marginTop: 10, marginBottom: 0, fontWeight: 800}}>Months</p>
                                                   </Grid>
                                                 </Grid>
-                                                {/* <ErrorMessage
-                                                name={"attribute"}
-                                              /> */}
                                               </div>
                                             )
                                           )
@@ -538,15 +527,87 @@ const Mint = ({ token }) => {
                                             size="medium"
                                             type="button"
                                             color="error"
-                                            onClick={() =>
-                                              arrayHelpers.push("")
-                                            }
-                                            disabled={
-                                              !(
-                                                defaultProd?.product_id ||
-                                                product
-                                              )
-                                            }
+                                            onClick={() => arrayHelpers.push("")}
+                                            disabled={ !(defaultProd?.product_id || product) }
+                                          >
+                                            {/* show this when user has removed all warranty from the list */}
+                                            Add warranty
+                                          </Button>
+                                        )}
+                                        {values.warranty.length !== 0 && (
+                                          <Button
+                                            variant="outlined"
+                                            size="medium"
+                                            type="button"
+                                            onClick={() => arrayHelpers.insert(values.warranty.length + 1, "")}
+                                            style={{ marginTop: 10 }}
+                                          >
+                                            ADD WARRANTY
+                                          </Button>
+                                        )}
+                                      </div>
+                                    )}
+                                  />
+                                </div>
+                              </Grid>
+
+                              <Grid item lg={12} md={12} sm={12} xs={12}>
+                                <div
+                                  className="form-group"
+                                  style={{ marginLeft: 10, marginTop: 5 }}
+                                >
+                                <label htmlFor="attributes" className="my-2">
+                                  Add Attributes{" "}
+                                  {/* <span className="text-danger">*</span> */}
+                                </label>
+                                  <FieldArray
+                                    name="attributes"
+                                    render={(arrayHelpers) => (
+                                      <div>
+                                        {values.attributes && values.attributes.length > 0 ? (
+                                          values.attributes.map(
+                                            (attribut, index) => (
+                                              <div
+                                                style={{ border: "1px solid #c7c9cc", borderRadius: 5, padding: 12, marginTop: 2, marginBottom: 10 }}
+                                                key={index}
+                                              >
+                                                <DeleteOutlineIcon
+                                                  onClick={() => arrayHelpers.remove(index) }
+                                                  sx={{ color: pink[500] }}
+                                                  style={{ float: "right", cursor: "pointer" }}
+                                                />
+                                                <Grid container>
+                                                  <Grid item lg={5} md={5} sm={12} xs={12} style={{ marginRight: 20 }} >
+                                                    <Field
+                                                      name={`attributes.${index}.trait_type`}
+                                                      autoComplete="false"
+                                                      placeholder="Enter Properties name"
+                                                      className={`form-control text-muted `}
+                                                      style={{ marginTop: 5, padding: "2px 9px", borderRadius: "8px" }}
+                                                    />
+                                                  </Grid>
+                                                  <Grid item lg={6} md={6} sm={12} xs={12}
+                                                  >
+                                                    <Field
+                                                      name={`attributes.${index}.value`}
+                                                      autoComplete="false"
+                                                      placeholder="Enter Value"
+                                                      className={`form-control text-muted`}
+                                                      style={{ marginTop: 5, padding: "2px 9px", borderRadius: "8px" }}
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              </div>
+                                            )
+                                          )
+                                        ) : (
+                                          <Button
+                                            variant="outlined"
+                                            size="medium"
+                                            type="button"
+                                            color="error"
+                                            onClick={() => arrayHelpers.push("")}
+                                            disabled={ !(defaultProd?.product_id || product) }
                                           >
                                             {/* show this when user has removed all attributes from the list */}
                                             Add attributes
@@ -557,15 +618,8 @@ const Mint = ({ token }) => {
                                             variant="outlined"
                                             size="medium"
                                             type="button"
-                                            onClick={() =>
-                                              arrayHelpers.insert(
-                                                values.attributes.length + 1,
-                                                ""
-                                              )
-                                            }
-                                            style={{
-                                              marginTop: 10,
-                                            }}
+                                            onClick={() => arrayHelpers.insert(values.attributes.length + 1, "")}
+                                            style={{ marginTop: 10 }}
                                           >
                                             ADD ATTRIBUTES
                                           </Button>
@@ -575,6 +629,7 @@ const Mint = ({ token }) => {
                                   />
                                 </div>
                               </Grid>
+
                               <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <div
                                   className="form-group"
@@ -611,7 +666,7 @@ const Mint = ({ token }) => {
             </Card>
           </div>
         </Grid>
-        <Grid item lg={3} md={3} sm={12} xs={12}></Grid>
+        <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
       </Grid>
     </>
   );
